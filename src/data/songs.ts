@@ -15,6 +15,7 @@ export const SONG_CATALOG: SongMeta[] = ALL_CATALOG_ENTRIES.map((entry) => ({
   timeSignature: entry.timeSignature,
   keySignature: entry.keySignature,
   source: 'bundled',
+  requiresMidi: entry.requiresMidi ?? entry.tags.some((t) => ['chords', 'two-hands', 'arpeggiated'].includes(t)),
 }));
 
 export function getSongById(id: string): SongMeta | undefined {

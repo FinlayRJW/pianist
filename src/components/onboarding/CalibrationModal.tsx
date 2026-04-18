@@ -3,24 +3,15 @@ import { MicCalibrationStep } from './MicCalibrationStep';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
 import type { CalibrationData } from '../../stores/onboardingStore';
-import type { DisplayMode } from '../../types';
 
 interface Props {
   onClose: () => void;
 }
 
-const DISPLAY_MODES: { value: DisplayMode; label: string }[] = [
-  { value: 'falling', label: 'Falling Notes' },
-  { value: 'sheet-and-falling', label: 'Both' },
-  { value: 'sheet-only', label: 'Sheet Music' },
-];
-
 export function CalibrationModal({ onClose }: Props) {
   const setCalibration = useOnboardingStore((s) => s.setCalibration);
   const theme = useOnboardingStore((s) => s.theme);
   const setTheme = useOnboardingStore((s) => s.setTheme);
-  const displayMode = useOnboardingStore((s) => s.displayMode);
-  const setDisplayMode = useOnboardingStore((s) => s.setDisplayMode);
 
   const exportProgress = useProgressStore((s) => s.exportProgress);
   const importProgress = useProgressStore((s) => s.importProgress);
@@ -117,26 +108,6 @@ export function CalibrationModal({ onClose }: Props) {
               </svg>
               Light
             </button>
-          </div>
-        </div>
-
-        {/* Display mode */}
-        <div className="mb-6">
-          <label className="text-xs font-medium t-text-secondary block mb-2">Display Mode</label>
-          <div className="flex gap-1 t-bg-overlay rounded-lg p-1">
-            {DISPLAY_MODES.map((m) => (
-              <button
-                key={m.value}
-                onClick={() => setDisplayMode(m.value)}
-                className={`flex-1 px-2 py-1.5 rounded-md text-xs font-medium transition-all ${
-                  displayMode === m.value
-                    ? 'bg-accent text-white shadow-sm'
-                    : 't-text-secondary hover:t-text'
-                }`}
-              >
-                {m.label}
-              </button>
-            ))}
           </div>
         </div>
 

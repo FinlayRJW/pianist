@@ -1,4 +1,3 @@
-export type DisplayMode = 'falling' | 'sheet-and-falling' | 'sheet-only';
 export type SongGenre = 'beginner' | 'folk' | 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz' | 'advanced';
 
 export interface SongMeta {
@@ -15,6 +14,7 @@ export interface SongMeta {
   timeSignature?: [number, number];
   keySignature?: string;
   source?: 'bundled' | 'imported';
+  requiresMidi?: boolean;
 }
 
 export interface Note {
@@ -83,22 +83,3 @@ export interface UserSettings {
   noteColorScheme: 'hand' | 'velocity' | 'single';
 }
 
-export interface QuantizedNote {
-  midi: number;
-  beat: number;
-  durationBeats: number;
-  track: number;
-}
-
-export interface RestData {
-  beat: number;
-  durationBeats: number;
-}
-
-export interface MeasureData {
-  number: number;
-  trebleNotes: QuantizedNote[];
-  bassNotes: QuantizedNote[];
-  trebleRests: RestData[];
-  bassRests: RestData[];
-}

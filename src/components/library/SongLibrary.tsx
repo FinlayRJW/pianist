@@ -11,7 +11,7 @@ import type { SongGenre } from '../../types';
 
 const GENRES: { value: SongGenre | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
-  { value: 'beginner', label: 'Beginner' },
+  { value: 'beginner', label: 'First Steps' },
   { value: 'folk', label: 'Folk' },
   { value: 'baroque', label: 'Baroque' },
   { value: 'classical', label: 'Classical' },
@@ -85,12 +85,17 @@ export function SongLibrary() {
         </div>
 
         <div className="space-y-3 mb-5">
-          <div className="flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+          <div className="flex gap-1.5 overflow-x-auto pb-1" style={{
+            scrollbarWidth: 'none',
+            WebkitOverflowScrolling: 'touch',
+            maskImage: 'linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)',
+          }}>
             {GENRES.map((g) => (
               <button
                 key={g.value}
                 onClick={() => setGenre(g.value)}
-                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                   genre === g.value
                     ? 'bg-accent text-white'
                     : 't-bg-overlay t-text-secondary hover:t-text'

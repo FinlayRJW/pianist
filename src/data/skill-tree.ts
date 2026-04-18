@@ -12,10 +12,14 @@ export const SKILL_TREE_AREAS: SkillTreeArea[] = [
   { id: 'advanced', name: 'Master Class', genre: 'advanced', order: 7, starsToUnlock: 4, description: 'The ultimate challenge', color: '#fbbf24' },
 ];
 
-const COLS = 3;
-const COL_X = [80, 150, 220];
 const TOP_PAD = 60;
-const ROW_H = 72;
+const ROW_H = 120;
+
+function getColumnLayout(songCount: number): { cols: number; colX: number[] } {
+  if (songCount <= 6) return { cols: 2, colX: [160, 400] };
+  if (songCount <= 15) return { cols: 3, colX: [120, 280, 440] };
+  return { cols: 4, colX: [80, 220, 360, 500] };
+}
 
 function generateNodes(): SkillTreeNode[] {
   const nodes: SkillTreeNode[] = [];
@@ -23,30 +27,47 @@ function generateNodes(): SkillTreeNode[] {
   for (const area of SKILL_TREE_AREAS) {
     const areaSongs = SONG_CATALOG
       .filter((s) => s.genre === area.genre)
-      .sort((a, b) => a.difficulty - b.difficulty || a.title.localeCompare(b.title));
+      .sort((a, b) => {
+        if (area.id === 'beginner') {
+          if (a.id === 'middle-c-march') return -1;
+          if (b.id === 'middle-c-march') return 1;
+        }
+        return a.difficulty - b.difficulty || a.title.localeCompare(b.title);
+      });
 
     if (areaSongs.length === 0) continue;
 
-    const numRows = Math.ceil(areaSongs.length / COLS);
-    const isFirstSteps = area.id === 'beginner';
+    const { cols, colX } = getColumnLayout(areaSongs.length);
+    const numRows = Math.ceil(areaSongs.length / cols);
+    const totalRows = numRows + 1;
 
     areaSongs.forEach((song, i) => {
-      const row = Math.floor(i / COLS);
-      const col = i % COLS;
-      const invertedRow = numRows - 1 - row;
+      const row = Math.floor(i / cols);
+      const col = i % cols;
 
-      const dx = Math.round(Math.sin(i * 7.3 + area.order * 3.1) * 10);
-      const dy = Math.round(Math.sin(i * 13.1 + area.order * 5.7) * 6);
-      const x = COL_X[col] + dx;
-      const y = TOP_PAD + invertedRow * ROW_H + dy;
+      const dx = Math.round(Math.sin(i * 7.3 + area.order * 3.1) * 25);
+      const dy = Math.round(Math.sin(i * 13.1 + area.order * 5.7) * 15);
+
+      let x: number;
+      let y: number;
+
+      if (i === 0) {
+        const centerX = (colX[0] + colX[cols - 1]) / 2;
+        x = centerX + dx;
+        y = TOP_PAD + (totalRows - 1) * ROW_H + dy;
+      } else {
+        const invertedRow = totalRows - 2 - row;
+        x = colX[col] + dx;
+        y = TOP_PAD + invertedRow * ROW_H + dy;
+      }
 
       const requires: string[] = [];
       if (row === 0) {
-        if (!isFirstSteps && i > 0) {
+        if (i > 0) {
           requires.push(areaSongs[0].id);
         }
       } else {
-        const prevIdx = (row - 1) * COLS + col;
+        const prevIdx = (row - 1) * cols + col;
         if (prevIdx < areaSongs.length) {
           requires.push(areaSongs[prevIdx].id);
         }
@@ -54,7 +75,7 @@ function generateNodes(): SkillTreeNode[] {
 
       let starsRequired = 0;
       if (row === 0) {
-        starsRequired = (isFirstSteps || i === 0) ? 0 : 1;
+        starsRequired = i === 0 ? 0 : 1;
       } else if (row >= numRows - 1 && numRows > 3) {
         starsRequired = 2;
       } else {

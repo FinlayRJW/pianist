@@ -63,7 +63,7 @@ export function SkillTree() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden relative" style={{ background: '#060618' }}>
+    <div className="flex-1 flex flex-col overflow-hidden relative" style={{ background: 'var(--constellation-bg)' }}>
       {/* Starfield */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {BG_STARS.map((s, i) => (
@@ -75,7 +75,7 @@ export function SkillTree() {
               top: `${s.y}%`,
               width: s.size,
               height: s.size,
-              backgroundColor: 'white',
+              backgroundColor: 'var(--constellation-star-dot)',
               opacity: s.opacity,
             }}
           />
@@ -90,14 +90,14 @@ export function SkillTree() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="text-sm font-bold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+            <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
               {currentTotalStars}
             </span>
           </div>
           <button
             onClick={() => setShowSettings(true)}
             className="p-2 rounded-full transition-colors"
-            style={{ color: 'rgba(255,255,255,0.3)' }}
+            style={{ color: 'var(--text-muted)' }}
             title="Settings"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -112,9 +112,13 @@ export function SkillTree() {
       <div
         ref={scrollRef}
         className="flex-1 overflow-x-auto overflow-y-auto relative z-10"
-        style={{ scrollbarWidth: 'none' }}
+        style={{
+          scrollbarWidth: 'none',
+          WebkitOverflowScrolling: 'touch',
+          scrollSnapType: 'x mandatory',
+        }}
       >
-        <div className="flex items-start gap-8 px-10 py-4 pb-12">
+        <div className="flex items-start py-4 pb-12" style={{ gap: '4rem', paddingLeft: '30vw', paddingRight: '30vw' }}>
           {sortedAreas.map((area) => {
             const areaNodes = getAreaNodes(area.id);
             const maxStars = areaNodes.length * 3;

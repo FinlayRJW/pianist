@@ -11,4 +11,5 @@ export interface SongCatalogEntry {
   timeSignature?: [number, number];
   keySignature?: string;
   tags: string[];
+  requiresMidi?: boolean;
 }

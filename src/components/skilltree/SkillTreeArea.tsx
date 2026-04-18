@@ -1,5 +1,5 @@
 import type { SkillTreeArea, SkillTreeNode, SongMeta } from '../../types';
-import { SkillTreeNodeCircle, UNLOCKED_SIZE } from './SkillTreeNode';
+import { SkillTreeNodeCircle, UNLOCKED_SIZE, LOCKED_SIZE } from './SkillTreeNode';
 
 interface Props {
   area: SkillTreeArea;
@@ -16,6 +16,7 @@ interface Props {
 
 const NODE_BTN_W = 86;
 const PAD = 60;
+const MIN_CONSTELLATION_W = 560;
 
 export function SkillTreeAreaColumn({
   area, nodes, songs, bestStars, unlockedNodes,
@@ -32,7 +33,7 @@ export function SkillTreeAreaColumn({
 
   const svgW = maxX - minX + PAD * 2;
   const svgH = maxY - minY + PAD * 2;
-  const containerW = Math.max(svgW, NODE_BTN_W * 3 + 20);
+  const containerW = Math.max(svgW, MIN_CONSTELLATION_W);
   const titleH = 52;
   const containerH = svgH + titleH;
   const ox = (containerW - svgW) / 2;
@@ -62,21 +63,21 @@ export function SkillTreeAreaColumn({
   const starsShort = Math.max(0, area.starsToUnlock - firstStepsStars);
 
   return (
-    <div className="flex-shrink-0 relative" style={{ width: containerW, height: containerH }}>
+    <div className="flex-shrink-0 relative" style={{ width: containerW, height: containerH, scrollSnapAlign: 'center' }}>
       {/* Constellation title */}
       <div className="text-center" style={{ height: titleH, paddingTop: 8 }}>
         <h3
           className="text-xs font-semibold tracking-[0.2em] uppercase"
-          style={{ color: isAreaUnlocked ? area.color : 'rgba(255,255,255,0.12)' }}
+          style={{ color: isAreaUnlocked ? area.color : 'var(--constellation-locked-text)' }}
         >
           {area.name}
         </h3>
         {isAreaUnlocked ? (
-          <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.25)' }}>
+          <span className="text-[9px]" style={{ color: 'var(--constellation-stats)' }}>
             {areaStars} / {maxStars} ★
           </span>
         ) : (
-          <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.1)' }}>
+          <span className="text-[9px]" style={{ color: 'var(--constellation-stats-locked)' }}>
             {starsShort} more ★ in First Steps
           </span>
         )}
@@ -91,7 +92,7 @@ export function SkillTreeAreaColumn({
       >
         <defs>
           <filter id={`glow-${area.id}`}>
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feGaussianBlur stdDeviation="4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -102,12 +103,26 @@ export function SkillTreeAreaColumn({
           <line
             key={i}
             x1={c.x1} y1={c.y1 - titleH} x2={c.x2} y2={c.y2 - titleH}
-            stroke={c.lit ? area.color : 'rgba(255,255,255,0.04)'}
-            strokeWidth={c.lit ? 1.5 : 0.5}
-            opacity={c.lit ? 0.5 : 1}
+            stroke={c.lit ? area.color : 'var(--constellation-connection-dim)'}
+            strokeWidth={c.lit ? 2.5 : 1}
+            opacity={c.lit ? 0.7 : 1}
             filter={c.lit ? `url(#glow-${area.id})` : undefined}
           />
         ))}
+        {nodes.map((node) => {
+          const { lx, ly } = toLocal(node.x, node.y);
+          const isNodeUnlocked = unlockedNodes.includes(node.id);
+          const r = (isNodeUnlocked ? UNLOCKED_SIZE : LOCKED_SIZE) / 2 + 6;
+          return (
+            <circle
+              key={`mask-${node.id}`}
+              cx={lx}
+              cy={ly - titleH}
+              r={r}
+              fill="var(--constellation-bg)"
+            />
+          );
+        })}
       </svg>
 
       {/* Nodes */}
@@ -125,8 +140,10 @@ export function SkillTreeAreaColumn({
             <SkillTreeNodeCircle
               node={node}
               song={songs[node.songId]}
+              songs={songs}
               bestStars={(bestStars[node.songId] ?? 0) as 0 | 1 | 2 | 3}
               isUnlocked={unlockedNodes.includes(node.id)}
+              isAreaUnlocked={isAreaUnlocked}
               areaColor={area.color}
               onPlay={onPlay}
             />
