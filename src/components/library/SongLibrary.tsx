@@ -15,12 +15,12 @@ export function SongLibrary() {
       <div className="max-w-2xl mx-auto px-6 py-8">
         <div className="mb-8 flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white tracking-tight">Song Library</h1>
-            <p className="text-white/50 mt-2">Choose a song to practice</p>
+            <h1 className="text-3xl font-bold t-text tracking-tight">Song Library</h1>
+            <p className="t-text-secondary mt-2">Choose a song to practice</p>
           </div>
           <button
             onClick={() => setShowCalibration(true)}
-            className="p-2 rounded-full bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70 transition-colors mt-1"
+            className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors mt-1"
             title="Settings"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

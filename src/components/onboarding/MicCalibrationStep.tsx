@@ -54,7 +54,7 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
         {/* Progress ring for ambient phase */}
         {(cal.phase === 'measuring-ambient' || cal.phase === 'waiting-for-note' || cal.phase === 'note-detected') && (
           <svg className="absolute inset-0 -rotate-90" width="160" height="160">
-            <circle cx="80" cy="80" r={ringRadius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
+            <circle cx="80" cy="80" r={ringRadius} fill="none" stroke="rgba(128,128,128,0.1)" strokeWidth="4" />
             <circle
               cx="80" cy="80" r={ringRadius} fill="none"
               stroke={cal.phase === 'measuring-ambient' ? '#6366f1' : '#22c55e'}
@@ -81,8 +81,8 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
 
         {/* Center content */}
         {cal.phase === 'idle' && (
-          <div className="w-24 h-24 rounded-full bg-white/5 flex items-center justify-center">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/40">
+          <div className="w-24 h-24 rounded-full t-bg-overlay flex items-center justify-center">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="t-text-tertiary">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
               <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
               <line x1="12" y1="19" x2="12" y2="23" />
@@ -102,7 +102,7 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
 
         {cal.phase === 'measuring-ambient' && (
           <div className="flex flex-col items-center">
-            <span className="text-3xl font-bold text-white tabular-nums">{Math.round(cal.ambientProgress * 100)}%</span>
+            <span className="text-3xl font-bold t-text tabular-nums">{Math.round(cal.ambientProgress * 100)}%</span>
           </div>
         )}
 
@@ -140,35 +140,35 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
       <div>
         {cal.phase === 'idle' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Microphone Setup</h2>
-            <p className="text-white/40 mt-3">We'll measure your room's background noise, then ask you to play a note to calibrate.</p>
-            <div className="mt-4 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-left">
-              <p className="text-amber-300 text-sm font-medium">Mic limitations</p>
-              <p className="text-amber-300/70 text-xs mt-1">Microphone input can only detect one note at a time — chords won't work. For the full experience, connect a MIDI keyboard.</p>
+            <h2 className="text-2xl font-bold t-text">Microphone Setup</h2>
+            <p className="t-text-tertiary mt-3">We'll measure your room's background noise, then ask you to play a note to calibrate.</p>
+            <div className="mt-4 px-4 py-3 rounded-xl t-warning-bg border t-warning-border text-left">
+              <p className="t-warning-strong text-sm font-medium">Mic limitations</p>
+              <p className="t-warning text-xs mt-1">Microphone input can only detect one note at a time — chords won't work. For the full experience, connect a MIDI keyboard.</p>
             </div>
           </>
         )}
 
         {cal.phase === 'requesting-mic' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Requesting Microphone Access</h2>
-            <p className="text-white/40 mt-2">Please allow microphone access when prompted</p>
+            <h2 className="text-2xl font-bold t-text">Requesting Microphone Access</h2>
+            <p className="t-text-tertiary mt-2">Please allow microphone access when prompted</p>
           </>
         )}
 
         {cal.phase === 'measuring-ambient' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Listening to Your Room</h2>
-            <p className="text-white/40 mt-2">Stay quiet — don't play anything yet</p>
+            <h2 className="text-2xl font-bold t-text">Listening to Your Room</h2>
+            <p className="t-text-tertiary mt-2">Stay quiet — don't play anything yet</p>
           </>
         )}
 
         {cal.phase === 'waiting-for-note' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Now Play a Note!</h2>
-            <p className="text-white/40 mt-2">Play any single note on your instrument</p>
+            <h2 className="text-2xl font-bold t-text">Now Play a Note!</h2>
+            <p className="t-text-tertiary mt-2">Play any single note on your instrument</p>
             {showHint && (
-              <p className="text-amber-400 mt-3 text-sm">
+              <p className="t-warning mt-3 text-sm">
                 Having trouble? Try playing louder or moving closer to your mic.
               </p>
             )}
@@ -177,8 +177,8 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
 
         {cal.phase === 'note-detected' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Sounds Great!</h2>
-            <p className="text-white/40 mt-2">
+            <h2 className="text-2xl font-bold t-text">Sounds Great!</h2>
+            <p className="t-text-tertiary mt-2">
               We detected <span className="text-emerald-400 font-semibold">{cal.detectedNote}</span> — your microphone is calibrated
             </p>
           </>
@@ -186,7 +186,7 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
 
         {cal.phase === 'error' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Microphone Error</h2>
+            <h2 className="text-2xl font-bold t-text">Microphone Error</h2>
             <p className="text-red-400 mt-2">{cal.error}</p>
           </>
         )}
@@ -214,7 +214,7 @@ export function MicCalibrationStep({ onComplete, autoStart = false }: Props) {
       {(cal.phase === 'error' || showHint) && (
         <button
           onClick={handleRetry}
-          className="px-6 py-2 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
+          className="px-6 py-2 rounded-full t-bg-overlay t-text font-medium t-bg-overlay-hover transition-colors"
         >
           Try Again
         </button>

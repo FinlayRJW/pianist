@@ -25,6 +25,7 @@ export function useScoring(
   notes: Note[],
   timeRef: React.RefObject<number>,
   usingMidi: boolean = false,
+  speedRef?: React.RefObject<number>,
 ) {
   const hitsRef = useRef<NoteHit[]>([]);
   const matchedRef = useRef<Set<number>>(new Set());
@@ -92,6 +93,7 @@ export function useScoring(
           ? groups[groupIdx].noteIndices.filter(ni => !matchedRef.current.has(ni))
           : [bestIdx];
 
+        const speedMul = speedRef?.current ?? 1;
         for (const ni of indicesToMark) {
           matchedRef.current.add(ni);
           hitNotesRef.current.add(ni);
@@ -99,17 +101,18 @@ export function useScoring(
           if (comboRef.current > maxComboRef.current) {
             maxComboRef.current = comboRef.current;
           }
-          scoreRef.current += POINTS[rating] * comboMultiplier(comboRef.current);
+          scoreRef.current += POINTS[rating] * comboMultiplier(comboRef.current) * speedMul;
           hitsRef.current.push({ noteIndex: ni, timingDeltaMs: delta, rating });
         }
       } else {
+        const speedMul = speedRef?.current ?? 1;
         matchedRef.current.add(bestIdx);
         hitNotesRef.current.add(bestIdx);
         comboRef.current++;
         if (comboRef.current > maxComboRef.current) {
           maxComboRef.current = comboRef.current;
         }
-        scoreRef.current += POINTS[rating] * comboMultiplier(comboRef.current);
+        scoreRef.current += POINTS[rating] * comboMultiplier(comboRef.current) * speedMul;
         hitsRef.current.push({ noteIndex: bestIdx, timingDeltaMs: delta, rating });
       }
 

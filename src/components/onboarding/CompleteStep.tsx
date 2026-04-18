@@ -14,8 +14,8 @@ export function CompleteStep({ mode, detail, onFinish }: Props) {
       </div>
 
       <div>
-        <h2 className="text-3xl font-bold text-white">You're All Set!</h2>
-        <div className="mt-4 px-6 py-3 rounded-xl bg-white/5 border border-white/10 inline-flex items-center gap-3">
+        <h2 className="text-3xl font-bold t-text">You're All Set!</h2>
+        <div className="mt-4 px-6 py-3 rounded-xl t-bg-overlay border t-border-light inline-flex items-center gap-3">
           {mode === 'midi' ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent-light">
               <rect x="2" y="6" width="20" height="12" rx="2" />
@@ -30,7 +30,7 @@ export function CompleteStep({ mode, detail, onFinish }: Props) {
               <line x1="12" y1="19" x2="12" y2="23" />
             </svg>
           )}
-          <span className="text-white/70 text-sm">{detail}</span>
+          <span className="t-text-secondary text-sm">{detail}</span>
         </div>
       </div>
 

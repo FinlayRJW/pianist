@@ -5,9 +5,13 @@ import type { CalibrationData } from '../stores/onboardingStore';
 
 const FFT_SIZE = 4096;
 const AMBIENT_FRAMES = 60;
-const CLARITY_THRESHOLD = 0.7;
-const MIN_FREQUENCY = 55;
-const MAX_FREQUENCY = 2100;
+const MIN_FREQUENCY = 27.5;
+const MAX_FREQUENCY = 4200;
+
+function getMinClarity(frequency: number): number {
+  if (frequency < 60 || frequency > 2000) return 0.5;
+  return 0.7;
+}
 
 const TARGET_RMS = 0.10;
 const MIN_GAIN = 1;
@@ -152,7 +156,7 @@ export function useCalibration() {
 
         if (rms >= cal.onset) {
           const [frequency, clarity] = detector.findPitch(buffer, audioContext.sampleRate);
-          if (clarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+          if (clarity >= getMinClarity(frequency) && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
             const midi = frequencyToMidi(frequency);
             const noteName = midiToName(midi);
             const sorted = [...samplesRef.current].sort((a, b) => a - b);

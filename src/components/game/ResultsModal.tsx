@@ -21,29 +21,29 @@ export function ResultsModal({ results, onRetry, onBack }: Props) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-10">
-      <div className="bg-surface-light rounded-2xl p-8 text-center shadow-2xl border border-white/10 min-w-[320px]">
+      <div className="t-bg-modal rounded-2xl p-8 text-center shadow-2xl border t-border-light min-w-[320px]">
         <div className="flex justify-center gap-2 mb-4">
           {[1, 2, 3].map((s) => (
             <StarIcon key={s} filled={stars >= s} color={STAR_COLORS[stars] || '#fbbf24'} />
           ))}
         </div>
 
-        <h2 className="text-2xl font-bold text-white mb-1">
+        <h2 className="text-2xl font-bold t-text mb-1">
           {stars === 3 ? 'Perfect!' : stars === 2 ? 'Great Job!' : stars === 1 ? 'Nice Try!' : 'Keep Practicing!'}
         </h2>
-        <p className="text-white/50 text-sm mb-6">{Math.round(accuracy * 100)}% accuracy</p>
+        <p className="t-text-secondary text-sm mb-6">{Math.round(accuracy * 100)}% accuracy</p>
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm mb-6">
           <div className="text-right text-hit-perfect">Perfect</div>
-          <div className="text-left text-white/70">{hits.perfect}</div>
+          <div className="text-left t-text-secondary">{hits.perfect}</div>
           <div className="text-right text-hit-great">Great</div>
-          <div className="text-left text-white/70">{hits.great}</div>
+          <div className="text-left t-text-secondary">{hits.great}</div>
           <div className="text-right text-hit-good">Good</div>
-          <div className="text-left text-white/70">{hits.good}</div>
+          <div className="text-left t-text-secondary">{hits.good}</div>
           <div className="text-right text-hit-miss">Miss</div>
-          <div className="text-left text-white/70">{hits.miss}</div>
-          <div className="text-right text-white/50">Max Combo</div>
-          <div className="text-left text-white/70">{maxCombo}</div>
+          <div className="text-left t-text-secondary">{hits.miss}</div>
+          <div className="text-right t-text-tertiary">Max Combo</div>
+          <div className="text-left t-text-secondary">{maxCombo}</div>
         </div>
 
         <div className="flex gap-3 justify-center">
@@ -55,7 +55,7 @@ export function ResultsModal({ results, onRetry, onBack }: Props) {
           </button>
           <button
             onClick={onBack}
-            className="px-6 py-2 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
+            className="px-6 py-2 rounded-full t-bg-overlay t-text font-medium t-bg-overlay-hover transition-colors"
           >
             Back
           </button>

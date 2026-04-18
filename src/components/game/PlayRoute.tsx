@@ -45,7 +45,7 @@ export function PlayRoute() {
   if (!song) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <div className="text-white/50">Loading song...</div>
+        <div className="t-text-secondary">Loading song...</div>
       </div>
     );
   }

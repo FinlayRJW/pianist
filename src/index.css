@@ -1,9 +1,81 @@
 @import "tailwindcss";
 
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #12122a;
+  --bg-surface: #1a1a3e;
+  --text-primary: rgba(255, 255, 255, 1);
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-tertiary: rgba(255, 255, 255, 0.4);
+  --text-muted: rgba(255, 255, 255, 0.3);
+  --bg-overlay: rgba(255, 255, 255, 0.05);
+  --bg-overlay-hover: rgba(255, 255, 255, 0.1);
+  --bg-overlay-active: rgba(255, 255, 255, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --modal-bg: #1a1a2a;
+  --canvas-bg-top: #0a0a1a;
+  --canvas-bg-bottom: #12122a;
+  --canvas-grid: rgba(255, 255, 255, 0.03);
+  --canvas-play-band-rgb: 99, 102, 241;
+  --canvas-play-line: rgba(255, 255, 255, 0.8);
+  --canvas-play-glow: rgba(99, 102, 241, 0.9);
+  --canvas-text: rgba(255, 255, 255, 0.4);
+  --key-white: #e8e8e8;
+  --key-white-active: #6366f1;
+  --key-black: #1a1a2e;
+  --key-black-active: #818cf8;
+  --key-border: #1a1a3e;
+  --key-black-border: #0a0a1a;
+  --warning-text: #fbbf24;
+  --warning-text-strong: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --warning-border: rgba(245, 158, 11, 0.2);
+  --caution-text: #facc15;
+  --caution-bg: rgba(234, 179, 8, 0.1);
+  --caution-border: rgba(234, 179, 8, 0.2);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f0f0f5;
+  --bg-secondary: #e4e4ec;
+  --bg-surface: #ffffff;
+  --text-primary: rgba(0, 0, 0, 0.9);
+  --text-secondary: rgba(0, 0, 0, 0.5);
+  --text-tertiary: rgba(0, 0, 0, 0.4);
+  --text-muted: rgba(0, 0, 0, 0.25);
+  --bg-overlay: rgba(0, 0, 0, 0.04);
+  --bg-overlay-hover: rgba(0, 0, 0, 0.08);
+  --bg-overlay-active: rgba(0, 0, 0, 0.12);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-light: rgba(0, 0, 0, 0.1);
+  --modal-bg: #ffffff;
+  --canvas-bg-top: #e4e4ec;
+  --canvas-bg-bottom: #d8d8e2;
+  --canvas-grid: rgba(0, 0, 0, 0.05);
+  --canvas-play-band-rgb: 99, 102, 241;
+  --canvas-play-line: rgba(0, 0, 0, 0.3);
+  --canvas-play-glow: rgba(99, 102, 241, 0.7);
+  --canvas-text: rgba(0, 0, 0, 0.3);
+  --key-white: #ffffff;
+  --key-white-active: #6366f1;
+  --key-black: #2a2a3e;
+  --key-black-active: #818cf8;
+  --key-border: #d1d1d6;
+  --key-black-border: #1a1a2e;
+  --warning-text: #b45309;
+  --warning-text-strong: #92400e;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning-border: rgba(245, 158, 11, 0.25);
+  --caution-text: #a16207;
+  --caution-bg: rgba(234, 179, 8, 0.12);
+  --caution-border: rgba(234, 179, 8, 0.25);
+}
+
 @theme {
-  --color-midnight: #0a0a1a;
-  --color-surface: #12122a;
-  --color-surface-light: #1a1a3e;
+  --color-midnight: var(--bg-primary);
+  --color-surface: var(--bg-secondary);
+  --color-surface-light: var(--bg-surface);
   --color-accent: #6366f1;
   --color-accent-light: #818cf8;
   --color-hit-perfect: #22d3ee;
@@ -20,8 +92,8 @@
 html, body, #root {
   height: 100%;
   margin: 0;
-  background: var(--color-midnight);
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow: hidden;
 }
@@ -54,3 +126,26 @@ html, body, #root {
 .animate-scaleIn {
   animation: scaleIn 0.3s ease-out;
 }
+
+.t-text { color: var(--text-primary); }
+.t-text-secondary { color: var(--text-secondary); }
+.t-text-tertiary { color: var(--text-tertiary); }
+.t-text-muted { color: var(--text-muted); }
+.t-bg { background-color: var(--bg-primary); }
+.t-bg-secondary { background-color: var(--bg-secondary); }
+.t-bg-surface { background-color: var(--bg-surface); }
+.t-bg-overlay { background-color: var(--bg-overlay); }
+.t-bg-overlay-hover:hover { background-color: var(--bg-overlay-hover); }
+.t-bg-overlay-active { background-color: var(--bg-overlay-active); }
+.t-bg-modal { background-color: var(--modal-bg); }
+.t-border { border-color: var(--border-subtle); }
+.t-border-light { border-color: var(--border-light); }
+.hover\:t-text:hover { color: var(--text-primary); }
+.hover\:t-text-secondary:hover { color: var(--text-secondary); }
+.t-warning { color: var(--warning-text); }
+.t-warning-strong { color: var(--warning-text-strong); }
+.t-warning-bg { background-color: var(--warning-bg); }
+.t-warning-border { border-color: var(--warning-border); }
+.t-caution { color: var(--caution-text); }
+.t-caution-bg { background-color: var(--caution-bg); }
+.t-caution-border { border-color: var(--caution-border); }

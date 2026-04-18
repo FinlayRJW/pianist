@@ -5,14 +5,12 @@ import {
   PIXELS_PER_SECOND,
   LOOK_AHEAD_SEC,
   LOOK_BEHIND_SEC,
-  NOTE_COLORS,
-  PLAY_LINE_COLOR,
-  PLAY_LINE_GLOW,
   PLAY_LINE_BAND_HEIGHT,
   NOTE_BORDER_RADIUS,
   NOTE_MIN_HEIGHT,
   NOTE_GAP,
 } from './constants';
+import { getCanvasTheme } from './theme';
 
 function binarySearchStart(notes: Note[], minTime: number): number {
   let lo = 0;
@@ -39,9 +37,11 @@ export function drawFrame(
   missedNotes: Set<number>,
   pxPerSec: number = PIXELS_PER_SECOND,
 ) {
+  const theme = getCanvasTheme();
+
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  drawBackground(ctx, canvasWidth, canvasHeight);
+  drawBackground(ctx, canvasWidth, canvasHeight, theme);
 
   const playLineY = canvasHeight - PLAY_LINE_BOTTOM_OFFSET;
 
@@ -50,28 +50,49 @@ export function drawFrame(
 
   const startIdx = binarySearchStart(notes, minTime);
 
+  const activeNoteMap = new Map<number, number>();
+  for (let i = startIdx; i < notes.length; i++) {
+    const note = notes[i];
+    if (note.startTime > maxTime) break;
+    if (missedNotes.has(i)) continue;
+    if (!activeNotes.has(note.midi)) continue;
+    const timeDelta = note.startTime - currentTime;
+    if (timeDelta < -0.15 && hitNotes.has(i)) continue;
+    if (Math.abs(timeDelta) > 0.35) continue;
+    const existing = activeNoteMap.get(note.midi);
+    if (existing === undefined) {
+      activeNoteMap.set(note.midi, i);
+    } else {
+      const existingDelta = Math.abs(notes[existing].startTime - currentTime);
+      if (Math.abs(timeDelta) < existingDelta) {
+        activeNoteMap.set(note.midi, i);
+      }
+    }
+  }
+
   for (let i = startIdx; i < notes.length; i++) {
     const note = notes[i];
     if (note.startTime > maxTime) break;
 
-    drawNote(ctx, note, i, currentTime, playLineY, canvasWidth, canvasHeight, pxPerSec, activeNotes, hitNotes, missedNotes);
+    drawNote(ctx, note, i, currentTime, playLineY, canvasWidth, canvasHeight, pxPerSec, activeNoteMap, hitNotes, missedNotes, theme);
   }
 
-  drawPlayLine(ctx, playLineY, canvasWidth);
+  drawPlayLine(ctx, playLineY, canvasWidth, theme);
 }
 
 function drawBackground(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
+  theme: ReturnType<typeof getCanvasTheme>,
 ) {
   const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, '#0a0a1a');
-  gradient.addColorStop(1, '#12122a');
+  gradient.addColorStop(0, theme.bgTop);
+  gradient.addColorStop(1, theme.bgBottom);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
 
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+  ctx.strokeStyle = theme.grid;
   ctx.lineWidth = 1;
   const keyPositions = getAllWhiteKeyXPositions(width);
   for (const x of keyPositions) {
@@ -101,9 +122,10 @@ function drawNote(
   canvasWidth: number,
   _canvasHeight: number,
   pxPerSec: number,
-  activeNotes: Set<number>,
+  activeNoteMap: Map<number, number>,
   hitNotes: Set<number>,
   missedNotes: Set<number>,
+  theme: ReturnType<typeof getCanvasTheme>,
 ) {
   const keyInfo = getNoteX(canvasWidth, note.midi);
   if (!keyInfo) return;
@@ -120,15 +142,15 @@ function drawNote(
   let glowIntensity = 0;
 
   if (hitNotes.has(noteIndex)) {
-    color = NOTE_COLORS.active;
+    color = theme.noteActive;
     glowIntensity = 8;
   } else if (missedNotes.has(noteIndex)) {
-    color = NOTE_COLORS.miss;
-  } else if (activeNotes.has(note.midi) && Math.abs(timeDelta) < 0.35) {
-    color = NOTE_COLORS.active;
+    color = theme.noteMiss;
+  } else if (activeNoteMap.get(note.midi) === noteIndex) {
+    color = theme.noteActive;
     glowIntensity = 12;
   } else {
-    color = note.track === 0 ? NOTE_COLORS.right : NOTE_COLORS.left;
+    color = note.track === 0 ? theme.noteRight : theme.noteLeft;
   }
 
   if (glowIntensity > 0) {
@@ -150,22 +172,24 @@ function drawPlayLine(
   ctx: CanvasRenderingContext2D,
   y: number,
   width: number,
+  theme: ReturnType<typeof getCanvasTheme>,
 ) {
   const bandH = PLAY_LINE_BAND_HEIGHT;
+  const rgb = theme.playBandRgb;
 
   const bandGrad = ctx.createLinearGradient(0, y - bandH, 0, y + bandH);
-  bandGrad.addColorStop(0, 'rgba(99, 102, 241, 0)');
-  bandGrad.addColorStop(0.3, 'rgba(99, 102, 241, 0.15)');
-  bandGrad.addColorStop(0.5, 'rgba(99, 102, 241, 0.25)');
-  bandGrad.addColorStop(0.7, 'rgba(99, 102, 241, 0.15)');
-  bandGrad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+  bandGrad.addColorStop(0, `rgba(${rgb}, 0)`);
+  bandGrad.addColorStop(0.3, `rgba(${rgb}, 0.15)`);
+  bandGrad.addColorStop(0.5, `rgba(${rgb}, 0.25)`);
+  bandGrad.addColorStop(0.7, `rgba(${rgb}, 0.15)`);
+  bandGrad.addColorStop(1, `rgba(${rgb}, 0)`);
   ctx.fillStyle = bandGrad;
   ctx.fillRect(0, y - bandH * 3, width, bandH * 6);
 
   ctx.save();
-  ctx.shadowColor = PLAY_LINE_GLOW;
+  ctx.shadowColor = theme.playGlow;
   ctx.shadowBlur = 20;
-  ctx.strokeStyle = PLAY_LINE_COLOR;
+  ctx.strokeStyle = theme.playLine;
   ctx.lineWidth = 2.5;
   ctx.beginPath();
   ctx.moveTo(0, y);
@@ -173,7 +197,7 @@ function drawPlayLine(
   ctx.stroke();
 
   ctx.shadowBlur = 40;
-  ctx.strokeStyle = 'rgba(99, 102, 241, 0.6)';
+  ctx.strokeStyle = `rgba(${rgb}, 0.6)`;
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(0, y);
@@ -181,7 +205,7 @@ function drawPlayLine(
   ctx.stroke();
   ctx.restore();
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.fillStyle = theme.text;
   ctx.font = '10px Inter, system-ui, sans-serif';
   ctx.textAlign = 'right';
   ctx.fillText('PLAY HERE', width - 12, y - 10);

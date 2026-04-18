@@ -3,15 +3,6 @@ export const PIXELS_PER_SECOND = 200;
 export const LOOK_AHEAD_SEC = 4;
 export const LOOK_BEHIND_SEC = 0.5;
 
-export const NOTE_COLORS = {
-  right: '#6366f1',
-  left: '#f59e0b',
-  active: '#22d3ee',
-  miss: '#f87171',
-};
-
-export const PLAY_LINE_COLOR = 'rgba(255, 255, 255, 0.8)';
-export const PLAY_LINE_GLOW = 'rgba(99, 102, 241, 0.9)';
 export const PLAY_LINE_BAND_HEIGHT = 6;
 
 export const NOTE_BORDER_RADIUS = 4;

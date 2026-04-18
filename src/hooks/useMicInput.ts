@@ -4,9 +4,13 @@ import { frequencyToMidi, midiToName } from '../utils/note-utils';
 import type { CalibrationData } from '../stores/onboardingStore';
 
 const FFT_SIZE = 4096;
-const CLARITY_THRESHOLD = 0.7;
-const MIN_FREQUENCY = 55;
-const MAX_FREQUENCY = 2100;
+const MIN_FREQUENCY = 27.5;
+const MAX_FREQUENCY = 4200;
+
+function getMinClarity(frequency: number): number {
+  if (frequency < 60 || frequency > 2000) return 0.5;
+  return 0.7;
+}
 
 const FALLBACK_ONSET_THRESHOLD = 0.004;
 const FALLBACK_OFFSET_THRESHOLD = 0.002;
@@ -176,7 +180,7 @@ export function useMicInput(
         const [frequency, curClarity] = detector.findPitch(buffer, audioContext.sampleRate);
 
         if (!noteActiveRef.current && rms >= onsetThreshold && gapCounterRef.current === 0) {
-          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+          if (curClarity >= getMinClarity(frequency) && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
             const midi = frequencyToMidi(frequency);
 
             if (midi === candidateNoteRef.current) {
@@ -191,7 +195,7 @@ export function useMicInput(
             }
           }
         } else if (noteActiveRef.current) {
-          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+          if (curClarity >= getMinClarity(frequency) && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
             const midi = frequencyToMidi(frequency);
             if (midi !== currentNoteRef.current) {
               releaseNote();

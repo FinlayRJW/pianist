@@ -72,8 +72,8 @@ export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
         )}
 
         {status === 'not-found' && (
-          <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/30">
+          <div className="w-20 h-20 rounded-full t-bg-overlay flex items-center justify-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="t-text-muted">
               <rect x="2" y="6" width="20" height="12" rx="2" />
               <circle cx="8" cy="12" r="1" fill="currentColor" />
               <circle cx="12" cy="12" r="1" fill="currentColor" />
@@ -95,22 +95,22 @@ export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
       <div>
         {status === 'scanning' && (
           <>
-            <h2 className="text-2xl font-bold text-white">Looking for MIDI...</h2>
-            <p className="text-white/40 mt-2">Checking for a connected MIDI keyboard</p>
+            <h2 className="text-2xl font-bold t-text">Looking for MIDI...</h2>
+            <p className="t-text-tertiary mt-2">Checking for a connected MIDI keyboard</p>
           </>
         )}
 
         {status === 'found' && (
           <>
-            <h2 className="text-2xl font-bold text-white">MIDI Keyboard Found</h2>
+            <h2 className="text-2xl font-bold t-text">MIDI Keyboard Found</h2>
             <p className="text-emerald-400 mt-2 font-medium">{deviceName}</p>
           </>
         )}
 
         {status === 'not-found' && (
           <>
-            <h2 className="text-2xl font-bold text-white">No MIDI Keyboard Found</h2>
-            <p className="text-white/40 mt-2">No worries — let's set up your microphone instead</p>
+            <h2 className="text-2xl font-bold t-text">No MIDI Keyboard Found</h2>
+            <p className="t-text-tertiary mt-2">No worries — let's set up your microphone instead</p>
           </>
         )}
       </div>
@@ -127,7 +127,7 @@ export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
       {status === 'scanning' && (
         <button
           onClick={() => { resolvedRef.current = true; onNoMidi(); }}
-          className="px-6 py-2 rounded-full bg-white/10 text-white/50 font-medium hover:bg-white/20 hover:text-white/70 transition-colors"
+          className="px-6 py-2 rounded-full t-bg-overlay t-text-secondary font-medium t-bg-overlay-hover transition-colors"
         >
           I don't have MIDI
         </button>

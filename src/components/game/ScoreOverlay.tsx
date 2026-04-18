@@ -36,7 +36,7 @@ export function ScoreOverlay({ score, combo, lastRating }: Props) {
   return (
     <div className="absolute top-4 left-0 right-0 pointer-events-none z-5 flex justify-between px-6">
       <div>
-        <div className="text-white/80 text-2xl font-bold tabular-nums">
+        <div className="t-text text-2xl font-bold tabular-nums opacity-80">
           {Math.round(score).toLocaleString()}
         </div>
         {combo > 1 && (

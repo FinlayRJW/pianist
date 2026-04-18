@@ -12,6 +12,7 @@ import { usePlayerInput, type InputMode } from '../../hooks/usePlayerInput';
 import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
+import { useOnboardingStore } from '../../stores/onboardingStore';
 
 interface Props {
   song: ParsedSong;
@@ -38,14 +39,17 @@ export function GameScreen({ song, onBack }: Props) {
   const [liveRating, setLiveRating] = useState<{ rating: string; time: number } | null>(null);
   const [countdownNum, setCountdownNum] = useState<number | null>(null);
   const [showCalibrationModal, setShowCalibrationModal] = useState(false);
+  const wasPlayingRef = useRef(false);
+  const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
+  const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
 
-  const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed } =
+  const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed, speedRef } =
     useSongPlayer(song.totalDuration);
   const autoPlay = useAutoPlay(song.notes, timeRef, gameState === 'playing', autoPlayEnabled);
 
-  const micNotMuted = !autoPlayEnabled;
+  const micNotMuted = !autoPlayEnabled || headphonesMode;
   const input = usePlayerInput(inputMode, micNotMuted, sensitivityRef);
-  const scoring = useScoring(song.notes, timeRef, input.usingMidi);
+  const scoring = useScoring(song.notes, timeRef, input.usingMidi, speedRef);
 
   const showMicControls = !input.usingMidi;
 
@@ -178,26 +182,44 @@ export function GameScreen({ song, onBack }: Props) {
     setShowMicWarning(false);
   }, []);
 
+  const openSettings = useCallback(() => {
+    if (gameState === 'playing' || gameState === 'countdown') {
+      wasPlayingRef.current = true;
+      pause();
+    } else {
+      wasPlayingRef.current = false;
+    }
+    setShowCalibrationModal(true);
+  }, [gameState, pause]);
+
+  const closeSettings = useCallback(() => {
+    setShowCalibrationModal(false);
+    if (wasPlayingRef.current) {
+      resume();
+      wasPlayingRef.current = false;
+    }
+  }, [resume]);
+
   const canvasHeight = containerSize.height - KEYBOARD_HEIGHT;
 
   return (
     <div className="flex flex-col h-full bg-midnight relative">
       {/* Header toolbar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-surface/80 backdrop-blur-sm border-b border-white/5 gap-2 min-h-[44px]">
+      <div className="flex items-center px-4 py-2 bg-surface/80 backdrop-blur-sm border-b t-border-light gap-2 min-h-[44px]">
         <button
           onClick={onBack}
-          className="text-white/60 hover:text-white transition-colors text-sm shrink-0"
+          className="t-text-secondary hover:t-text transition-colors text-sm shrink-0"
         >
           Back
         </button>
 
-        <div className="text-center min-w-0 shrink">
-          <h2 className="text-white font-medium text-sm truncate">{song.meta.title}</h2>
+        <div className="flex-1 min-w-0 text-center px-2">
+          <h2 className="t-text font-medium text-sm truncate">{song.meta.title}</h2>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           {/* Input mode selector */}
-          <div className="flex items-center gap-0.5 bg-white/5 rounded-full p-0.5">
+          <div className="flex items-center gap-0.5 t-bg-overlay rounded-full p-0.5">
             {(['auto', 'midi', 'mic'] as InputMode[]).map((mode) => (
               <button
                 key={mode}
@@ -205,7 +227,7 @@ export function GameScreen({ song, onBack }: Props) {
                 className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
                   inputMode === mode
                     ? 'bg-accent text-white'
-                    : 'text-white/40 hover:text-white/60'
+                    : 't-text-secondary'
                 }`}
               >
                 {mode === 'auto' ? 'Auto' : mode === 'midi' ? 'MIDI' : 'Mic'}
@@ -224,7 +246,7 @@ export function GameScreen({ song, onBack }: Props) {
           {showMicControls && (
             <>
               <div className="flex items-center gap-1" title={`Mic sensitivity: ${sensitivity.toFixed(1)}x`}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="t-text-secondary">
                   <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
                   <line x1="12" y1="19" x2="12" y2="23" />
@@ -248,13 +270,21 @@ export function GameScreen({ song, onBack }: Props) {
             onToggle={() => { Tone.start(); setAutoPlayEnabled((v) => !v); }}
           />
 
+          {showMicControls && (
+            <ToggleSwitch
+              label="🎧"
+              enabled={headphonesMode}
+              onToggle={() => setHeadphonesMode(!headphonesMode)}
+            />
+          )}
+
           <select
             value={speed}
             onChange={(e) => handleSpeedChange(Number(e.target.value))}
-            className="bg-white/10 text-white/70 text-xs rounded px-1.5 py-1 border-none outline-none cursor-pointer"
+            className="t-bg-overlay t-text-secondary text-xs rounded px-1.5 py-1 border-none outline-none cursor-pointer"
           >
             {SPEED_OPTIONS.map((s) => (
-              <option key={s} value={s} className="bg-surface text-white">
+              <option key={s} value={s} className="bg-surface t-text">
                 {s === 1 ? '1x' : `${s}x`}
               </option>
             ))}
@@ -262,7 +292,7 @@ export function GameScreen({ song, onBack }: Props) {
 
           <button
             onClick={doRestart}
-            className="p-1.5 rounded-full bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+            className="p-1.5 rounded-full t-bg-overlay t-text-secondary hover:t-bg-overlay-hover transition-colors"
             title="Restart (R)"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -279,8 +309,8 @@ export function GameScreen({ song, onBack }: Props) {
           </button>
 
           <button
-            onClick={() => setShowCalibrationModal(true)}
-            className="p-1.5 rounded-full bg-white/10 text-white/40 hover:bg-white/20 hover:text-white/70 transition-colors"
+            onClick={openSettings}
+            className="p-1.5 rounded-full t-bg-overlay t-text-secondary hover:t-bg-overlay-hover transition-colors"
             title="Settings"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -293,30 +323,30 @@ export function GameScreen({ song, onBack }: Props) {
 
       {/* MIDI not connected warning when in MIDI-only mode */}
       {inputMode === 'midi' && !input.midiConnected && (
-        <div className="px-4 py-1.5 bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-400 text-xs text-center">
+        <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
           No MIDI device detected. Connect a MIDI keyboard and refresh.
         </div>
       )}
 
       {/* Mic warning banner */}
       {showMicWarning && (
-        <div className="px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 text-amber-300 text-xs text-center flex items-center justify-center gap-3">
+        <div className="px-4 py-2 t-warning-bg border-b t-warning-border t-warning text-xs text-center flex items-center justify-center gap-3">
           <span>
             Mic mode is limited: single notes only, no chord support, and detection varies by device.
             For the best experience, connect a MIDI keyboard.
           </span>
           <button
             onClick={dismissMicWarning}
-            className="text-amber-400 hover:text-amber-200 font-medium shrink-0 underline"
+            className="t-warning-strong font-medium shrink-0 underline"
           >
             Got it
           </button>
         </div>
       )}
 
-      {autoPlayEnabled && showMicControls && (
-        <div className="px-4 py-1.5 bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-400 text-xs text-center">
-          Mic paused while sound is on. Use headphones to use both.
+      {autoPlayEnabled && showMicControls && !headphonesMode && (
+        <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
+          Mic paused while sound is on. Toggle 🎧 to use both with headphones.
         </div>
       )}
 
@@ -357,7 +387,7 @@ export function GameScreen({ song, onBack }: Props) {
       {/* Countdown overlay */}
       {gameState === 'countdown' && countdownNum !== null && countdownNum > 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-          <div className="text-8xl font-bold text-white/80 animate-pulse tabular-nums">
+          <div className="text-8xl font-bold t-text opacity-80 animate-pulse tabular-nums">
             {countdownNum}
           </div>
         </div>
@@ -380,7 +410,7 @@ export function GameScreen({ song, onBack }: Props) {
                 <path d="M8 5v14l11-7z" />
               </svg>
             </button>
-            <p className="text-white/40 text-sm mt-4">
+            <p className="t-text-tertiary text-sm mt-4">
               {input.usingMidi ? 'Play any key' : 'Play any note'}, press Space, or click to start
             </p>
           </div>
@@ -389,7 +419,7 @@ export function GameScreen({ song, onBack }: Props) {
 
       {/* Calibration modal */}
       {showCalibrationModal && (
-        <CalibrationModal onClose={() => setShowCalibrationModal(false)} />
+        <CalibrationModal onClose={closeSettings} />
       )}
     </div>
   );
@@ -408,10 +438,10 @@ function ToggleSwitch({
 }) {
   return (
     <div className="flex items-center gap-1.5 cursor-pointer select-none" onClick={onToggle}>
-      <span className="text-white/50 text-xs">{label}</span>
+      <span className="t-text-secondary text-xs">{label}</span>
       <div
         className={`w-8 h-[18px] rounded-full transition-colors relative shrink-0 ${
-          enabled ? activeColor : 'bg-white/20'
+          enabled ? activeColor : 't-bg-overlay-active'
         }`}
       >
         <span
