@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import * as Tone from 'tone';
-import type { ParsedSong, SongScore } from '../../types';
+import type { ParsedSong, SongScore, DisplayMode } from '../../types';
 import { FallingNotesCanvas } from './FallingNotesCanvas';
+import { SheetMusicDisplay } from './SheetMusicDisplay';
 import { PianoKeyboard } from './PianoKeyboard';
 import { ScoreOverlay } from './ScoreOverlay';
 import { ResultsModal } from './ResultsModal';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const KEYBOARD_HEIGHT = 80;
+const SHEET_MUSIC_HEIGHT = 150;
 const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5];
 
 const MIC_WARNING_KEY = 'pianist-mic-warning-dismissed';
@@ -42,6 +44,8 @@ export function GameScreen({ song, onBack }: Props) {
   const wasPlayingRef = useRef(false);
   const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
   const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
+  const displayMode = useOnboardingStore((s) => s.displayMode);
+  const setDisplayMode = useOnboardingStore((s) => s.setDisplayMode);
 
   const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed, speedRef } =
     useSongPlayer(song.totalDuration);
@@ -201,7 +205,10 @@ export function GameScreen({ song, onBack }: Props) {
     }
   }, [resume]);
 
-  const canvasHeight = containerSize.height - KEYBOARD_HEIGHT;
+  const showSheet = displayMode === 'sheet-and-falling' || displayMode === 'sheet-only';
+  const showFalling = displayMode === 'falling' || displayMode === 'sheet-and-falling';
+  const sheetHeight = showSheet ? (displayMode === 'sheet-only' ? containerSize.height - KEYBOARD_HEIGHT : SHEET_MUSIC_HEIGHT) : 0;
+  const canvasHeight = containerSize.height - KEYBOARD_HEIGHT - (displayMode === 'sheet-and-falling' ? SHEET_MUSIC_HEIGHT : 0);
 
   return (
     <div className="flex flex-col h-full bg-midnight relative">
@@ -291,6 +298,22 @@ export function GameScreen({ song, onBack }: Props) {
             ))}
           </select>
 
+          {/* Display mode toggle */}
+          <div className="flex items-center gap-0.5 t-bg-overlay rounded-full p-0.5">
+            {([['falling', '♪'], ['sheet-and-falling', '♪♫'], ['sheet-only', '♫']] as [DisplayMode, string][]).map(([mode, label]) => (
+              <button
+                key={mode}
+                onClick={() => setDisplayMode(mode)}
+                className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
+                  displayMode === mode ? 'bg-accent text-white' : 't-text-secondary'
+                }`}
+                title={mode === 'falling' ? 'Falling Notes' : mode === 'sheet-and-falling' ? 'Both' : 'Sheet Music'}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={doRestart}
             className="p-1.5 rounded-full t-bg-overlay t-text-secondary hover:t-bg-overlay-hover transition-colors"
@@ -361,16 +384,30 @@ export function GameScreen({ song, onBack }: Props) {
       <div ref={containerRef} className="flex-1 relative overflow-hidden">
         {containerSize.width > 0 && (
           <>
-            <FallingNotesCanvas
-              notes={song.notes}
-              timeRef={timeRef}
-              playing={isActive}
-              width={containerSize.width}
-              height={canvasHeight > 0 ? canvasHeight : 0}
-              activeNotes={input.activeNotes.current}
-              hitNotes={scoring.hitNotes.current}
-              missedNotes={scoring.missedNotes.current}
-            />
+            {showSheet && (
+              <SheetMusicDisplay
+                notes={song.notes}
+                bpm={song.meta.bpm}
+                timeSignature={song.meta.timeSignature}
+                keySignature={song.meta.keySignature}
+                timeRef={timeRef}
+                playing={isActive}
+                width={containerSize.width}
+                height={sheetHeight}
+              />
+            )}
+            {showFalling && (
+              <FallingNotesCanvas
+                notes={song.notes}
+                timeRef={timeRef}
+                playing={isActive}
+                width={containerSize.width}
+                height={canvasHeight > 0 ? canvasHeight : 0}
+                activeNotes={input.activeNotes.current}
+                hitNotes={scoring.hitNotes.current}
+                missedNotes={scoring.missedNotes.current}
+              />
+            )}
             {gameState === 'playing' && (
               <ScoreOverlay score={liveScore} combo={liveCombo} lastRating={liveRating} />
             )}

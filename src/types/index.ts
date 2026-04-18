@@ -1,3 +1,6 @@
+export type DisplayMode = 'falling' | 'sheet-and-falling' | 'sheet-only';
+export type SongGenre = 'beginner' | 'folk' | 'classical' | 'pop' | 'rock' | 'funk' | 'jazz' | 'advanced';
+
 export interface SongMeta {
   id: string;
   title: string;
@@ -8,6 +11,10 @@ export interface SongMeta {
   midiFile: string;
   tags: string[];
   skillTreeNodeId: string;
+  genre: SongGenre;
+  requiresMidi?: boolean;
+  timeSignature?: [number, number];
+  keySignature?: string;
 }
 
 export interface Note {
@@ -42,12 +49,24 @@ export interface SongScore {
   stars: 0 | 1 | 2 | 3;
 }
 
+export interface SkillTreeArea {
+  id: string;
+  name: string;
+  genre: SongGenre;
+  order: number;
+  starsToUnlock: number;
+  description: string;
+  color: string;
+}
+
 export interface SkillTreeNode {
   id: string;
   songId: string;
+  areaId: string;
   x: number;
   y: number;
   requires: string[];
+  starsRequired: number;
 }
 
 export interface UserProgress {
@@ -62,4 +81,24 @@ export interface UserSettings {
   latencyOffsetMs: number;
   scrollSpeed: number;
   noteColorScheme: 'hand' | 'velocity' | 'single';
+}
+
+export interface QuantizedNote {
+  midi: number;
+  beat: number;
+  durationBeats: number;
+  track: number;
+}
+
+export interface RestData {
+  beat: number;
+  durationBeats: number;
+}
+
+export interface MeasureData {
+  number: number;
+  trebleNotes: QuantizedNote[];
+  bassNotes: QuantizedNote[];
+  trebleRests: RestData[];
+  bassRests: RestData[];
 }

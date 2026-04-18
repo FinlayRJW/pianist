@@ -34,6 +34,10 @@
   --caution-text: #facc15;
   --caution-bg: rgba(234, 179, 8, 0.1);
   --caution-border: rgba(234, 179, 8, 0.2);
+  --sheet-bg: rgba(10, 10, 26, 0.8);
+  --sheet-staff: rgba(255, 255, 255, 0.25);
+  --sheet-note: rgba(255, 255, 255, 0.85);
+  --sheet-active: #818cf8;
 }
 
 [data-theme="light"] {
@@ -70,6 +74,10 @@
   --caution-text: #a16207;
   --caution-bg: rgba(234, 179, 8, 0.12);
   --caution-border: rgba(234, 179, 8, 0.25);
+  --sheet-bg: rgba(255, 255, 255, 0.9);
+  --sheet-staff: rgba(0, 0, 0, 0.3);
+  --sheet-note: rgba(0, 0, 0, 0.85);
+  --sheet-active: #6366f1;
 }
 
 @theme {
