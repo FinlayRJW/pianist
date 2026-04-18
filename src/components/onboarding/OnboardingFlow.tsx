@@ -33,6 +33,7 @@ export function OnboardingFlow() {
   }, [setCalibration]);
 
   const handleFinish = useCallback(() => {
+    window.history.replaceState(null, '', import.meta.env.BASE_URL);
     completeOnboarding();
   }, [completeOnboarding]);
 

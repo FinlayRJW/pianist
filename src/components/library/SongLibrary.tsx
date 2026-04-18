@@ -163,7 +163,7 @@ export function SongLibrary() {
               key={song.id}
               song={song}
               bestStars={bestStars[song.id] || 0}
-              onClick={() => navigate(`/play/${song.id}`)}
+              onClick={() => navigate(`/play/${song.id}`, { state: { from: '/songs' } })}
             />
           ))}
           {filtered.length === 0 && (
@@ -179,7 +179,7 @@ export function SongLibrary() {
           onClose={() => setShowImport(false)}
           onImported={(songId) => {
             setShowImport(false);
-            navigate(`/play/${songId}`);
+            navigate(`/play/${songId}`, { state: { from: '/songs' } });
           }}
         />
       )}

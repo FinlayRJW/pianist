@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import type { ParsedSong } from '../../types';
 import { getSongById } from '../../data/songs';
@@ -9,9 +9,13 @@ import { GameScreen } from './GameScreen';
 export function PlayRoute() {
   const { songId } = useParams<{ songId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [song, setSong] = useState<ParsedSong | null>(null);
   const [error, setError] = useState<string | null>(null);
   const importedSongs = useImportedSongsStore((s) => s.songs);
+
+  const from = (location.state as { from?: string })?.from;
+  const backPath = from === '/songs' ? '/songs' : '/';
 
   useEffect(() => {
     if (!songId) return;
@@ -45,10 +49,10 @@ export function PlayRoute() {
         <div className="text-center">
           <p className="text-red-400 mb-4">{error}</p>
           <button
-            onClick={() => navigate('/songs')}
+            onClick={() => navigate(backPath)}
             className="px-6 py-2 rounded-full bg-accent text-white"
           >
-            Back to Library
+            Back
           </button>
         </div>
       </div>
@@ -63,5 +67,5 @@ export function PlayRoute() {
     );
   }
 
-  return <GameScreen song={song} onBack={() => navigate('/songs')} />;
+  return <GameScreen song={song} onBack={() => navigate(backPath)} />;
 }

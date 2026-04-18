@@ -44,7 +44,7 @@ export function SkillTree() {
     [bestStars],
   );
 
-  const handlePlay = (songId: string) => navigate(`/play/${songId}`);
+  const handlePlay = (songId: string) => navigate(`/play/${songId}`, { state: { from: '/' } });
 
   useEffect(() => {
     if (!scrollRef.current) return;
