@@ -11,6 +11,4 @@ export const advancedSongs: SongCatalogEntry[] = [
   { id: 'chopin-etude-op10-4', title: 'Etude Op. 10 No. 4 in C# Minor', composer: 'Frédéric Chopin', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 130, keySignature: 'C#m', tags: ['chopin', 'etude', 'presto', 'two-hands'], requiresMidi: true },
   { id: 'chopin-fantaisie-impromptu', title: 'Fantaisie-Impromptu, Op. 66', composer: 'Frédéric Chopin', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 280, keySignature: 'C#m', tags: ['chopin', 'impromptu', 'virtuoso', 'two-hands'], requiresMidi: true },
   { id: 'beethoven-moonlight-3', title: 'Moonlight Sonata, 3rd mvt', composer: 'Ludwig van Beethoven', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 420, keySignature: 'C#m', tags: ['beethoven', 'sonata', 'presto', 'two-hands'], requiresMidi: true },
-  { id: 'liszt-dante-sonata', title: 'Après une Lecture de Dante', composer: 'Franz Liszt', genre: 'advanced', difficulty: 5, bpm: 100, durationSec: 900, keySignature: 'Dm', tags: ['liszt', 'sonata', 'virtuoso', 'two-hands'], requiresMidi: true },
-  { id: 'balakirev-islamey', title: 'Islamey', composer: 'Mily Balakirev', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 550, keySignature: 'Dbm', tags: ['balakirev', 'fantasy', 'virtuoso', 'two-hands'], requiresMidi: true },
 ];

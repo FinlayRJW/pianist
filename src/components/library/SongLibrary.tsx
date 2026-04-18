@@ -12,15 +12,12 @@ import type { SongGenre, SongMeta } from '../../types';
 const GENRES: { value: SongGenre | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'beginner', label: 'First Steps' },
-  { value: 'folk', label: 'Folk' },
-  { value: 'popular', label: 'Golden Age' },
   { value: 'baroque', label: 'Baroque' },
   { value: 'classical', label: 'Classical' },
   { value: 'romantic', label: 'Romantic' },
   { value: 'impressionist', label: 'Impressionist' },
   { value: 'jazz', label: 'Jazz' },
   { value: 'advanced', label: 'Advanced' },
-  { value: 'god', label: 'God Tier' },
 ];
 
 type SortKey = 'difficulty' | 'name' | 'stars';

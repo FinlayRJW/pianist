@@ -131,8 +131,6 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
           <div className="font-medium" style={{ color: areaColor }}>{song.title}</div>
           {isUnlocked && needsMidi ? (
             <div style={{ color: 'var(--text-secondary)' }}>Requires MIDI keyboard</div>
-          ) : node.areaId === 'god' ? (
-            <div style={{ color: 'var(--text-secondary)' }}>Get 3 stars on all songs</div>
           ) : !isAreaUnlocked ? (
             <div style={{ color: 'var(--text-secondary)' }}>Unlock this constellation first</div>
           ) : reqSong ? (

@@ -1,15 +1,11 @@
 import type { SongCatalogEntry } from './types';
 
 export const romanticSongs: SongCatalogEntry[] = [
-  // === Difficulty 3 ===
   { id: 'burgmuller-arabesque', title: 'Arabesque, Op. 100 No. 2', composer: 'Friedrich Burgmüller', genre: 'romantic', difficulty: 3, bpm: 140, durationSec: 55, keySignature: 'Am', tags: ['burgmuller', 'etude', 'teaching-piece'] },
-  { id: 'grieg-morning-mood', title: 'Morning Mood (Peer Gynt)', composer: 'Edvard Grieg', genre: 'romantic', difficulty: 3, bpm: 60, durationSec: 70, keySignature: 'E', tags: ['grieg', 'arrangement', 'famous'] },
   { id: 'schumann-traumerei', title: 'Träumerei (Kinderszenen No. 7)', composer: 'Robert Schumann', genre: 'romantic', difficulty: 3, bpm: 56, durationSec: 160, keySignature: 'F', tags: ['schumann', 'kinderszenen', 'lyrical', 'two-hands'], requiresMidi: true },
   { id: 'mendelssohn-song-spring', title: 'Spring Song (Songs Without Words)', composer: 'Felix Mendelssohn', genre: 'romantic', difficulty: 3, bpm: 80, durationSec: 150, keySignature: 'A', tags: ['mendelssohn', 'songs-without-words', 'two-hands'], requiresMidi: true },
   { id: 'chopin-prelude-e-minor', title: 'Prelude Op. 28 No. 4 in E Minor', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 3, bpm: 55, durationSec: 120, keySignature: 'Em', tags: ['chopin', 'prelude', 'two-hands'], requiresMidi: true },
   { id: 'grieg-waltz-op12-2', title: 'Waltz, Op. 12 No. 2', composer: 'Edvard Grieg', genre: 'romantic', difficulty: 3, bpm: 130, durationSec: 100, timeSignature: [3, 4], keySignature: 'Am', tags: ['grieg', 'lyric-piece', 'waltz', 'two-hands'], requiresMidi: true },
-
-  // === Difficulty 4 ===
   { id: 'chopin-nocturne-op9-2', title: 'Nocturne Op. 9 No. 2 in Eb Major', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 4, bpm: 65, durationSec: 270, keySignature: 'Eb', tags: ['chopin', 'nocturne', 'two-hands'], requiresMidi: true },
   { id: 'chopin-prelude-raindrop', title: 'Prelude Op. 28 No. 15 "Raindrop"', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 4, bpm: 60, durationSec: 330, keySignature: 'Db', tags: ['chopin', 'prelude', 'raindrop', 'two-hands'], requiresMidi: true },
   { id: 'chopin-etude-op10-3', title: 'Etude Op. 10 No. 3 "Tristesse"', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 4, bpm: 65, durationSec: 250, keySignature: 'E', tags: ['chopin', 'etude', 'two-hands'], requiresMidi: true },
@@ -21,12 +17,8 @@ export const romanticSongs: SongCatalogEntry[] = [
   { id: 'chopin-waltz-minute', title: 'Minute Waltz, Op. 64 No. 1', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 4, bpm: 140, durationSec: 110, timeSignature: [3, 4], keySignature: 'Db', tags: ['chopin', 'waltz', 'virtuoso', 'two-hands'], requiresMidi: true },
   { id: 'chopin-waltz-csharp-minor', title: 'Waltz in C# Minor, Op. 64 No. 2', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 4, bpm: 110, durationSec: 270, timeSignature: [3, 4], keySignature: 'C#m', tags: ['chopin', 'waltz', 'two-hands'], requiresMidi: true },
   { id: 'liszt-consolation-3', title: 'Consolation No. 3 in Db Major', composer: 'Franz Liszt', genre: 'romantic', difficulty: 4, bpm: 50, durationSec: 250, keySignature: 'Db', tags: ['liszt', 'consolation', 'lyrical', 'two-hands'], requiresMidi: true },
-
-  // === Difficulty 5 ===
   { id: 'rachmaninoff-prelude-csharp', title: 'Prelude in C# Minor, Op. 3 No. 2', composer: 'Sergei Rachmaninoff', genre: 'romantic', difficulty: 5, bpm: 55, durationSec: 240, keySignature: 'C#m', tags: ['rachmaninoff', 'prelude', 'two-hands'], requiresMidi: true },
   { id: 'rachmaninoff-prelude-g-minor', title: 'Prelude in G Minor, Op. 23 No. 5', composer: 'Sergei Rachmaninoff', genre: 'romantic', difficulty: 5, bpm: 95, durationSec: 230, keySignature: 'Gm', tags: ['rachmaninoff', 'prelude', 'two-hands'], requiresMidi: true },
-
-  // === Difficulty 5 ===
   { id: 'chopin-ballade-1', title: 'Ballade No. 1 in G Minor, Op. 23', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 70, durationSec: 540, keySignature: 'Gm', tags: ['chopin', 'ballade', 'virtuoso', 'two-hands'], requiresMidi: true },
   { id: 'chopin-etude-op10-12', title: 'Etude Op. 10 No. 12 "Revolutionary"', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 150, durationSec: 160, keySignature: 'Cm', tags: ['chopin', 'etude', 'revolutionary', 'two-hands'], requiresMidi: true },
   { id: 'chopin-polonaise-53', title: 'Polonaise Op. 53 "Heroic"', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 120, durationSec: 370, keySignature: 'Ab', tags: ['chopin', 'polonaise', 'heroic', 'two-hands'], requiresMidi: true },

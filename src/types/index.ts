@@ -1,4 +1,4 @@
-export type SongGenre = 'beginner' | 'folk' | 'popular' | 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz' | 'advanced' | 'god';
+export type SongGenre = 'beginner' | 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz' | 'advanced';
 
 export interface SongMeta {
   id: string;

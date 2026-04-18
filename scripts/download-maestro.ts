@@ -1,6 +1,8 @@
-import { writeFileSync, mkdirSync, existsSync, createWriteStream } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { execSync } from 'child_process';
+import ToneJsMidi from '@tonejs/midi';
+const { Midi } = ToneJsMidi;
 
 const PUBLIC_DIR = join(import.meta.dirname, '..', 'public', 'midi');
 const TEMP_DIR = join(import.meta.dirname, '..', '.maestro-temp');
@@ -15,46 +17,9 @@ interface MaestroMapping {
 }
 
 const DESIRED_PIECES: MaestroMapping[] = [
-  // BAROQUE - Bach inventions & preludes
-  { id: 'bach-invention-1', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Invention' },
-  { id: 'bach-invention-4', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Invention' },
-  { id: 'bach-invention-8', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Invention' },
-  { id: 'bach-invention-13', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Invention' },
-  { id: 'bach-prelude-2', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Well-Tempered' },
-  { id: 'bach-fugue-2', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Well-Tempered' },
-  { id: 'jesu-joy', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Jesu' },
-  { id: 'sheep-may-safely-graze', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Sheep' },
-  { id: 'scarlatti-k466', genre: 'baroque', searchComposer: 'Domenico Scarlatti', searchTitle: 'K. 466' },
-  { id: 'scarlatti-k525', genre: 'baroque', searchComposer: 'Domenico Scarlatti', searchTitle: 'K. 525' },
-  { id: 'handel-chaconne', genre: 'baroque', searchComposer: 'George Frideric Handel', searchTitle: 'Chaconne' },
-  { id: 'bach-chromatic-fantasy', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Chromatic Fantasy' },
-  { id: 'bach-english-suite-2', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'English Suite' },
-  { id: 'bach-prelude-cello', genre: 'baroque', searchComposer: 'Johann Sebastian Bach', searchTitle: 'Cello' },
-
-  // CLASSICAL
-  { id: 'fur-elise', genre: 'classical', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Elise' },
-  { id: 'moonlight-sonata', genre: 'classical', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Moonlight' },
-  { id: 'mozart-k545-1', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'K. 545' },
-  { id: 'mozart-alla-turca', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'K. 331' },
-  { id: 'mozart-fantasy-d-minor', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'Fantasy' },
-  { id: 'beethoven-pathetique-2', genre: 'classical', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Path' },
-  { id: 'beethoven-tempest-3', genre: 'classical', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Tempest' },
-  { id: 'haydn-sonata-c', genre: 'classical', searchComposer: 'Joseph Haydn', searchTitle: 'C major' },
-  { id: 'mozart-rondo-k511', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'K. 511' },
-  { id: 'haydn-sonata-e-minor', genre: 'classical', searchComposer: 'Joseph Haydn', searchTitle: 'E Minor' },
-  { id: 'haydn-sonata-c-hob50', genre: 'classical', searchComposer: 'Joseph Haydn', searchTitle: 'Hob. XVI:50' },
-  { id: 'mozart-k457-1', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'K. 457' },
-  { id: 'beethoven-waldstein-1', genre: 'classical', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Waldstein' },
-  { id: 'mendelssohn-rondo-capriccioso', genre: 'classical', searchComposer: 'Felix Mendelssohn', searchTitle: 'Rondo Capriccioso' },
-  { id: 'clementi-sonatina-1', genre: 'classical', searchComposer: 'Muzio Clementi', searchTitle: 'Op. 24' },
-  { id: 'clementi-sonatina-3', genre: 'classical', searchComposer: 'Muzio Clementi', searchTitle: 'Op. 25' },
-  { id: 'mozart-twinkle-variations', genre: 'classical', searchComposer: 'Wolfgang Amadeus Mozart', searchTitle: 'Variations' },
-
-  // ROMANTIC
+  // ROMANTIC (not in download-all-midis.ts)
   { id: 'chopin-prelude-e-minor', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Prelude' },
   { id: 'chopin-nocturne-op9-2', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Nocturne' },
-  { id: 'chopin-waltz-minute', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Waltz' },
-  { id: 'chopin-waltz-csharp-minor', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Waltz' },
   { id: 'chopin-prelude-raindrop', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Prelude' },
   { id: 'chopin-etude-op10-3', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Etude' },
   { id: 'chopin-ballade-1', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Ballade' },
@@ -62,41 +27,27 @@ const DESIRED_PIECES: MaestroMapping[] = [
   { id: 'chopin-polonaise-53', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Polonaise' },
   { id: 'chopin-scherzo-2', genre: 'romantic', searchComposer: 'Chopin', searchTitle: 'Scherzo' },
   { id: 'liszt-liebestraum-3', genre: 'romantic', searchComposer: 'Franz Liszt', searchTitle: 'Liebes' },
-  { id: 'schumann-traumerei', genre: 'romantic', searchComposer: 'Robert Schumann', searchTitle: 'Kinderszenen' },
   { id: 'schumann-arabesque', genre: 'romantic', searchComposer: 'Robert Schumann', searchTitle: 'Arabesque' },
   { id: 'brahms-intermezzo-op118-2', genre: 'romantic', searchComposer: 'Johannes Brahms', searchTitle: 'Op. 118' },
   { id: 'schubert-impromptu-op90-3', genre: 'romantic', searchComposer: 'Franz Schubert', searchTitle: 'Impromptu' },
   { id: 'schubert-impromptu-op90-2', genre: 'romantic', searchComposer: 'Franz Schubert', searchTitle: 'Impromptu' },
   { id: 'grieg-waltz-op12-2', genre: 'romantic', searchComposer: 'Edvard Grieg', searchTitle: 'Waltz' },
   { id: 'rachmaninoff-prelude-csharp', genre: 'romantic', searchComposer: 'Sergei Rachmaninoff', searchTitle: 'C' },
-  { id: 'rachmaninoff-prelude-g-minor', genre: 'romantic', searchComposer: 'Sergei Rachmaninoff', searchTitle: 'G Minor' },
-  { id: 'mendelssohn-song-spring', genre: 'romantic', searchComposer: 'Felix Mendelssohn', searchTitle: 'Songs' },
 
-  // IMPRESSIONIST
-  { id: 'debussy-arabesque-1', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Arabesque' },
-  { id: 'debussy-clair-de-lune', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Clair' },
+  // IMPRESSIONIST (not in download-all-midis.ts)
   { id: 'debussy-reverie', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Rever' },
   { id: 'debussy-girl-flaxen-hair', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Flaxen' },
   { id: 'debussy-doctor-gradus', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Gradus' },
-  { id: 'debussy-voiles', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Voiles' },
-  { id: 'debussy-estampes', genre: 'impressionist', searchComposer: 'Claude Debussy', searchTitle: 'Estampes' },
 
-  // ADVANCED
+  // ADVANCED (not in download-all-midis.ts)
   { id: 'liszt-la-campanella', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Campanella' },
   { id: 'liszt-hungarian-rhapsody-2', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Hungarian Rhapsody No. 2' },
   { id: 'liszt-mephisto-waltz-1', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Mephisto' },
   { id: 'scriabin-etude-op8-12', genre: 'advanced', searchComposer: 'Alexander Scriabin', searchTitle: 'Etude Op. 8' },
   { id: 'rachmaninoff-etude-op39-5', genre: 'advanced', searchComposer: 'Sergei Rachmaninoff', searchTitle: 'Etude' },
-  { id: 'balakirev-islamey', genre: 'advanced', searchComposer: 'Mily Balakirev', searchTitle: 'Islamey' },
   { id: 'mussorgsky-pictures', genre: 'advanced', searchComposer: 'Modest Mussorgsky', searchTitle: 'Pictures' },
   { id: 'chopin-etude-op10-4', genre: 'advanced', searchComposer: 'Chopin', searchTitle: 'Etude' },
-  { id: 'beethoven-moonlight-3', genre: 'advanced', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Moonlight' },
   { id: 'beethoven-appassionata-1', genre: 'advanced', searchComposer: 'Ludwig van Beethoven', searchTitle: 'Appassionata' },
-  { id: 'liszt-dante-sonata', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Dante' },
-  { id: 'bach-busoni-chaconne', genre: 'advanced', searchComposer: 'Johann Sebastian Bach / Ferruccio Busoni', searchTitle: 'Chaconne' },
-  { id: 'chopin-fantaisie-impromptu', genre: 'advanced', searchComposer: 'Chopin', searchTitle: 'Fantaisie' },
-  { id: 'liszt-consolation-3', genre: 'romantic', searchComposer: 'Franz Liszt', searchTitle: 'Consolation' },
-  { id: 'liszt-transcendental-10', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Transcendental' },
 ];
 
 interface CsvRow {
@@ -144,11 +95,63 @@ function findBestMatch(rows: CsvRow[], mapping: MaestroMapping): CsvRow | null {
   return candidates[0];
 }
 
+function normalizeToTwoTracks(filePath: string): void {
+  const buf = readFileSync(filePath);
+  if (buf.length < 50 || buf.slice(0, 4).toString() !== 'MThd') return;
+
+  const midi = new Midi(buf);
+  const tracksWithNotes = midi.tracks.filter((t: any) => t.notes.length > 0);
+  if (tracksWithNotes.length === 0) return;
+  if (tracksWithNotes.length === 2) {
+    const t0Name = tracksWithNotes[0].name.toLowerCase();
+    const t1Name = tracksWithNotes[1].name.toLowerCase();
+    const rhPatterns = ['right', 'upper', 'up:', 'piano r', 'treble', 'rh', 'one'];
+    const lhPatterns = ['left', 'lower', 'down:', 'piano l', 'bass', 'lh', 'two'];
+    if (rhPatterns.some(p => t0Name.includes(p)) || lhPatterns.some(p => t1Name.includes(p))) {
+      return;
+    }
+  }
+
+  const allNotes = tracksWithNotes.flatMap((t: any) =>
+    t.notes.map((n: any) => ({ midi: n.midi, time: n.time, duration: n.duration, velocity: Math.round(n.velocity * 127) }))
+  );
+
+  const rightNotes = allNotes.filter((n: any) => n.midi >= 60);
+  const leftNotes = allNotes.filter((n: any) => n.midi < 60);
+
+  const newMidi = new Midi();
+  newMidi.header.setTempo(midi.header.tempos[0]?.bpm ?? 120);
+  newMidi.header.timeSignatures = midi.header.timeSignatures;
+  newMidi.header.name = midi.header.name;
+
+  const rhTrack = newMidi.addTrack();
+  rhTrack.name = 'Right Hand';
+  rhTrack.channel = 0;
+  for (const n of rightNotes) {
+    rhTrack.addNote({ midi: n.midi, time: n.time, duration: n.duration, velocity: n.velocity / 127 });
+  }
+
+  const lhTrack = newMidi.addTrack();
+  lhTrack.name = 'Left Hand';
+  lhTrack.channel = 1;
+  for (const n of leftNotes) {
+    lhTrack.addNote({ midi: n.midi, time: n.time, duration: n.duration, velocity: n.velocity / 127 });
+  }
+
+  writeFileSync(filePath, Buffer.from(newMidi.toArray()));
+}
+
 async function downloadFile(url: string, destPath: string): Promise<boolean> {
   try {
     execSync(`curl -sL -o "${destPath}" "${url}"`, { timeout: 30000 });
+    const buf = readFileSync(destPath);
+    if (buf.length < 50 || buf.slice(0, 4).toString() !== 'MThd') {
+      execSync(`rm -f "${destPath}"`);
+      return false;
+    }
     return true;
   } catch {
+    try { execSync(`rm -f "${destPath}"`); } catch {}
     return false;
   }
 }
@@ -168,7 +171,14 @@ async function main() {
     const destPath = join(destDir, `${mapping.id}.mid`);
 
     if (existsSync(destPath)) {
-      console.log(`  ⏭ ${mapping.genre}/${mapping.id}.mid (already exists)`);
+      try {
+        normalizeToTwoTracks(destPath);
+        const normalized = new Midi(readFileSync(destPath));
+        const noteTrackCount = normalized.tracks.filter((t: any) => t.notes.length > 0).length;
+        console.log(`  ⏭ ${mapping.genre}/${mapping.id}.mid (exists, ${noteTrackCount} tracks)`);
+      } catch {
+        console.log(`  ⏭ ${mapping.genre}/${mapping.id}.mid (already exists)`);
+      }
       skipped++;
       continue;
     }
@@ -185,7 +195,15 @@ async function main() {
 
     const ok = await downloadFile(url, destPath);
     if (ok) {
-      console.log(`  ✓ ${mapping.genre}/${mapping.id}.mid (${match.canonical_composer}: ${match.canonical_title})`);
+      try {
+        normalizeToTwoTracks(destPath);
+        const normalized = new Midi(readFileSync(destPath));
+        const rh = normalized.tracks[0]?.notes.length ?? 0;
+        const lh = normalized.tracks[1]?.notes.length ?? 0;
+        console.log(`  ✓ ${mapping.genre}/${mapping.id}.mid (R:${rh} L:${lh}, ${match.canonical_composer}: ${match.canonical_title})`);
+      } catch {
+        console.log(`  ✓ ${mapping.genre}/${mapping.id}.mid (${match.canonical_composer}: ${match.canonical_title})`);
+      }
       downloaded++;
     } else {
       console.log(`  ✗ ${mapping.genre}/${mapping.id}.mid - download failed`);

@@ -11,26 +11,22 @@ const DIFFICULTY_COLORS = ['', 'text-emerald-400', 'text-green-400', 't-warning'
 
 const GENRE_DISPLAY: Record<string, string> = {
   beginner: 'First Steps',
-  folk: 'Folk',
   baroque: 'Baroque',
   classical: 'Classical',
   romantic: 'Romantic',
   impressionist: 'Impressionist',
   jazz: 'Jazz',
   advanced: 'Advanced',
-  god: 'God Tier',
 };
 
 const GENRE_COLORS: Record<string, string> = {
   beginner: 'bg-cyan-500/15 text-cyan-400',
-  folk: 'bg-emerald-500/15 text-emerald-400',
   baroque: 'bg-purple-500/15 text-purple-400',
   classical: 'bg-violet-500/15 text-violet-400',
   romantic: 'bg-pink-500/15 text-pink-400',
   impressionist: 'bg-sky-500/15 text-sky-400',
   jazz: 'bg-amber-500/15 text-amber-400',
   advanced: 'bg-yellow-500/15 text-yellow-400',
-  god: 'bg-red-500/15 text-red-400',
 };
 
 export function SongCard({ song, bestStars = 0, onClick }: Props) {
@@ -60,8 +56,8 @@ export function SongCard({ song, bestStars = 0, onClick }: Props) {
         <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${GENRE_COLORS[song.genre] ?? 't-bg-overlay t-text-secondary'}`}>
           {GENRE_DISPLAY[song.genre] ?? song.genre}
         </span>
-        <span className={`text-xs font-medium ${song.genre === 'god' ? 'text-red-400' : DIFFICULTY_COLORS[song.difficulty]}`}>
-          {song.genre === 'god' ? 'Impossible' : DIFFICULTY_LABELS[song.difficulty]}
+        <span className={`text-xs font-medium ${DIFFICULTY_COLORS[song.difficulty]}`}>
+          {DIFFICULTY_LABELS[song.difficulty]}
         </span>
         <span className="t-text-muted text-xs">&middot;</span>
         <span className="t-text-tertiary text-xs">{song.durationSec}s</span>
