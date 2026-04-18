@@ -124,6 +124,15 @@ export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
         </button>
       )}
 
+      {status === 'scanning' && (
+        <button
+          onClick={() => { resolvedRef.current = true; onNoMidi(); }}
+          className="px-6 py-2 rounded-full bg-white/10 text-white/50 font-medium hover:bg-white/20 hover:text-white/70 transition-colors"
+        >
+          I don't have MIDI
+        </button>
+      )}
+
       {status === 'not-found' && (
         <button
           onClick={onNoMidi}
