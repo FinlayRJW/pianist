@@ -53,7 +53,7 @@ export function OnboardingFlow() {
 
         {step === 'mic-calibration' && (
           <div className="animate-fadeIn">
-            <MicCalibrationStep onComplete={handleCalibrationComplete} autoStart />
+            <MicCalibrationStep onComplete={handleCalibrationComplete} />
           </div>
         )}
 

@@ -26,7 +26,7 @@ export function CalibrationModal({ onClose }: Props) {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
-        <MicCalibrationStep onComplete={handleComplete} autoStart />
+        <MicCalibrationStep onComplete={handleComplete} />
       </div>
     </div>
   );
