@@ -10,6 +10,7 @@ export interface CanvasTheme {
   noteLeft: string;
   noteActive: string;
   noteMiss: string;
+  nextColRgb: string;
   keyWhite: string;
   keyWhiteActive: string;
   keyBlack: string;
@@ -40,6 +41,7 @@ export function getCanvasTheme(): CanvasTheme {
     noteLeft: get('--color-note-left') || '#f59e0b',
     noteActive: get('--color-hit-perfect') || '#22d3ee',
     noteMiss: get('--color-hit-miss') || '#f87171',
+    nextColRgb: get('--canvas-next-col-rgb') || '99, 102, 241',
     keyWhite: get('--key-white'),
     keyWhiteActive: get('--key-white-active'),
     keyBlack: get('--key-black'),

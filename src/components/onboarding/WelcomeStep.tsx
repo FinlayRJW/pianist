@@ -23,7 +23,7 @@ export function WelcomeStep({ onContinue }: Props) {
                 }}
               />
               {hasBlack && i < 6 && (
-                <div className="absolute -right-2 top-0 w-6 h-16 bg-midnight rounded-b-md z-10 border t-border-light" />
+                <div className="absolute -right-2 top-0 w-6 h-16 rounded-b-md z-10" style={{ backgroundColor: 'var(--key-black)', borderColor: 'var(--key-black-border)', borderWidth: 1 }} />
               )}
             </div>
           );

@@ -95,7 +95,7 @@ const DESIRED_PIECES: MaestroMapping[] = [
   { id: 'liszt-dante-sonata', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Dante' },
   { id: 'bach-busoni-chaconne', genre: 'advanced', searchComposer: 'Johann Sebastian Bach / Ferruccio Busoni', searchTitle: 'Chaconne' },
   { id: 'chopin-fantaisie-impromptu', genre: 'advanced', searchComposer: 'Chopin', searchTitle: 'Fantaisie' },
-  { id: 'liszt-consolation-3', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Consolation' },
+  { id: 'liszt-consolation-3', genre: 'romantic', searchComposer: 'Franz Liszt', searchTitle: 'Consolation' },
   { id: 'liszt-transcendental-10', genre: 'advanced', searchComposer: 'Franz Liszt', searchTitle: 'Transcendental' },
 ];
 

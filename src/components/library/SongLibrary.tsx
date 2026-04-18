@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SONG_CATALOG } from '../../data/songs';
 import { useProgressStore } from '../../stores/progressStore';
@@ -7,18 +7,20 @@ import { SongCard } from './SongCard';
 import { MidiImport } from './MidiImport';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { NavigationTabs } from '../skilltree/NavigationTabs';
-import type { SongGenre } from '../../types';
+import type { SongGenre, SongMeta } from '../../types';
 
 const GENRES: { value: SongGenre | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'beginner', label: 'First Steps' },
   { value: 'folk', label: 'Folk' },
+  { value: 'popular', label: 'Golden Age' },
   { value: 'baroque', label: 'Baroque' },
   { value: 'classical', label: 'Classical' },
   { value: 'romantic', label: 'Romantic' },
   { value: 'impressionist', label: 'Impressionist' },
   { value: 'jazz', label: 'Jazz' },
   { value: 'advanced', label: 'Advanced' },
+  { value: 'god', label: 'God Tier' },
 ];
 
 type SortKey = 'difficulty' | 'name' | 'stars';
@@ -34,25 +36,34 @@ export function SongLibrary() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState<SortKey>('difficulty');
 
-  const filtered = useMemo(() => {
-    let songs = [...SONG_CATALOG, ...importedSongs];
-    if (genre !== 'all') songs = songs.filter((s) => s.genre === genre);
-    if (difficulty > 0) songs = songs.filter((s) => s.difficulty === difficulty);
+  const applyFilters = useCallback((songs: SongMeta[]) => {
+    let result = [...songs];
+    if (genre !== 'all') result = result.filter((s) => s.genre === genre);
+    if (difficulty > 0) result = result.filter((s) => s.difficulty === difficulty);
     if (search.trim()) {
       const q = search.toLowerCase();
-      songs = songs.filter(
+      result = result.filter(
         (s) =>
           s.title.toLowerCase().includes(q) ||
           s.composer.toLowerCase().includes(q),
       );
     }
-    songs.sort((a, b) => {
+    result.sort((a, b) => {
       if (sort === 'name') return a.title.localeCompare(b.title);
       if (sort === 'stars') return (bestStars[b.id] ?? 0) - (bestStars[a.id] ?? 0);
       return a.difficulty - b.difficulty;
     });
-    return songs;
-  }, [genre, difficulty, search, sort, bestStars, importedSongs]);
+    return result;
+  }, [genre, difficulty, search, sort, bestStars]);
+
+  const filteredImported = useMemo(
+    () => applyFilters(importedSongs),
+    [applyFilters, importedSongs],
+  );
+  const filteredCatalog = useMemo(
+    () => applyFilters(SONG_CATALOG),
+    [applyFilters],
+  );
 
   return (
     <div className="flex-1 overflow-y-auto relative">
@@ -155,10 +166,34 @@ export function SongLibrary() {
           </div>
         </div>
 
-        <p className="text-xs t-text-muted mb-3">{filtered.length} songs</p>
+        <p className="text-xs t-text-muted mb-3">{filteredImported.length + filteredCatalog.length} songs</p>
 
         <div className="grid gap-3 pb-8">
-          {filtered.map((song) => (
+          {filteredImported.length > 0 && (
+            <>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs font-medium t-text-secondary">Your Songs</span>
+                <span className="text-[10px] t-text-muted">({filteredImported.length})</span>
+                <div className="flex-1 h-px t-bg-overlay" />
+              </div>
+              {filteredImported.map((song) => (
+                <SongCard
+                  key={song.id}
+                  song={song}
+                  bestStars={bestStars[song.id] || 0}
+                  onClick={() => navigate(`/play/${song.id}`, { state: { from: '/songs' } })}
+                />
+              ))}
+            </>
+          )}
+          {filteredImported.length > 0 && filteredCatalog.length > 0 && (
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-xs font-medium t-text-secondary">Catalogue</span>
+              <span className="text-[10px] t-text-muted">({filteredCatalog.length})</span>
+              <div className="flex-1 h-px t-bg-overlay" />
+            </div>
+          )}
+          {filteredCatalog.map((song) => (
             <SongCard
               key={song.id}
               song={song}
@@ -166,7 +201,7 @@ export function SongLibrary() {
               onClick={() => navigate(`/play/${song.id}`, { state: { from: '/songs' } })}
             />
           ))}
-          {filtered.length === 0 && (
+          {filteredImported.length === 0 && filteredCatalog.length === 0 && (
             <p className="text-center t-text-tertiary py-12 text-sm">No songs match your filters</p>
           )}
         </div>

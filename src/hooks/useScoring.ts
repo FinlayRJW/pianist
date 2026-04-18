@@ -8,13 +8,14 @@ const MIDI_TIMING = { perfect: 50, great: 100, good: 200 };
 const POINTS = { perfect: 100, great: 75, good: 50, miss: 0 };
 
 const SUSTAIN_MIN_DURATION = 0.4;
-const SUSTAIN_CHECK_RATIO = 0.4;
-const SUSTAIN_CHECK_MIN_DELAY = 0.3;
+const SUSTAIN_GRACE = 0.1;
 
 interface SustainCheck {
   midi: number;
-  checkTime: number;
+  graceTime: number;
+  endTime: number;
   pointsAwarded: number;
+  penalized: boolean;
 }
 
 function comboMultiplier(combo: number): number {
@@ -91,7 +92,13 @@ export function useScoring(
         }
       }
 
-      if (bestIdx === -1) return;
+      if (bestIdx === -1) {
+        if (usingMidi) {
+          comboRef.current = 0;
+          lastRatingRef.current = { rating: 'miss', time: performance.now() };
+        }
+        return;
+      }
 
       const delta = notes[bestIdx].startTime * 1000 - currentTime;
       let rating: NoteHit['rating'];
@@ -120,11 +127,12 @@ export function useScoring(
 
           const noteDur = notes[ni].duration;
           if (noteDur > SUSTAIN_MIN_DURATION) {
-            const delay = Math.max(noteDur * SUSTAIN_CHECK_RATIO, SUSTAIN_CHECK_MIN_DELAY);
             sustainChecksRef.current.set(ni, {
               midi: notes[ni].midi,
-              checkTime: notes[ni].startTime + delay,
+              graceTime: notes[ni].startTime + SUSTAIN_GRACE,
+              endTime: notes[ni].startTime + noteDur,
               pointsAwarded: pts,
+              penalized: false,
             });
           }
         }
@@ -204,26 +212,49 @@ export function useScoring(
     }
   }, [notes, timeRef, usingMidi, chordData]);
 
+  const penalizeSustain = useCallback((noteIdx: number, check: SustainCheck) => {
+    check.penalized = true;
+    scoreRef.current -= check.pointsAwarded;
+    if (scoreRef.current < 0) scoreRef.current = 0;
+    hitNotesRef.current.delete(noteIdx);
+    missedNotesRef.current.add(noteIdx);
+    const hitRecord = hitsRef.current.find(h => h.noteIndex === noteIdx);
+    if (hitRecord) hitRecord.rating = 'miss';
+    comboRef.current = 0;
+    lastRatingRef.current = { rating: 'miss', time: performance.now() };
+  }, []);
+
   const checkSustain = useCallback((activeNotes: Set<number>) => {
     const currentTime = timeRef.current ?? 0;
     const checks = sustainChecksRef.current;
 
     for (const [noteIdx, check] of checks) {
-      if (currentTime < check.checkTime) continue;
+      if (currentTime > check.endTime) {
+        checks.delete(noteIdx);
+        continue;
+      }
+      if (check.penalized) continue;
+      if (currentTime < check.graceTime) continue;
 
       if (!activeNotes.has(check.midi)) {
-        scoreRef.current -= check.pointsAwarded;
-        hitNotesRef.current.delete(noteIdx);
-        missedNotesRef.current.add(noteIdx);
-        const hitRecord = hitsRef.current.find(h => h.noteIndex === noteIdx);
-        if (hitRecord) hitRecord.rating = 'miss';
-        comboRef.current = 0;
-        lastRatingRef.current = { rating: 'miss', time: performance.now() };
+        penalizeSustain(noteIdx, check);
       }
-
-      checks.delete(noteIdx);
     }
-  }, [timeRef]);
+  }, [timeRef, penalizeSustain]);
+
+  const onNoteReleased = useCallback((midiNote: number) => {
+    if (!usingMidi) return;
+    const currentTime = timeRef.current ?? 0;
+    const checks = sustainChecksRef.current;
+
+    for (const [noteIdx, check] of checks) {
+      if (check.midi !== midiNote) continue;
+      if (check.penalized) continue;
+      if (currentTime < check.graceTime) continue;
+      if (currentTime > check.endTime) continue;
+      penalizeSustain(noteIdx, check);
+    }
+  }, [timeRef, usingMidi, penalizeSustain]);
 
   const getResults = useCallback((): SongScore => {
     const hits = hitsRef.current;
@@ -246,6 +277,7 @@ export function useScoring(
 
   return {
     onNoteDetected,
+    onNoteReleased,
     checkMisses,
     checkSustain,
     reset,

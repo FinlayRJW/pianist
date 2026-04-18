@@ -50,6 +50,7 @@
   --sheet-staff: rgba(255, 255, 255, 0.25);
   --sheet-note: rgba(255, 255, 255, 0.85);
   --sheet-active: #818cf8;
+  --canvas-next-col-rgb: 99, 102, 241;
 }
 
 [data-theme="light"] {
@@ -102,6 +103,7 @@
   --sheet-staff: rgba(0, 0, 0, 0.3);
   --sheet-note: rgba(0, 0, 0, 0.85);
   --sheet-active: #6366f1;
+  --canvas-next-col-rgb: 79, 70, 229;
 }
 
 @theme {
@@ -157,6 +159,13 @@ html, body, #root {
 
 .animate-scaleIn {
   animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes floatUp {
+  0% { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.5); }
+  12% { opacity: 1; transform: translateX(-50%) translateY(-25px) scale(1.15); }
+  25% { transform: translateX(-50%) translateY(-35px) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-100px) scale(0.85); }
 }
 
 @keyframes nodeGlow {

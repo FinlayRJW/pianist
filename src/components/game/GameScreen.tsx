@@ -66,6 +66,14 @@ export function GameScreen({ song, onBack }: Props) {
   }, [input, scoring, gameState, play]);
 
   useEffect(() => {
+    return input.onNoteOff((midi) => {
+      if (gameState === 'playing') {
+        scoring.onNoteReleased(midi);
+      }
+    });
+  }, [input, scoring, gameState]);
+
+  useEffect(() => {
     function measure() {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -103,15 +111,17 @@ export function GameScreen({ song, onBack }: Props) {
   );
 
   const addScore = useProgressStore((s) => s.addScore);
+  const unlockedNodes = useProgressStore((s) => s.unlockedNodes);
 
   useEffect(() => {
     if (gameState === 'results' && !results) {
       const r = scoring.getResults();
       r.songId = song.meta.id;
       setResults(r);
-      addScore(r);
+      const songUnlocked = unlockedNodes.includes(song.meta.id);
+      addScore(r, songUnlocked);
     }
-  }, [gameState, results, scoring, song.meta.id, addScore]);
+  }, [gameState, results, scoring, song.meta.id, addScore, unlockedNodes]);
 
   const togglePlay = useCallback(() => {
     if (gameState === 'playing' || gameState === 'countdown') {
@@ -401,7 +411,7 @@ export function GameScreen({ song, onBack }: Props) {
 
       {/* Idle overlay */}
       {gameState === 'idle' && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-5 pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center z-5 pointer-events-none">
           <div className="flex flex-col items-center pointer-events-auto">
             <button
               onClick={() => { Tone.start(); play(); }}

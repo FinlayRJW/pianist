@@ -50,6 +50,8 @@ export function drawFrame(
 
   const startIdx = binarySearchStart(notes, minTime);
 
+  drawNextNoteHighlight(ctx, notes, currentTime, canvasWidth, canvasHeight, hitNotes, missedNotes, theme);
+
   const activeNoteMap = new Map<number, number>();
   for (let i = startIdx; i < notes.length; i++) {
     const note = notes[i];
@@ -120,6 +122,40 @@ function getAllWhiteKeyXPositions(canvasWidth: number): number[] {
     positions.push(i * whiteKeyWidth);
   }
   return positions;
+}
+
+function drawNextNoteHighlight(
+  ctx: CanvasRenderingContext2D,
+  notes: Note[],
+  currentTime: number,
+  canvasWidth: number,
+  canvasHeight: number,
+  hitNotes: Set<number>,
+  missedNotes: Set<number>,
+  theme: ReturnType<typeof getCanvasTheme>,
+) {
+  for (let i = 0; i < notes.length; i++) {
+    if (hitNotes.has(i) || missedNotes.has(i)) continue;
+    if (notes[i].startTime < currentTime - 0.5) continue;
+
+    const targetTime = notes[i].startTime;
+    const seen = new Set<number>();
+    for (let j = i; j < notes.length && notes[j].startTime - targetTime < 0.03; j++) {
+      if (hitNotes.has(j) || missedNotes.has(j)) continue;
+      if (seen.has(notes[j].midi)) continue;
+      seen.add(notes[j].midi);
+      const keyInfo = getNoteX(canvasWidth, notes[j].midi);
+      if (!keyInfo) continue;
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+      gradient.addColorStop(0, `rgba(${theme.nextColRgb}, 0)`);
+      gradient.addColorStop(0.7, `rgba(${theme.nextColRgb}, 0.05)`);
+      gradient.addColorStop(1, `rgba(${theme.nextColRgb}, 0.12)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(keyInfo.x, 0, keyInfo.width, canvasHeight);
+    }
+    break;
+  }
 }
 
 function drawNote(

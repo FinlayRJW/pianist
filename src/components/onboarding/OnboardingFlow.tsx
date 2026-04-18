@@ -2,23 +2,21 @@ import { useState, useCallback } from 'react';
 import { WelcomeStep } from './WelcomeStep';
 import { MidiCheckStep } from './MidiCheckStep';
 import { MicCalibrationStep } from './MicCalibrationStep';
-import { CompleteStep } from './CompleteStep';
+import { HandPlacementStep } from './HandPlacementStep';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import type { CalibrationData } from '../../stores/onboardingStore';
 
-type Step = 'welcome' | 'midi-check' | 'mic-calibration' | 'complete';
+type Step = 'welcome' | 'midi-check' | 'mic-calibration' | 'hand-placement';
 
 export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('welcome');
-  const [completeMode, setCompleteMode] = useState<'midi' | 'mic'>('mic');
-  const [completeDetail, setCompleteDetail] = useState('');
+  const [inputMode, setInputMode] = useState<'midi' | 'mic'>('mic');
 
   const { completeOnboarding, setCalibration } = useOnboardingStore();
 
-  const handleMidiFound = useCallback((deviceName: string) => {
-    setCompleteMode('midi');
-    setCompleteDetail(deviceName);
-    setStep('complete');
+  const handleMidiFound = useCallback(() => {
+    setInputMode('midi');
+    setStep('hand-placement');
   }, []);
 
   const handleNoMidi = useCallback(() => {
@@ -27,9 +25,8 @@ export function OnboardingFlow() {
 
   const handleCalibrationComplete = useCallback((data: CalibrationData) => {
     setCalibration(data);
-    setCompleteMode('mic');
-    setCompleteDetail('Microphone calibrated');
-    setStep('complete');
+    setInputMode('mic');
+    setStep('hand-placement');
   }, [setCalibration]);
 
   const handleFinish = useCallback(() => {
@@ -58,9 +55,9 @@ export function OnboardingFlow() {
           </div>
         )}
 
-        {step === 'complete' && (
+        {step === 'hand-placement' && (
           <div className="animate-fadeIn">
-            <CompleteStep mode={completeMode} detail={completeDetail} onFinish={handleFinish} />
+            <HandPlacementStep hasMidi={inputMode === 'midi'} onFinish={handleFinish} />
           </div>
         )}
       </div>

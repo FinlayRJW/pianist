@@ -4,12 +4,14 @@ import { SONG_CATALOG } from './songs';
 export const SKILL_TREE_AREAS: SkillTreeArea[] = [
   { id: 'beginner', name: 'First Steps', genre: 'beginner', order: 0, starsToUnlock: 0, description: 'Learn the basics', color: '#22d3ee' },
   { id: 'folk', name: 'Folk & Traditional', genre: 'folk', order: 1, starsToUnlock: 4, description: 'Classic melodies everyone knows', color: '#34d399' },
-  { id: 'baroque', name: 'Baroque', genre: 'baroque', order: 2, starsToUnlock: 4, description: 'Bach, Handel, Scarlatti', color: '#c084fc' },
-  { id: 'classical', name: 'Classical', genre: 'classical', order: 3, starsToUnlock: 4, description: 'Mozart, Beethoven, Haydn', color: '#a78bfa' },
-  { id: 'romantic', name: 'Romantic', genre: 'romantic', order: 4, starsToUnlock: 4, description: 'Chopin, Liszt, Schumann', color: '#f472b6' },
-  { id: 'impressionist', name: 'Impressionist', genre: 'impressionist', order: 5, starsToUnlock: 4, description: 'Debussy, Satie, Ravel', color: '#67e8f9' },
-  { id: 'jazz', name: 'Jazz & Ragtime', genre: 'jazz', order: 6, starsToUnlock: 4, description: 'Joplin and early jazz', color: '#f59e0b' },
-  { id: 'advanced', name: 'Master Class', genre: 'advanced', order: 7, starsToUnlock: 4, description: 'The ultimate challenge', color: '#fbbf24' },
+  { id: 'popular', name: 'Golden Age', genre: 'popular', order: 2, starsToUnlock: 4, description: 'Timeless pre-1929 standards', color: '#fb923c' },
+  { id: 'baroque', name: 'Baroque', genre: 'baroque', order: 3, starsToUnlock: 4, description: 'Bach, Handel, Scarlatti', color: '#c084fc' },
+  { id: 'classical', name: 'Classical', genre: 'classical', order: 4, starsToUnlock: 4, description: 'Mozart, Beethoven, Haydn', color: '#a78bfa' },
+  { id: 'romantic', name: 'Romantic', genre: 'romantic', order: 5, starsToUnlock: 4, description: 'Chopin, Liszt, Schumann', color: '#f472b6' },
+  { id: 'impressionist', name: 'Impressionist', genre: 'impressionist', order: 6, starsToUnlock: 4, description: 'Debussy, Satie, Ravel', color: '#67e8f9' },
+  { id: 'jazz', name: 'Jazz & Ragtime', genre: 'jazz', order: 7, starsToUnlock: 4, description: 'Joplin and early jazz', color: '#f59e0b' },
+  { id: 'advanced', name: 'Master Class', genre: 'advanced', order: 8, starsToUnlock: 4, description: 'The ultimate challenge', color: '#fbbf24' },
+  { id: 'god', name: 'God Tier', genre: 'god', order: 9, starsToUnlock: -1, description: '3-star everything else. We dare you.', color: '#ef4444' },
 ];
 
 const TOP_PAD = 60;
