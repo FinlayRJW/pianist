@@ -3,15 +3,15 @@ import { PitchDetector } from 'pitchy';
 import { frequencyToMidi, midiToName } from '../utils/note-utils';
 
 const FFT_SIZE = 4096;
-const CLARITY_THRESHOLD = 0.85;
+const CLARITY_THRESHOLD = 0.7;
 const MIN_FREQUENCY = 55;
 const MAX_FREQUENCY = 2100;
 
-const ONSET_RMS_THRESHOLD = 0.007;
-const OFFSET_RMS_THRESHOLD = 0.003;
+const ONSET_RMS_THRESHOLD = 0.004;
+const OFFSET_RMS_THRESHOLD = 0.002;
 const RE_TRIGGER_DIP_RATIO = 0.35;
 
-const STABLE_FRAMES_REQUIRED = 2;
+const STABLE_FRAMES_REQUIRED = 1;
 const MIN_NOTE_GAP_FRAMES = 3;
 
 interface MicInputState {
@@ -20,6 +20,7 @@ interface MicInputState {
   error: string | null;
   detectedNote: string | null;
   rmsLevel: number;
+  clarity: number;
 }
 
 function computeRMS(buffer: Float32Array): number {
@@ -37,6 +38,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     error: null,
     detectedNote: null,
     rmsLevel: 0,
+    clarity: 0,
   });
 
   const activeNotesRef = useRef<Set<number>>(new Set());
@@ -111,10 +113,10 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
           }
         }
 
-        if (!noteActiveRef.current && rms >= onsetThreshold && gapCounterRef.current === 0) {
-          const [frequency, clarity] = detector.findPitch(buffer, audioContext.sampleRate);
+        const [frequency, curClarity] = detector.findPitch(buffer, audioContext.sampleRate);
 
-          if (clarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+        if (!noteActiveRef.current && rms >= onsetThreshold && gapCounterRef.current === 0) {
+          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
             const midi = frequencyToMidi(frequency);
 
             if (midi === candidateNoteRef.current) {
@@ -129,8 +131,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
             }
           }
         } else if (noteActiveRef.current) {
-          const [frequency, clarity] = detector.findPitch(buffer, audioContext.sampleRate);
-          if (clarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
             const midi = frequencyToMidi(frequency);
             if (midi !== currentNoteRef.current) {
               releaseNote();
@@ -139,7 +140,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
           }
         }
 
-        setState((prev) => ({ ...prev, rmsLevel: rms }));
+        setState((prev) => ({ ...prev, rmsLevel: rms, clarity: curClarity }));
         rafRef.current = requestAnimationFrame(detect);
       }
 
@@ -179,9 +180,9 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
       }
 
       rafRef.current = requestAnimationFrame(detect);
-      setState({ activeNotes: new Set(), isListening: true, error: null, detectedNote: null, rmsLevel: 0 });
+      setState({ activeNotes: new Set(), isListening: true, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
     } catch (err) {
-      setState({ activeNotes: new Set(), isListening: false, error: (err as Error).message, detectedNote: null, rmsLevel: 0 });
+      setState({ activeNotes: new Set(), isListening: false, error: (err as Error).message, detectedNote: null, rmsLevel: 0, clarity: 0 });
     }
   }, [sensitivityRef]);
 
@@ -203,7 +204,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     peakRmsRef.current = 0;
     gapCounterRef.current = 0;
     rmsHistoryRef.current = [];
-    setState({ activeNotes: new Set(), isListening: false, error: null, detectedNote: null, rmsLevel: 0 });
+    setState({ activeNotes: new Set(), isListening: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
   }, []);
 
   useEffect(() => {
@@ -222,6 +223,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     error: state.error,
     detectedNote: state.detectedNote,
     rmsLevel: state.rmsLevel,
+    clarity: state.clarity,
     onNoteOn: onNoteOnRef,
     onNoteOff: onNoteOffRef,
   };

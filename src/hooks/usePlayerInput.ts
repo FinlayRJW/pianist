@@ -35,6 +35,7 @@ export function usePlayerInput(enabled: boolean, sensitivityRef?: React.RefObjec
     error: mic.error,
     detectedNote: mic.detectedNote,
     rmsLevel: mic.rmsLevel,
+    clarity: mic.clarity,
     onNoteOn,
     onNoteOff,
   };

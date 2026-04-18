@@ -188,7 +188,7 @@ export function GameScreen({ song, onBack }: Props) {
           />
 
           {effectiveMicEnabled && (
-            <VolumeIndicator rms={rmsLevel} detectedNote={input.detectedNote} />
+            <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
           )}
 
           <ToggleSwitch
@@ -322,7 +322,7 @@ export function GameScreen({ song, onBack }: Props) {
   );
 }
 
-function VolumeIndicator({ rms, detectedNote }: { rms: number; detectedNote: string | null }) {
+function VolumeIndicator({ rms, clarity, detectedNote }: { rms: number; clarity: number; detectedNote: string | null }) {
   const level = Math.min(rms * 40, 1);
   const barCount = 5;
   return (
@@ -340,6 +340,9 @@ function VolumeIndicator({ rms, detectedNote }: { rms: number; detectedNote: str
           );
         })}
       </div>
+      <span className="text-[9px] font-mono text-white/30 min-w-[60px]">
+        {(rms * 1000).toFixed(0)} / {(clarity * 100).toFixed(0)}%
+      </span>
       {detectedNote && (
         <span className="text-xs font-mono text-accent-light min-w-[28px]">
           {detectedNote}
