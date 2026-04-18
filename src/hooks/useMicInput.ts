@@ -7,16 +7,26 @@ const CLARITY_THRESHOLD = 0.7;
 const MIN_FREQUENCY = 55;
 const MAX_FREQUENCY = 2100;
 
-const ONSET_RMS_THRESHOLD = 0.004;
-const OFFSET_RMS_THRESHOLD = 0.002;
+const FALLBACK_ONSET_THRESHOLD = 0.004;
+const FALLBACK_OFFSET_THRESHOLD = 0.002;
 const RE_TRIGGER_DIP_RATIO = 0.35;
 
 const STABLE_FRAMES_REQUIRED = 1;
 const MIN_NOTE_GAP_FRAMES = 3;
 
+const CALIBRATION_FRAMES = 30;
+const TARGET_RMS = 0.10;
+const MIN_GAIN = 1;
+const MAX_GAIN = 50;
+const NOISE_FLOOR_ONSET_MULTIPLIER = 6;
+const NOISE_FLOOR_OFFSET_MULTIPLIER = 3;
+const ABSOLUTE_MIN_ONSET = 0.005;
+const ABSOLUTE_MIN_OFFSET = 0.002;
+
 interface MicInputState {
   activeNotes: Set<number>;
   isListening: boolean;
+  calibrated: boolean;
   error: string | null;
   detectedNote: string | null;
   rmsLevel: number;
@@ -35,6 +45,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
   const [state, setState] = useState<MicInputState>({
     activeNotes: new Set(),
     isListening: false,
+    calibrated: false,
     error: null,
     detectedNote: null,
     rmsLevel: 0,
@@ -47,6 +58,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
   const rafRef = useRef<number>(0);
 
   const currentNoteRef = useRef<number | null>(null);
@@ -56,6 +68,11 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
   const peakRmsRef = useRef(0);
   const gapCounterRef = useRef(0);
   const rmsHistoryRef = useRef<number[]>([]);
+
+  const calibrationSamplesRef = useRef<number[]>([]);
+  const calibratedRef = useRef(false);
+  const adaptiveOnsetRef = useRef(FALLBACK_ONSET_THRESHOLD);
+  const adaptiveOffsetRef = useRef(FALLBACK_OFFSET_THRESHOLD);
 
   const startListening = useCallback(async () => {
     try {
@@ -72,19 +89,62 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
       audioContextRef.current = audioContext;
 
       const source = audioContext.createMediaStreamSource(stream);
+      const gainNode = audioContext.createGain();
+      gainNode.gain.value = 1.0;
+      gainNodeRef.current = gainNode;
+
       const analyser = audioContext.createAnalyser();
       analyser.fftSize = FFT_SIZE;
-      source.connect(analyser);
+
+      source.connect(gainNode);
+      gainNode.connect(analyser);
 
       const detector = PitchDetector.forFloat32Array(analyser.fftSize);
+      detector.minVolumeAbsolute = 0;
       const buffer = new Float32Array(analyser.fftSize);
+
+      function finishCalibration() {
+        const samples = calibrationSamplesRef.current;
+        const sorted = [...samples].sort((a, b) => a - b);
+        const median = sorted[Math.floor(sorted.length / 2)];
+
+        const estimatedPlayingRms = Math.max(median * 10, 0.001);
+        const desiredGain = TARGET_RMS / estimatedPlayingRms;
+        const clampedGain = Math.min(Math.max(desiredGain, MIN_GAIN), MAX_GAIN);
+
+        gainNode.gain.setValueAtTime(clampedGain, audioContext.currentTime);
+
+        const postGainNoiseFloor = median * clampedGain;
+        adaptiveOnsetRef.current = Math.max(
+          postGainNoiseFloor * NOISE_FLOOR_ONSET_MULTIPLIER,
+          ABSOLUTE_MIN_ONSET,
+        );
+        adaptiveOffsetRef.current = Math.max(
+          postGainNoiseFloor * NOISE_FLOOR_OFFSET_MULTIPLIER,
+          ABSOLUTE_MIN_OFFSET,
+        );
+
+        calibratedRef.current = true;
+        setState((prev) => ({ ...prev, calibrated: true }));
+      }
 
       function detect() {
         analyser.getFloatTimeDomainData(buffer);
         const rms = computeRMS(buffer);
+
+        if (!calibratedRef.current) {
+          calibrationSamplesRef.current.push(rms);
+          if (calibrationSamplesRef.current.length >= CALIBRATION_FRAMES) {
+            finishCalibration();
+          }
+          setState((prev) => ({ ...prev, rmsLevel: rms, clarity: 0 }));
+          rafRef.current = requestAnimationFrame(detect);
+          return;
+        }
+
         const sensitivity = sensitivityRef?.current ?? 1;
-        const onsetThreshold = ONSET_RMS_THRESHOLD / sensitivity;
-        const offsetThreshold = OFFSET_RMS_THRESHOLD / sensitivity;
+        const onsetThreshold = adaptiveOnsetRef.current / sensitivity;
+        const offsetThreshold = adaptiveOffsetRef.current / sensitivity;
 
         const history = rmsHistoryRef.current;
         history.push(rms);
@@ -180,9 +240,9 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
       }
 
       rafRef.current = requestAnimationFrame(detect);
-      setState({ activeNotes: new Set(), isListening: true, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
+      setState({ activeNotes: new Set(), isListening: true, calibrated: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
     } catch (err) {
-      setState({ activeNotes: new Set(), isListening: false, error: (err as Error).message, detectedNote: null, rmsLevel: 0, clarity: 0 });
+      setState({ activeNotes: new Set(), isListening: false, calibrated: false, error: (err as Error).message, detectedNote: null, rmsLevel: 0, clarity: 0 });
     }
   }, [sensitivityRef]);
 
@@ -196,6 +256,9 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
       audioContextRef.current.close();
       audioContextRef.current = null;
     }
+    if (gainNodeRef.current) {
+      gainNodeRef.current = null;
+    }
     activeNotesRef.current.clear();
     currentNoteRef.current = null;
     candidateNoteRef.current = null;
@@ -204,7 +267,11 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     peakRmsRef.current = 0;
     gapCounterRef.current = 0;
     rmsHistoryRef.current = [];
-    setState({ activeNotes: new Set(), isListening: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
+    calibrationSamplesRef.current = [];
+    calibratedRef.current = false;
+    adaptiveOnsetRef.current = FALLBACK_ONSET_THRESHOLD;
+    adaptiveOffsetRef.current = FALLBACK_OFFSET_THRESHOLD;
+    setState({ activeNotes: new Set(), isListening: false, calibrated: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
   }, []);
 
   useEffect(() => {
@@ -220,6 +287,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     activeNotes: activeNotesRef,
     activeNotesState: state.activeNotes,
     isListening: state.isListening,
+    calibrated: state.calibrated,
     error: state.error,
     detectedNote: state.detectedNote,
     rmsLevel: state.rmsLevel,

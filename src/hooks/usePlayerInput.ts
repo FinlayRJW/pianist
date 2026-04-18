@@ -32,6 +32,7 @@ export function usePlayerInput(enabled: boolean, sensitivityRef?: React.RefObjec
     activeNotes: mic.activeNotes,
     activeNotesState: mic.activeNotesState,
     isListening: mic.isListening,
+    calibrated: mic.calibrated,
     error: mic.error,
     detectedNote: mic.detectedNote,
     rmsLevel: mic.rmsLevel,

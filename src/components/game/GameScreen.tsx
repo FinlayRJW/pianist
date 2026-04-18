@@ -26,7 +26,7 @@ export function GameScreen({ song, onBack }: Props) {
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
   const [micEnabled, setMicEnabled] = useState(true);
   const [speed, setSpeedState] = useState(1);
-  const [sensitivity, setSensitivity] = useState(2);
+  const [sensitivity, setSensitivity] = useState(1);
   const sensitivityRef = useRef(1);
   const [results, setResults] = useState<SongScore | null>(null);
   const [liveScore, setLiveScore] = useState(0);
@@ -188,7 +188,9 @@ export function GameScreen({ song, onBack }: Props) {
           />
 
           {effectiveMicEnabled && (
-            <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
+            input.calibrated
+              ? <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
+              : <span className="text-[9px] text-yellow-400 animate-pulse">Calibrating...</span>
           )}
 
           <ToggleSwitch
@@ -217,8 +219,8 @@ export function GameScreen({ song, onBack }: Props) {
             </svg>
             <input
               type="range"
-              min="0.3"
-              max="5"
+              min="0.5"
+              max="3"
               step="0.1"
               value={sensitivity}
               onChange={(e) => handleSensitivityChange(Number(e.target.value))}
