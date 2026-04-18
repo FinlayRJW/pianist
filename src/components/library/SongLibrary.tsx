@@ -1,36 +1,142 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SONG_CATALOG } from '../../data/songs';
 import { useProgressStore } from '../../stores/progressStore';
 import { SongCard } from './SongCard';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
+import { NavigationTabs } from '../skilltree/NavigationTabs';
+import type { SongGenre } from '../../types';
+
+const GENRES: { value: SongGenre | 'all'; label: string }[] = [
+  { value: 'all', label: 'All' },
+  { value: 'beginner', label: 'Beginner' },
+  { value: 'folk', label: 'Folk' },
+  { value: 'classical', label: 'Classical' },
+  { value: 'pop', label: 'Pop' },
+  { value: 'rock', label: 'Rock' },
+  { value: 'funk', label: 'Funk' },
+  { value: 'jazz', label: 'Jazz' },
+  { value: 'advanced', label: 'Advanced' },
+];
+
+type SortKey = 'difficulty' | 'name' | 'stars';
 
 export function SongLibrary() {
   const navigate = useNavigate();
   const bestStars = useProgressStore((s) => s.bestStars);
   const [showCalibration, setShowCalibration] = useState(false);
+  const [genre, setGenre] = useState<SongGenre | 'all'>('all');
+  const [difficulty, setDifficulty] = useState<number>(0);
+  const [search, setSearch] = useState('');
+  const [sort, setSort] = useState<SortKey>('difficulty');
+
+  const filtered = useMemo(() => {
+    let songs = [...SONG_CATALOG];
+    if (genre !== 'all') songs = songs.filter((s) => s.genre === genre);
+    if (difficulty > 0) songs = songs.filter((s) => s.difficulty === difficulty);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      songs = songs.filter(
+        (s) =>
+          s.title.toLowerCase().includes(q) ||
+          s.composer.toLowerCase().includes(q),
+      );
+    }
+    songs.sort((a, b) => {
+      if (sort === 'name') return a.title.localeCompare(b.title);
+      if (sort === 'stars') return (bestStars[b.id] ?? 0) - (bestStars[a.id] ?? 0);
+      return a.difficulty - b.difficulty;
+    });
+    return songs;
+  }, [genre, difficulty, search, sort, bestStars]);
 
   return (
     <div className="flex-1 overflow-y-auto relative">
-      <div className="max-w-2xl mx-auto px-6 py-8">
-        <div className="mb-8 flex items-start justify-between">
-          <div>
-            <h1 className="text-3xl font-bold t-text tracking-tight">Song Library</h1>
-            <p className="t-text-secondary mt-2">Choose a song to practice</p>
-          </div>
+      <div className="max-w-2xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between mb-4">
+          <NavigationTabs />
           <button
             onClick={() => setShowCalibration(true)}
-            className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors mt-1"
+            className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
             title="Settings"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
           </button>
         </div>
-        <div className="grid gap-3">
-          {SONG_CATALOG.map((song) => (
+
+        <div className="space-y-3 mb-5">
+          <div className="flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+            {GENRES.map((g) => (
+              <button
+                key={g.value}
+                onClick={() => setGenre(g.value)}
+                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                  genre === g.value
+                    ? 'bg-accent text-white'
+                    : 't-bg-overlay t-text-secondary hover:t-text'
+                }`}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <svg
+                className="absolute left-3 top-1/2 -translate-y-1/2 t-text-muted"
+                width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search songs..."
+                className="w-full pl-9 pr-3 py-1.5 rounded-lg t-bg-overlay t-text text-sm outline-none focus:ring-1 focus:ring-accent/50"
+                style={{ color: 'var(--text-primary)' }}
+              />
+            </div>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortKey)}
+              className="px-3 py-1.5 rounded-lg t-bg-overlay text-sm outline-none cursor-pointer"
+              style={{ color: 'var(--text-primary)', backgroundColor: 'var(--bg-overlay)' }}
+            >
+              <option value="difficulty">Difficulty</option>
+              <option value="name">Name</option>
+              <option value="stars">Stars</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs t-text-tertiary">Difficulty:</span>
+            <div className="flex gap-1">
+              {[0, 1, 2, 3, 4, 5].map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setDifficulty(d)}
+                  className={`px-2 py-0.5 rounded text-xs transition-all ${
+                    difficulty === d ? 'bg-accent text-white' : 't-bg-overlay t-text-secondary'
+                  }`}
+                >
+                  {d === 0 ? 'All' : d}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs t-text-muted mb-3">{filtered.length} songs</p>
+
+        <div className="grid gap-3 pb-8">
+          {filtered.map((song) => (
             <SongCard
               key={song.id}
               song={song}
@@ -38,6 +144,9 @@ export function SongLibrary() {
               onClick={() => navigate(`/play/${song.id}`)}
             />
           ))}
+          {filtered.length === 0 && (
+            <p className="text-center t-text-tertiary py-12 text-sm">No songs match your filters</p>
+          )}
         </div>
       </div>
       {showCalibration && (
