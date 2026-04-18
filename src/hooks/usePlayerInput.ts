@@ -1,18 +1,42 @@
 import { useRef, useCallback } from 'react';
 import { useMicInput } from './useMicInput';
+import { useMidiInput } from './useMidiInput';
 
-export function usePlayerInput(enabled: boolean, sensitivityRef?: React.RefObject<number>) {
-  const mic = useMicInput(enabled, sensitivityRef);
+export type InputMode = 'auto' | 'mic' | 'midi';
+
+export function usePlayerInput(
+  inputMode: InputMode,
+  micEnabled: boolean,
+  sensitivityRef?: React.RefObject<number>,
+) {
+  const midi = useMidiInput(inputMode !== 'mic');
+  const effectiveMicEnabled = inputMode === 'mic' || (inputMode === 'auto' && !midi.isConnected);
+  const mic = useMicInput(effectiveMicEnabled && micEnabled, sensitivityRef);
+
+  const usingMidi = inputMode === 'midi' || (inputMode === 'auto' && midi.isConnected);
 
   const noteOnCallbacks = useRef<((midi: number) => void)[]>([]);
   const noteOffCallbacks = useRef<((midi: number) => void)[]>([]);
 
-  mic.onNoteOn.current = (midi: number) => {
-    for (const cb of noteOnCallbacks.current) cb(midi);
-  };
-  mic.onNoteOff.current = (midi: number) => {
-    for (const cb of noteOffCallbacks.current) cb(midi);
-  };
+  const fireNoteOn = useCallback((note: number) => {
+    for (const cb of noteOnCallbacks.current) cb(note);
+  }, []);
+
+  const fireNoteOff = useCallback((note: number) => {
+    for (const cb of noteOffCallbacks.current) cb(note);
+  }, []);
+
+  if (usingMidi) {
+    midi.onNoteOn.current = fireNoteOn;
+    midi.onNoteOff.current = fireNoteOff;
+    mic.onNoteOn.current = null;
+    mic.onNoteOff.current = null;
+  } else {
+    mic.onNoteOn.current = fireNoteOn;
+    mic.onNoteOff.current = fireNoteOff;
+    midi.onNoteOn.current = null;
+    midi.onNoteOff.current = null;
+  }
 
   const onNoteOn = useCallback((cb: (midi: number) => void) => {
     noteOnCallbacks.current.push(cb);
@@ -28,15 +52,20 @@ export function usePlayerInput(enabled: boolean, sensitivityRef?: React.RefObjec
     };
   }, []);
 
+  const source = usingMidi ? midi : mic;
+
   return {
-    activeNotes: mic.activeNotes,
-    activeNotesState: mic.activeNotesState,
-    isListening: mic.isListening,
-    calibrated: mic.calibrated,
-    error: mic.error,
-    detectedNote: mic.detectedNote,
-    rmsLevel: mic.rmsLevel,
-    clarity: mic.clarity,
+    activeNotes: source.activeNotes,
+    activeNotesState: usingMidi ? midi.activeNotesState : mic.activeNotesState,
+    isListening: usingMidi ? midi.isConnected : mic.isListening,
+    calibrated: usingMidi ? true : mic.calibrated,
+    error: usingMidi ? midi.error : mic.error,
+    detectedNote: usingMidi ? null : mic.detectedNote,
+    rmsLevel: usingMidi ? 0 : mic.rmsLevel,
+    clarity: usingMidi ? 0 : mic.clarity,
+    usingMidi,
+    midiConnected: midi.isConnected,
+    midiDeviceName: midi.deviceName,
     onNoteOn,
     onNoteOff,
   };

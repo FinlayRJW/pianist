@@ -8,7 +8,7 @@ import { ResultsModal } from './ResultsModal';
 import { useSongPlayer } from '../../hooks/useSongPlayer';
 import { useAnimationFrame } from '../../hooks/useAnimationFrame';
 import { useAutoPlay } from '../../hooks/useAutoPlay';
-import { usePlayerInput } from '../../hooks/usePlayerInput';
+import { usePlayerInput, type InputMode } from '../../hooks/usePlayerInput';
 import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
 
@@ -20,11 +20,14 @@ interface Props {
 const KEYBOARD_HEIGHT = 80;
 const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5];
 
+const MIC_WARNING_KEY = 'pianist-mic-warning-dismissed';
+
 export function GameScreen({ song, onBack }: Props) {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
-  const [micEnabled, setMicEnabled] = useState(true);
+  const [inputMode, setInputMode] = useState<InputMode>('auto');
+  const [showMicWarning, setShowMicWarning] = useState(false);
   const [speed, setSpeedState] = useState(1);
   const [sensitivity, setSensitivity] = useState(1);
   const sensitivityRef = useRef(1);
@@ -38,9 +41,12 @@ export function GameScreen({ song, onBack }: Props) {
   const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed } =
     useSongPlayer(song.totalDuration);
   const autoPlay = useAutoPlay(song.notes, timeRef, gameState === 'playing', autoPlayEnabled);
-  const effectiveMicEnabled = micEnabled && !autoPlayEnabled;
-  const input = usePlayerInput(effectiveMicEnabled, sensitivityRef);
-  const scoring = useScoring(song.notes, timeRef);
+
+  const micNotMuted = !autoPlayEnabled;
+  const input = usePlayerInput(inputMode, micNotMuted, sensitivityRef);
+  const scoring = useScoring(song.notes, timeRef, input.usingMidi);
+
+  const showMicControls = !input.usingMidi;
 
   useEffect(() => {
     return input.onNoteOn((midi) => {
@@ -80,7 +86,7 @@ export function GameScreen({ song, onBack }: Props) {
       if (scoring.lastRatingRef.current) {
         setLiveRating({ ...scoring.lastRatingRef.current });
       }
-      setRmsLevel(input.rmsLevel);
+      if (showMicControls) setRmsLevel(input.rmsLevel);
       const t = timeRef.current ?? 0;
       if (t < 0) {
         setCountdownNum(Math.ceil(Math.abs(t)));
@@ -93,7 +99,7 @@ export function GameScreen({ song, onBack }: Props) {
 
   useAnimationFrame(
     () => { setRmsLevel(input.rmsLevel); },
-    !isActive && effectiveMicEnabled,
+    !isActive && showMicControls,
   );
 
   const addScore = useProgressStore((s) => s.addScore);
@@ -162,6 +168,21 @@ export function GameScreen({ song, onBack }: Props) {
     sensitivityRef.current = value;
   }, []);
 
+  const handleInputModeChange = useCallback((mode: InputMode) => {
+    if (mode === 'mic') {
+      const dismissed = localStorage.getItem(MIC_WARNING_KEY);
+      if (!dismissed) {
+        setShowMicWarning(true);
+      }
+    }
+    setInputMode(mode);
+  }, []);
+
+  const dismissMicWarning = useCallback(() => {
+    localStorage.setItem(MIC_WARNING_KEY, '1');
+    setShowMicWarning(false);
+  }, []);
+
   const canvasHeight = containerSize.height - KEYBOARD_HEIGHT;
 
   return (
@@ -180,17 +201,57 @@ export function GameScreen({ song, onBack }: Props) {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <ToggleSwitch
-            label="Mic"
-            enabled={micEnabled}
-            onToggle={() => setMicEnabled((v) => !v)}
-            activeColor={!micEnabled ? 'bg-white/20' : autoPlayEnabled ? 'bg-yellow-500' : input.isListening ? 'bg-emerald-500' : 'bg-yellow-500'}
-          />
+          {/* Input mode selector */}
+          <div className="flex items-center gap-0.5 bg-white/5 rounded-full p-0.5">
+            {(['auto', 'midi', 'mic'] as InputMode[]).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => handleInputModeChange(mode)}
+                className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
+                  inputMode === mode
+                    ? 'bg-accent text-white'
+                    : 'text-white/40 hover:text-white/60'
+                }`}
+              >
+                {mode === 'auto' ? 'Auto' : mode === 'midi' ? 'MIDI' : 'Mic'}
+              </button>
+            ))}
+          </div>
 
-          {effectiveMicEnabled && (
-            input.calibrated
-              ? <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
-              : <span className="text-[9px] text-yellow-400 animate-pulse">Calibrating...</span>
+          {/* MIDI status */}
+          {input.usingMidi && (
+            <span className="text-[9px] text-emerald-400 max-w-[80px] truncate">
+              {input.midiDeviceName ?? 'MIDI'}
+            </span>
+          )}
+
+          {/* Mic controls — only when using mic */}
+          {showMicControls && (
+            <>
+              {input.calibrated
+                ? <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
+                : input.isListening
+                  ? <span className="text-[9px] text-yellow-400 animate-pulse">Calibrating...</span>
+                  : null
+              }
+
+              <div className="flex items-center gap-1" title={`Mic sensitivity: ${sensitivity.toFixed(1)}x`}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                </svg>
+                <input
+                  type="range"
+                  min="0.5"
+                  max="3"
+                  step="0.1"
+                  value={sensitivity}
+                  onChange={(e) => handleSensitivityChange(Number(e.target.value))}
+                  className="w-14 h-1 accent-accent cursor-pointer"
+                />
+              </div>
+            </>
           )}
 
           <ToggleSwitch
@@ -210,23 +271,6 @@ export function GameScreen({ song, onBack }: Props) {
               </option>
             ))}
           </select>
-
-          <div className="flex items-center gap-1" title={`Mic sensitivity: ${sensitivity.toFixed(1)}x`}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
-              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-              <line x1="12" y1="19" x2="12" y2="23" />
-            </svg>
-            <input
-              type="range"
-              min="0.5"
-              max="3"
-              step="0.1"
-              value={sensitivity}
-              onChange={(e) => handleSensitivityChange(Number(e.target.value))}
-              className="w-14 h-1 accent-accent cursor-pointer"
-            />
-          </div>
 
           <button
             onClick={doRestart}
@@ -248,7 +292,30 @@ export function GameScreen({ song, onBack }: Props) {
         </div>
       </div>
 
-      {autoPlayEnabled && micEnabled && (
+      {/* MIDI not connected warning when in MIDI-only mode */}
+      {inputMode === 'midi' && !input.midiConnected && (
+        <div className="px-4 py-1.5 bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-400 text-xs text-center">
+          No MIDI device detected. Connect a MIDI keyboard and refresh.
+        </div>
+      )}
+
+      {/* Mic warning banner */}
+      {showMicWarning && (
+        <div className="px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 text-amber-300 text-xs text-center flex items-center justify-center gap-3">
+          <span>
+            Mic mode is limited: single notes only, no chord support, and detection varies by device.
+            For the best experience, connect a MIDI keyboard.
+          </span>
+          <button
+            onClick={dismissMicWarning}
+            className="text-amber-400 hover:text-amber-200 font-medium shrink-0 underline"
+          >
+            Got it
+          </button>
+        </div>
+      )}
+
+      {autoPlayEnabled && showMicControls && (
         <div className="px-4 py-1.5 bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-400 text-xs text-center">
           Mic paused while sound is on. Use headphones to use both.
         </div>
@@ -256,7 +323,7 @@ export function GameScreen({ song, onBack }: Props) {
 
       {input.error && (
         <div className="px-4 py-1.5 bg-red-500/10 border-b border-red-500/20 text-red-400 text-xs text-center">
-          Mic error: {input.error}
+          {input.usingMidi ? 'MIDI' : 'Mic'} error: {input.error}
         </div>
       )}
 
@@ -315,7 +382,7 @@ export function GameScreen({ song, onBack }: Props) {
               </svg>
             </button>
             <p className="text-white/40 text-sm mt-4">
-              Play any note, press Space, or click to start
+              {input.usingMidi ? 'Play any key' : 'Play any note'}, press Space, or click to start
             </p>
           </div>
         </div>
