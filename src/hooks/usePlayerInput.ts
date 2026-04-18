@@ -1,6 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useMicInput } from './useMicInput';
 import { useMidiInput } from './useMidiInput';
+import { useOnboardingStore } from '../stores/onboardingStore';
 
 export type InputMode = 'auto' | 'mic' | 'midi';
 
@@ -9,9 +10,10 @@ export function usePlayerInput(
   micEnabled: boolean,
   sensitivityRef?: React.RefObject<number>,
 ) {
+  const calibration = useOnboardingStore((s) => s.calibration);
   const midi = useMidiInput(inputMode !== 'mic');
   const effectiveMicEnabled = inputMode === 'mic' || (inputMode === 'auto' && !midi.isConnected);
-  const mic = useMicInput(effectiveMicEnabled && micEnabled, sensitivityRef);
+  const mic = useMicInput(effectiveMicEnabled && micEnabled, sensitivityRef, calibration);
 
   const usingMidi = inputMode === 'midi' || (inputMode === 'auto' && midi.isConnected);
 

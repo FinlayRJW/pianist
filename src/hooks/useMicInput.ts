@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { PitchDetector } from 'pitchy';
 import { frequencyToMidi, midiToName } from '../utils/note-utils';
+import type { CalibrationData } from '../stores/onboardingStore';
 
 const FFT_SIZE = 4096;
 const CLARITY_THRESHOLD = 0.7;
@@ -41,7 +42,11 @@ function computeRMS(buffer: Float32Array): number {
   return Math.sqrt(sum / buffer.length);
 }
 
-export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<number>) {
+export function useMicInput(
+  enabled: boolean,
+  sensitivityRef?: React.RefObject<number>,
+  preCalibration?: CalibrationData | null,
+) {
   const [state, setState] = useState<MicInputState>({
     activeNotes: new Set(),
     isListening: false,
@@ -234,12 +239,21 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
         }
       }
 
+      if (preCalibration) {
+        gainNode.gain.setValueAtTime(preCalibration.gain, audioContext.currentTime);
+        adaptiveOnsetRef.current = preCalibration.onsetThreshold;
+        adaptiveOffsetRef.current = preCalibration.offsetThreshold;
+        calibratedRef.current = true;
+        setState({ activeNotes: new Set(), isListening: true, calibrated: true, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
+      } else {
+        setState({ activeNotes: new Set(), isListening: true, calibrated: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
+      }
+
       rafRef.current = requestAnimationFrame(detect);
-      setState({ activeNotes: new Set(), isListening: true, calibrated: false, error: null, detectedNote: null, rmsLevel: 0, clarity: 0 });
     } catch (err) {
       setState({ activeNotes: new Set(), isListening: false, calibrated: false, error: (err as Error).message, detectedNote: null, rmsLevel: 0, clarity: 0 });
     }
-  }, [sensitivityRef]);
+  }, [sensitivityRef, preCalibration]);
 
   const stopListening = useCallback(() => {
     cancelAnimationFrame(rafRef.current);

@@ -11,6 +11,7 @@ import { useAutoPlay } from '../../hooks/useAutoPlay';
 import { usePlayerInput, type InputMode } from '../../hooks/usePlayerInput';
 import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
+import { CalibrationModal } from '../onboarding/CalibrationModal';
 
 interface Props {
   song: ParsedSong;
@@ -36,7 +37,7 @@ export function GameScreen({ song, onBack }: Props) {
   const [liveCombo, setLiveCombo] = useState(0);
   const [liveRating, setLiveRating] = useState<{ rating: string; time: number } | null>(null);
   const [countdownNum, setCountdownNum] = useState<number | null>(null);
-  const [rmsLevel, setRmsLevel] = useState(0);
+  const [showCalibrationModal, setShowCalibrationModal] = useState(false);
 
   const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed } =
     useSongPlayer(song.totalDuration);
@@ -86,7 +87,6 @@ export function GameScreen({ song, onBack }: Props) {
       if (scoring.lastRatingRef.current) {
         setLiveRating({ ...scoring.lastRatingRef.current });
       }
-      if (showMicControls) setRmsLevel(input.rmsLevel);
       const t = timeRef.current ?? 0;
       if (t < 0) {
         setCountdownNum(Math.ceil(Math.abs(t)));
@@ -95,11 +95,6 @@ export function GameScreen({ song, onBack }: Props) {
       }
     },
     isActive,
-  );
-
-  useAnimationFrame(
-    () => { setRmsLevel(input.rmsLevel); },
-    !isActive && showMicControls,
   );
 
   const addScore = useProgressStore((s) => s.addScore);
@@ -228,13 +223,6 @@ export function GameScreen({ song, onBack }: Props) {
           {/* Mic controls — only when using mic */}
           {showMicControls && (
             <>
-              {input.calibrated
-                ? <VolumeIndicator rms={rmsLevel} clarity={input.clarity} detectedNote={input.detectedNote} />
-                : input.isListening
-                  ? <span className="text-[9px] text-yellow-400 animate-pulse">Calibrating...</span>
-                  : null
-              }
-
               <div className="flex items-center gap-1" title={`Mic sensitivity: ${sensitivity.toFixed(1)}x`}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
                   <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
@@ -251,6 +239,16 @@ export function GameScreen({ song, onBack }: Props) {
                   className="w-14 h-1 accent-accent cursor-pointer"
                 />
               </div>
+              <button
+                onClick={() => setShowCalibrationModal(true)}
+                className="p-1.5 rounded-full bg-white/10 text-white/50 hover:bg-white/20 hover:text-white transition-colors"
+                title="Recalibrate microphone"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+              </button>
             </>
           )}
 
@@ -387,35 +385,10 @@ export function GameScreen({ song, onBack }: Props) {
           </div>
         </div>
       )}
-    </div>
-  );
-}
 
-function VolumeIndicator({ rms, clarity, detectedNote }: { rms: number; clarity: number; detectedNote: string | null }) {
-  const level = Math.min(rms * 40, 1);
-  const barCount = 5;
-  return (
-    <div className="flex items-center gap-1">
-      <div className="flex items-end gap-px h-[14px]">
-        {Array.from({ length: barCount }, (_, i) => {
-          const threshold = (i + 1) / barCount;
-          const active = level >= threshold;
-          return (
-            <div
-              key={i}
-              className={`w-[3px] rounded-sm transition-colors ${active ? 'bg-emerald-400' : 'bg-white/15'}`}
-              style={{ height: `${4 + i * 2}px` }}
-            />
-          );
-        })}
-      </div>
-      <span className="text-[9px] font-mono text-white/30 min-w-[60px]">
-        {(rms * 1000).toFixed(0)} / {(clarity * 100).toFixed(0)}%
-      </span>
-      {detectedNote && (
-        <span className="text-xs font-mono text-accent-light min-w-[28px]">
-          {detectedNote}
-        </span>
+      {/* Calibration modal */}
+      {showCalibrationModal && (
+        <CalibrationModal onClose={() => setShowCalibrationModal(false)} />
       )}
     </div>
   );
