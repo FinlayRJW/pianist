@@ -132,7 +132,9 @@ export const useProgressStore = create<ProgressStore>()(
       name: 'pianist-progress',
       onRehydrateStorage: () => (state: ProgressStore | undefined) => {
         if (state) {
-          if (!state.adventureBestStars) state.adventureBestStars = { ...state.bestStars };
+          if (!state.adventureBestStars || Object.keys(state.adventureBestStars).length === 0) {
+            state.adventureBestStars = { ...state.bestStars };
+          }
           state.unlockedNodes = computeUnlockedNodes(state.adventureBestStars);
         }
       },
