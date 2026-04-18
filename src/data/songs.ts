@@ -56,17 +56,6 @@ export const SONG_CATALOG: SongMeta[] = [
     tags: ['beginner', 'right-hand-only', 'classical'],
     skillTreeNodeId: 'ode-to-joy',
   },
-  {
-    id: 'simple-chords',
-    title: 'Simple Chords',
-    composer: 'Tutorial',
-    difficulty: 2,
-    bpm: 80,
-    durationSec: 24,
-    midiFile: 'midi/beginner/simple-chords.mid',
-    tags: ['beginner', 'chords'],
-    skillTreeNodeId: 'simple-chords',
-  },
 ];
 
 export function getSongById(id: string): SongMeta | undefined {

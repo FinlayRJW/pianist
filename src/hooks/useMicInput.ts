@@ -1,7 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { PitchDetector } from 'pitchy';
 import { frequencyToMidi, midiToName } from '../utils/note-utils';
-import { detectPeakNotes } from '../utils/fft-peak-detector';
 
 const FFT_SIZE = 4096;
 const CLARITY_THRESHOLD = 0.7;
@@ -11,6 +10,8 @@ const MAX_FREQUENCY = 2100;
 const FALLBACK_ONSET_THRESHOLD = 0.004;
 const FALLBACK_OFFSET_THRESHOLD = 0.002;
 const RE_TRIGGER_DIP_RATIO = 0.35;
+
+const STABLE_FRAMES_REQUIRED = 1;
 const MIN_NOTE_GAP_FRAMES = 3;
 
 const CALIBRATION_FRAMES = 30;
@@ -60,6 +61,9 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
   const gainNodeRef = useRef<GainNode | null>(null);
   const rafRef = useRef<number>(0);
 
+  const currentNoteRef = useRef<number | null>(null);
+  const candidateNoteRef = useRef<number | null>(null);
+  const stableCountRef = useRef(0);
   const noteActiveRef = useRef(false);
   const peakRmsRef = useRef(0);
   const gapCounterRef = useRef(0);
@@ -96,8 +100,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
 
       const detector = PitchDetector.forFloat32Array(analyser.fftSize);
       detector.minVolumeAbsolute = 0;
-      const timeDomainBuffer = new Float32Array(analyser.fftSize);
-      const frequencyBuffer = new Float32Array(analyser.frequencyBinCount);
+      const buffer = new Float32Array(analyser.fftSize);
 
       function finishCalibration() {
         const samples = calibrationSamplesRef.current;
@@ -125,8 +128,8 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
       }
 
       function detect() {
-        analyser.getFloatTimeDomainData(timeDomainBuffer);
-        const rms = computeRMS(timeDomainBuffer);
+        analyser.getFloatTimeDomainData(buffer);
+        const rms = computeRMS(buffer);
 
         if (!calibratedRef.current) {
           calibrationSamplesRef.current.push(rms);
@@ -148,7 +151,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
 
         if (noteActiveRef.current) {
           if (rms < offsetThreshold) {
-            releaseAllNotes();
+            releaseNote();
           } else {
             const dipDetected =
               peakRmsRef.current > 0 &&
@@ -156,7 +159,7 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
               gapCounterRef.current === 0;
 
             if (dipDetected) {
-              releaseAllNotes();
+              releaseNote();
             } else {
               if (rms > peakRmsRef.current) {
                 peakRmsRef.current = rms;
@@ -165,46 +168,29 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
           }
         }
 
-        let curClarity = 0;
+        const [frequency, curClarity] = detector.findPitch(buffer, audioContext.sampleRate);
 
         if (!noteActiveRef.current && rms >= onsetThreshold && gapCounterRef.current === 0) {
-          const [frequency, clarity] = detector.findPitch(timeDomainBuffer, audioContext.sampleRate);
-          curClarity = clarity;
+          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+            const midi = frequencyToMidi(frequency);
 
-          if (clarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
-            const primaryMidi = frequencyToMidi(frequency);
-
-            analyser.getFloatFrequencyData(frequencyBuffer);
-            const fftNotes = detectPeakNotes(frequencyBuffer, audioContext.sampleRate, FFT_SIZE);
-
-            const notesToTrigger = new Set<number>();
-            notesToTrigger.add(primaryMidi);
-            for (const midi of fftNotes) {
-              notesToTrigger.add(midi);
+            if (midi === candidateNoteRef.current) {
+              stableCountRef.current++;
+            } else {
+              candidateNoteRef.current = midi;
+              stableCountRef.current = 1;
             }
 
-            triggerNotes(notesToTrigger, rms);
+            if (stableCountRef.current >= STABLE_FRAMES_REQUIRED) {
+              triggerNote(midi, rms);
+            }
           }
         } else if (noteActiveRef.current) {
-          const [frequency, clarity] = detector.findPitch(timeDomainBuffer, audioContext.sampleRate);
-          curClarity = clarity;
-
-          if (clarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
-            const newPrimaryMidi = frequencyToMidi(frequency);
-            const currentNotes = activeNotesRef.current;
-            if (!currentNotes.has(newPrimaryMidi)) {
-              releaseAllNotes();
-
-              analyser.getFloatFrequencyData(frequencyBuffer);
-              const fftNotes = detectPeakNotes(frequencyBuffer, audioContext.sampleRate, FFT_SIZE);
-
-              const notesToTrigger = new Set<number>();
-              notesToTrigger.add(newPrimaryMidi);
-              for (const midi of fftNotes) {
-                notesToTrigger.add(midi);
-              }
-
-              triggerNotes(notesToTrigger, rms);
+          if (curClarity >= CLARITY_THRESHOLD && frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY) {
+            const midi = frequencyToMidi(frequency);
+            if (midi !== currentNoteRef.current) {
+              releaseNote();
+              triggerNote(midi, rms);
             }
           }
         }
@@ -213,37 +199,36 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
         rafRef.current = requestAnimationFrame(detect);
       }
 
-      function triggerNotes(midiNotes: Set<number>, rms: number) {
+      function triggerNote(midi: number, rms: number) {
+        currentNoteRef.current = midi;
         noteActiveRef.current = true;
         peakRmsRef.current = rms;
+        stableCountRef.current = 0;
+        candidateNoteRef.current = null;
 
-        activeNotesRef.current = new Set(midiNotes);
-        for (const midi of midiNotes) {
-          onNoteOnRef.current?.(midi);
-        }
-
-        const names = [...midiNotes].map(midiToName);
+        activeNotesRef.current.clear();
+        activeNotesRef.current.add(midi);
+        onNoteOnRef.current?.(midi);
         setState((prev) => ({
           ...prev,
-          activeNotes: new Set(midiNotes),
-          detectedNote: names.join(' '),
+          activeNotes: new Set(activeNotesRef.current),
+          detectedNote: midiToName(midi),
         }));
       }
 
-      function releaseAllNotes() {
-        const prev = activeNotesRef.current;
+      function releaseNote() {
+        const prev = currentNoteRef.current;
         noteActiveRef.current = false;
+        currentNoteRef.current = null;
         peakRmsRef.current = 0;
         gapCounterRef.current = MIN_NOTE_GAP_FRAMES;
 
-        if (prev.size > 0) {
-          for (const midi of prev) {
-            onNoteOffRef.current?.(midi);
-          }
-          activeNotesRef.current = new Set();
+        if (prev !== null) {
+          activeNotesRef.current.delete(prev);
+          onNoteOffRef.current?.(prev);
           setState((s) => ({
             ...s,
-            activeNotes: new Set(),
+            activeNotes: new Set(activeNotesRef.current),
             detectedNote: null,
           }));
         }
@@ -269,7 +254,10 @@ export function useMicInput(enabled: boolean, sensitivityRef?: React.RefObject<n
     if (gainNodeRef.current) {
       gainNodeRef.current = null;
     }
-    activeNotesRef.current = new Set();
+    activeNotesRef.current.clear();
+    currentNoteRef.current = null;
+    candidateNoteRef.current = null;
+    stableCountRef.current = 0;
     noteActiveRef.current = false;
     peakRmsRef.current = 0;
     gapCounterRef.current = 0;

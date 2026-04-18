@@ -57,7 +57,6 @@ function melody(midiNotes: number[], rhythm: number[], bpm: number, velocity = 8
   return notes;
 }
 
-const C3 = 48, E3 = 52, G3 = 55, A3 = 57, B3 = 59;
 const C4 = 60, D4 = 62, E4 = 64, F4 = 65, G4 = 67, A4 = 69, B4 = 71, C5 = 72;
 
 // Middle C March — just C repeated in a simple rhythm
@@ -102,33 +101,5 @@ createMidi('Ode to Joy', 108, melody(
    1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1.5,0.5,2],
   108,
 ));
-
-// Simple Chords — C, Am, F, G progression with block chords
-{
-  const bpm = 80;
-  const notes: SimpleNote[] = [];
-
-  function chord(midis: number[], beat: number, dur: number) {
-    for (const midi of midis) {
-      notes.push({
-        midi,
-        time: beatsToTime(beat, bpm),
-        duration: beatsToTime(dur * 0.9, bpm),
-        velocity: 75,
-      });
-    }
-  }
-
-  // 4 repetitions of C - Am - F - G (each chord = 2 beats)
-  for (let rep = 0; rep < 4; rep++) {
-    const offset = rep * 8;
-    chord([C4, E4, G4], offset,     2);  // C major
-    chord([A3, C4, E4], offset + 2, 2);  // A minor
-    chord([F4, A4, C5], offset + 4, 2);  // F major (higher voicing)
-    chord([G3, B3, D4], offset + 6, 2);  // G major
-  }
-
-  createMidi('Simple Chords', bpm, notes);
-}
 
 console.log('Done! All MIDI files generated.');
