@@ -30,7 +30,7 @@
   --canvas-bg-bottom: #12122a;
   --canvas-grid: rgba(255, 255, 255, 0.03);
   --canvas-play-band-rgb: 99, 102, 241;
-  --canvas-play-line: rgba(255, 255, 255, 0.8);
+  --canvas-play-line: rgba(255, 255, 255, 0.35);
   --canvas-play-glow: rgba(99, 102, 241, 0.9);
   --canvas-text: rgba(255, 255, 255, 0.4);
   --key-white: #e8e8e8;
@@ -83,7 +83,7 @@
   --canvas-bg-bottom: #d8d8e2;
   --canvas-grid: rgba(0, 0, 0, 0.05);
   --canvas-play-band-rgb: 99, 102, 241;
-  --canvas-play-line: rgba(0, 0, 0, 0.3);
+  --canvas-play-line: rgba(0, 0, 0, 0.15);
   --canvas-play-glow: rgba(99, 102, 241, 0.7);
   --canvas-text: rgba(0, 0, 0, 0.3);
   --key-white: #ffffff;

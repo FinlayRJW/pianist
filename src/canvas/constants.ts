@@ -1,4 +1,4 @@
-export const PLAY_LINE_BOTTOM_OFFSET = 4;
+export const PLAY_LINE_BOTTOM_OFFSET = 0;
 export const PIXELS_PER_SECOND = 200;
 export const LOOK_AHEAD_SEC = 4;
 export const LOOK_BEHIND_SEC = 0.5;
