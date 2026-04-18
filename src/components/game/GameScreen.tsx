@@ -415,7 +415,7 @@ export function GameScreen({ song, onBack }: Props) {
           <div className="flex flex-col items-center pointer-events-auto">
             <button
               onClick={() => { Tone.start(); play(); }}
-              className="w-20 h-20 rounded-full bg-accent flex items-center justify-center shadow-lg shadow-accent/30 hover:bg-accent-light transition-all hover:scale-105"
+              className="w-20 h-20 rounded-full bg-accent flex items-center justify-center shadow-lg shadow-accent/30 hover:bg-accent-light transition-all hover:scale-105 border-2 border-white/30"
             >
               <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z" />
