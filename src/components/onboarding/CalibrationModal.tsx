@@ -16,7 +16,7 @@ export function CalibrationModal({ onClose }: Props) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-20">
-      <div className="bg-surface-light rounded-2xl p-8 shadow-2xl border border-white/10 max-w-md w-full mx-4 relative">
+      <div className="bg-[#1a1a2a] rounded-2xl p-8 shadow-2xl border border-white/10 max-w-md w-full mx-4 relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white/30 hover:text-white/60 transition-colors"
