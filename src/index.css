@@ -136,12 +136,12 @@ html, body, #root {
 }
 
 @keyframes nodeGlow {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%, 100% { filter: brightness(0.85); }
+  50% { filter: brightness(1.15); }
 }
 
 .animate-node-glow {
-  animation: nodeGlow 2s ease-in-out infinite;
+  animation: nodeGlow 3s ease-in-out infinite;
 }
 
 .t-text { color: var(--text-primary); }

@@ -1,5 +1,5 @@
 export type DisplayMode = 'falling' | 'sheet-and-falling' | 'sheet-only';
-export type SongGenre = 'beginner' | 'folk' | 'classical' | 'pop' | 'rock' | 'funk' | 'jazz' | 'advanced';
+export type SongGenre = 'beginner' | 'folk' | 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz' | 'advanced';
 
 export interface SongMeta {
   id: string;
@@ -12,9 +12,9 @@ export interface SongMeta {
   tags: string[];
   skillTreeNodeId: string;
   genre: SongGenre;
-  requiresMidi?: boolean;
   timeSignature?: [number, number];
   keySignature?: string;
+  source?: 'bundled' | 'imported';
 }
 
 export interface Note {

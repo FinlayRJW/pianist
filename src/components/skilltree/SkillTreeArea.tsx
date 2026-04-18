@@ -1,5 +1,5 @@
 import type { SkillTreeArea, SkillTreeNode, SongMeta } from '../../types';
-import { SkillTreeNodeCircle } from './SkillTreeNode';
+import { SkillTreeNodeCircle, UNLOCKED_SIZE } from './SkillTreeNode';
 
 interface Props {
   area: SkillTreeArea;
@@ -10,113 +10,116 @@ interface Props {
   isAreaUnlocked: boolean;
   areaStars: number;
   maxStars: number;
-  totalStars: number;
+  firstStepsStars: number;
   onPlay: (songId: string) => void;
 }
 
-const COL_W = 110;
-const ROW_H = 105;
-const CIRCLE_CY = 22;
+const NODE_BTN_W = 86;
+const PAD = 60;
 
 export function SkillTreeAreaColumn({
   area, nodes, songs, bestStars, unlockedNodes,
-  isAreaUnlocked, areaStars, maxStars, totalStars, onPlay,
+  isAreaUnlocked, areaStars, maxStars, firstStepsStars, onPlay,
 }: Props) {
-  const maxX = Math.max(...nodes.map((n) => n.x), 0);
-  const maxY = Math.max(...nodes.map((n) => n.y), 0);
-  const gridW = (maxY + 1) * COL_W;
-  const gridH = (maxX + 1) * ROW_H;
+  if (nodes.length === 0) return null;
 
-  const circleCx = (y: number) => y * COL_W + COL_W / 2;
-  const circleCy = (x: number) => x * ROW_H + CIRCLE_CY;
+  const allX = nodes.map((n) => n.x);
+  const allY = nodes.map((n) => n.y);
+  const minX = Math.min(...allX);
+  const maxX = Math.max(...allX);
+  const minY = Math.min(...allY);
+  const maxY = Math.max(...allY);
 
-  const connections: { x1: number; y1: number; x2: number; y2: number }[] = [];
+  const svgW = maxX - minX + PAD * 2;
+  const svgH = maxY - minY + PAD * 2;
+  const containerW = Math.max(svgW, NODE_BTN_W * 3 + 20);
+  const titleH = 52;
+  const containerH = svgH + titleH;
+  const ox = (containerW - svgW) / 2;
+
+  const toLocal = (nx: number, ny: number) => ({
+    lx: nx - minX + PAD + ox,
+    ly: ny - minY + PAD + titleH,
+  });
+
+  const connections: { x1: number; y1: number; x2: number; y2: number; lit: boolean }[] = [];
   for (const node of nodes) {
-    const toCx = circleCx(node.y);
-    const toCy = circleCy(node.x);
+    const to = toLocal(node.x, node.y);
+    const toUnlocked = unlockedNodes.includes(node.id);
     for (const reqId of node.requires) {
       const from = nodes.find((n) => n.id === reqId);
       if (!from) continue;
+      const fl = toLocal(from.x, from.y);
+      const fromUnlocked = unlockedNodes.includes(from.id);
       connections.push({
-        x1: circleCx(from.y),
-        y1: circleCy(from.x),
-        x2: toCx,
-        y2: toCy,
+        x1: fl.lx, y1: fl.ly,
+        x2: to.lx, y2: to.ly,
+        lit: fromUnlocked && toUnlocked,
       });
     }
   }
 
-  const starsShort = Math.max(0, area.starsToUnlock - totalStars);
+  const starsShort = Math.max(0, area.starsToUnlock - firstStepsStars);
 
   return (
-    <div
-      className="flex-shrink-0 rounded-2xl overflow-hidden"
-      style={{
-        width: gridW + 48,
-        backgroundColor: isAreaUnlocked ? 'var(--bg-overlay)' : 'rgba(255,255,255,0.015)',
-        borderTop: `3px solid ${isAreaUnlocked ? area.color : '#374151'}`,
-      }}
-    >
-      {/* Header */}
-      <div className="px-5 pt-4 pb-3">
-        <div className="flex items-center gap-2 mb-1">
-          <div
-            className="w-2.5 h-2.5 rounded-full"
-            style={{ backgroundColor: isAreaUnlocked ? area.color : '#4b5563' }}
-          />
-          <h3 className={`text-sm font-bold tracking-tight ${isAreaUnlocked ? 't-text' : 'text-gray-500'}`}>
-            {area.name}
-          </h3>
-        </div>
-
+    <div className="flex-shrink-0 relative" style={{ width: containerW, height: containerH }}>
+      {/* Constellation title */}
+      <div className="text-center" style={{ height: titleH, paddingTop: 8 }}>
+        <h3
+          className="text-xs font-semibold tracking-[0.2em] uppercase"
+          style={{ color: isAreaUnlocked ? area.color : 'rgba(255,255,255,0.12)' }}
+        >
+          {area.name}
+        </h3>
         {isAreaUnlocked ? (
-          <div className="flex items-center gap-2">
-            <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${Math.min(100, (areaStars / maxStars) * 100)}%`,
-                  backgroundColor: area.color,
-                }}
-              />
-            </div>
-            <span className="text-[10px] t-text-tertiary whitespace-nowrap">
-              {areaStars}/{maxStars} ★
-            </span>
-          </div>
+          <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.25)' }}>
+            {areaStars} / {maxStars} ★
+          </span>
         ) : (
-          <p className="text-[10px] text-gray-600">
-            Need {starsShort} more ★
-          </p>
+          <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.1)' }}>
+            {starsShort} more ★ in First Steps
+          </span>
         )}
       </div>
 
-      {/* Node grid — x maps to rows (top→bottom), y maps to columns (left→right) */}
-      <div className="relative px-6 pb-5" style={{ height: gridH }}>
-        <svg
-          className="absolute pointer-events-none"
-          style={{ left: 24, top: 0 }}
-          width={gridW}
-          height={gridH}
-        >
-          {connections.map((c, i) => (
-            <line
-              key={i}
-              x1={c.x1} y1={c.y1} x2={c.x2} y2={c.y2}
-              stroke={isAreaUnlocked ? `${area.color}33` : 'rgba(255,255,255,0.04)'}
-              strokeWidth={2}
-              strokeDasharray={isAreaUnlocked ? undefined : '4 4'}
-            />
-          ))}
-        </svg>
+      {/* Connection lines */}
+      <svg
+        className="absolute pointer-events-none"
+        style={{ left: 0, top: titleH }}
+        width={containerW}
+        height={svgH}
+      >
+        <defs>
+          <filter id={`glow-${area.id}`}>
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        {connections.map((c, i) => (
+          <line
+            key={i}
+            x1={c.x1} y1={c.y1 - titleH} x2={c.x2} y2={c.y2 - titleH}
+            stroke={c.lit ? area.color : 'rgba(255,255,255,0.04)'}
+            strokeWidth={c.lit ? 1.5 : 0.5}
+            opacity={c.lit ? 0.5 : 1}
+            filter={c.lit ? `url(#glow-${area.id})` : undefined}
+          />
+        ))}
+      </svg>
 
-        {nodes.map((node) => (
+      {/* Nodes */}
+      {nodes.map((node) => {
+        const { lx, ly } = toLocal(node.x, node.y);
+        return (
           <div
             key={node.id}
             className="absolute"
             style={{
-              left: node.y * COL_W + (COL_W - 76) / 2,
-              top: node.x * ROW_H,
+              left: lx - NODE_BTN_W / 2,
+              top: ly - UNLOCKED_SIZE / 2,
             }}
           >
             <SkillTreeNodeCircle
@@ -128,8 +131,8 @@ export function SkillTreeAreaColumn({
               onPlay={onPlay}
             />
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }

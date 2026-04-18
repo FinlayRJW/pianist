@@ -1,0 +1,692 @@
+import ToneJsMidi from '@tonejs/midi';
+const { Midi } = ToneJsMidi;
+import { writeFileSync, mkdirSync, existsSync, copyFileSync } from 'fs';
+import { join } from 'path';
+
+const PUBLIC_DIR = join(import.meta.dirname, '..', 'public', 'midi');
+
+interface SimpleNote {
+  midi: number;
+  time: number;
+  duration: number;
+  velocity?: number;
+}
+
+function beatsToTime(beat: number, bpm: number): number {
+  return (beat * 60) / bpm;
+}
+
+function melody(midiNotes: number[], rhythm: number[], bpm: number, velocity = 80): SimpleNote[] {
+  const notes: SimpleNote[] = [];
+  let beat = 0;
+  for (let i = 0; i < midiNotes.length; i++) {
+    const dur = rhythm[i] ?? 1;
+    if (midiNotes[i] > 0) {
+      notes.push({
+        midi: midiNotes[i],
+        time: beatsToTime(beat, bpm),
+        duration: beatsToTime(dur * 0.9, bpm),
+        velocity,
+      });
+    }
+    beat += dur;
+  }
+  return notes;
+}
+
+interface SongData {
+  id: string;
+  title: string;
+  genre: string;
+  bpm: number;
+  rightHand: { notes: number[]; rhythm: number[] };
+  leftHand?: { notes: number[]; rhythm: number[] };
+}
+
+function generateMidi(song: SongData): void {
+  const midi = new Midi();
+  midi.header.setTempo(song.bpm);
+  midi.header.name = song.title;
+
+  const rhNotes = melody(song.rightHand.notes, song.rightHand.rhythm, song.bpm);
+  const rhTrack = midi.addTrack();
+  rhTrack.name = 'Right Hand';
+  for (const n of rhNotes) {
+    rhTrack.addNote({ midi: n.midi, time: n.time, duration: n.duration, velocity: (n.velocity ?? 80) / 127 });
+  }
+
+  if (song.leftHand) {
+    const lhNotes = melody(song.leftHand.notes, song.leftHand.rhythm, song.bpm, 70);
+    const lhTrack = midi.addTrack();
+    lhTrack.name = 'Left Hand';
+    for (const n of lhNotes) {
+      lhTrack.addNote({ midi: n.midi, time: n.time, duration: n.duration, velocity: (n.velocity ?? 70) / 127 });
+    }
+  }
+
+  const outDir = join(PUBLIC_DIR, song.genre);
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(join(outDir, `${song.id}.mid`), Buffer.from(midi.toArray()));
+  console.log(`  ✓ ${song.genre}/${song.id}.mid`);
+}
+
+// ============================================================
+// BEGINNER SONGS
+// ============================================================
+
+const beginnerSongs: SongData[] = [
+  {
+    id: 'middle-c-march', title: 'Middle C March', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [60, 60, 60, 60, 60, 60, 60, 60, 62, 62, 62, 62, 60, 60, 60, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'c-scale-climb', title: 'C Scale Climb', genre: 'beginner', bpm: 80,
+    rightHand: {
+      notes: [60, 62, 64, 65, 67, 69, 71, 72, 72, 71, 69, 67, 65, 64, 62, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'hot-cross-buns', title: 'Hot Cross Buns', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [64, 62, 60, 0, 64, 62, 60, 0, 60, 60, 60, 60, 62, 62, 62, 62, 64, 62, 60, 0],
+      rhythm: [1, 1, 2, 1, 1, 1, 2, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1, 1, 2, 1],
+    },
+  },
+  {
+    id: 'mary-had-a-little-lamb', title: 'Mary Had a Little Lamb', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [64, 62, 60, 62, 64, 64, 64, 0, 62, 62, 62, 0, 64, 67, 67, 0, 64, 62, 60, 62, 64, 64, 64, 64, 62, 62, 64, 62, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'london-bridge', title: 'London Bridge', genre: 'beginner', bpm: 110,
+    rightHand: {
+      notes: [67, 69, 67, 65, 64, 65, 67, 0, 62, 64, 65, 0, 64, 65, 67, 0, 67, 69, 67, 65, 64, 65, 67, 0, 62, 0, 67, 0, 64, 0, 60],
+      rhythm: [1.5, 0.5, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1.5, 0.5, 1, 1, 1, 1, 2, 1, 1, 0.5, 1, 0.5, 1, 0.5, 2],
+    },
+  },
+  {
+    id: 'twinkle-twinkle', title: 'Twinkle Twinkle Little Star', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [60, 60, 67, 67, 69, 69, 67, 0, 65, 65, 64, 64, 62, 62, 60, 0, 67, 67, 65, 65, 64, 64, 62, 0, 67, 67, 65, 65, 64, 64, 62, 0, 60, 60, 67, 67, 69, 69, 67, 0, 65, 65, 64, 64, 62, 62, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'jingle-bells', title: 'Jingle Bells', genre: 'beginner', bpm: 110,
+    rightHand: {
+      notes: [64, 64, 64, 0, 64, 64, 64, 0, 64, 67, 60, 62, 64, 0, 65, 65, 65, 65, 65, 64, 64, 64, 64, 62, 62, 64, 62, 0, 67],
+      rhythm: [1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'happy-birthday', title: 'Happy Birthday', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [60, 60, 62, 60, 65, 64, 0, 60, 60, 62, 60, 67, 65, 0, 60, 60, 72, 69, 65, 64, 62, 0, 70, 70, 69, 65, 67, 65],
+      rhythm: [0.75, 0.25, 1, 1, 1, 2, 1, 0.75, 0.25, 1, 1, 1, 2, 1, 0.75, 0.25, 1, 1, 1, 1, 2, 1, 0.75, 0.25, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'row-row-row', title: 'Row Row Row Your Boat', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [60, 0, 60, 0, 60, 62, 64, 0, 64, 62, 64, 65, 67, 0, 72, 72, 72, 67, 67, 67, 64, 64, 64, 60, 60, 60, 67, 65, 64, 62, 60],
+      rhythm: [1, 0.5, 1, 0.5, 0.75, 0.25, 1, 0.5, 0.75, 0.25, 0.75, 0.25, 2, 1, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.33, 0.75, 0.25, 0.75, 0.25, 2],
+    },
+  },
+  {
+    id: 'baa-baa-black-sheep', title: 'Baa Baa Black Sheep', genre: 'beginner', bpm: 95,
+    rightHand: {
+      notes: [60, 60, 67, 67, 69, 69, 67, 0, 65, 65, 64, 64, 62, 62, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'g-scale-exercise', title: 'G Scale Exercise', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [67, 69, 71, 72, 74, 76, 78, 79, 79, 78, 76, 74, 72, 71, 69, 67],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'ode-to-joy', title: 'Ode to Joy', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [64, 64, 65, 67, 67, 65, 64, 62, 60, 60, 62, 64, 64, 62, 62, 0, 64, 64, 65, 67, 67, 65, 64, 62, 60, 60, 62, 64, 62, 60, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5, 0.5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5, 0.5, 2],
+    },
+  },
+  {
+    id: 'd-scale-exercise', title: 'D Scale Exercise', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [62, 64, 66, 67, 69, 71, 73, 74, 74, 73, 71, 69, 67, 66, 64, 62],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'f-scale-exercise', title: 'F Scale Exercise', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [65, 67, 69, 70, 72, 74, 76, 77, 77, 76, 74, 72, 70, 69, 67, 65],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'a-minor-scale', title: 'A Minor Scale', genre: 'beginner', bpm: 85,
+    rightHand: {
+      notes: [57, 59, 60, 62, 64, 65, 67, 69, 69, 67, 65, 64, 62, 60, 59, 57],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'frere-jacques', title: 'Frère Jacques', genre: 'beginner', bpm: 110,
+    rightHand: {
+      notes: [60, 62, 64, 60, 60, 62, 64, 60, 64, 65, 67, 0, 64, 65, 67, 0, 67, 69, 67, 65, 64, 60, 67, 69, 67, 65, 64, 60, 60, 55, 60, 0, 60, 55, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 2, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'old-macdonald', title: 'Old MacDonald', genre: 'beginner', bpm: 110,
+    rightHand: {
+      notes: [67, 67, 67, 64, 65, 65, 64, 0, 62, 62, 60, 62, 64, 67, 0, 67, 67, 67, 64, 65, 65, 64, 0, 62, 62, 60, 62, 64, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'yankee-doodle', title: 'Yankee Doodle', genre: 'beginner', bpm: 120,
+    rightHand: {
+      notes: [60, 60, 62, 64, 60, 64, 62, 55, 60, 60, 62, 64, 60, 0, 59, 0, 60, 60, 62, 64, 65, 64, 62, 60, 59, 55, 57, 59, 60, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+    },
+  },
+  {
+    id: 'camptown-races', title: 'Camptown Races', genre: 'beginner', bpm: 120,
+    rightHand: {
+      notes: [67, 67, 64, 67, 69, 67, 64, 62, 64, 67, 67, 64, 67, 69, 67, 0, 64, 62, 64, 67, 64, 62, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 2, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'skip-to-my-lou', title: 'Skip to My Lou', genre: 'beginner', bpm: 115,
+    rightHand: {
+      notes: [65, 65, 67, 67, 69, 69, 67, 0, 65, 65, 64, 64, 62, 0, 65, 65, 67, 67, 69, 69, 67, 0, 65, 64, 62, 64, 65],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'this-old-man', title: 'This Old Man', genre: 'beginner', bpm: 110,
+    rightHand: {
+      notes: [64, 62, 64, 0, 64, 62, 64, 65, 67, 0, 60, 60, 60, 60, 62, 64, 62, 60, 62, 64, 0, 60],
+      rhythm: [1, 1, 1, 0.5, 1, 1, 1, 1, 2, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 0.5, 2],
+    },
+  },
+  {
+    id: 'aura-lee', title: 'Aura Lee', genre: 'beginner', bpm: 90,
+    rightHand: {
+      notes: [64, 64, 65, 67, 67, 65, 64, 67, 69, 69, 67, 65, 64, 62, 60, 0, 64, 64, 65, 67, 67, 65, 64, 67, 69, 69, 67, 65, 64, 62, 64, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'lightly-row', title: 'Lightly Row', genre: 'beginner', bpm: 100,
+    rightHand: {
+      notes: [67, 64, 64, 0, 65, 62, 62, 0, 60, 62, 64, 65, 67, 67, 67, 0, 67, 64, 64, 64, 65, 62, 62, 62, 60, 64, 67, 67, 64],
+      rhythm: [1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'lavenders-blue', title: "Lavender's Blue", genre: 'beginner', bpm: 95,
+    rightHand: {
+      notes: [67, 65, 64, 62, 64, 65, 67, 67, 67, 0, 69, 67, 65, 64, 62, 60, 60, 62, 64, 0, 67, 65, 64, 62, 64, 65, 67, 67, 67, 65, 64, 62, 60],
+      rhythm: [2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'simple-chords-c', title: 'Simple Chords in C', genre: 'beginner', bpm: 80,
+    rightHand: {
+      notes: [60, 64, 67, 60, 64, 67, 60, 65, 69, 60, 65, 69, 60, 64, 67, 55, 59, 62, 60, 64, 67, 60, 64, 67],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+    leftHand: {
+      notes: [48, 0, 0, 48, 0, 0, 53, 0, 0, 53, 0, 0, 48, 0, 0, 43, 0, 0, 48, 0, 0, 48, 0, 0],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+];
+
+// ============================================================
+// FOLK SONGS
+// ============================================================
+
+const folkSongs: SongData[] = [
+  {
+    id: 'oh-susanna', title: 'Oh! Susanna', genre: 'folk', bpm: 120,
+    rightHand: {
+      notes: [62, 64, 65, 67, 67, 69, 67, 65, 64, 62, 60, 60, 62, 64, 64, 62, 62, 0, 62, 64, 65, 67, 67, 69, 67, 65, 64, 62, 60, 60, 62, 64, 64, 62, 60, 60],
+      rhythm: [0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 1, 1, 1.5, 0.5, 2, 0.5, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 1, 1, 1.5, 0.5, 2, 1],
+    },
+  },
+  {
+    id: 'when-the-saints', title: 'When the Saints Go Marching In', genre: 'folk', bpm: 110,
+    rightHand: {
+      notes: [60, 64, 65, 67, 0, 60, 64, 65, 67, 0, 60, 64, 65, 67, 65, 64, 60, 64, 62, 0, 64, 64, 62, 60, 60, 62, 67, 65, 0, 65, 64, 62, 60, 64, 67, 67, 65],
+      rhythm: [1, 1, 1, 4, 1, 1, 1, 1, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 4],
+    },
+  },
+  {
+    id: 'amazing-grace', title: 'Amazing Grace', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [62, 67, 71, 67, 71, 69, 67, 64, 62, 62, 67, 71, 67, 71, 69, 74, 71, 71, 74, 71, 67, 71, 69, 67, 64, 62, 62, 67, 71, 67, 71, 69, 67],
+      rhythm: [1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 0, 3, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3],
+    },
+  },
+  {
+    id: 'auld-lang-syne', title: 'Auld Lang Syne', genre: 'folk', bpm: 95,
+    rightHand: {
+      notes: [60, 65, 65, 69, 67, 65, 67, 69, 65, 65, 69, 72, 74, 0, 74, 72, 69, 65, 67, 69, 65, 65, 69, 67, 65, 67, 62, 60, 65],
+      rhythm: [1, 1.5, 0.5, 1, 1, 1.5, 0.5, 1, 1.5, 0.5, 1, 1, 3, 1, 1, 1.5, 0.5, 1, 1, 1, 1.5, 0.5, 1, 1, 1.5, 0.5, 1, 1, 3],
+    },
+  },
+  {
+    id: 'scarborough-fair', title: 'Scarborough Fair', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [62, 62, 62, 69, 67, 64, 65, 64, 62, 60, 65, 67, 69, 69, 67, 62, 0, 62, 62, 69, 67, 64, 65, 64, 62],
+      rhythm: [3, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 3, 1, 1, 3, 1, 3, 1, 1, 1, 2, 1, 2, 3],
+    },
+  },
+  {
+    id: 'greensleeves', title: 'Greensleeves', genre: 'folk', bpm: 85,
+    rightHand: {
+      notes: [69, 72, 74, 76, 74, 72, 69, 65, 67, 69, 69, 67, 65, 64, 62, 64, 65, 69, 69, 67, 65, 64, 62, 72, 74, 76, 74, 72, 69],
+      rhythm: [1, 2, 1, 1.5, 0.5, 1, 2, 1, 1.5, 0.5, 1, 1.5, 0.5, 1, 2, 1, 1.5, 0.5, 1, 1.5, 0.5, 1, 1, 2, 1, 1.5, 0.5, 1, 3],
+    },
+  },
+  {
+    id: 'simple-gifts', title: 'Simple Gifts', genre: 'folk', bpm: 100,
+    rightHand: {
+      notes: [60, 60, 65, 65, 67, 69, 72, 69, 67, 65, 67, 69, 67, 65, 64, 60, 62, 64, 65, 0, 65, 65, 67, 69, 72, 72, 69, 67, 65, 67, 65, 64, 60, 62, 64, 65],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'kumbaya', title: 'Kumbaya', genre: 'folk', bpm: 85,
+    rightHand: {
+      notes: [60, 64, 65, 67, 65, 64, 0, 64, 60, 0, 60, 64, 65, 67, 65, 64, 0, 64, 0, 60, 64, 65, 67, 65, 64, 62, 60],
+      rhythm: [1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'michael-row-the-boat', title: 'Michael Row the Boat Ashore', genre: 'folk', bpm: 95,
+    rightHand: {
+      notes: [60, 64, 64, 65, 64, 67, 0, 67, 65, 64, 65, 64, 62, 0, 60, 64, 64, 65, 64, 65, 67, 65, 64, 62, 60],
+      rhythm: [1, 2, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'swing-low', title: 'Swing Low, Sweet Chariot', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [65, 69, 72, 74, 72, 69, 72, 69, 65, 0, 65, 69, 72, 74, 72, 69, 72, 74, 76, 0, 76, 74, 72, 69, 72, 69, 65],
+      rhythm: [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'home-on-the-range', title: 'Home on the Range', genre: 'folk', bpm: 90,
+    rightHand: {
+      notes: [60, 65, 65, 67, 69, 69, 72, 72, 69, 67, 65, 67, 69, 65, 0, 60, 65, 65, 67, 69, 69, 72, 72, 69, 67, 65, 69, 67, 65],
+      rhythm: [1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 3, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'silent-night', title: 'Silent Night', genre: 'folk', bpm: 75,
+    rightHand: {
+      notes: [67, 69, 67, 64, 0, 67, 69, 67, 64, 0, 74, 74, 71, 0, 72, 72, 67, 0, 69, 69, 71, 69, 67, 69, 67, 64, 0, 69, 69, 71, 69, 67, 69, 67, 64, 0, 74, 74, 76, 74, 71, 72, 76],
+      rhythm: [1.5, 0.5, 1, 3, 1, 1.5, 0.5, 1, 3, 1, 2, 1, 3, 1, 2, 1, 3, 1, 2, 1, 1, 1, 1.5, 0.5, 1, 3, 1, 2, 1, 1, 1, 1.5, 0.5, 1, 3, 1, 2, 1, 1, 1, 1, 2, 4],
+    },
+  },
+  {
+    id: 'danny-boy', title: 'Danny Boy', genre: 'folk', bpm: 72,
+    rightHand: {
+      notes: [60, 65, 67, 69, 72, 74, 72, 69, 67, 65, 67, 69, 65, 60, 62, 0, 60, 65, 67, 69, 72, 74, 72, 69, 67, 65, 67, 69, 65],
+      rhythm: [1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 3, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'shenandoah', title: 'Shenandoah', genre: 'folk', bpm: 70,
+    rightHand: {
+      notes: [60, 65, 69, 69, 67, 65, 67, 69, 72, 69, 65, 64, 65, 0, 60, 65, 69, 69, 67, 65, 67, 69, 72, 74, 72, 69, 65],
+      rhythm: [1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 3, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'beautiful-dreamer', title: 'Beautiful Dreamer', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [67, 69, 67, 64, 62, 60, 0, 60, 62, 64, 67, 65, 0, 67, 69, 67, 64, 62, 60, 0, 60, 62, 64, 62, 60],
+      rhythm: [2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 3, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 3],
+    },
+  },
+  {
+    id: 'my-bonnie', title: 'My Bonnie Lies Over the Ocean', genre: 'folk', bpm: 100,
+    rightHand: {
+      notes: [60, 65, 64, 62, 64, 65, 67, 65, 0, 60, 65, 64, 62, 60, 62, 0, 60, 65, 64, 62, 64, 65, 67, 69, 67, 65, 64, 62, 65],
+      rhythm: [1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'sakura', title: 'Sakura Sakura', genre: 'folk', bpm: 70,
+    rightHand: {
+      notes: [69, 69, 71, 0, 69, 69, 71, 0, 69, 71, 72, 69, 71, 72, 0, 76, 74, 72, 69, 71, 72, 71, 69, 0, 64, 65, 64, 60, 0, 64, 65, 64, 60, 0, 69, 69, 71, 0, 69],
+      rhythm: [2, 2, 4, 1, 2, 2, 4, 1, 1, 1, 2, 1, 1, 4, 1, 1, 1, 2, 1, 1, 1, 1, 4, 1, 1, 1, 2, 4, 1, 1, 1, 2, 4, 1, 2, 2, 4, 1, 4],
+    },
+  },
+  {
+    id: 'annie-laurie', title: 'Annie Laurie', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [63, 65, 68, 70, 68, 65, 63, 61, 63, 65, 68, 70, 72, 0, 75, 73, 72, 70, 68, 65, 63, 65, 68, 70, 72, 75, 73],
+      rhythm: [1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'drink-to-me-only', title: 'Drink to Me Only with Thine Eyes', genre: 'folk', bpm: 90,
+    rightHand: {
+      notes: [65, 67, 69, 72, 72, 69, 67, 65, 67, 69, 72, 69, 67, 0, 65, 67, 69, 72, 72, 69, 67, 65, 67, 69, 72, 74, 72, 69, 65],
+      rhythm: [1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'molly-malone', title: 'Molly Malone', genre: 'folk', bpm: 95,
+    rightHand: {
+      notes: [62, 67, 67, 67, 66, 67, 69, 71, 71, 69, 67, 66, 62, 67, 67, 67, 66, 67, 69, 71, 71, 74, 74, 71, 69, 67],
+      rhythm: [1, 1, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'the-water-is-wide', title: 'The Water Is Wide', genre: 'folk', bpm: 70,
+    rightHand: {
+      notes: [60, 65, 69, 72, 74, 72, 69, 72, 74, 76, 74, 72, 69, 65, 67, 69, 65, 60, 62, 64, 65],
+      rhythm: [1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 3],
+    },
+  },
+  {
+    id: 'loch-lomond', title: 'Loch Lomond', genre: 'folk', bpm: 90,
+    rightHand: {
+      notes: [62, 67, 69, 71, 74, 71, 69, 67, 69, 71, 67, 62, 67, 69, 71, 74, 71, 69, 67, 69, 71, 74, 79, 74, 71, 69, 67],
+      rhythm: [1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 3, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'la-cucaracha', title: 'La Cucaracha', genre: 'folk', bpm: 120,
+    rightHand: {
+      notes: [60, 60, 60, 65, 69, 0, 60, 60, 60, 65, 69, 0, 65, 65, 64, 64, 62, 62, 60, 0, 62, 62, 62, 67, 65, 0, 62, 62, 62, 67, 65, 0, 69, 69, 67, 67, 65, 65, 64],
+      rhythm: [0.5, 0.5, 0.5, 1, 2, 1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0.5, 0.5, 1, 2, 1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'hava-nagila', title: 'Hava Nagila', genre: 'folk', bpm: 130,
+    rightHand: {
+      notes: [64, 63, 64, 68, 67, 68, 71, 68, 67, 63, 64, 63, 64, 68, 67, 68, 71, 68, 67, 63, 64, 67, 64, 63, 60, 63, 64],
+      rhythm: [1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'waltzing-matilda', title: 'Waltzing Matilda', genre: 'folk', bpm: 100,
+    rightHand: {
+      notes: [67, 69, 71, 74, 71, 69, 67, 66, 67, 69, 0, 67, 69, 71, 74, 71, 69, 67, 66, 67, 69, 74, 74, 71, 69, 67],
+      rhythm: [1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'house-of-the-rising-sun', title: 'House of the Rising Sun', genre: 'folk', bpm: 80,
+    rightHand: {
+      notes: [57, 60, 64, 65, 64, 60, 0, 57, 60, 65, 67, 65, 64, 60, 57, 60, 64, 65, 64, 60, 57, 53, 57, 60, 57],
+      rhythm: [1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'kalinka', title: 'Kalinka', genre: 'folk', bpm: 130,
+    rightHand: {
+      notes: [69, 72, 76, 76, 74, 72, 74, 76, 74, 72, 69, 72, 76, 76, 74, 72, 74, 72, 69, 0, 69, 71, 72, 71, 69, 68, 69],
+      rhythm: [1, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 2, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 2],
+    },
+  },
+];
+
+// ============================================================
+// BAROQUE - Simple pieces (generate from note arrays)
+// ============================================================
+
+const baroqueSongs: SongData[] = [
+  {
+    id: 'minuet-in-g', title: 'Minuet in G Major', genre: 'baroque', bpm: 110,
+    rightHand: {
+      notes: [74, 67, 69, 71, 72, 74, 67, 67, 76, 72, 74, 76, 78, 79, 0, 74, 67, 69, 71, 72, 74, 67, 67, 71, 72, 71, 69, 67, 69, 71, 72, 67, 64, 67],
+      rhythm: [2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+    leftHand: {
+      notes: [55, 0, 0, 0, 0, 0, 59, 0, 52, 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 55, 0, 0, 0, 57, 59, 55],
+      rhythm: [2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'minuet-in-g-minor', title: 'Minuet in G Minor', genre: 'baroque', bpm: 105,
+    rightHand: {
+      notes: [70, 74, 72, 70, 74, 79, 77, 74, 75, 74, 72, 70, 69, 70, 72, 74, 75, 74, 72, 70, 69, 67, 70, 67, 0],
+      rhythm: [1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3],
+    },
+  },
+  {
+    id: 'bach-musette', title: 'Musette in D Major', genre: 'baroque', bpm: 100,
+    rightHand: {
+      notes: [74, 73, 74, 69, 66, 69, 71, 69, 66, 69, 74, 73, 74, 69, 66, 69, 71, 69, 66, 74],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'bach-march-d', title: 'March in D Major', genre: 'baroque', bpm: 110,
+    rightHand: {
+      notes: [74, 74, 73, 74, 76, 78, 74, 71, 74, 73, 71, 69, 71, 0, 74, 74, 73, 74, 76, 78, 74, 71, 74, 73, 71, 69, 66],
+      rhythm: [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 2, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 2],
+    },
+  },
+  {
+    id: 'bach-minuet-d-minor', title: 'Minuet in D Minor', genre: 'baroque', bpm: 100,
+    rightHand: {
+      notes: [74, 72, 70, 69, 67, 65, 67, 69, 70, 72, 74, 65, 67, 69, 70, 72, 74, 76, 74, 72, 70, 69, 67, 65, 62],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'prelude-in-c', title: 'Prelude in C Major, BWV 846', genre: 'baroque', bpm: 70,
+    rightHand: {
+      notes: [60, 64, 67, 72, 76, 67, 72, 76, 60, 62, 69, 72, 76, 69, 72, 76, 59, 64, 67, 72, 76, 67, 72, 76, 60, 64, 67, 72, 76, 67, 72, 76, 60, 62, 65, 69, 76, 65, 69, 76, 60, 62, 67, 72, 76, 67, 72, 76, 59, 65, 67, 72, 76, 67, 72, 76, 60, 64, 67, 72, 76, 67, 72, 76],
+      rhythm: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+    },
+  },
+  {
+    id: 'canon-in-d', title: 'Canon in D Major', genre: 'baroque', bpm: 68,
+    rightHand: {
+      notes: [78, 76, 74, 73, 71, 69, 71, 73, 66, 69, 68, 69, 73, 69, 73, 74, 66, 69, 68, 69, 73, 69, 68, 66, 64, 66, 68, 64, 62, 64, 66, 64],
+      rhythm: [2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    },
+  },
+  {
+    id: 'air-on-g-string', title: 'Air on the G String', genre: 'baroque', bpm: 60,
+    rightHand: {
+      notes: [72, 71, 72, 74, 72, 71, 69, 67, 69, 71, 72, 74, 76, 74, 72, 71, 69, 71, 72, 74, 72, 71, 69, 67, 72, 71, 72, 74, 76, 74, 72],
+      rhythm: [2, 0.5, 0.5, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 2, 0.5, 0.5, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 2, 0.5, 0.5, 1, 2, 1, 3],
+    },
+  },
+];
+
+// ============================================================
+// IMPRESSIONIST - Satie pieces
+// ============================================================
+
+const impressionistSongs: SongData[] = [
+  {
+    id: 'gymnopedie-no1', title: 'Gymnopédie No. 1', genre: 'impressionist', bpm: 66,
+    rightHand: {
+      notes: [0, 0, 0, 74, 72, 69, 67, 65, 0, 0, 69, 67, 65, 62, 64, 0, 0, 74, 72, 69, 67, 65, 0, 0, 69, 67, 65, 62, 60],
+      rhythm: [3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3],
+    },
+    leftHand: {
+      notes: [55, 62, 67, 53, 60, 65, 55, 62, 67, 53, 60, 65, 55, 62, 67, 53, 60, 65, 55, 62, 67, 53, 60, 65, 55, 62, 67, 53, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'satie-gymnopedie-2', title: 'Gymnopédie No. 2', genre: 'impressionist', bpm: 66,
+    rightHand: {
+      notes: [0, 0, 0, 72, 71, 67, 65, 64, 0, 0, 67, 65, 64, 60, 62, 0, 0, 72, 71, 67, 65, 64, 0, 0, 67, 65, 64, 60, 59],
+      rhythm: [3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3],
+    },
+    leftHand: {
+      notes: [53, 60, 64, 52, 59, 64, 53, 60, 64, 52, 59, 64, 53, 60, 64, 52, 59, 64, 53, 60, 64, 52, 59, 64, 53, 60, 64, 52, 59],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'satie-gymnopedie-3', title: 'Gymnopédie No. 3', genre: 'impressionist', bpm: 66,
+    rightHand: {
+      notes: [0, 0, 0, 69, 67, 64, 62, 60, 0, 0, 64, 62, 60, 57, 59, 0, 0, 69, 67, 64, 62, 60, 0, 0, 64, 62, 60, 57, 55],
+      rhythm: [3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3, 3, 1, 2, 1, 2, 1, 3],
+    },
+    leftHand: {
+      notes: [50, 57, 62, 48, 55, 60, 50, 57, 62, 48, 55, 60, 50, 57, 62, 48, 55, 60, 50, 57, 62, 48, 55, 60, 50, 57, 62, 48, 55],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'satie-gnossienne-1', title: 'Gnossienne No. 1', genre: 'impressionist', bpm: 60,
+    rightHand: {
+      notes: [65, 67, 68, 72, 72, 72, 72, 70, 68, 70, 0, 65, 67, 68, 72, 72, 72, 72, 70, 68, 67, 65, 0, 65, 67, 68, 72, 72, 72, 70, 68, 65],
+      rhythm: [0.5, 0.5, 1, 1, 0.5, 0.5, 1, 1, 1, 2, 1, 0.5, 0.5, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 2, 1, 0.5, 0.5, 1, 1, 0.5, 0.5, 1, 1, 3],
+    },
+    leftHand: {
+      notes: [53, 60, 65, 53, 60, 65, 53, 60, 65, 53, 60, 53, 60, 65, 53, 60, 65, 53, 60, 65, 53, 60, 53, 60, 65, 53, 60, 65, 53, 60, 65, 53],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'satie-gnossienne-3', title: 'Gnossienne No. 3', genre: 'impressionist', bpm: 55,
+    rightHand: {
+      notes: [69, 71, 72, 76, 76, 74, 72, 71, 69, 0, 69, 71, 72, 76, 76, 74, 72, 71, 69, 68, 69],
+      rhythm: [0.5, 0.5, 1, 2, 1, 1, 1, 1, 3, 1, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 3],
+    },
+    leftHand: {
+      notes: [57, 64, 69, 57, 64, 69, 57, 64, 69, 57, 57, 64, 69, 57, 64, 69, 57, 64, 69, 57, 57],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'satie-je-te-veux', title: 'Je te veux', genre: 'impressionist', bpm: 120,
+    rightHand: {
+      notes: [67, 71, 74, 72, 71, 69, 67, 71, 74, 72, 71, 69, 67, 71, 74, 76, 74, 72, 71, 74, 72, 71, 69, 67],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+    leftHand: {
+      notes: [55, 67, 71, 55, 67, 71, 52, 64, 69, 52, 64, 69, 55, 67, 71, 55, 67, 71, 52, 64, 69, 52, 64, 67],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+    },
+  },
+];
+
+// ============================================================
+// JAZZ - Simple ragtime pieces
+// ============================================================
+
+const jazzSongs: SongData[] = [
+  {
+    id: 'twelve-bar-blues', title: '12-Bar Blues in C', genre: 'jazz', bpm: 100,
+    rightHand: {
+      notes: [60, 63, 65, 67, 65, 63, 60, 63, 65, 67, 65, 63, 65, 68, 70, 72, 70, 68, 65, 68, 70, 72, 70, 68, 60, 63, 65, 67, 65, 63, 55, 58, 60, 62, 60, 58, 60, 63, 65, 67, 65, 63, 60],
+      rhythm: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'joplin-easy-winners', title: 'The Easy Winners', genre: 'jazz', bpm: 100,
+    rightHand: {
+      notes: [72, 0, 72, 0, 71, 72, 74, 72, 69, 67, 0, 69, 72, 69, 67, 64, 65, 67, 69, 67, 65, 64, 60, 62, 64, 65, 67, 65, 64, 62, 60],
+      rhythm: [0.5, 0.5, 0.5, 0.25, 0.25, 0.5, 1, 1, 1, 2, 0.5, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'joplin-pleasant-moments', title: 'Pleasant Moments', genre: 'jazz', bpm: 80,
+    rightHand: {
+      notes: [73, 74, 76, 78, 76, 74, 73, 71, 73, 74, 76, 78, 76, 74, 73, 71, 69, 71, 73, 74, 73, 71, 69, 66],
+      rhythm: [0.5, 0.5, 1, 2, 1, 1, 1, 1, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 0.5, 0.5, 1, 2, 1, 1, 1, 3],
+    },
+  },
+];
+
+// ============================================================
+// CLASSICAL - Simple Mozart/Haydn/Clementi pieces
+// ============================================================
+
+const classicalSongs: SongData[] = [
+  {
+    id: 'mozart-minuet-k2', title: 'Minuet in F Major, K. 2', genre: 'classical', bpm: 110,
+    rightHand: {
+      notes: [77, 76, 74, 72, 74, 76, 77, 74, 72, 0, 72, 74, 76, 77, 76, 74, 72, 74, 76, 77, 74, 72, 0, 69, 72, 74, 76, 77],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'mozart-minuet-k5', title: 'Minuet in F Major, K. 5', genre: 'classical', bpm: 105,
+    rightHand: {
+      notes: [72, 74, 76, 77, 76, 74, 72, 69, 72, 74, 76, 77, 76, 74, 72, 74, 76, 77, 79, 77, 76, 74, 72, 69, 72, 74, 76, 72],
+      rhythm: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3],
+    },
+  },
+  {
+    id: 'haydn-german-dance', title: 'German Dance in D Major', genre: 'classical', bpm: 130,
+    rightHand: {
+      notes: [74, 73, 74, 78, 0, 74, 73, 74, 78, 0, 74, 78, 81, 78, 74, 73, 74, 78, 0, 74, 73, 74, 78, 0, 74, 78, 81, 78, 74],
+      rhythm: [0.5, 0.5, 1, 2, 1, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 1, 2, 1, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 2],
+    },
+  },
+  {
+    id: 'beethoven-sonatina-g', title: 'Sonatina in G Major', genre: 'classical', bpm: 120,
+    rightHand: {
+      notes: [74, 71, 67, 0, 74, 71, 67, 0, 74, 72, 71, 69, 67, 0, 76, 74, 72, 71, 72, 74, 67, 0, 74, 71, 67, 0, 74, 71, 67, 0, 74, 72, 71, 69, 67],
+      rhythm: [0.5, 0.5, 1, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 2, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 2],
+    },
+  },
+  {
+    id: 'beethoven-bagatelle-op119-1', title: 'Bagatelle Op. 119 No. 1', genre: 'classical', bpm: 100,
+    rightHand: {
+      notes: [67, 71, 74, 72, 71, 67, 0, 67, 71, 74, 72, 71, 69, 67, 66, 67, 71, 74, 79, 78, 79, 74, 71, 67],
+      rhythm: [0.5, 0.5, 1, 1, 1, 2, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 2],
+    },
+  },
+];
+
+// ============================================================
+// MAIN: Generate all songs
+// ============================================================
+
+const allSongs = [
+  ...beginnerSongs,
+  ...folkSongs,
+  ...baroqueSongs,
+  ...impressionistSongs,
+  ...jazzSongs,
+  ...classicalSongs,
+];
+
+// Ensure genre directories exist
+const genres = ['beginner', 'folk', 'baroque', 'classical', 'romantic', 'impressionist', 'jazz', 'advanced'];
+for (const genre of genres) {
+  mkdirSync(join(PUBLIC_DIR, genre), { recursive: true });
+}
+
+console.log(`Generating ${allSongs.length} songs from note arrays...\n`);
+
+for (const song of allSongs) {
+  generateMidi(song);
+}
+
+console.log(`\nDone! ${allSongs.length} MIDI files generated.`);
+console.log(`\nNote: Songs sourced from MAESTRO dataset need to be downloaded separately.`);
+console.log(`Run: npx tsx scripts/download-maestro.ts`);

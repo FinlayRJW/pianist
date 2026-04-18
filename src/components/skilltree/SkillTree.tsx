@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SKILL_TREE_AREAS, getAreaNodes } from '../../data/skill-tree';
+import { SKILL_TREE_AREAS, SKILL_TREE_NODES, getAreaNodes } from '../../data/skill-tree';
 import { SONG_CATALOG } from '../../data/songs';
 import { useProgressStore } from '../../stores/progressStore';
 import { SkillTreeAreaColumn } from './SkillTreeArea';
 import { NavigationTabs } from './NavigationTabs';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
+
+const BG_STARS = Array.from({ length: 120 }, (_, i) => ({
+  x: (Math.sin(i * 7.3 + 1.2) * 0.5 + 0.5) * 100,
+  y: (Math.sin(i * 13.7 + 5.8) * 0.5 + 0.5) * 100,
+  size: (Math.sin(i * 3.1) * 0.5 + 0.5) * 1.2 + 0.4,
+  opacity: (Math.sin(i * 11.3) * 0.5 + 0.5) * 0.25 + 0.03,
+}));
 
 export function SkillTree() {
   const navigate = useNavigate();
@@ -29,41 +36,68 @@ export function SkillTree() {
 
   const currentTotalStars = totalStarsFn();
 
+  const firstStepsStars = useMemo(
+    () =>
+      SKILL_TREE_NODES
+        .filter((n) => n.areaId === 'beginner')
+        .reduce((sum, n) => sum + (bestStars[n.songId] ?? 0), 0),
+    [bestStars],
+  );
+
   const handlePlay = (songId: string) => navigate(`/play/${songId}`);
 
   useEffect(() => {
     if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const firstIncompleteIdx = sortedAreas.findIndex((area) => {
-      if (currentTotalStars < area.starsToUnlock) return false;
+    const idx = sortedAreas.findIndex((area) => {
+      if (area.id !== 'beginner' && firstStepsStars < area.starsToUnlock) return false;
       const nodes = getAreaNodes(area.id);
       return nodes.some(
         (n) => unlockedNodes.includes(n.id) && !(bestStars[n.songId] > 0),
       );
     });
-    if (firstIncompleteIdx > 0) {
-      const inner = container.firstElementChild;
-      const target = inner?.children[firstIncompleteIdx] as HTMLElement | undefined;
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
+    if (idx > 0) {
+      const inner = scrollRef.current.firstElementChild;
+      const target = inner?.children[idx] as HTMLElement | undefined;
+      target?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-3 flex-shrink-0">
+    <div className="flex-1 flex flex-col overflow-hidden relative" style={{ background: '#060618' }}>
+      {/* Starfield */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {BG_STARS.map((s, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              width: s.size,
+              height: s.size,
+              backgroundColor: 'white',
+              opacity: s.opacity,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-3 flex-shrink-0 relative z-10">
         <NavigationTabs />
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="t-text text-sm font-bold">{currentTotalStars}</span>
+            <span className="text-sm font-bold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+              {currentTotalStars}
+            </span>
           </div>
           <button
             onClick={() => setShowSettings(true)}
-            className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
+            className="p-2 rounded-full transition-colors"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
             title="Settings"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,17 +108,18 @@ export function SkillTree() {
         </div>
       </div>
 
+      {/* Scrolling constellation map */}
       <div
         ref={scrollRef}
-        className="flex-1 overflow-x-auto overflow-y-auto"
+        className="flex-1 overflow-x-auto overflow-y-auto relative z-10"
         style={{ scrollbarWidth: 'none' }}
       >
-        <div className="flex items-start gap-4 px-6 py-3 pb-8">
+        <div className="flex items-start gap-8 px-10 py-4 pb-12">
           {sortedAreas.map((area) => {
             const areaNodes = getAreaNodes(area.id);
             const maxStars = areaNodes.length * 3;
             const stars = areaStarsFn(area.id);
-            const isUnlocked = currentTotalStars >= area.starsToUnlock;
+            const isUnlocked = area.id === 'beginner' || firstStepsStars >= area.starsToUnlock;
 
             return (
               <SkillTreeAreaColumn
@@ -97,7 +132,7 @@ export function SkillTree() {
                 isAreaUnlocked={isUnlocked}
                 areaStars={stars}
                 maxStars={maxStars}
-                totalStars={currentTotalStars}
+                firstStepsStars={firstStepsStars}
                 onPlay={handlePlay}
               />
             );

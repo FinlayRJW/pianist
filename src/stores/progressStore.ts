@@ -19,21 +19,13 @@ interface ProgressStore {
 
 function computeUnlockedNodes(bestStars: Record<string, 0 | 1 | 2 | 3>): string[] {
   const unlocked: string[] = [];
-  const totalByArea: Record<string, number> = {};
 
-  for (const node of SKILL_TREE_NODES) {
-    const stars = bestStars[node.songId] ?? 0;
-    totalByArea[node.areaId] = (totalByArea[node.areaId] ?? 0) + stars;
-  }
+  const firstStepsStars = SKILL_TREE_NODES
+    .filter((n) => n.areaId === 'beginner')
+    .reduce((sum, n) => sum + (bestStars[n.songId] ?? 0), 0);
 
-  let cumulativeStars = 0;
-  const sortedAreas = [...SKILL_TREE_AREAS].sort((a, b) => a.order - b.order);
-
-  for (const area of sortedAreas) {
-    if (cumulativeStars < area.starsToUnlock) {
-      cumulativeStars += totalByArea[area.id] ?? 0;
-      continue;
-    }
+  for (const area of SKILL_TREE_AREAS) {
+    if (area.id !== 'beginner' && firstStepsStars < area.starsToUnlock) continue;
 
     const areaNodes = SKILL_TREE_NODES.filter((n) => n.areaId === area.id);
     for (const node of areaNodes) {
@@ -48,8 +40,6 @@ function computeUnlockedNodes(bestStars: Record<string, 0 | 1 | 2 | 3>): string[
       });
       if (met) unlocked.push(node.id);
     }
-
-    cumulativeStars += totalByArea[area.id] ?? 0;
   }
 
   return unlocked;

@@ -12,11 +12,11 @@ const DIFFICULTY_COLORS = ['', 'text-emerald-400', 'text-green-400', 't-warning'
 const GENRE_COLORS: Record<string, string> = {
   beginner: 'bg-cyan-500/15 text-cyan-400',
   folk: 'bg-emerald-500/15 text-emerald-400',
+  baroque: 'bg-purple-500/15 text-purple-400',
   classical: 'bg-violet-500/15 text-violet-400',
-  pop: 'bg-pink-500/15 text-pink-400',
-  rock: 'bg-red-500/15 text-red-400',
-  funk: 'bg-amber-500/15 text-amber-400',
-  jazz: 'bg-indigo-500/15 text-indigo-400',
+  romantic: 'bg-pink-500/15 text-pink-400',
+  impressionist: 'bg-sky-500/15 text-sky-400',
+  jazz: 'bg-amber-500/15 text-amber-400',
   advanced: 'bg-yellow-500/15 text-yellow-400',
 };
 
@@ -32,11 +32,6 @@ export function SongCard({ song, bestStars = 0, onClick }: Props) {
             <h3 className="t-text font-medium text-base group-hover:text-accent-light transition-colors truncate">
               {song.title}
             </h3>
-            {song.requiresMidi && (
-              <span className="flex-shrink-0 px-1.5 py-0.5 rounded text-[9px] font-medium bg-accent/15 text-accent-light">
-                MIDI
-              </span>
-            )}
           </div>
           <p className="t-text-tertiary text-sm mt-0.5">{song.composer}</p>
         </div>

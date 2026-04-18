@@ -11,10 +11,10 @@ const GENRES: { value: SongGenre | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'beginner', label: 'Beginner' },
   { value: 'folk', label: 'Folk' },
+  { value: 'baroque', label: 'Baroque' },
   { value: 'classical', label: 'Classical' },
-  { value: 'pop', label: 'Pop' },
-  { value: 'rock', label: 'Rock' },
-  { value: 'funk', label: 'Funk' },
+  { value: 'romantic', label: 'Romantic' },
+  { value: 'impressionist', label: 'Impressionist' },
   { value: 'jazz', label: 'Jazz' },
   { value: 'advanced', label: 'Advanced' },
 ];
