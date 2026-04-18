@@ -7,6 +7,16 @@ const MIDI_TIMING = { perfect: 50, great: 100, good: 200 };
 
 const POINTS = { perfect: 100, great: 75, good: 50, miss: 0 };
 
+const SUSTAIN_MIN_DURATION = 0.4;
+const SUSTAIN_CHECK_RATIO = 0.4;
+const SUSTAIN_CHECK_MIN_DELAY = 0.3;
+
+interface SustainCheck {
+  midi: number;
+  checkTime: number;
+  pointsAwarded: number;
+}
+
 function comboMultiplier(combo: number): number {
   if (combo >= 50) return 2.0;
   if (combo >= 25) return 1.5;
@@ -35,6 +45,7 @@ export function useScoring(
   const maxComboRef = useRef(0);
   const scoreRef = useRef(0);
   const lastRatingRef = useRef<{ rating: string; time: number } | null>(null);
+  const sustainChecksRef = useRef<Map<number, SustainCheck>>(new Map());
 
   const chordData = useMemo(() => buildChordGroups(notes), [notes]);
 
@@ -47,6 +58,7 @@ export function useScoring(
     maxComboRef.current = 0;
     scoreRef.current = 0;
     lastRatingRef.current = null;
+    sustainChecksRef.current.clear();
   }, []);
 
   const onNoteDetected = useCallback(
@@ -87,13 +99,14 @@ export function useScoring(
       else if (Math.abs(delta) <= windows.great) rating = 'great';
       else rating = 'good';
 
+      const speedMul = speedRef?.current ?? 1;
+
       if (usingMidi) {
         const groupIdx = noteToGroup.get(bestIdx);
         const indicesToMark = (groupIdx !== undefined)
           ? groups[groupIdx].noteIndices.filter(ni => !matchedRef.current.has(ni))
           : [bestIdx];
 
-        const speedMul = speedRef?.current ?? 1;
         for (const ni of indicesToMark) {
           matchedRef.current.add(ni);
           hitNotesRef.current.add(ni);
@@ -101,11 +114,21 @@ export function useScoring(
           if (comboRef.current > maxComboRef.current) {
             maxComboRef.current = comboRef.current;
           }
-          scoreRef.current += POINTS[rating] * comboMultiplier(comboRef.current) * speedMul;
+          const pts = POINTS[rating] * comboMultiplier(comboRef.current) * speedMul;
+          scoreRef.current += pts;
           hitsRef.current.push({ noteIndex: ni, timingDeltaMs: delta, rating });
+
+          const noteDur = notes[ni].duration;
+          if (noteDur > SUSTAIN_MIN_DURATION) {
+            const delay = Math.max(noteDur * SUSTAIN_CHECK_RATIO, SUSTAIN_CHECK_MIN_DELAY);
+            sustainChecksRef.current.set(ni, {
+              midi: notes[ni].midi,
+              checkTime: notes[ni].startTime + delay,
+              pointsAwarded: pts,
+            });
+          }
         }
       } else {
-        const speedMul = speedRef?.current ?? 1;
         matchedRef.current.add(bestIdx);
         hitNotesRef.current.add(bestIdx);
         comboRef.current++;
@@ -181,6 +204,27 @@ export function useScoring(
     }
   }, [notes, timeRef, usingMidi, chordData]);
 
+  const checkSustain = useCallback((activeNotes: Set<number>) => {
+    const currentTime = timeRef.current ?? 0;
+    const checks = sustainChecksRef.current;
+
+    for (const [noteIdx, check] of checks) {
+      if (currentTime < check.checkTime) continue;
+
+      if (!activeNotes.has(check.midi)) {
+        scoreRef.current -= check.pointsAwarded;
+        hitNotesRef.current.delete(noteIdx);
+        missedNotesRef.current.add(noteIdx);
+        const hitRecord = hitsRef.current.find(h => h.noteIndex === noteIdx);
+        if (hitRecord) hitRecord.rating = 'miss';
+        comboRef.current = 0;
+        lastRatingRef.current = { rating: 'miss', time: performance.now() };
+      }
+
+      checks.delete(noteIdx);
+    }
+  }, [timeRef]);
+
   const getResults = useCallback((): SongScore => {
     const hits = hitsRef.current;
     const breakdown = { perfect: 0, great: 0, good: 0, miss: 0 };
@@ -203,6 +247,7 @@ export function useScoring(
   return {
     onNoteDetected,
     checkMisses,
+    checkSustain,
     reset,
     getResults,
     hitNotes: hitNotesRef,

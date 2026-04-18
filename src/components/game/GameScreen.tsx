@@ -85,6 +85,7 @@ export function GameScreen({ song, onBack }: Props) {
       autoPlay.tick();
       if (gameState === 'playing') {
         scoring.checkMisses();
+        scoring.checkSustain(input.activeNotes.current);
       }
       setLiveScore(scoring.scoreRef.current);
       setLiveCombo(scoring.comboRef.current);

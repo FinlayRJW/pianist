@@ -57,14 +57,23 @@ export function drawFrame(
     if (missedNotes.has(i)) continue;
     if (!activeNotes.has(note.midi)) continue;
     const timeDelta = note.startTime - currentTime;
-    if (timeDelta < -0.15 && hitNotes.has(i)) continue;
-    if (Math.abs(timeDelta) > 0.35) continue;
+
+    if (hitNotes.has(i)) {
+      if (currentTime > note.startTime + note.duration + 0.1) continue;
+    } else {
+      if (Math.abs(timeDelta) > 0.35) continue;
+    }
+
     const existing = activeNoteMap.get(note.midi);
     if (existing === undefined) {
       activeNoteMap.set(note.midi, i);
     } else {
-      const existingDelta = Math.abs(notes[existing].startTime - currentTime);
-      if (Math.abs(timeDelta) < existingDelta) {
+      const existingDelta = notes[existing].startTime - currentTime;
+      if (timeDelta <= 0 && existingDelta > 0) {
+        activeNoteMap.set(note.midi, i);
+      } else if (timeDelta > 0 && existingDelta <= 0) {
+        // keep existing — at/past play line takes priority
+      } else if (Math.abs(timeDelta) < Math.abs(existingDelta)) {
         activeNoteMap.set(note.midi, i);
       }
     }
@@ -159,7 +168,15 @@ function drawNote(
   }
 
   ctx.fillStyle = color;
-  roundRect(ctx, x, y, width, noteHeight, NOTE_BORDER_RADIUS);
+  const taperRatio = note.duration > 0.3
+    ? Math.max(0.3, 1 - note.duration * 0.25)
+    : 1;
+  if (taperRatio < 1) {
+    const topWidth = width * taperRatio;
+    taperRect(ctx, x, y, width, topWidth, noteHeight, NOTE_BORDER_RADIUS);
+  } else {
+    roundRect(ctx, x, y, width, noteHeight, NOTE_BORDER_RADIUS);
+  }
   ctx.fill();
 
   if (glowIntensity > 0) {
@@ -229,5 +246,30 @@ function roundRect(
   ctx.quadraticCurveTo(x, y + h, x, y + h - r);
   ctx.lineTo(x, y + r);
   ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function taperRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  bottomW: number,
+  topW: number,
+  h: number,
+  r: number,
+) {
+  const topX = x + (bottomW - topW) / 2;
+  r = Math.min(r, topW / 2, h / 2);
+
+  ctx.beginPath();
+  ctx.moveTo(topX + r, y);
+  ctx.lineTo(topX + topW - r, y);
+  ctx.quadraticCurveTo(topX + topW, y, topX + topW, y + r);
+  ctx.lineTo(x + bottomW, y + h - r);
+  ctx.quadraticCurveTo(x + bottomW, y + h, x + bottomW - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(topX, y + r);
+  ctx.quadraticCurveTo(topX, y, topX + r, y);
   ctx.closePath();
 }
