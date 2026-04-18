@@ -2,7 +2,9 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SONG_CATALOG } from '../../data/songs';
 import { useProgressStore } from '../../stores/progressStore';
+import { useImportedSongsStore } from '../../stores/importedSongsStore';
 import { SongCard } from './SongCard';
+import { MidiImport } from './MidiImport';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { NavigationTabs } from '../skilltree/NavigationTabs';
 import type { SongGenre } from '../../types';
@@ -24,14 +26,16 @@ type SortKey = 'difficulty' | 'name' | 'stars';
 export function SongLibrary() {
   const navigate = useNavigate();
   const bestStars = useProgressStore((s) => s.bestStars);
+  const importedSongs = useImportedSongsStore((s) => s.songs);
   const [showCalibration, setShowCalibration] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [genre, setGenre] = useState<SongGenre | 'all'>('all');
   const [difficulty, setDifficulty] = useState<number>(0);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState<SortKey>('difficulty');
 
   const filtered = useMemo(() => {
-    let songs = [...SONG_CATALOG];
+    let songs = [...SONG_CATALOG, ...importedSongs];
     if (genre !== 'all') songs = songs.filter((s) => s.genre === genre);
     if (difficulty > 0) songs = songs.filter((s) => s.difficulty === difficulty);
     if (search.trim()) {
@@ -48,23 +52,36 @@ export function SongLibrary() {
       return a.difficulty - b.difficulty;
     });
     return songs;
-  }, [genre, difficulty, search, sort, bestStars]);
+  }, [genre, difficulty, search, sort, bestStars, importedSongs]);
 
   return (
     <div className="flex-1 overflow-y-auto relative">
       <div className="max-w-2xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between mb-4">
           <NavigationTabs />
-          <button
-            onClick={() => setShowCalibration(true)}
-            className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
-            title="Settings"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setShowImport(true)}
+              className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
+              title="Import MIDI"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setShowCalibration(true)}
+              className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
+              title="Settings"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="space-y-3 mb-5">
@@ -151,6 +168,15 @@ export function SongLibrary() {
       </div>
       {showCalibration && (
         <CalibrationModal onClose={() => setShowCalibration(false)} />
+      )}
+      {showImport && (
+        <MidiImport
+          onClose={() => setShowImport(false)}
+          onImported={(songId) => {
+            setShowImport(false);
+            navigate(`/play/${songId}`);
+          }}
+        />
       )}
     </div>
   );

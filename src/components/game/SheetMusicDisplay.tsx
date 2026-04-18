@@ -62,7 +62,6 @@ export function SheetMusicDisplay({
     renderer.resize(totalWidth, height - 10);
     const context = renderer.getContext();
 
-    const beatsPerMeasure = timeSignature[0] * (4 / timeSignature[1]);
     const currentBeat = ((timeRef.current ?? 0) * bpm) / 60;
 
     measuresRef.current = renderScore(

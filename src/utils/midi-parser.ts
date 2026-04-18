@@ -1,9 +1,10 @@
 import { Midi } from '@tonejs/midi';
 import type { Note, ParsedSong, SongMeta } from '../types';
 
-export async function parseMidiFile(url: string, meta: SongMeta): Promise<ParsedSong> {
-  const response = await fetch(url);
-  const arrayBuffer = await response.arrayBuffer();
+export async function parseMidiFile(urlOrBuffer: string | ArrayBuffer, meta: SongMeta): Promise<ParsedSong> {
+  const arrayBuffer = typeof urlOrBuffer === 'string'
+    ? await fetch(urlOrBuffer).then((r) => r.arrayBuffer())
+    : urlOrBuffer;
   const midi = new Midi(arrayBuffer);
 
   const tracks: { name: string; notes: Note[] }[] = [];

@@ -33,17 +33,6 @@ export function midiToVexflowPitch(midi: number): string {
   return `${PITCH_NAMES[pitchClass]}/${octave}`;
 }
 
-const KEY_SIGNATURE_SHARPS: Record<string, Set<number>> = {
-  C: new Set(),
-  G: new Set([6]),
-  D: new Set([6, 1]),
-  A: new Set([6, 1, 8]),
-  E: new Set([6, 1, 8, 3]),
-  F: new Set([10]),
-  Bb: new Set([10, 3]),
-  Eb: new Set([10, 3, 8]),
-};
-
 export function quantizeToNotation(
   notes: Note[],
   bpm: number,

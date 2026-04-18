@@ -74,7 +74,7 @@ export const useProgressStore = create<ProgressStore>()(
 
       totalStars: () => {
         const { bestStars } = get();
-        return Object.values(bestStars).reduce((sum, s) => sum + s, 0);
+        return Object.values(bestStars).reduce<number>((sum, s) => sum + s, 0);
       },
 
       areaStars: (areaId) => {
@@ -113,7 +113,7 @@ export const useProgressStore = create<ProgressStore>()(
     }),
     {
       name: 'pianist-progress',
-      onRehydrate: () => (state) => {
+      onRehydrateStorage: () => (state: ProgressStore | undefined) => {
         if (state) {
           state.unlockedNodes = computeUnlockedNodes(state.bestStars);
         }
