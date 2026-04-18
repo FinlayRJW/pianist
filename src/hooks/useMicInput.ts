@@ -3,12 +3,12 @@ import { PitchDetector } from 'pitchy';
 import { frequencyToMidi, midiToName } from '../utils/note-utils';
 
 const FFT_SIZE = 4096;
-const CLARITY_THRESHOLD = 0.88;
+const CLARITY_THRESHOLD = 0.85;
 const MIN_FREQUENCY = 55;
 const MAX_FREQUENCY = 2100;
 
-const ONSET_RMS_THRESHOLD = 0.015;
-const OFFSET_RMS_THRESHOLD = 0.006;
+const ONSET_RMS_THRESHOLD = 0.007;
+const OFFSET_RMS_THRESHOLD = 0.003;
 const RE_TRIGGER_DIP_RATIO = 0.35;
 
 const STABLE_FRAMES_REQUIRED = 2;
