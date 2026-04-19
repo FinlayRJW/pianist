@@ -428,53 +428,60 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       <div ref={containerRef} className="flex-1 relative overflow-hidden">
         {containerSize.width > 0 && (
           <>
-            {viewMode === 'combined' && sheetAvailable ? (
-              <div className="relative" style={{ height: canvasHeight }}>
-                <SheetMusicDisplay
-                  key={song.meta.id}
-                  songMeta={song.meta}
-                  timeRef={timeRef}
-                  playing={isActive}
-                  width={containerSize.width}
-                  height={canvasHeight}
-                />
-                <div
-                  className="absolute bottom-0 left-0 right-0 pointer-events-none"
-                  style={{ height: Math.round(canvasHeight / 2), opacity: 0.5 }}
-                >
-                  <FallingNotesCanvas
-                    notes={song.notes}
-                    timeRef={timeRef}
-                    playing={isActive}
-                    width={containerSize.width}
-                    height={Math.round(canvasHeight / 2)}
-                    activeNotes={input.activeNotes.current}
-                    hitNotes={scoring.hitNotes.current}
-                    missedNotes={scoring.missedNotes.current}
-                  />
-                </div>
-              </div>
-            ) : viewMode === 'sheet' && sheetAvailable ? (
-              <SheetMusicDisplay
-                key={song.meta.id}
-                songMeta={song.meta}
-                timeRef={timeRef}
-                playing={isActive}
-                width={containerSize.width}
-                height={canvasHeight > 0 ? canvasHeight : 0}
-              />
-            ) : (
-              <FallingNotesCanvas
-                notes={song.notes}
-                timeRef={timeRef}
-                playing={isActive}
-                width={containerSize.width}
-                height={canvasHeight > 0 ? canvasHeight : 0}
-                activeNotes={input.activeNotes.current}
-                hitNotes={scoring.hitNotes.current}
-                missedNotes={scoring.missedNotes.current}
-              />
-            )}
+            {(() => {
+              const effectiveMode = sheetAvailable ? viewMode : 'waterfall';
+              const showSheet = effectiveMode === 'sheet' || effectiveMode === 'combined';
+              const showWaterfall = effectiveMode === 'waterfall' || effectiveMode === 'combined';
+              return (
+                <>
+                  {sheetAvailable && (
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        bottom: KEYBOARD_HEIGHT,
+                        display: showSheet ? 'block' : 'none',
+                        zIndex: 0,
+                      }}
+                    >
+                      <SheetMusicDisplay
+                        key={song.meta.id}
+                        songMeta={song.meta}
+                        timeRef={timeRef}
+                        playing={isActive}
+                        width={containerSize.width}
+                        height={canvasHeight}
+                      />
+                    </div>
+                  )}
+                  {showWaterfall && (
+                    <div
+                      className="absolute left-0 right-0"
+                      style={effectiveMode === 'combined' ? {
+                        bottom: KEYBOARD_HEIGHT,
+                        height: Math.round(canvasHeight / 2),
+                        opacity: 0.5,
+                        pointerEvents: 'none' as const,
+                        zIndex: 1,
+                      } : {
+                        top: 0,
+                        height: canvasHeight,
+                      }}
+                    >
+                      <FallingNotesCanvas
+                        notes={song.notes}
+                        timeRef={timeRef}
+                        playing={isActive}
+                        width={containerSize.width}
+                        height={effectiveMode === 'combined' ? Math.round(canvasHeight / 2) : (canvasHeight > 0 ? canvasHeight : 0)}
+                        activeNotes={input.activeNotes.current}
+                        hitNotes={scoring.hitNotes.current}
+                        missedNotes={scoring.missedNotes.current}
+                      />
+                    </div>
+                  )}
+                </>
+              );
+            })()}
             {gameState === 'playing' && (
               <ScoreOverlay score={liveScore} combo={liveCombo} lastRating={liveRating} />
             )}
@@ -530,7 +537,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                 <path d="M8 5v14l11-7z" />
               </svg>
             </button>
-            <p className="t-text-tertiary text-sm mt-4">
+            <p className="text-sm mt-4 px-4 py-2 rounded-full bg-surface/80 backdrop-blur-sm t-text-secondary font-medium">
               {input.usingMidi ? 'Play any key' : 'Play any note'}, press Space, or click to start
             </p>
           </div>

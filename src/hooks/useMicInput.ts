@@ -266,8 +266,9 @@ export function useMicInput(
       streamRef.current = null;
     }
     if (audioContextRef.current) {
-      audioContextRef.current.close();
+      const ctx = audioContextRef.current;
       audioContextRef.current = null;
+      setTimeout(() => ctx.close(), 0);
     }
     if (gainNodeRef.current) {
       gainNodeRef.current = null;

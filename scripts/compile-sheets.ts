@@ -169,23 +169,27 @@ function postProcessSvg(svgContent: string): string {
     /<rect[^>]*width="119\.\d+"[^>]*height="169\.\d+"[^>]*fill="white"[^>]*\/>/g,
     '',
   );
-  // Strip Mutopia footer/tagline (large text blocks near bottom)
-  svg = svg.replace(
-    /<g[^>]*>\s*<text[^>]*>\s*<tspan>[^<]*Mutopia[^<]*<\/tspan>\s*<\/text>\s*<\/g>/g,
-    '',
-  );
-  svg = svg.replace(
-    /<g[^>]*>\s*<text[^>]*>\s*<tspan>[^<]*mutopia[^<]*<\/tspan>\s*<\/text>\s*<\/g>/gi,
-    '',
-  );
+  // Strip Mutopia/LilyPond footer — find "Creative Commons" anchor to locate
+  // the footer Y region, then strip all text/link/border elements in that region
+  const ccMatch = svg.match(/<g\s+transform="translate\([^,]+,\s*([\d.]+)\)"[^>]*>[\s\S]*?Creative Commons/);
+  if (ccMatch) {
+    const footerY = parseFloat(ccMatch[1]) - 1;
+    svg = svg.replace(
+      /<g\s+transform="translate\([^,]+,\s*([\d.]+)\)"[^>]*>[\s\S]*?<\/g>/g,
+      (match, yStr) => {
+        const y = parseFloat(yStr);
+        if (y < footerY) return match;
+        if (/<text\b/.test(match) || /<a\s/.test(match) ||
+            /<rect[^>]*height="0\.1/.test(match) || /<rect[^>]*width="0\.1/.test(match)) {
+          return '';
+        }
+        return match;
+      },
+    );
+  }
   // Remove fixed width/height so SVG scales to container (viewBox handles aspect ratio)
   svg = svg.replace(/(<svg[^>]*?)\s+width="[^"]*"/, '$1');
   svg = svg.replace(/(<svg[^>]*?)\s+height="[^"]*"/, '$1');
-  // Remove LilyPond tagline
-  svg = svg.replace(
-    /<g[^>]*>\s*<text[^>]*>\s*<tspan>[^<]*LilyPond[^<]*<\/tspan>\s*<\/text>\s*<\/g>/gi,
-    '',
-  );
   // Remove XML declaration if present
   svg = svg.replace(/<\?xml[^?]*\?>\s*/, '');
   // Remove DOCTYPE

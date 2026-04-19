@@ -31,9 +31,11 @@ export function useAutoPlay(
     samplerRef.current = sampler;
 
     return () => {
-      sampler.releaseAll();
-      sampler.dispose();
       samplerRef.current = null;
+      setTimeout(() => {
+        sampler.releaseAll();
+        sampler.dispose();
+      }, 0);
     };
   }, [enabled]);
 
