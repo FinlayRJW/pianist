@@ -1,11 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useMidiInput } from '../../hooks/useMidiInput';
 import { useWebSocketMidi } from '../../hooks/useWebSocketMidi';
-import { useMicInput } from '../../hooks/useMicInput';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 
 interface Props {
-  hasMidi: boolean;
   onFinish: () => void;
 }
 
@@ -82,13 +80,11 @@ function noteColor(midi: number): string {
   return '#22d3ee';
 }
 
-export function HandPlacementStep({ hasMidi, onFinish }: Props) {
-  const calibration = useOnboardingStore((s) => s.calibration);
+export function HandPlacementStep({ onFinish }: Props) {
   const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
-  const midi = useMidiInput(hasMidi);
-  const bridge = useWebSocketMidi(hasMidi ? midiBridgeUrl : null);
+  const midi = useMidiInput(true);
+  const bridge = useWebSocketMidi(midiBridgeUrl);
   const activeMidi = midi.isConnected ? midi : bridge;
-  const mic = useMicInput(!hasMidi, undefined, calibration);
   const [floatingNotes, setFloatingNotes] = useState<FloatingNote[]>([]);
   const [activeKeys, setActiveKeys] = useState<Set<number>>(new Set());
   const idCounter = useRef(0);
@@ -118,7 +114,6 @@ export function HandPlacementStep({ hasMidi, onFinish }: Props) {
   }, [showContinue]);
 
   useEffect(() => {
-    if (!hasMidi) return;
     activeMidi.onNoteOn.current = (midiNote: number) => {
       setActiveKeys((prev) => new Set(prev).add(midiNote));
       spawnFloat(midiNote);
@@ -134,26 +129,7 @@ export function HandPlacementStep({ hasMidi, onFinish }: Props) {
       activeMidi.onNoteOn.current = null;
       activeMidi.onNoteOff.current = null;
     };
-  }, [hasMidi, activeMidi, spawnFloat]);
-
-  useEffect(() => {
-    if (hasMidi) return;
-    mic.onNoteOn.current = (midiNote: number) => {
-      setActiveKeys((prev) => new Set(prev).add(midiNote));
-      spawnFloat(midiNote);
-    };
-    mic.onNoteOff.current = (midiNote: number) => {
-      setActiveKeys((prev) => {
-        const next = new Set(prev);
-        next.delete(midiNote);
-        return next;
-      });
-    };
-    return () => {
-      mic.onNoteOn.current = null;
-      mic.onNoteOff.current = null;
-    };
-  }, [hasMidi, mic, spawnFloat]);
+  }, [activeMidi, spawnFloat]);
 
   const tips = [
     'Curve your fingers gently',
@@ -165,9 +141,7 @@ export function HandPlacementStep({ hasMidi, onFinish }: Props) {
     <div className="flex flex-col items-center justify-center text-center px-8 gap-5 animate-fadeIn">
       <h2 className="text-2xl font-bold t-text">Try It Out</h2>
       <p className="t-text-secondary text-sm max-w-xs">
-        {hasMidi
-          ? 'Play some notes on your keyboard!'
-          : 'Play some notes on your piano!'}
+        Play some notes on your keyboard!
       </p>
 
       <div className="relative" style={{ width: SVG_W, maxWidth: '100%' }}>

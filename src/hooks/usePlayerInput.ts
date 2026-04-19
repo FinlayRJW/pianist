@@ -1,29 +1,18 @@
 import { useRef, useCallback } from 'react';
-import { useMicInput } from './useMicInput';
 import { useMidiInput } from './useMidiInput';
 import { useWebSocketMidi } from './useWebSocketMidi';
 import { useOnboardingStore } from '../stores/onboardingStore';
 
-export type InputMode = 'auto' | 'mic' | 'midi';
+export type InputMode = 'auto' | 'midi';
 
-export function usePlayerInput(
-  inputMode: InputMode,
-  micEnabled: boolean,
-  sensitivityRef?: React.RefObject<number>,
-) {
-  const calibration = useOnboardingStore((s) => s.calibration);
+export function usePlayerInput(inputMode: InputMode) {
   const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
 
   const hasBridgeConfig = midiBridgeUrl !== null;
-  const midi = useMidiInput(inputMode !== 'mic' && !hasBridgeConfig);
-  const bridge = useWebSocketMidi(inputMode !== 'mic' ? midiBridgeUrl : null);
+  const midi = useMidiInput(!hasBridgeConfig);
+  const bridge = useWebSocketMidi(midiBridgeUrl);
 
-  const midiAvailable = midi.isConnected || bridge.isConnected;
-  const effectiveMicEnabled = inputMode === 'mic' || (inputMode === 'auto' && !midiAvailable && !hasBridgeConfig);
-  const mic = useMicInput(effectiveMicEnabled && micEnabled, sensitivityRef, calibration);
-
-  const usingMidi = inputMode === 'midi' || (inputMode === 'auto' && midiAvailable);
-  const usingBridge = usingMidi && !midi.isConnected && bridge.isConnected;
+  const usingBridge = !midi.isConnected && bridge.isConnected;
   const activeMidi = usingBridge ? bridge : midi;
 
   const noteOnCallbacks = useRef<((midi: number) => void)[]>([]);
@@ -37,23 +26,12 @@ export function usePlayerInput(
     for (const cb of noteOffCallbacks.current) cb(note);
   }, []);
 
-  if (usingMidi) {
-    activeMidi.onNoteOn.current = fireNoteOn;
-    activeMidi.onNoteOff.current = fireNoteOff;
-    if (usingBridge) {
-      midi.onNoteOn.current = null;
-      midi.onNoteOff.current = null;
-    } else {
-      bridge.onNoteOn.current = null;
-      bridge.onNoteOff.current = null;
-    }
-    mic.onNoteOn.current = null;
-    mic.onNoteOff.current = null;
-  } else {
-    mic.onNoteOn.current = fireNoteOn;
-    mic.onNoteOff.current = fireNoteOff;
+  activeMidi.onNoteOn.current = fireNoteOn;
+  activeMidi.onNoteOff.current = fireNoteOff;
+  if (usingBridge) {
     midi.onNoteOn.current = null;
     midi.onNoteOff.current = null;
+  } else {
     bridge.onNoteOn.current = null;
     bridge.onNoteOff.current = null;
   }
@@ -72,18 +50,11 @@ export function usePlayerInput(
     };
   }, []);
 
-  const source = usingMidi ? activeMidi : mic;
-
   return {
-    activeNotes: source.activeNotes,
-    activeNotesState: usingMidi ? activeMidi.activeNotesState : mic.activeNotesState,
-    isListening: usingMidi ? activeMidi.isConnected : mic.isListening,
-    calibrated: usingMidi ? true : mic.calibrated,
-    error: usingMidi ? activeMidi.error : mic.error,
-    detectedNote: usingMidi ? null : mic.detectedNote,
-    rmsLevel: usingMidi ? 0 : mic.rmsLevel,
-    clarity: usingMidi ? 0 : mic.clarity,
-    usingMidi,
+    activeNotes: activeMidi.activeNotes,
+    activeNotesState: activeMidi.activeNotesState,
+    isListening: activeMidi.isConnected,
+    error: activeMidi.error,
     hasBridgeConfig,
     midiConnected: midi.isConnected,
     midiBridgeConnected: bridge.isConnected,

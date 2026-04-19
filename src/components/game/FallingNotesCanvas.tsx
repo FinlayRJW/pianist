@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
-import type { Note } from '../../types';
+import type { Note, NoteRange } from '../../types';
 import { drawFrame } from '../../canvas/FallingNotesRenderer';
 import { useAnimationFrame } from '../../hooks/useAnimationFrame';
 
@@ -12,6 +12,8 @@ interface Props {
   activeNotes: Set<number>;
   hitNotes: Set<number>;
   missedNotes: Set<number>;
+  range?: NoteRange;
+  octaveEquivalence?: boolean;
 }
 
 export function FallingNotesCanvas({
@@ -23,6 +25,8 @@ export function FallingNotesCanvas({
   activeNotes,
   hitNotes,
   missedNotes,
+  range,
+  octaveEquivalence,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -52,8 +56,11 @@ export function FallingNotesCanvas({
       activeNotes,
       hitNotes,
       missedNotes,
+      undefined,
+      range,
+      octaveEquivalence,
     );
-  }, [notes, timeRef, width, height, activeNotes, hitNotes, missedNotes]);
+  }, [notes, timeRef, width, height, activeNotes, hitNotes, missedNotes, range, octaveEquivalence]);
 
   useAnimationFrame(render, true);
 

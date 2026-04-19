@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import * as Tone from 'tone';
 import type { ParsedSong, SongScore } from '../../types';
 import { FallingNotesCanvas } from './FallingNotesCanvas';
@@ -17,6 +17,7 @@ import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useNavigate } from 'react-router-dom';
 import { getNextIncompleteStep } from '../../data/journey';
+import { computeSongRange } from '../../utils/note-range';
 
 interface Props {
   song: ParsedSong;
@@ -27,18 +28,13 @@ interface Props {
 const KEYBOARD_HEIGHT = 80;
 const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5];
 
-const MIC_WARNING_KEY = 'pianist-mic-warning-dismissed';
-
 export function GameScreen({ song, onBack, journeyMode }: Props) {
   const navigate = useNavigate();
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
   const [inputMode, setInputMode] = useState<InputMode>('auto');
-  const [showMicWarning, setShowMicWarning] = useState(false);
   const [speed, setSpeedState] = useState(1);
-  const [sensitivity, setSensitivity] = useState(1);
-  const sensitivityRef = useRef(1);
   const [results, setResults] = useState<SongScore | null>(null);
   const [liveScore, setLiveScore] = useState(0);
   const [liveCombo, setLiveCombo] = useState(0);
@@ -50,22 +46,20 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const prevComboRef = useRef(0);
   const prevRatingTimeRef = useRef<number | null>(null);
   const prevCountdownRef = useRef<number | null>(null);
-  const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
-  const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
   const viewMode = useOnboardingStore((s) => s.viewMode);
   const setViewMode = useOnboardingStore((s) => s.setViewMode);
   const sheet = useSheetMusic(song.meta);
   const sheetAvailable = !sheet.loading && !sheet.error && sheet.timingMap !== null;
+  const noteRange = useMemo(() => computeSongRange(song.notes), [song.notes]);
+  const octaveEquivalence = useOnboardingStore((s) => s.octaveEquivalence);
+  const setOctaveEquivalence = useOnboardingStore((s) => s.setOctaveEquivalence);
 
   const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed, speedRef } =
     useSongPlayer(song.totalDuration);
   const autoPlay = useAutoPlay(song.notes, timeRef, gameState === 'playing', autoPlayEnabled);
 
-  const micNotMuted = !autoPlayEnabled || headphonesMode;
-  const input = usePlayerInput(inputMode, micNotMuted, sensitivityRef);
-  const scoring = useScoring(song.notes, timeRef, input.usingMidi, speedRef);
-
-  const showMicControls = !input.usingMidi && !input.hasBridgeConfig;
+  const input = usePlayerInput(inputMode);
+  const scoring = useScoring(song.notes, timeRef, speedRef, octaveEquivalence);
 
   useEffect(() => {
     return input.onNoteOn((midi) => {
@@ -213,26 +207,6 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
     [setSpeed],
   );
 
-  const handleSensitivityChange = useCallback((value: number) => {
-    setSensitivity(value);
-    sensitivityRef.current = value;
-  }, []);
-
-  const handleInputModeChange = useCallback((mode: InputMode) => {
-    if (mode === 'mic') {
-      const dismissed = localStorage.getItem(MIC_WARNING_KEY);
-      if (!dismissed) {
-        setShowMicWarning(true);
-      }
-    }
-    setInputMode(mode);
-  }, []);
-
-  const dismissMicWarning = useCallback(() => {
-    localStorage.setItem(MIC_WARNING_KEY, '1');
-    setShowMicWarning(false);
-  }, []);
-
   const openSettings = useCallback(() => {
     if (gameState === 'playing' || gameState === 'countdown') {
       wasPlayingRef.current = true;
@@ -271,23 +245,23 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         <div className="flex items-center gap-2 shrink-0">
           {/* Input mode selector */}
           <div className="flex items-center gap-0.5 t-bg-overlay rounded-full p-0.5">
-            {(input.hasBridgeConfig ? ['auto', 'midi'] as InputMode[] : ['auto', 'midi', 'mic'] as InputMode[]).map((mode) => (
+            {(['auto', 'midi'] as InputMode[]).map((mode) => (
               <button
                 key={mode}
-                onClick={() => handleInputModeChange(mode)}
+                onClick={() => setInputMode(mode)}
                 className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
                   inputMode === mode
                     ? 'bg-accent text-white'
                     : 't-text-secondary'
                 }`}
               >
-                {mode === 'auto' ? 'Auto' : mode === 'midi' ? 'MIDI' : 'Mic'}
+                {mode === 'auto' ? 'Auto' : 'MIDI'}
               </button>
             ))}
           </div>
 
           {/* MIDI status */}
-          {(input.usingMidi || input.hasBridgeConfig) && (
+          {(input.midiConnected || input.hasBridgeConfig) && (
             <span className={`text-[9px] max-w-[100px] truncate ${input.isListening ? 'text-emerald-400' : 'text-yellow-400'}`}>
               {input.isListening
                 ? (input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI')
@@ -295,41 +269,11 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
             </span>
           )}
 
-          {/* Mic controls — only when using mic */}
-          {showMicControls && (
-            <>
-              <div className="flex items-center gap-1" title={`Mic sensitivity: ${sensitivity.toFixed(1)}x`}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="t-text-secondary">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                  <line x1="12" y1="19" x2="12" y2="23" />
-                </svg>
-                <input
-                  type="range"
-                  min="0.5"
-                  max="3"
-                  step="0.1"
-                  value={sensitivity}
-                  onChange={(e) => handleSensitivityChange(Number(e.target.value))}
-                  className="w-14 h-1 accent-accent cursor-pointer"
-                />
-              </div>
-            </>
-          )}
-
           <ToggleSwitch
             label="Sound"
             enabled={autoPlayEnabled}
             onToggle={() => { Tone.start(); setAutoPlayEnabled((v) => !v); }}
           />
-
-          {showMicControls && (
-            <ToggleSwitch
-              label="🎧"
-              enabled={headphonesMode}
-              onToggle={() => setHeadphonesMode(!headphonesMode)}
-            />
-          )}
 
           <select
             value={speed}
@@ -413,7 +357,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         </div>
       </div>
 
-      {/* MIDI not connected warning when in MIDI-only mode */}
+      {/* MIDI not connected warning */}
       {inputMode === 'midi' && !input.midiConnected && !input.midiBridgeConnected && (
         <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
           {input.hasBridgeConfig
@@ -422,31 +366,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         </div>
       )}
 
-      {/* Mic warning banner */}
-      {showMicWarning && (
-        <div className="px-4 py-2 t-warning-bg border-b t-warning-border t-warning text-xs text-center flex items-center justify-center gap-3">
-          <span>
-            Mic mode is limited: single notes only, no chord support, and detection varies by device.
-            For the best experience, connect a MIDI keyboard.
-          </span>
-          <button
-            onClick={dismissMicWarning}
-            className="t-warning-strong font-medium shrink-0 underline"
-          >
-            Got it
-          </button>
-        </div>
-      )}
-
-      {autoPlayEnabled && showMicControls && !headphonesMode && (
-        <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
-          Mic paused while sound is on. Toggle 🎧 to use both with headphones.
-        </div>
-      )}
-
       {input.error && (
         <div className="px-4 py-1.5 bg-red-500/10 border-b border-red-500/20 text-red-400 text-xs text-center">
-          {input.usingMidi ? 'MIDI' : 'Mic'} error: {input.error}
+          MIDI error: {input.error}
         </div>
       )}
 
@@ -503,6 +425,8 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                         activeNotes={input.activeNotes.current}
                         hitNotes={scoring.hitNotes.current}
                         missedNotes={scoring.missedNotes.current}
+                        range={noteRange}
+                        octaveEquivalence={octaveEquivalence}
                       />
                     </div>
                   )}
@@ -517,6 +441,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                 width={containerSize.width}
                 height={KEYBOARD_HEIGHT}
                 activeNotes={input.activeNotesState}
+                range={noteRange}
               />
             </div>
           </>
@@ -565,13 +490,13 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
               </svg>
             </button>
             <p className="text-sm mt-4 px-4 py-2 rounded-full bg-surface/80 backdrop-blur-sm t-text-secondary font-medium">
-              {input.usingMidi ? 'Play any key' : 'Play any note'}, press Space, or click to start
+              Play any key, press Space, or click to start
             </p>
           </div>
         </div>
       )}
 
-      {/* Calibration modal */}
+      {/* Settings modal */}
       {showCalibrationModal && (
         <CalibrationModal onClose={closeSettings} />
       )}

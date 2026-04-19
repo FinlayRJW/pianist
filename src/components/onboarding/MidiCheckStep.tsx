@@ -111,7 +111,7 @@ export function MidiCheckStep({ onMidiFound, onNoMidi, onUseBridge }: Props) {
         {status === 'not-found' && (
           <>
             <h2 className="text-2xl font-bold t-text">No MIDI Keyboard Found</h2>
-            <p className="t-text-tertiary mt-2">No worries — let's set up your microphone instead</p>
+            <p className="t-text-tertiary mt-2">Connect a MIDI Bridge or plug in a MIDI keyboard</p>
           </>
         )}
       </div>
@@ -135,20 +135,12 @@ export function MidiCheckStep({ onMidiFound, onNoMidi, onUseBridge }: Props) {
       )}
 
       {status === 'not-found' && (
-        <div className="flex flex-col gap-3 items-center">
-          <button
-            onClick={onUseBridge}
-            className="px-8 py-3 rounded-full bg-accent text-white font-semibold text-lg hover:bg-accent-light transition-colors"
-          >
-            Connect via MIDI Bridge
-          </button>
-          <button
-            onClick={onNoMidi}
-            className="px-6 py-2 rounded-full t-bg-overlay t-text-secondary font-medium t-bg-overlay-hover transition-colors"
-          >
-            Set Up Microphone Instead
-          </button>
-        </div>
+        <button
+          onClick={onUseBridge}
+          className="px-8 py-3 rounded-full bg-accent text-white font-semibold text-lg hover:bg-accent-light transition-colors"
+        >
+          Connect via MIDI Bridge
+        </button>
       )}
     </div>
   );

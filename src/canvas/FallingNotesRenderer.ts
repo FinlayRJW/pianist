@@ -1,5 +1,5 @@
-import type { Note } from '../types';
-import { getNoteX } from './PianoKeyRenderer';
+import type { Note, NoteRange } from '../types';
+import { getNoteX, getKeyLayout, getPitchLetter, isBlackKey } from './PianoKeyRenderer';
 import {
   PLAY_LINE_BOTTOM_OFFSET,
   PIXELS_PER_SECOND,
@@ -37,6 +37,14 @@ function binarySearchStart(notes: Note[], minStartTime: number): number {
   return lo;
 }
 
+function hasMatchingPitchClass(set: Set<number>, midi: number): boolean {
+  const pc = midi % 12;
+  for (const n of set) {
+    if (n % 12 === pc) return true;
+  }
+  return false;
+}
+
 export function drawFrame(
   ctx: CanvasRenderingContext2D,
   notes: Note[],
@@ -47,12 +55,14 @@ export function drawFrame(
   hitNotes: Set<number>,
   missedNotes: Set<number>,
   pxPerSec: number = PIXELS_PER_SECOND,
+  range?: NoteRange,
+  octaveEquivalence?: boolean,
 ) {
   const theme = getCanvasTheme();
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  drawBackground(ctx, canvasWidth, canvasHeight, theme);
+  drawBackground(ctx, canvasWidth, canvasHeight, theme, range);
 
   const playLineY = canvasHeight - PLAY_LINE_BOTTOM_OFFSET;
 
@@ -62,7 +72,7 @@ export function drawFrame(
 
   const startIdx = binarySearchStart(notes, minTime - maxDur);
 
-  drawNextNoteHighlight(ctx, notes, currentTime, canvasWidth, canvasHeight, hitNotes, missedNotes, theme);
+  drawNextNoteHighlight(ctx, notes, currentTime, canvasWidth, canvasHeight, hitNotes, missedNotes, theme, range);
 
   const activeNoteMap = new Map<number, number>();
   for (let i = startIdx; i < notes.length; i++) {
@@ -70,7 +80,12 @@ export function drawFrame(
     if (note.startTime > maxTime) break;
     if (note.startTime + note.duration < minTime) continue;
     if (missedNotes.has(i)) continue;
-    if (!activeNotes.has(note.midi)) continue;
+
+    const isActive = octaveEquivalence
+      ? hasMatchingPitchClass(activeNotes, note.midi)
+      : activeNotes.has(note.midi);
+    if (!isActive) continue;
+
     const timeDelta = note.startTime - currentTime;
 
     if (hitNotes.has(i)) {
@@ -99,7 +114,7 @@ export function drawFrame(
     if (note.startTime > maxTime) break;
     if (note.startTime + note.duration < minTime) continue;
 
-    drawNote(ctx, note, i, currentTime, playLineY, canvasWidth, canvasHeight, pxPerSec, activeNoteMap, hitNotes, missedNotes, theme);
+    drawNote(ctx, note, i, currentTime, playLineY, canvasWidth, canvasHeight, pxPerSec, activeNoteMap, hitNotes, missedNotes, theme, range);
   }
 
   drawPlayLine(ctx, playLineY, canvasWidth, theme);
@@ -110,6 +125,7 @@ function drawBackground(
   width: number,
   height: number,
   theme: ReturnType<typeof getCanvasTheme>,
+  range?: NoteRange,
 ) {
   const gradient = ctx.createLinearGradient(0, 0, 0, height);
   gradient.addColorStop(0, theme.bgTop);
@@ -119,23 +135,22 @@ function drawBackground(
 
   ctx.strokeStyle = theme.grid;
   ctx.lineWidth = 1;
-  const keyPositions = getAllWhiteKeyXPositions(width);
-  for (const x of keyPositions) {
+  const layout = getKeyLayout(width, range);
+  for (const key of layout) {
+    if (key.isBlack) continue;
     ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, height);
+    ctx.moveTo(key.x, 0);
+    ctx.lineTo(key.x, height);
     ctx.stroke();
   }
-}
-
-function getAllWhiteKeyXPositions(canvasWidth: number): number[] {
-  const positions: number[] = [];
-  const whiteKeyCount = 52;
-  const whiteKeyWidth = canvasWidth / whiteKeyCount;
-  for (let i = 0; i <= whiteKeyCount; i++) {
-    positions.push(i * whiteKeyWidth);
+  const lastWhite = layout.filter(k => !k.isBlack).at(-1);
+  if (lastWhite) {
+    const rightEdge = lastWhite.x + lastWhite.width;
+    ctx.beginPath();
+    ctx.moveTo(rightEdge, 0);
+    ctx.lineTo(rightEdge, height);
+    ctx.stroke();
   }
-  return positions;
 }
 
 function drawNextNoteHighlight(
@@ -147,6 +162,7 @@ function drawNextNoteHighlight(
   hitNotes: Set<number>,
   missedNotes: Set<number>,
   theme: ReturnType<typeof getCanvasTheme>,
+  range?: NoteRange,
 ) {
   for (let i = 0; i < notes.length; i++) {
     if (hitNotes.has(i) || missedNotes.has(i)) continue;
@@ -158,7 +174,7 @@ function drawNextNoteHighlight(
       if (hitNotes.has(j) || missedNotes.has(j)) continue;
       if (seen.has(notes[j].midi)) continue;
       seen.add(notes[j].midi);
-      const keyInfo = getNoteX(canvasWidth, notes[j].midi);
+      const keyInfo = getNoteX(canvasWidth, notes[j].midi, range);
       if (!keyInfo) continue;
 
       const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
@@ -171,6 +187,8 @@ function drawNextNoteHighlight(
     break;
   }
 }
+
+const NOTE_LABEL_MIN_HEIGHT = 20;
 
 function drawNote(
   ctx: CanvasRenderingContext2D,
@@ -185,8 +203,9 @@ function drawNote(
   hitNotes: Set<number>,
   missedNotes: Set<number>,
   theme: ReturnType<typeof getCanvasTheme>,
+  range?: NoteRange,
 ) {
-  const keyInfo = getNoteX(canvasWidth, note.midi);
+  const keyInfo = getNoteX(canvasWidth, note.midi, range);
   if (!keyInfo) return;
 
   const timeDelta = note.startTime - currentTime;
@@ -232,6 +251,17 @@ function drawNote(
   if (glowIntensity > 0) {
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
+  }
+
+  if (noteHeight >= NOTE_LABEL_MIN_HEIGHT) {
+    const letter = getPitchLetter(note.midi);
+    const fontSize = Math.min(12, width * 0.45);
+    ctx.font = `bold ${fontSize}px Inter, system-ui, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const labelY = y + noteHeight - Math.min(noteHeight / 2, fontSize + 4);
+    ctx.fillStyle = isBlackKey(note.midi) ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.85)';
+    ctx.fillText(letter, x + width / 2, labelY);
   }
 }
 

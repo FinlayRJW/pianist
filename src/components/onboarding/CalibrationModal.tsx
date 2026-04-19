@@ -1,22 +1,17 @@
 import { useRef, useState } from 'react';
-import { MicCalibrationStep } from './MicCalibrationStep';
 import { MidiBridgeSettings } from './MidiBridgeSettings';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
-import { useUserStore } from '../../stores/userStore';
 import { JOURNEY_STEPS, getStepSongIds, getNextIncompleteStep, isFirstNotesComplete, isJourneyComplete } from '../../data/journey';
-import type { CalibrationData } from '../../stores/onboardingStore';
 
 interface Props {
   onClose: () => void;
 }
 
 export function CalibrationModal({ onClose }: Props) {
-  const setCalibration = useOnboardingStore((s) => s.setCalibration);
   const theme = useOnboardingStore((s) => s.theme);
   const setTheme = useOnboardingStore((s) => s.setTheme);
 
-  const piConnected = useUserStore((s) => s.piConnected);
   const exportProgress = useProgressStore((s) => s.exportProgress);
   const importProgress = useProgressStore((s) => s.importProgress);
   const resetProgress = useProgressStore((s) => s.resetProgress);
@@ -24,11 +19,6 @@ export function CalibrationModal({ onClose }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [importStatus, setImportStatus] = useState<string | null>(null);
-
-  const handleComplete = (data: CalibrationData) => {
-    setCalibration(data);
-    onClose();
-  };
 
   const handleExport = () => {
     const json = exportProgress();
@@ -190,17 +180,9 @@ export function CalibrationModal({ onClose }: Props) {
 
         {/* Dev tools */}
         {import.meta.env.DEV && (
-          <div className="mb-6">
+          <div>
             <label className="text-xs font-medium t-text-secondary block mb-2">Dev Tools</label>
             <DevFreePlayToggle />
-          </div>
-        )}
-
-        {/* Calibration — hidden when using Pi/MIDI bridge */}
-        {!piConnected && (
-          <div className="border-t t-border pt-5">
-            <label className="text-xs font-medium t-text-secondary block mb-3">Input Calibration</label>
-            <MicCalibrationStep onComplete={handleComplete} />
           </div>
         )}
       </div>

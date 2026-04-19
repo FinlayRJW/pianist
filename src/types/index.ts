@@ -1,3 +1,8 @@
+export interface NoteRange {
+  firstMidi: number;
+  lastMidi: number;
+}
+
 export type SongGenre = 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz';
 
 export interface SongMeta {
@@ -90,7 +95,7 @@ export type JourneyStep =
   | { type: 'branch'; id: string; chapterId: string; order: number; songChoices: [string, string]; teaches: string; description: string };
 
 export interface UserSettings {
-  inputMode: 'mic' | 'midi';
+  inputMode: 'auto' | 'midi';
   midiDeviceId: string | null;
   latencyOffsetMs: number;
   scrollSpeed: number;
