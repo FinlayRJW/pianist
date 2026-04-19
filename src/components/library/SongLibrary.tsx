@@ -8,6 +8,7 @@ import { MidiImport } from './MidiImport';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { NavigationTabs } from '../skilltree/NavigationTabs';
 import { JourneyProgressBar } from '../journey/JourneyProgressBar';
+import { UserBadge } from '../user/UserBadge';
 import { countCompletedSteps } from '../../data/journey';
 import type { SongGenre, SongMeta } from '../../types';
 
@@ -28,6 +29,8 @@ export function SongLibrary() {
   const freePlayUnlocked = useProgressStore((s) => s.freePlayUnlocked);
   const journeyStars = useProgressStore((s) => s.journeyBestStars);
   const importedSongs = useImportedSongsStore((s) => s.songs);
+  const removeSong = useImportedSongsStore((s) => s.removeSong);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [showCalibration, setShowCalibration] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [genre, setGenre] = useState<SongGenre | 'all'>('all');
@@ -100,6 +103,7 @@ export function SongLibrary() {
         <div className="flex items-center justify-between mb-4">
           <NavigationTabs />
           <div className="flex items-center gap-1">
+            <UserBadge />
             <button
               onClick={() => setShowImport(true)}
               className="p-2 rounded-full t-bg-overlay t-text-tertiary t-bg-overlay-hover transition-colors"
@@ -204,12 +208,31 @@ export function SongLibrary() {
                 <div className="flex-1 h-px t-bg-overlay" />
               </div>
               {filteredImported.map((song) => (
-                <SongCard
-                  key={song.id}
-                  song={song}
-                  bestStars={bestStars[song.id] || 0}
-                  onClick={() => navigate(`/play/${song.id}`, { state: { from: '/songs' } })}
-                />
+                <div key={song.id} className="relative">
+                  <SongCard
+                    song={song}
+                    bestStars={bestStars[song.id] || 0}
+                    onClick={() => navigate(`/play/${song.id}`, { state: { from: '/songs' } })}
+                    onDelete={() => setDeleteConfirm(song.id)}
+                  />
+                  {deleteConfirm === song.id && (
+                    <div className="absolute inset-0 bg-midnight/90 backdrop-blur-sm rounded-xl flex items-center justify-center gap-3 z-10">
+                      <span className="text-sm t-text">Remove this song?</span>
+                      <button
+                        onClick={() => { removeSong(song.id); setDeleteConfirm(null); }}
+                        className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/30 transition-colors"
+                      >
+                        Remove
+                      </button>
+                      <button
+                        onClick={() => setDeleteConfirm(null)}
+                        className="px-3 py-1.5 rounded-lg t-bg-overlay t-text-secondary text-xs font-medium hover:t-bg-overlay-hover transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
               ))}
             </>
           )}

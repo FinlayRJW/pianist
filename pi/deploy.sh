@@ -40,7 +40,8 @@ npx vite build
 rm -rf "$WWW_DIR"
 cp -r dist "$WWW_DIR"
 
-# Copy bridge script
+# Copy bridge script and service file
 cp pi/midi-bridge.py "$APP_DIR/midi-bridge.py"
+cp pi/midi-bridge.service "$APP_DIR/midi-bridge.service"
 
 echo "$(date '+%H:%M:%S') [deploy] Done. www dir: $WWW_DIR"

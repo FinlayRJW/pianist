@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { SongMeta } from '../types';
+import {
+  uploadSong as apiUploadSong,
+  deleteSong as apiDeleteSong,
+  fetchSongs as apiFetchSongs,
+  fetchMidiData as apiFetchMidiData,
+} from '../services/piApi';
 
 const DB_NAME = 'pianist-imported';
 const STORE_NAME = 'midi-files';
@@ -28,6 +34,13 @@ export async function saveMidiData(songId: string, data: ArrayBuffer): Promise<v
 }
 
 export async function loadMidiData(songId: string): Promise<ArrayBuffer | null> {
+  if (isPiConnected()) {
+    try {
+      return await apiFetchMidiData(songId);
+    } catch {
+      // fall through to local
+    }
+  }
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readonly');
@@ -47,10 +60,20 @@ async function deleteMidiData(songId: string): Promise<void> {
   });
 }
 
+function isPiConnected(): boolean {
+  try {
+    const { useUserStore } = require('./userStore');
+    return useUserStore.getState().piConnected;
+  } catch {
+    return false;
+  }
+}
+
 interface ImportedSongsStore {
   songs: SongMeta[];
   addSong: (meta: SongMeta, midiData: ArrayBuffer) => Promise<void>;
   removeSong: (songId: string) => Promise<void>;
+  syncFromPi: () => Promise<void>;
 }
 
 export const useImportedSongsStore = create<ImportedSongsStore>()(
@@ -60,6 +83,13 @@ export const useImportedSongsStore = create<ImportedSongsStore>()(
 
       addSong: async (meta, midiData) => {
         await saveMidiData(meta.id, midiData);
+        if (isPiConnected()) {
+          try {
+            await apiUploadSong(meta, midiData);
+          } catch {
+            // local-only is fine
+          }
+        }
         set((state) => ({
           songs: [...state.songs.filter((s) => s.id !== meta.id), meta],
         }));
@@ -67,9 +97,26 @@ export const useImportedSongsStore = create<ImportedSongsStore>()(
 
       removeSong: async (songId) => {
         await deleteMidiData(songId);
+        if (isPiConnected()) {
+          try {
+            await apiDeleteSong(songId);
+          } catch {
+            // local-only removal
+          }
+        }
         set((state) => ({
           songs: state.songs.filter((s) => s.id !== songId),
         }));
+      },
+
+      syncFromPi: async () => {
+        if (!isPiConnected()) return;
+        try {
+          const piSongs = await apiFetchSongs();
+          set({ songs: piSongs });
+        } catch {
+          // keep local state
+        }
       },
     }),
     {

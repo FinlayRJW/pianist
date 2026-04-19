@@ -8,6 +8,7 @@ import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { JourneyNode } from './JourneyNode';
 import { JourneyProgressBar } from './JourneyProgressBar';
 import { JourneyCompletionModal } from './JourneyCompletionModal';
+import { UserBadge } from '../user/UserBadge';
 import type { JourneyChapter, JourneyStep } from '../../types';
 
 const BG_STARS = Array.from({ length: 100 }, (_, i) => ({
@@ -186,6 +187,7 @@ export function JourneyPath() {
       <div className="flex items-center justify-between px-6 py-3 shrink-0 relative z-20">
         <NavigationTabs />
         <div className="flex items-center gap-2">
+          <UserBadge />
           <button
             onClick={() => setShowSettings(true)}
             className="p-2 rounded-full transition-colors"

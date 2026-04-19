@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import type { SongScore } from '../types';
 import { SKILL_TREE_AREAS, SKILL_TREE_NODES } from '../data/skill-tree';
 import { isJourneyComplete, isFirstNotesComplete } from '../data/journey';
+import { saveProgress } from '../services/piApi';
 
 interface ProgressStore {
   scores: Record<string, SongScore[]>;
@@ -173,3 +174,33 @@ export const useProgressStore = create<ProgressStore>()(
     },
   ),
 );
+
+let syncTimer: ReturnType<typeof setTimeout> | null = null;
+
+function getUserId(): string | null {
+  try {
+    const { useUserStore } = require('./userStore');
+    const user = useUserStore.getState().currentUser;
+    return user?.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
+useProgressStore.subscribe((state, prev) => {
+  if (state.scores === prev.scores) return;
+  const userId = getUserId();
+  if (!userId) return;
+
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => {
+    const { scores, bestStars, adventureBestStars, journeyBestStars } = useProgressStore.getState();
+    saveProgress(userId, {
+      version: 3,
+      scores,
+      bestStars,
+      adventureBestStars,
+      journeyBestStars,
+    }).catch(() => {});
+  }, 1000);
+});
