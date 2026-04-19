@@ -35,7 +35,7 @@ function findSystemForMeasure(flatSystems: FlatSystem[], measureIdx: number): nu
   return flatSystems.length - 1;
 }
 
-export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
+export function SheetMusicDisplay({ songMeta, timeRef, playing, width, height }: Props) {
   const { timingMap, svgContents, flatSystems, loading, error } = useSheetMusic(songMeta);
   const [displayIdx, setDisplayIdx] = useState(0);
   const currentSysRef = useRef(0);
@@ -62,7 +62,7 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
     }
   }, [timingMap, flatSystems, timeRef]);
 
-  useAnimationFrame(animate, true);
+  useAnimationFrame(animate, playing);
 
   if (loading) {
     return (
@@ -113,6 +113,7 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
           marginLeft: svgLeftOffset,
           transform: `translateY(${scrollY}px)`,
           transition: pageChanged ? 'none' : 'transform 0.4s ease',
+          willChange: 'transform',
           color: 'var(--sheet-note)',
         }}
         dangerouslySetInnerHTML={{ __html: svgContent }}

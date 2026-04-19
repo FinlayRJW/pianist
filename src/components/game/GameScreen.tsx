@@ -456,12 +456,11 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
               const showWaterfall = effectiveMode === 'waterfall' || effectiveMode === 'combined';
               return (
                 <>
-                  {sheetAvailable && (
+                  {sheetAvailable && showSheet && (
                     <div
                       className="absolute inset-0"
                       style={{
                         bottom: KEYBOARD_HEIGHT,
-                        display: showSheet ? 'block' : 'none',
                         zIndex: 0,
                       }}
                     >

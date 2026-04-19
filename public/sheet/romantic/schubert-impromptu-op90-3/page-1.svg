@@ -3654,7 +3654,11 @@ c0 -12 -10 -23 -22 -23c-16 0 -127 63 -127 188c0 89 58 175 161 198c-14 58 -29 116
 <rect x="0.0000" y="-0.4023" width="9.7119" height="1.9218" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(21.2327, 181.2375)">
+<text font-family="sans-serif" font-weight="bold" font-size="1.9999" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(21.4604, 183.5814)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.4131" width="9.4843" height="2.3546" fill="none" stroke="none" stroke-width="0.0"/>
@@ -3701,7 +3705,11 @@ c0 -12 -10 -23 -22 -23c-16 0 -127 63 -127 188c0 89 58 175 161 198c-14 58 -29 116
 <tspan>LilyPond</tspan>
 </text>
 </g>
-
+<g transform="translate(53.5032, 181.2375)">
+<text font-family="sans-serif" font-size="1.7780" text-anchor="start" fill="currentColor">
+<tspan> by Ph. Raynaud — Mutopia-2015/11/26-1193</tspan>
+</text>
+</g>
 <g transform="translate(32.7137, 183.6107)">
 <text font-family="sans-serif" font-size="1.7780" text-anchor="start" fill="currentColor">
 <tspan> Placed in the </tspan>
