@@ -14,7 +14,9 @@ export function PlayRoute() {
   const [error, setError] = useState<string | null>(null);
   const importedSongs = useImportedSongsStore((s) => s.songs);
 
-  const from = (location.state as { from?: string })?.from;
+  const locState = location.state as { from?: string; journeyMode?: boolean } | null;
+  const from = locState?.from;
+  const journeyMode = locState?.journeyMode ?? false;
   const backPath = from === '/songs' ? '/songs' : '/';
 
   useEffect(() => {
@@ -67,5 +69,5 @@ export function PlayRoute() {
     );
   }
 
-  return <GameScreen song={song} onBack={() => navigate(backPath)} />;
+  return <GameScreen song={song} onBack={() => navigate(backPath)} journeyMode={journeyMode} />;
 }

@@ -1,14 +1,23 @@
 import type { SongCatalogEntry } from './types';
 
 export const advancedSongs: SongCatalogEntry[] = [
-  { id: 'beethoven-appassionata-1', title: 'Appassionata Sonata, 1st mvt', composer: 'Ludwig van Beethoven', genre: 'advanced', difficulty: 5, bpm: 130, durationSec: 500, keySignature: 'Fm', tags: ['beethoven', 'sonata', 'two-hands'], requiresMidi: true },
-  { id: 'liszt-la-campanella', title: 'La Campanella', composer: 'Franz Liszt', genre: 'advanced', difficulty: 5, bpm: 140, durationSec: 300, keySignature: 'G#m', tags: ['liszt', 'paganini-etude', 'virtuoso', 'two-hands'], requiresMidi: true },
-  { id: 'liszt-hungarian-rhapsody-2', title: 'Hungarian Rhapsody No. 2', composer: 'Franz Liszt', genre: 'advanced', difficulty: 5, bpm: 90, durationSec: 600, keySignature: 'C#m', tags: ['liszt', 'hungarian', 'virtuoso', 'two-hands'], requiresMidi: true },
-  { id: 'liszt-mephisto-waltz-1', title: 'Mephisto Waltz No. 1', composer: 'Franz Liszt', genre: 'advanced', difficulty: 5, bpm: 130, durationSec: 700, keySignature: 'A', tags: ['liszt', 'waltz', 'demonic', 'two-hands'], requiresMidi: true },
-  { id: 'scriabin-etude-op8-12', title: 'Etude Op. 8 No. 12 in D# Minor', composer: 'Alexander Scriabin', genre: 'advanced', difficulty: 5, bpm: 140, durationSec: 130, keySignature: 'D#m', tags: ['scriabin', 'etude', 'patetico', 'two-hands'], requiresMidi: true },
-  { id: 'rachmaninoff-etude-op39-5', title: 'Etude-Tableau Op. 39 No. 5', composer: 'Sergei Rachmaninoff', genre: 'advanced', difficulty: 5, bpm: 100, durationSec: 300, keySignature: 'Ebm', tags: ['rachmaninoff', 'etude', 'two-hands'], requiresMidi: true },
-  { id: 'mussorgsky-pictures', title: 'Pictures at an Exhibition', composer: 'Modest Mussorgsky', genre: 'advanced', difficulty: 5, bpm: 100, durationSec: 600, keySignature: 'Bb', tags: ['mussorgsky', 'suite', 'two-hands'], requiresMidi: true },
-  { id: 'chopin-etude-op10-4', title: 'Etude Op. 10 No. 4 in C# Minor', composer: 'Frédéric Chopin', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 130, keySignature: 'C#m', tags: ['chopin', 'etude', 'presto', 'two-hands'], requiresMidi: true },
-  { id: 'chopin-fantaisie-impromptu', title: 'Fantaisie-Impromptu, Op. 66', composer: 'Frédéric Chopin', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 280, keySignature: 'C#m', tags: ['chopin', 'impromptu', 'virtuoso', 'two-hands'], requiresMidi: true },
-  { id: 'beethoven-moonlight-3', title: 'Moonlight Sonata, 3rd mvt', composer: 'Ludwig van Beethoven', genre: 'advanced', difficulty: 5, bpm: 160, durationSec: 420, keySignature: 'C#m', tags: ['beethoven', 'sonata', 'presto', 'two-hands'], requiresMidi: true },
+  // Chopin — Romantic
+  { id: 'chopin-fantaisie-impromptu', title: 'Fantaisie-Impromptu, Op. 66', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 160, durationSec: 280, keySignature: 'C#m', tags: ['chopin', 'impromptu', 'virtuoso', 'two-hands'], mutopiaPath: 'ChopinFF/O66/chopin_fantaisie-impromptu/chopin_fantaisie-impromptu', requiresMidi: true },
+  { id: 'chopin-sonata-op35-4', title: 'Sonata Op. 35, Finale', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 160, durationSec: 90, keySignature: 'Bbm', tags: ['chopin', 'sonata', 'two-hands'], mutopiaPath: 'ChopinFF/O35/chp-op-35-4-scholz-fi/chp-op-35-4-scholz-fi', lyDir: true, requiresMidi: true },
+  { id: 'chopin-etude-op10-1', title: 'Etude Op. 10 No. 1 in C Major', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 170, durationSec: 120, keySignature: 'C', tags: ['chopin', 'etude', 'two-hands'], mutopiaPath: 'ChopinFF/O10/chp-10-01/chp-10-01', lyDir: true, requiresMidi: true },
+  { id: 'chopin-etude-op10-9', title: 'Etude Op. 10 No. 9 in F Minor', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 5, bpm: 96, durationSec: 120, keySignature: 'Fm', tags: ['chopin', 'etude', 'two-hands'], mutopiaPath: 'ChopinFF/O10/chopin-op-10-09-wfi/chopin-op-10-09-wfi', requiresMidi: true },
+
+  // Beethoven — Classical
+  { id: 'beethoven-moonlight-3', title: 'Moonlight Sonata, 3rd mvt', composer: 'Ludwig van Beethoven', genre: 'classical', difficulty: 5, bpm: 160, durationSec: 420, keySignature: 'C#m', tags: ['beethoven', 'sonata', 'presto', 'two-hands'], mutopiaPath: 'BeethovenLv/O27/moonlight/moonlight', midZip: 'BeethovenLv/O27/moonlight/moonlight-mids', lyDir: true, requiresMidi: true },
+  { id: 'beethoven-appassionata-3', title: 'Appassionata Sonata, 3rd mvt', composer: 'Ludwig van Beethoven', genre: 'classical', difficulty: 5, bpm: 130, durationSec: 480, keySignature: 'Fm', tags: ['beethoven', 'sonata', 'two-hands'], mutopiaPath: 'BeethovenLv/O57/LVB_Sonate_57_3/LVB_Sonate_57_3', lyDir: true, requiresMidi: true },
+  { id: 'beethoven-tempest-1', title: 'Tempest Sonata, 1st mvt', composer: 'Ludwig van Beethoven', genre: 'classical', difficulty: 5, bpm: 100, durationSec: 500, keySignature: 'Dm', tags: ['beethoven', 'sonata', 'two-hands'], mutopiaPath: 'BeethovenLv/O31/LVB_Sonate_31no2_1/LVB_Sonate_31no2_1', requiresMidi: true },
+
+  // Liszt — Romantic
+  { id: 'liszt-ballade-2', title: 'Ballade No. 2 in B Minor', composer: 'Franz Liszt', genre: 'romantic', difficulty: 5, bpm: 70, durationSec: 700, keySignature: 'Bm', tags: ['liszt', 'ballade', 'virtuoso', 'two-hands'], mutopiaPath: 'LisztF/ballade/ballade', requiresMidi: true },
+
+  // Scriabin — Romantic
+  { id: 'scriabin-etude-op2-1', title: 'Etude Op. 2 No. 1 in C# Minor', composer: 'Alexander Scriabin', genre: 'romantic', difficulty: 4, bpm: 58, durationSec: 200, keySignature: 'C#m', tags: ['scriabin', 'etude', 'two-hands'], mutopiaPath: 'ScriabinA/O2/scriabin_etude_2_1/scriabin_etude_2_1', requiresMidi: true },
+
+  // Bach — Baroque
+  { id: 'bach-italian-concerto', title: 'Italian Concerto, BWV 971', composer: 'J.S. Bach', genre: 'baroque', difficulty: 5, bpm: 120, durationSec: 600, keySignature: 'F', tags: ['bach', 'concerto', 'two-hands'], mutopiaPath: 'BachJS/BWV971/piano/piano', midZip: 'BachJS/BWV971/piano/piano-mids', lyDir: true, requiresMidi: true },
 ];

@@ -7,17 +7,17 @@ import { SongCard } from './SongCard';
 import { MidiImport } from './MidiImport';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { NavigationTabs } from '../skilltree/NavigationTabs';
+import { JourneyProgressBar } from '../journey/JourneyProgressBar';
+import { countCompletedSteps } from '../../data/journey';
 import type { SongGenre, SongMeta } from '../../types';
 
 const GENRES: { value: SongGenre | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
-  { value: 'beginner', label: 'First Steps' },
   { value: 'baroque', label: 'Baroque' },
   { value: 'classical', label: 'Classical' },
   { value: 'romantic', label: 'Romantic' },
   { value: 'impressionist', label: 'Impressionist' },
   { value: 'jazz', label: 'Jazz' },
-  { value: 'advanced', label: 'Advanced' },
 ];
 
 type SortKey = 'difficulty' | 'name' | 'stars';
@@ -25,6 +25,8 @@ type SortKey = 'difficulty' | 'name' | 'stars';
 export function SongLibrary() {
   const navigate = useNavigate();
   const bestStars = useProgressStore((s) => s.bestStars);
+  const freePlayUnlocked = useProgressStore((s) => s.freePlayUnlocked);
+  const journeyStars = useProgressStore((s) => s.journeyBestStars);
   const importedSongs = useImportedSongsStore((s) => s.songs);
   const [showCalibration, setShowCalibration] = useState(false);
   const [showImport, setShowImport] = useState(false);
@@ -35,7 +37,7 @@ export function SongLibrary() {
 
   const applyFilters = useCallback((songs: SongMeta[]) => {
     let result = [...songs];
-    if (genre !== 'all') result = result.filter((s) => s.genre === genre);
+    if (genre !== 'all') result = result.filter((s) => (s.genres ?? [s.genre]).includes(genre));
     if (difficulty > 0) result = result.filter((s) => s.difficulty === difficulty);
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -61,6 +63,36 @@ export function SongLibrary() {
     () => applyFilters(SONG_CATALOG),
     [applyFilters],
   );
+
+  if (!freePlayUnlocked) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center relative px-6">
+        <div className="max-w-sm text-center">
+          <div className="mb-6">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="1.5" className="mx-auto mb-4">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <h2 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+              Free Play Locked
+            </h2>
+            <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
+              Complete the First Notes chapter to unlock the full song library.
+            </p>
+          </div>
+          <div className="mb-6">
+            <JourneyProgressBar completed={countCompletedSteps(journeyStars)} />
+          </div>
+          <button
+            onClick={() => navigate('/')}
+            className="px-6 py-2.5 rounded-full bg-accent text-white font-medium hover:bg-accent-light transition-colors"
+          >
+            Back to Journey
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 overflow-y-auto relative">
@@ -96,8 +128,6 @@ export function SongLibrary() {
           <div className="flex gap-1.5 overflow-x-auto pb-1" style={{
             scrollbarWidth: 'none',
             WebkitOverflowScrolling: 'touch',
-            maskImage: 'linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)',
           }}>
             {GENRES.map((g) => (
               <button

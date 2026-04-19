@@ -1,4 +1,4 @@
-export type SongGenre = 'beginner' | 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz' | 'advanced';
+export type SongGenre = 'baroque' | 'classical' | 'romantic' | 'impressionist' | 'jazz';
 
 export interface SongMeta {
   id: string;
@@ -8,13 +8,16 @@ export interface SongMeta {
   bpm: number;
   durationSec: number;
   midiFile: string;
+  lyFile?: string;
   tags: string[];
   skillTreeNodeId: string;
   genre: SongGenre;
+  genres?: SongGenre[];
   timeSignature?: [number, number];
   keySignature?: string;
   source?: 'bundled' | 'imported';
   requiresMidi?: boolean;
+  journeySong?: boolean;
 }
 
 export interface Note {
@@ -74,6 +77,18 @@ export interface UserProgress {
   bestStars: Record<string, 0 | 1 | 2 | 3>;
   unlockedNodes: string[];
 }
+
+export interface JourneyChapter {
+  id: string;
+  number: number;
+  title: string;
+  subtitle: string;
+  color: string;
+}
+
+export type JourneyStep =
+  | { type: 'linear'; id: string; chapterId: string; order: number; songId: string; teaches: string; description: string }
+  | { type: 'branch'; id: string; chapterId: string; order: number; songChoices: [string, string]; teaches: string; description: string };
 
 export interface UserSettings {
   inputMode: 'mic' | 'midi';

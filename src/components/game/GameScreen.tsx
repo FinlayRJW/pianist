@@ -13,10 +13,13 @@ import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { useOnboardingStore } from '../../stores/onboardingStore';
+import { useNavigate } from 'react-router-dom';
+import { getNextIncompleteStep } from '../../data/journey';
 
 interface Props {
   song: ParsedSong;
   onBack: () => void;
+  journeyMode?: boolean;
 }
 
 const KEYBOARD_HEIGHT = 80;
@@ -24,7 +27,8 @@ const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5];
 
 const MIC_WARNING_KEY = 'pianist-mic-warning-dismissed';
 
-export function GameScreen({ song, onBack }: Props) {
+export function GameScreen({ song, onBack, journeyMode }: Props) {
+  const navigate = useNavigate();
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
@@ -111,6 +115,7 @@ export function GameScreen({ song, onBack }: Props) {
   );
 
   const addScore = useProgressStore((s) => s.addScore);
+  const addJourneyScore = useProgressStore((s) => s.addJourneyScore);
   const unlockedNodes = useProgressStore((s) => s.unlockedNodes);
 
   useEffect(() => {
@@ -118,10 +123,14 @@ export function GameScreen({ song, onBack }: Props) {
       const r = scoring.getResults();
       r.songId = song.meta.id;
       setResults(r);
-      const songUnlocked = unlockedNodes.includes(song.meta.id);
-      addScore(r, songUnlocked);
+      if (journeyMode) {
+        addJourneyScore(r);
+      } else {
+        const songUnlocked = unlockedNodes.includes(song.meta.id);
+        addScore(r, songUnlocked);
+      }
     }
-  }, [gameState, results, scoring, song.meta.id, addScore, unlockedNodes]);
+  }, [gameState, results, scoring, song.meta.id, addScore, addJourneyScore, unlockedNodes, journeyMode]);
 
   const togglePlay = useCallback(() => {
     if (gameState === 'playing' || gameState === 'countdown') {
@@ -406,7 +415,22 @@ export function GameScreen({ song, onBack }: Props) {
 
       {/* Results overlay */}
       {gameState === 'results' && results && (
-        <ResultsModal results={results} onRetry={doRestart} onBack={onBack} />
+        <ResultsModal
+          results={results}
+          onRetry={doRestart}
+          onBack={onBack}
+          journeyMode={journeyMode}
+          onNextStep={journeyMode ? () => {
+            const journeyStars = useProgressStore.getState().journeyBestStars;
+            const next = getNextIncompleteStep(journeyStars);
+            if (next) {
+              const nextSongId = next.type === 'branch' ? next.songChoices[0] : next.songId;
+              navigate(`/play/${nextSongId}`, { state: { from: '/', journeyMode: true }, replace: true });
+            } else {
+              navigate('/');
+            }
+          } : undefined}
+        />
       )}
 
       {/* Idle overlay */}

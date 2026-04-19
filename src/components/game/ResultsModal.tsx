@@ -4,6 +4,8 @@ interface Props {
   results: SongScore;
   onRetry: () => void;
   onBack: () => void;
+  journeyMode?: boolean;
+  onNextStep?: () => void;
 }
 
 function StarIcon({ filled, color }: { filled: boolean; color: string }) {
@@ -16,7 +18,7 @@ function StarIcon({ filled, color }: { filled: boolean; color: string }) {
 
 const STAR_COLORS = ['', '#d97706', '#94a3b8', '#fbbf24'];
 
-export function ResultsModal({ results, onRetry, onBack }: Props) {
+export function ResultsModal({ results, onRetry, onBack, journeyMode, onNextStep }: Props) {
   const { stars, accuracy, hits, maxCombo } = results;
 
   return (
@@ -31,6 +33,13 @@ export function ResultsModal({ results, onRetry, onBack }: Props) {
         <h2 className="text-2xl font-bold t-text mb-1">
           {stars === 3 ? 'Perfect!' : stars === 2 ? 'Great Job!' : stars === 1 ? 'Nice Try!' : 'Keep Practicing!'}
         </h2>
+
+        {journeyMode && stars >= 1 && (
+          <p className="text-sm font-medium mb-1" style={{ color: '#34d399' }}>
+            Step Complete!
+          </p>
+        )}
+
         <p className="t-text-secondary text-sm mb-6">{Math.round(accuracy * 100)}% accuracy</p>
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm mb-6">
@@ -47,18 +56,37 @@ export function ResultsModal({ results, onRetry, onBack }: Props) {
         </div>
 
         <div className="flex gap-3 justify-center">
-          <button
-            onClick={onRetry}
-            className="px-6 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent-light transition-colors"
-          >
-            Retry
-          </button>
-          <button
-            onClick={onBack}
-            className="px-6 py-2 rounded-full t-bg-overlay t-text font-medium t-bg-overlay-hover transition-colors"
-          >
-            Back
-          </button>
+          {journeyMode && stars >= 1 && onNextStep ? (
+            <>
+              <button
+                onClick={onNextStep}
+                className="px-6 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent-light transition-colors"
+              >
+                Next Step
+              </button>
+              <button
+                onClick={onRetry}
+                className="px-6 py-2 rounded-full t-bg-overlay t-text font-medium t-bg-overlay-hover transition-colors"
+              >
+                Retry
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={onRetry}
+                className="px-6 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent-light transition-colors"
+              >
+                Retry
+              </button>
+              <button
+                onClick={onBack}
+                className="px-6 py-2 rounded-full t-bg-overlay t-text font-medium t-bg-overlay-hover transition-colors"
+              >
+                Back
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

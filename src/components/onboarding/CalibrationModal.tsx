@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { MicCalibrationStep } from './MicCalibrationStep';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
+import { JOURNEY_STEPS, getStepSongIds, getNextIncompleteStep, isFirstNotesComplete, isJourneyComplete } from '../../data/journey';
 import type { CalibrationData } from '../../stores/onboardingStore';
 
 interface Props {
@@ -178,12 +179,88 @@ export function CalibrationModal({ onClose }: Props) {
           </div>
         </div>
 
+        {/* Dev tools */}
+        {import.meta.env.DEV && (
+          <div className="mb-6">
+            <label className="text-xs font-medium t-text-secondary block mb-2">Dev Tools</label>
+            <DevFreePlayToggle />
+          </div>
+        )}
+
         {/* Calibration */}
         <div className="border-t t-border pt-5">
           <label className="text-xs font-medium t-text-secondary block mb-3">Input Calibration</label>
           <MicCalibrationStep onComplete={handleComplete} />
         </div>
       </div>
+    </div>
+  );
+}
+
+function DevFreePlayToggle() {
+  const freePlayUnlocked = useProgressStore((s) => s.freePlayUnlocked);
+  const journeyCompleted = useProgressStore((s) => s.journeyCompleted);
+  const journeyStars = useProgressStore((s) => s.journeyBestStars);
+
+  const nextStep = getNextIncompleteStep(journeyStars);
+
+  const toggleFreePlay = () => {
+    const state = useProgressStore.getState();
+    if (state.freePlayUnlocked) {
+      useProgressStore.setState({ freePlayUnlocked: false, journeyCompleted: false, journeyBestStars: {} });
+    } else {
+      useProgressStore.setState({ freePlayUnlocked: true });
+    }
+  };
+
+  const completeNextStep = () => {
+    if (!nextStep) return;
+    const stars = { ...useProgressStore.getState().journeyBestStars };
+    for (const id of getStepSongIds(nextStep)) {
+      if (!stars[id]) stars[id] = 1;
+    }
+    const fpu = isFirstNotesComplete(stars);
+    const jc = isJourneyComplete(stars);
+    useProgressStore.setState({ journeyBestStars: stars, freePlayUnlocked: fpu, journeyCompleted: jc });
+  };
+
+  const completeAll = () => {
+    const allStars: Record<string, 0 | 1 | 2 | 3> = {};
+    for (const step of JOURNEY_STEPS) {
+      for (const id of getStepSongIds(step)) {
+        allStars[id] = 3;
+      }
+    }
+    useProgressStore.setState({ journeyBestStars: allStars, journeyCompleted: true, freePlayUnlocked: true });
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <button
+        onClick={toggleFreePlay}
+        className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+          freePlayUnlocked ? 'bg-emerald-500/20 text-emerald-400' : 't-bg-overlay t-text-secondary'
+        }`}
+      >
+        {freePlayUnlocked ? 'Free Play: Unlocked' : 'Free Play: Locked'} — Click to toggle
+      </button>
+      <button
+        onClick={completeNextStep}
+        disabled={!nextStep}
+        className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+          nextStep ? 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30' : 't-bg-overlay t-text-muted'
+        }`}
+      >
+        {nextStep ? `Complete Next Step: ${nextStep.id}` : 'All Steps Complete'}
+      </button>
+      <button
+        onClick={completeAll}
+        className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+          journeyCompleted ? 'bg-amber-500/20 text-amber-400' : 't-bg-overlay t-text-secondary'
+        }`}
+      >
+        {journeyCompleted ? 'Journey: All Complete' : 'Complete All Journey Steps'}
+      </button>
     </div>
   );
 }

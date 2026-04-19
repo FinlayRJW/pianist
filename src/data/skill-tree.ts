@@ -28,8 +28,8 @@ function generateNodes(): SkillTreeNode[] {
       .filter((s) => s.genre === area.genre)
       .sort((a, b) => {
         if (area.id === 'beginner') {
-          if (a.id === 'middle-c-march') return -1;
-          if (b.id === 'middle-c-march') return 1;
+          if (a.id === 'schumann-melodie-op68-1') return -1;
+          if (b.id === 'schumann-melodie-op68-1') return 1;
         }
         return a.difficulty - b.difficulty || a.title.localeCompare(b.title);
       });

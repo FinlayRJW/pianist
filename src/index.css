@@ -16,7 +16,7 @@
   --constellation-locked-text: rgba(255, 255, 255, 0.12);
   --constellation-connection-dim: rgba(255, 255, 255, 0.06);
   --constellation-song-title: rgba(255, 255, 255, 0.45);
-  --constellation-song-title-locked: rgba(255, 255, 255, 0.08);
+  --constellation-song-title-locked: rgba(255, 255, 255, 0.25);
   --constellation-star-stroke: rgba(255, 255, 255, 0.3);
   --constellation-stats: rgba(255, 255, 255, 0.25);
   --constellation-stats-locked: rgba(255, 255, 255, 0.1);
@@ -69,7 +69,7 @@
   --constellation-locked-text: rgba(0, 0, 0, 0.15);
   --constellation-connection-dim: rgba(0, 0, 0, 0.08);
   --constellation-song-title: rgba(0, 0, 0, 0.4);
-  --constellation-song-title-locked: rgba(0, 0, 0, 0.1);
+  --constellation-song-title-locked: rgba(0, 0, 0, 0.25);
   --constellation-star-stroke: rgba(0, 0, 0, 0.12);
   --constellation-stats: rgba(0, 0, 0, 0.3);
   --constellation-stats-locked: rgba(0, 0, 0, 0.15);
@@ -175,6 +175,43 @@ html, body, #root {
 
 .animate-node-glow {
   animation: nodeGlow 3s ease-in-out infinite;
+}
+
+@keyframes stepUnlock {
+  0% { opacity: 0; transform: translateY(12px) scale(0.97); }
+  60% { opacity: 1; transform: translateY(-2px) scale(1.01); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.animate-stepUnlock {
+  animation: stepUnlock 0.5s ease-out;
+}
+
+@keyframes chapterReveal {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-chapterReveal {
+  animation: chapterReveal 0.6s ease-out;
+}
+
+@keyframes celebrateGlow {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 4px rgba(251, 191, 36, 0.3)); }
+  50% { filter: brightness(1.2) drop-shadow(0 0 16px rgba(251, 191, 36, 0.6)); }
+}
+
+.animate-celebrateGlow {
+  animation: celebrateGlow 2s ease-in-out infinite;
+}
+
+@keyframes confettiDrift {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+}
+
+.animate-confettiDrift {
+  animation: confettiDrift 3s ease-in forwards;
 }
 
 .t-text { color: var(--text-primary); }

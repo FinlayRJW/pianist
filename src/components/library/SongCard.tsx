@@ -10,23 +10,19 @@ const DIFFICULTY_LABELS = ['', 'Beginner', 'Easy', 'Medium', 'Hard', 'Expert'];
 const DIFFICULTY_COLORS = ['', 'text-emerald-400', 'text-green-400', 't-warning', 'text-orange-400', 'text-red-400'];
 
 const GENRE_DISPLAY: Record<string, string> = {
-  beginner: 'First Steps',
   baroque: 'Baroque',
   classical: 'Classical',
   romantic: 'Romantic',
   impressionist: 'Impressionist',
   jazz: 'Jazz',
-  advanced: 'Advanced',
 };
 
 const GENRE_COLORS: Record<string, string> = {
-  beginner: 'bg-cyan-500/15 text-cyan-400',
   baroque: 'bg-purple-500/15 text-purple-400',
   classical: 'bg-violet-500/15 text-violet-400',
   romantic: 'bg-pink-500/15 text-pink-400',
   impressionist: 'bg-sky-500/15 text-sky-400',
   jazz: 'bg-amber-500/15 text-amber-400',
-  advanced: 'bg-yellow-500/15 text-yellow-400',
 };
 
 export function SongCard({ song, bestStars = 0, onClick }: Props) {
@@ -53,9 +49,11 @@ export function SongCard({ song, bestStars = 0, onClick }: Props) {
         </div>
       </div>
       <div className="flex items-center gap-2 mt-3">
-        <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${GENRE_COLORS[song.genre] ?? 't-bg-overlay t-text-secondary'}`}>
-          {GENRE_DISPLAY[song.genre] ?? song.genre}
-        </span>
+        {(song.genres ?? [song.genre]).map((g) => (
+          <span key={g} className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${GENRE_COLORS[g] ?? 't-bg-overlay t-text-secondary'}`}>
+            {GENRE_DISPLAY[g] ?? g}
+          </span>
+        ))}
         <span className={`text-xs font-medium ${DIFFICULTY_COLORS[song.difficulty]}`}>
           {DIFFICULTY_LABELS[song.difficulty]}
         </span>
