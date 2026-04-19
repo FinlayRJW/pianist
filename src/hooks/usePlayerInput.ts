@@ -3,9 +3,7 @@ import { useMidiInput } from './useMidiInput';
 import { useWebSocketMidi } from './useWebSocketMidi';
 import { useOnboardingStore } from '../stores/onboardingStore';
 
-export type InputMode = 'auto' | 'midi';
-
-export function usePlayerInput(inputMode: InputMode) {
+export function usePlayerInput() {
   const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
 
   const hasBridgeConfig = midiBridgeUrl !== null;

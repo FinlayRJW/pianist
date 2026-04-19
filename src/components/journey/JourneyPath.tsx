@@ -22,6 +22,8 @@ const STEP_SPACING_X = 240;
 const CHAPTER_GAP_X = 100;
 const SWING_Y = 60;
 const NODE_BTN_W = 100;
+const UNLOCKED_R = 22;
+const LOCKED_R = 12;
 const BRANCH_OFFSET_Y = 70;
 const DESC_W = 200;
 
@@ -309,7 +311,7 @@ export function JourneyPath() {
                           className="absolute"
                           style={{
                             left: nodePos.x - NODE_BTN_W / 2,
-                            top: by - 22,
+                            top: by - (unlocked ? UNLOCKED_R : LOCKED_R),
                           }}
                         >
                           <JourneyNode
@@ -353,7 +355,7 @@ export function JourneyPath() {
                   className="absolute"
                   style={{
                     left: nodePos.x - NODE_BTN_W / 2,
-                    top: nodePos.y - 22,
+                    top: nodePos.y - (unlocked ? UNLOCKED_R : LOCKED_R),
                   }}
                 >
                   <JourneyNode

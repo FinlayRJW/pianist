@@ -94,11 +94,4 @@ export type JourneyStep =
   | { type: 'linear'; id: string; chapterId: string; order: number; songId: string; teaches: string; description: string }
   | { type: 'branch'; id: string; chapterId: string; order: number; songChoices: [string, string]; teaches: string; description: string };
 
-export interface UserSettings {
-  inputMode: 'auto' | 'midi';
-  midiDeviceId: string | null;
-  latencyOffsetMs: number;
-  scrollSpeed: number;
-  noteColorScheme: 'hand' | 'velocity' | 'single';
-}
 

@@ -4,6 +4,15 @@ import { isBlackKey } from '../canvas/PianoKeyRenderer';
 
 const MIN_SEMITONES = 24;
 const PAD_SEMITONES = 5;
+const FULL_WHITE_KEYS = 52;
+
+export function countWhiteKeys(range: NoteRange): number {
+  let count = 0;
+  for (let midi = range.firstMidi; midi <= range.lastMidi; midi++) {
+    if (!isBlackKey(midi)) count++;
+  }
+  return count;
+}
 
 export function computeSongRange(notes: Note[]): NoteRange {
   if (notes.length === 0) {

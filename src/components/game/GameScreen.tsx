@@ -10,14 +10,14 @@ import { useSongPlayer } from '../../hooks/useSongPlayer';
 import { useAnimationFrame } from '../../hooks/useAnimationFrame';
 import { useAutoPlay } from '../../hooks/useAutoPlay';
 import { useSheetMusic } from '../../hooks/useSheetMusic';
-import { usePlayerInput, type InputMode } from '../../hooks/usePlayerInput';
+import { usePlayerInput } from '../../hooks/usePlayerInput';
 import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
 import { CalibrationModal } from '../onboarding/CalibrationModal';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useNavigate } from 'react-router-dom';
 import { getNextIncompleteStep } from '../../data/journey';
-import { computeSongRange } from '../../utils/note-range';
+import { computeSongRange, countWhiteKeys } from '../../utils/note-range';
 
 interface Props {
   song: ParsedSong;
@@ -25,7 +25,8 @@ interface Props {
   journeyMode?: boolean;
 }
 
-const KEYBOARD_HEIGHT = 80;
+const KEYBOARD_HEIGHT_MIN = 80;
+const KEYBOARD_HEIGHT_MAX = 140;
 const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5];
 
 export function GameScreen({ song, onBack, journeyMode }: Props) {
@@ -33,7 +34,6 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
-  const [inputMode, setInputMode] = useState<InputMode>('auto');
   const [speed, setSpeedState] = useState(1);
   const [results, setResults] = useState<SongScore | null>(null);
   const [liveScore, setLiveScore] = useState(0);
@@ -51,6 +51,11 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const sheet = useSheetMusic(song.meta);
   const sheetAvailable = !sheet.loading && !sheet.error && sheet.timingMap !== null;
   const noteRange = useMemo(() => computeSongRange(song.notes), [song.notes]);
+  const keyboardHeight = useMemo(() => {
+    const whiteKeys = countWhiteKeys(noteRange);
+    const ratio = Math.max(0, 1 - whiteKeys / 52);
+    return Math.round(KEYBOARD_HEIGHT_MIN + ratio * (KEYBOARD_HEIGHT_MAX - KEYBOARD_HEIGHT_MIN));
+  }, [noteRange]);
   const octaveEquivalence = useOnboardingStore((s) => s.octaveEquivalence);
   const setOctaveEquivalence = useOnboardingStore((s) => s.setOctaveEquivalence);
 
@@ -58,7 +63,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
     useSongPlayer(song.totalDuration);
   const autoPlay = useAutoPlay(song.notes, timeRef, gameState === 'playing', autoPlayEnabled);
 
-  const input = usePlayerInput(inputMode);
+  const input = usePlayerInput();
   const scoring = useScoring(song.notes, timeRef, speedRef, octaveEquivalence);
 
   useEffect(() => {
@@ -225,7 +230,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
     }
   }, [resume]);
 
-  const canvasHeight = containerSize.height - KEYBOARD_HEIGHT;
+  const canvasHeight = containerSize.height - keyboardHeight;
 
   return (
     <div className="flex flex-col h-full bg-midnight relative">
@@ -243,37 +248,29 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          {/* Input mode selector */}
-          <div className="flex items-center gap-0.5 t-bg-overlay rounded-full p-0.5">
-            {(['auto', 'midi'] as InputMode[]).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setInputMode(mode)}
-                className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
-                  inputMode === mode
-                    ? 'bg-accent text-white'
-                    : 't-text-secondary'
-                }`}
-              >
-                {mode === 'auto' ? 'Auto' : 'MIDI'}
-              </button>
-            ))}
-          </div>
-
           {/* MIDI status */}
-          {(input.midiConnected || input.hasBridgeConfig) && (
-            <span className={`text-[9px] max-w-[100px] truncate ${input.isListening ? 'text-emerald-400' : 'text-yellow-400'}`}>
-              {input.isListening
-                ? (input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI')
-                : 'Reconnecting...'}
-            </span>
-          )}
+          <span className={`text-[9px] max-w-[120px] truncate ${input.isListening ? 'text-emerald-400' : 't-text-muted'}`}>
+            {input.isListening
+              ? (input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI')
+              : ''}
+          </span>
 
           <ToggleSwitch
             label="Sound"
             enabled={autoPlayEnabled}
             onToggle={() => { Tone.start(); setAutoPlayEnabled((v) => !v); }}
           />
+
+          <div className="relative group">
+            <ToggleSwitch
+              label="Oct"
+              enabled={octaveEquivalence}
+              onToggle={() => setOctaveEquivalence(!octaveEquivalence)}
+            />
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg bg-black/90 text-xs text-white/70 font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20 shadow-xl">
+              {octaveEquivalence ? 'Any octave counts as correct' : 'Must play the exact octave'}
+            </div>
+          </div>
 
           <select
             value={speed}
@@ -358,7 +355,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       </div>
 
       {/* MIDI not connected warning */}
-      {inputMode === 'midi' && !input.midiConnected && !input.midiBridgeConnected && (
+      {!input.midiConnected && !input.midiBridgeConnected && (
         <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
           {input.hasBridgeConfig
             ? 'Reconnecting to MIDI Bridge...'
@@ -386,7 +383,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                     <div
                       className="absolute inset-0"
                       style={{
-                        bottom: KEYBOARD_HEIGHT,
+                        bottom: keyboardHeight,
                         zIndex: 0,
                       }}
                     >
@@ -404,7 +401,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                     <div
                       className="absolute left-0 right-0"
                       style={effectiveMode === 'combined' ? {
-                        bottom: KEYBOARD_HEIGHT,
+                        bottom: keyboardHeight,
                         height: Math.round(canvasHeight * 0.4),
                         opacity: 0.6,
                         maskImage: 'linear-gradient(to bottom, transparent, black 40%)',
@@ -439,7 +436,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
             <div className="absolute bottom-0 left-0 right-0">
               <PianoKeyboard
                 width={containerSize.width}
-                height={KEYBOARD_HEIGHT}
+                height={keyboardHeight}
                 activeNotes={input.activeNotesState}
                 range={noteRange}
               />

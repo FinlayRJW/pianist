@@ -237,8 +237,9 @@ function drawNote(
   }
 
   ctx.fillStyle = color;
+  const taperStrength = Math.max(0.05, Math.min(0.25, 10 / width));
   const taperRatio = note.duration > 0.3
-    ? Math.max(0.3, 1 - note.duration * 0.25)
+    ? Math.max(1 - taperStrength * 3, 1 - note.duration * taperStrength)
     : 1;
   if (taperRatio < 1) {
     const topWidth = width * taperRatio;
