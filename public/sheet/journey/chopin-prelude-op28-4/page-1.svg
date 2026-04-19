@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="210.00mm" height="297.00mm" viewBox="0.0000 -0.0000 125.7911 177.9046">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" viewBox="0.0000 -0.0000 125.7911 177.9046">
 <style type="text/css">
 <![CDATA[
 tspan { white-space: pre; }
@@ -4562,11 +4562,7 @@ c0 -172 36 -336 152 -468c16 -16 -8 -40 -24 -24c-156 176 -212 400 -212 636c0 376 
 <rect x="0.0000" y="-0.3388" width="7.5834" height="1.6183" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-<g transform="translate(43.4229, 171.6313)">
-<text font-family="DejaVu Sans,sans-serif" font-size="1.6844" text-anchor="start" fill="currentColor">
-<tspan>LilyPond </tspan>
-</text>
-</g>
+
 
 <g transform="translate(31.3110, 173.9718)">
 <text font-family="DejaVu Sans,sans-serif" font-size="1.6844" text-anchor="start" fill="currentColor">

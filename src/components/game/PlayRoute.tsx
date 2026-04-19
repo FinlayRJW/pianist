@@ -69,5 +69,5 @@ export function PlayRoute() {
     );
   }
 
-  return <GameScreen song={song} onBack={() => navigate(backPath)} journeyMode={journeyMode} />;
+  return <GameScreen key={song.meta.id} song={song} onBack={() => navigate(backPath)} journeyMode={journeyMode} />;
 }

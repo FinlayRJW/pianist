@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="210.00mm" height="297.00mm" viewBox="0.0000 -0.0000 119.5016 169.0094">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" viewBox="0.0000 -0.0000 119.5016 169.0094">
 <style type="text/css">
 <![CDATA[
 tspan { white-space: pre; }
@@ -1867,11 +1867,7 @@ c150 98 305 216 305 392c0 92 -35 184 -116 184c-50 0 -84 -37 -100 -88c4 1 7 1 11 
 <tspan>www.</tspan>
 </text>
 </g>
-<g transform="translate(39.8098, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>LilyPond</tspan>
-</text>
-</g>
+
 <g transform="translate(46.7506, 161.4593)">
 <text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
 <tspan>.org</tspan>
