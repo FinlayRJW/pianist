@@ -174,9 +174,12 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       } else if (e.code === 'KeyR') {
         e.preventDefault();
         doRestart();
-      } else if (e.code === 'KeyV' && sheetAvailable) {
+      } else if (e.code === 'KeyV') {
         e.preventDefault();
-        setViewMode(viewMode === 'waterfall' ? 'sheet' : 'waterfall');
+        if (sheetAvailable) {
+          const cycle = { waterfall: 'sheet', sheet: 'combined', combined: 'waterfall' } as const;
+          setViewMode(cycle[viewMode]);
+        }
       }
     }
     window.addEventListener('keydown', handleKey);
@@ -321,27 +324,36 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
 
           {/* View mode toggle */}
           <button
-            onClick={() => setViewMode(viewMode === 'waterfall' ? 'sheet' : 'waterfall')}
+            onClick={() => {
+              if (!sheetAvailable) return;
+              const cycle = { waterfall: 'sheet', sheet: 'combined', combined: 'waterfall' } as const;
+              setViewMode(cycle[viewMode]);
+            }}
             className={`p-1.5 rounded-full transition-colors ${
-              viewMode === 'sheet' && sheetAvailable
+              viewMode !== 'waterfall' && sheetAvailable
                 ? 'bg-accent/20 text-accent-light'
                 : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
             } ${!sheetAvailable ? 'opacity-40 cursor-not-allowed' : ''}`}
-            title={`${viewMode === 'sheet' ? 'Waterfall' : 'Sheet music'} view (V)`}
+            title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
             disabled={!sheetAvailable}
           >
             {viewMode === 'sheet' && sheetAvailable ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
+            ) : viewMode === 'combined' && sheetAvailable ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="8" rx="1" />
+                <rect x="3" y="14" width="18" height="7" rx="1" />
+              </svg>
+            ) : (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <line x1="12" y1="3" x2="12" y2="21" />
                 <line x1="3" y1="9" x2="21" y2="9" />
                 <line x1="3" y1="15" x2="21" y2="15" />
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18V5l12-2v13" />
-                <circle cx="6" cy="18" r="3" />
-                <circle cx="18" cy="16" r="3" />
               </svg>
             )}
           </button>
@@ -416,8 +428,35 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       <div ref={containerRef} className="flex-1 relative overflow-hidden">
         {containerSize.width > 0 && (
           <>
-            {viewMode === 'sheet' && sheetAvailable ? (
+            {viewMode === 'combined' && sheetAvailable ? (
+              <div className="relative" style={{ height: canvasHeight }}>
+                <SheetMusicDisplay
+                  key={song.meta.id}
+                  songMeta={song.meta}
+                  timeRef={timeRef}
+                  playing={isActive}
+                  width={containerSize.width}
+                  height={canvasHeight}
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 pointer-events-none"
+                  style={{ height: Math.round(canvasHeight / 2), opacity: 0.5 }}
+                >
+                  <FallingNotesCanvas
+                    notes={song.notes}
+                    timeRef={timeRef}
+                    playing={isActive}
+                    width={containerSize.width}
+                    height={Math.round(canvasHeight / 2)}
+                    activeNotes={input.activeNotes.current}
+                    hitNotes={scoring.hitNotes.current}
+                    missedNotes={scoring.missedNotes.current}
+                  />
+                </div>
+              </div>
+            ) : viewMode === 'sheet' && sheetAvailable ? (
               <SheetMusicDisplay
+                key={song.meta.id}
                 songMeta={song.meta}
                 timeRef={timeRef}
                 playing={isActive}

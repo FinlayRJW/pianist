@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.24.0"
 
 \header {
   title = "Sonate Opus 49 No.2 - Part 2"
@@ -15,7 +15,7 @@
   lastupdated = "2006/June/04"
   version = "2.6.0"
  footer = "Mutopia-2006/06/05-777"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
 \score {
@@ -26,7 +26,7 @@
  \clef treble
  \key g \major
  \time 3/4
- \once \override TextScript #'padding = #2.0
+ \once \override TextScript.padding = #2.0
  \partial 4 g'8.(^\markup { \large "Tempo di Menuetto" } fis'16) fis'2 fis'8.( g'16)
  g'2 g'8.( b'16) d''4( ~ d''8 e'' d'' c'') b'4( g'8) r8 g'8.( fis'16)
  fis'2 fis'8.( g'16) g'2 g'8.( b'16) d''4.( cis''8[ c'' a']) g'4 r4 b'8. b'16
@@ -42,8 +42,8 @@
  cis''4 r8 cis''8( e''16 d'' cis'' d'') e''8. g''16 d''4 cis''
  d''8 e''16 fis'' g'' a'' b'' cis''' d'''8 d''' d'''8[( a'')] a''[( fis'')] fis''[( d'')] d''2( e''8. cis''16)
  d''8 e''16 fis'' g'' a'' b'' cis''' d'''8 d'''
- \set tupletSpannerDuration = #(ly:make-moment 1 4)
- \times 2/3 { d'''8[ a'' a''] a''[ fis'' fis''] fis''[ d'' d''] } d''2( e''8. cis''16)
+ \tupletSpan 4
+ \tuplet 3/2 { d'''8[ a'' a''] a''[ fis'' fis''] fis''[ d'' d''] } d''2( e''8. cis''16)
  d''8.[ d''16( cis''8. d''16 c''8. d''16)] b'8.[( d''16 b'8. d''16 cis''8. e''16)]
  d''8.[ d''16( cis''8. d''16 c''8. d''16)] b'8.[( d''16 b'8. d''16 cis''8. e''16)]
  d''8.[ d''16( cis''8.\pp d''16 c''8. d''16)] b'8.[( d''16 a'8. d''16)] g'8.( fis'16)
@@ -69,7 +69,7 @@
  fis''2 fis''8.( g''16) g''2 g''8.( b''16) d'''4( ~ d'''8 e''' d''' c''') b''4( g''8) r8 g''8.( fis''16)
  fis''2 fis''8.( g''16) g''2 g''8.( b''16) d'''4 d'''16( cis''' d''' cis''' d''' c''' b'' a'') g''4 r g''8.\p( f''16)
  f''4 r f''8.( e''16) e''4 r e''8.( d''16) d''4 r d''8.( c''16) c''4 r c''8.( a'16)
- \override Voice.DynamicLineSpanner #'padding = #1.0
+ \override Voice.DynamicLineSpanner.padding = #1.0
  g'8\<( fis'\!) d''4.\> g'8\! g'8\<( fis'\!) d''4.\> b'8\!
  r8 a'16 c'' r8 g'16 b' r8 fis'16 a'
  r16 g'16 a' b' c'' d'' e'' fis'' g'' a'' b'' g''
@@ -128,10 +128,15 @@
  \layout {
  \context {
    \Staff
-   \override VerticalAxisGroup #'minimum-Y-extent = #'(-5.0 . 5.0)
+   \override VerticalAxisGroup.minimum-Y-extent = #'(-5.0 . 5.0)
    fontSize = #-1 }
  }
 
- \midi { \tempo 4 = 134 }
+ 
+  \midi {
+    \tempo 4 = 134
+    }
+
+
 
 }

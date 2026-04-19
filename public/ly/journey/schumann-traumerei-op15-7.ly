@@ -1,6 +1,6 @@
 % PaulLiu
 % 
-\version "2.6.0"
+\version "2.24.0"
 \header {
  title = "Kinderscenen"
  subtitle = "Traümerei"
@@ -19,7 +19,7 @@
  lastupdated = "2005/Dec/26"
 
  footer= "Mutopia-2005/12/27-504"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 
 }
 
@@ -33,7 +33,7 @@ fingerLRUD = \set fingeringOrientations = #'(left right up down)
 
 tempotr =  {
 %%1-5
-			s16\tempo 4=100 \override Score.MetronomeMark #'transparent = ##t s16\tempo 4=56 s8 
+			s16\tempo 4=100 \override Score.MetronomeMark.transparent = ##t s16\tempo 4=56 s8 
 			s1 s1 s1 s1 
 %%6-10
 			s1 s1 s1 s8\tempo 4=53 s8\tempo 4=50 s8\tempo 4=47 s8\tempo 4=44 s8\tempo 4=41 s8\tempo 4=38 s8\tempo 4=35 s8\tempo 4=33 s16\tempo 4=56 s16 s8 s4 s4 s4
@@ -87,34 +87,34 @@ dynamictr =  {
 pedaltr =  {
 %%1-5
 			s4 
-			s4\sustainDown s2. 
-			s8\sustainUp s8\sustainDown s2 s4\sustainUp
+			s4\sustainOn s2. 
+			s8\sustainOff s8\sustainOn s2 s4\sustainOff
 			s1 
 			s1
 %%6-10
-			s4\sustainDown s2.
-			s8\sustainUp s8\sustainDown s2 s8 s8\sustainUp 
+			s4\sustainOn s2.
+			s8\sustainOff s8\sustainOn s2 s8 s8\sustainOff 
 			s1 
 			s1
-			s8\sustainDown s8 s2 s8 s8\sustainUp
+			s8\sustainOn s8 s2 s8 s8\sustainOff
 %%11-15
 			s1 
 			s1 
 			s1  
-			s8\sustainDown s8 s2 s8 s8\sustainUp
+			s8\sustainOn s8 s2 s8 s8\sustainOff
 			s1
 %%16-20
 			s1 
 			s1 
-			s4\sustainDown s2. 
-			s8\sustainUp s8\sustainDown s2 s4\sustainUp
+			s4\sustainOn s2. 
+			s8\sustainOff s8\sustainOn s2 s4\sustainOff
 			s1
 %%21-25
 			s1 
-			s4\sustainDown s2. 
-			s4\sustainUp s2\sustainDown s8 s8\sustainUp
+			s4\sustainOn s2. 
+			s4\sustainOff s2\sustainOn s8 s8\sustainOff
 			s1 
-			s4 s4\sustainDown s4\sustainUp s4
+			s4 s4\sustainOn s4\sustainOff s4
 }			
 
 viola =  {
@@ -124,8 +124,8 @@ viola =  {
 			\phrasingSlurUp
 			\slurUp
 			{
-				\override TextScript  #'direction = #1
-				\override Script  #'direction = #1
+				\override TextScript.direction = #1
+				\override Script.direction = #1
 			}
 			\tieUp
 			\dynamicUp
@@ -173,7 +173,7 @@ violatwo =  {
 			\slurDown
 			\tieDown
 			\fingerLRUD
-			\override Rest #'staff-position = #-10
+			\override Rest.staff-position = #-10
 %%1-5
 			s4
 			r4 \fingerL <f, c'-3>2. \fingerLRUD
@@ -252,8 +252,8 @@ bassvoices =  {
 			\slurUp
 			\fingerLRUD
 			{
-  				\override TextScript  #'direction = #1
-				\override Script  #'direction = #1
+  				\override TextScript.direction = #1
+				\override Script.direction = #1
 			}
 			\tieUp
 %%1-5
@@ -363,34 +363,16 @@ bassvoicestwo =  {
 		\context Dynamics = "pedal" \pedaltr
 	>>
 	\layout {
-		\context {
-			\type "Engraver_group_engraver"
-			\name Dynamics
-			\alias Voice % So that \cresc works, for example.
-			\consists "Output_property_engraver"
-			
-			\consists "Piano_pedal_engraver"
-			\consists "Script_engraver"
-			\consists "Dynamic_engraver"
-			\consists "Text_engraver"
-
-			\override TextScript #'font-shape = #'italic
-			\override DynamicText #'extra-offset = #'(0 . 2.5)
-			\override Hairpin #'extra-offset = #'(0 . 2.5)
-			
-			\consists "Skip_event_swallow_translator"
-
-			\consists "Axis_group_engraver"
-		}
+		% [Convert-ly] The Dynamics context is now included by default.
 		\context {
 			\PianoStaff
 			\accepts Dynamics
-			\override VerticalAlignment #'forced-distance = #7
+			\override VerticalAlignment.forced-distance = #7
 		}
 	}
 	\midi {
 		\context {
-			\type "Performer_group_performer"
+			\type "Performer_group"
 			\name Dynamics
 			\consists "Piano_pedal_performer"
 		}

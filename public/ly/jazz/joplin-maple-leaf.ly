@@ -1,4 +1,4 @@
-\version "2.14.2"
+\version "2.24.0"
 
 \header {
  title = "Maple Leaf Rag"
@@ -18,7 +18,7 @@
  maintainerWeb = "http://cjsawer.whitewillow.co.uk/"
 
  footer = "Mutopia-2011/11/13-23"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-0.5 MutopiaProject \hspace #-0.5 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-0.5 LilyPond \hspace #-0.5 \teeny .org } by \maintainer \hspace #-0.6 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-0.5 MutopiaProject \hspace #-0.5 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-0.5 LilyPond \hspace #-0.5 \teeny .org } by \maintainer \hspace #-0.6 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
 \paper {
@@ -26,11 +26,11 @@
   bottom-margin = 10
   min-systems-per-page = #4
   max-systems-per-page = #5
-  system-system-spacing #'padding = #8
+  system-system-spacing.padding = #8
 }
 
 top =  \relative c' {
- \override TextScript   #'padding = #2
+ \override TextScript.padding = #2
  
  \key as \major
  \time 2/4
@@ -285,9 +285,7 @@ bottom =  \relative c {
  >>
  
  \midi {
-  \context {
-   \Score tempoWholesPerMinute = #(ly:make-moment 120 4)
-  }
+  \tempo 4 = 120
   \context {
    \Voice
    \remove Dynamic_performer

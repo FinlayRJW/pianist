@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.24.0"
 
 \header {
 	title = "Etude"
@@ -12,7 +12,7 @@
 	maintainerEmail = "glederfein@gmail.com"
 	mutopiacomposer = "ScriabinA"
  footer = "Mutopia-2007/09/11-1029"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
 %%%%%%%%%%%%%
@@ -48,7 +48,7 @@ upper = {
 	% bars 1-12
 	
 	<<
-	\relative {
+	\relative c' {
 		<e, cis'>8 <e dis'> <cis' e> <cis fis> <e gis> <cis e cis'> |
 		b'8. a16 a2 |
 		<fis, cis' fis>8 <a gis'> <fis' a> <cis b'> <fis cis'> <fis cis' fis> |
@@ -65,7 +65,7 @@ upper = {
 		fis8. eis16 eis2 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		s8 e,4 cis' s8 |
 		<b cis fis> <b fis'> <a fis'> <a fis'> <a fis'> <a fis'> |
 		s8 cis4 cis s8 |
@@ -88,7 +88,7 @@ upper = {
 	% bars 13-16
 	
 	<<
-	\relative {
+	\relative c' {
 		<ges' bes ees>8 <ges f'> <ees' ges> <ees aes> <ges bes> <ees bes' ees> |
 		des'8. bes16 bes4 ges |
 		% bar 15
@@ -96,7 +96,7 @@ upper = {
 		des8. bes16 bes8 r8 r4 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		s8 bes'4 ees s8 |
 		<des bes'> <bes des> <bes des> <bes des> <ges bes> <ges bes> |
 		% bar 15
@@ -110,15 +110,15 @@ upper = {
 	% bars 17-20
 	
 	<<
-	\relative {
-		s4 \acciaccatura { \slurDown d'8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes c \unHideNotes \stemUp s4. |
+	\relative c' {
+		s4 \acciaccatura { \slurDown d'8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes c \unHideNotes \stemUp s4. |
 		c8. bes16 bes2 |
-		\once \override Beam  #'positions = #'(5 . 5) bes8[ c \acciaccatura d c b] \times 2/3 {c g' f} |
+		\once \override Beam.positions = #'(5 . 5) bes8[ c \acciaccatura d c b] \tuplet 3/2 {c g' f} |
 		% bar 20
 		f8. bes,16 bes2 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		\stemUp <d aes' bes>8 <ees aes c> <ees aes c> <ees aes b> <ees aes c> <ees aes c f> \stemDown |
 		<ees aes> <ees aes> <d aes'> <d aes'> <d aes'> <d aes'> |
 		<d aes'> <ees aes> <ees aes> <ees aes> <ees aes> <ees aes c> |
@@ -130,33 +130,33 @@ upper = {
 	% bars 21-22
 	
 	<<
-	\relative {
+	\relative c' {
 		ees'2 ees4 |
 		eeses des des |
 	}
 	\\
-	\relative {
+	\relative c' {
 		<des bes'>8 <des c'> <des c'> <des bes'> <des beses'> <c aes'> |
 		<ces aes'>8 <ces beses'> <ces beses'> <ces aes'> <ces aes'> <bes ges'> |
 	}
 	\\
-	\relative {
-		s4 \stemDown \acciaccatura { \slurUp des'8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \hideNotes c \unHideNotes \slurNeutral s4. |
-		s4 \stemDown \once \override Slur #'control-points = #'((1 . -0.9) (1.66 . -1.5) (2.33 . -1.5) (3 . -1.2)) \acciaccatura ces8 \slurNeutral s2 |
+	\relative c' {
+		s4 \stemDown \acciaccatura { \slurUp des'8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \hideNotes c \unHideNotes \slurNeutral s4. |
+		s4 \stemDown \once \override Slur.control-points = #'((1 . -0.9) (1.66 . -1.5) (2.33 . -1.5) (3 . -1.2)) \acciaccatura ces8 \slurNeutral s2 |
 	}
 	>>
 	
 	% bars 23-24
 	
 	<<
-	\relative {
-		s4 \acciaccatura { \slurDown f8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes ees \unHideNotes \stemUp s4. |
-		s4 \acciaccatura { \slurDown f8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes ees \unHideNotes \stemUp s4. |
+	\relative c' {
+		s4 \acciaccatura { \slurDown f8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes ees \unHideNotes \stemUp s4. |
+		s4 \acciaccatura { \slurDown f8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes ees \unHideNotes \stemUp s4. |
 	}
 	\\
-	\relative {
-		\once \override Beam  #'positions = #'(2 . 1.5) \stemUp <ges c f>8 <ges c ees> <ges c ees> <ges c d> <ges c d> <ges c ees> |
-		\once \override Beam  #'positions = #'(2 . 1.5) <ges c f>8 <ges c ees> <ges c ees> <ges c d> <ges c d> <ges c ees> |
+	\relative c' {
+		\once \override Beam.positions = #'(2 . 1.5) \stemUp <ges c f>8 <ges c ees> <ges c ees> <ges c d> <ges c d> <ges c ees> |
+		\once \override Beam.positions = #'(2 . 1.5) <ges c f>8 <ges c ees> <ges c ees> <ges c d> <ges c d> <ges c ees> |
 	}
 	>>
 	
@@ -165,9 +165,9 @@ upper = {
 	% bars 25-45
 	
 	<<
-	\relative {
+	\relative c' {
 		% bar 25
-		s4 \acciaccatura { \slurDown e8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes dis \unHideNotes \stemUp s4. |
+		s4 \acciaccatura { \slurDown e8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes dis \unHideNotes \stemUp s4. |
 		<e, cis'>8 <e dis'> <cis' e> <cis fis> <e gis> <cis e cis'> |
 		b'8. a16 a2 |
 		<fis, cis' fis>8 <a gis'> <fis' a> <cis b'> <fis cis'> <fis cis' fis> |
@@ -180,12 +180,12 @@ upper = {
 		gis8 a \acciaccatura b a gis a <a dis> |
 		% bar 35
 		a8. gis16 gis2 |
-		\once \override Beam  #'positions = #'(3 . 3) gis8[ a \acciaccatura b a gis] \times 2/3 {a e' dis} |
+		\once \override Beam.positions = #'(3 . 3) gis8[ a \acciaccatura b a gis] \tuplet 3/2 {a e' dis} |
 		dis8. gis,16 gis2 |
-		s4 \acciaccatura { \slurDown b8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes a \unHideNotes \stemUp s4. |
-		s4 \acciaccatura { \slurDown gis8 \slurNeutral } \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes fis \unHideNotes \stemUp s4. |
+		s4 \acciaccatura { \slurDown b8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes a \unHideNotes \stemUp s4. |
+		s4 \acciaccatura { \slurDown gis8 \slurNeutral } \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes fis \unHideNotes \stemUp s4. |
 		% bar 40
-		s4 \acciaccatura { \slurDown fis8 \slurNeutral} \once \override NoteHead #'X-extent = #'(0.0 . 0.0) \stemDown \hideNotes e \unHideNotes \stemUp s4. |
+		s4 \acciaccatura { \slurDown fis8 \slurNeutral} \once \override NoteHead.X-extent = #'(0.0 . 0.0) \stemDown \hideNotes e \unHideNotes \stemUp s4. |
 		e8. dis16 dis4 e |
 		<e, gis cis>8 <e gis dis'> <cis' e> <cis fis> <e gis> <cis e cis'> |
 		b'8. a16 gis4 fis |
@@ -194,7 +194,7 @@ upper = {
 		e'8 cis cis2\fermata |
 	}
 	\\
-	\relative {
+	\relative c' {
 		% bar 25
 		\stemUp <fis, bis e>8 <fis bis dis> <fis bis dis> <fis bis cisis> <fis bis dis> <fis bis e> \stemDown|
 		s8 e4 cis' s8 |
@@ -235,7 +235,7 @@ lower = {
 	% bars 1-8
 	
 	<<
-	\relative {
+	\relative c' {
 		<cis,, gis' gis'>8\arpeggio <gis' gis'> <gis gis'> <gis gis'>~ <gis cis,> <gis gis'> |
 		<cis, fis cis' fis>\arpeggio <cis' fis cis'> <cis fis cis'> <cis fis cis'> <cis fis cis'> <cis fis cis'> |
 		<a a'> <gis gis'> <fis fis'> <e e'> <dis dis'> <dis' a' cis> |
@@ -247,7 +247,7 @@ lower = {
 		<dis, gis>8[ <dis gis>] cisis e4 dis8 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		s2. |
 		s2. |
 		cis,8 cis4 a s8 |
@@ -263,7 +263,7 @@ lower = {
 	% bars 9-12
 	
 	<<
-	\relative {
+	\relative c' {
 		<cis,, cis'>8[ <b b'>] <ais ais'> r r cis'' |
 		% bar 10
 		b8. ais16 ais8 e'4 dis8 |
@@ -271,7 +271,7 @@ lower = {
 		fis8. eis16 eis8 b'4 ais8 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		s4. ais,8~ ais4 |
 		% bar 10
 		dis8[ dis] dis dis4 dis8 |
@@ -279,7 +279,7 @@ lower = {
 		ais8[ ais] ais ais4 ais8 |
 	}
 	\\
-	\relative {
+	\relative c' {
 		s2. |
 		% bar 10
 		s4 ais2 |
@@ -293,7 +293,7 @@ lower = {
 	% bars 13-16
 	
 	<<
-	\relative {
+	\relative c' {
 		ees8[ des] c bes'4 ges8 |
 		ges f e f f bes, |
 		% bar 15
@@ -301,7 +301,7 @@ lower = {
 		<f, bes>[ <f bes>] <f bes> \noBeam f-.( f-.[ f-.]) |
 	}
 	\\
-	\relative {
+	\relative c' {
 		ees,2. |
 		<f bes>2 ees4 |
 		% bar 15
@@ -315,7 +315,7 @@ lower = {
 	% bars 17-24
 	
 	<<
-	\relative {
+	\relative c' {
 		f,8 f f f f f |
 		f f f f f f |
 		f f f f f f |
@@ -327,7 +327,7 @@ lower = {
 		aes8 aes aes aes beses beses |
 	}
 	\\
-	\relative {
+	\relative c' {
 		bes,2. |
 		bes2. |
 		bes2. |
@@ -345,7 +345,7 @@ lower = {
 	% bars 25-45
 	
 	<<
-	\relative {
+	\relative c' {
 		% bar 25
 		a2 gis4 |
 		<cis,, gis' gis'>8\arpeggio <gis' gis'> <gis gis'> <gis gis'>~ <cis, gis'> <gis' gis'> |
@@ -374,7 +374,7 @@ lower = {
 		<cis, gis' cis>2._\fermata |
 	}
 	\\
-	\relative {
+	\relative c' {
 		% bar 25
 		gis,8 gis gis gis gis gis |
 		s2. |
@@ -408,18 +408,18 @@ lower = {
 %%% Dynamics %%%
 
 dynamics = {
-	\override DynamicText #'self-alignment-X = #-1
-	\override DynamicTextSpanner #'dash-period = #-1
+	\override DynamicText.self-alignment-X = #-1
+	\override DynamicTextSpanner.style = #'none
 	s16\p s16\< s2 s8\! |
 	s8\> s s\! s4. |
 	s8\< s2 s8\! |
 	s8\> s s\! s4. |
 	% bar 5
-	\setTextCresc s8\< s2 s8\! |
+	\crescTextCresc s8\< s2 s8\! |
 	s2. |
 	s2. |
 	s4 s8\p s4. |
-	\setTextCresc s4. s8\< s4 |
+	\crescTextCresc s4. s8\< s4 |
 	% bar 10
 	s2. |
 	s2. |
@@ -428,7 +428,7 @@ dynamics = {
 	s2. |
 	% bar 15
 	s2. |
-	\setTextDim s4 s8\> s4 s8\! |
+	\dimTextDim s4 s8\> s4 s8\! |
 	s8\pp s4 s4. |
 	s2. |
 	s8\ppp s4 s4. |
@@ -457,7 +457,7 @@ dynamics = {
 	s8\pp s4 s4. |
 	s2. |
 	% bar 40
-	\setTextDim s8\> s4 s4. |
+	\dimTextDim s8\> s4 s4. |
 	s2 s8 s8\! |
 	s8\ppp s4 s4. |
 	s2. |
@@ -479,30 +479,11 @@ dynamics = {
 		\new Staff = "lower" \lower
 	>>
 	\layout {
-		\context {
-			\type "Engraver_group"
-			\name Dynamics
-			\alias Voice
-			\consists "Output_property_engraver"
-
-			\override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
-
-			\consists "Script_engraver"
-			\consists "Dynamic_engraver"
-			\consists "Text_engraver"
-     
-			\override DynamicText #'extra-offset = #'(0 . 2.5)
-			\override Hairpin #'extra-offset = #'(0 . 2.5)
-			\override DynamicTextSpanner #'extra-offset = #'(0 . 2.5) 
-     
-			\consists "Skip_event_swallow_translator"
-     
-			\consists "Axis_group_engraver"
-		}
+		% [Convert-ly] The Dynamics context is now included by default.
 		\context {
 			\PianoStaff
 			\accepts Dynamics
-			\override VerticalAlignment #'forced-distance = #9.5
+			\override VerticalAlignment.forced-distance = #9.5
 		}
 	}
 }

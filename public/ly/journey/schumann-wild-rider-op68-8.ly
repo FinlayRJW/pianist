@@ -1,6 +1,6 @@
- \version "2.10.16"
+ \version "2.24.0"
 
- \paper { between-system-padding = #1
+ \paper { obsolete-between-system-padding = #1  system-system-spacing.padding = #(/ obsolete-between-system-padding staff-space)  score-system-spacing.padding = #(/ obsolete-between-system-padding staff-space)
 	ragged-bottom=##f
 	ragged-last-bottom=##f
 	}
@@ -33,7 +33,7 @@
 
 
  footer = "Mutopia-2007/02/11-655"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2007. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution-ShareAlike 2.5 License, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/by-sa/2.5" http://creativecommons.org/licenses/by-sa/2.5 } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2007. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution-ShareAlike 2.5 License, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/by-sa/2.5" http://creativecommons.org/licenses/by-sa/2.5 } } } }
      }
 
      upper = \relative c' {
@@ -42,7 +42,7 @@
        \time 6/8	
 	\partial 8
 	\repeat volta 2 {
-	\override TextScript #'extra-offset = #'(0 . 2)
+	\override TextScript.extra-offset = #'(0 . 2)
 	e8_.^\markup { \bold "vif" } |
 	a_. e_. a_. c-. a-. c-.
 	e( c) f-. e-. c-. a-.
@@ -129,19 +129,19 @@
 	s4. s4
 	s8
 	s2.
-        \once \override DynamicText #'extra-offset = #'(0 . -5.8)
+        \once \override DynamicText.extra-offset = #'(0 . -5.8)
 	s2.\sf
-	\once \override DynamicText #'extra-offset = #'(0 . -6.2)
+	\once \override DynamicText.extra-offset = #'(0 . -6.2)
 	s2.\sf
 	s2.*2
-	\once \override DynamicText #'extra-offset = #'(0 . -5.8)
+	\once \override DynamicText.extra-offset = #'(0 . -5.8)
 	s2.\sf
 	s2.
 	s4. s4
-        \once \override DynamicText #'extra-offset = #'(0.35 . 2.5)
+        \once \override DynamicText.extra-offset = #'(0.35 . 2.5)
 	s8\mf |
 	s2.
-        \once \override DynamicText #'extra-offset = #'(0.2 . 3.5)
+        \once \override DynamicText.extra-offset = #'(0.2 . 3.5)
 	s2.\sf
 	s2.\sf
 	s2.*2
@@ -164,30 +164,11 @@
        >>
        \layout {
 	ragged-last = ##f
-         \context {
-           \type "Engraver_group"
-           \name Dynamics
-           \alias Voice % So that \cresc works, for example.
-           \consists "Output_property_engraver"
-     
-           \override VerticalAxisGroup #'minimum-Y-extent = #'(-5 . 5)
-           \consists "Script_engraver"
-           \consists "Dynamic_engraver"
-           \consists "Text_engraver"
-     
-           \override TextScript #'font-size = #2
-           \override TextScript #'font-shape = #'bold
-           \override DynamicText #'extra-offset = #'(0 . 2.5)
-           \override Hairpin #'extra-offset = #'(0 . 2.5)
-     
-           \consists "Skip_event_swallow_translator"
-     
-           \consists "Axis_group_engraver"
-         }
+         % [Convert-ly] The Dynamics context is now included by default.
          \context {
            \PianoStaff
            \accepts Dynamics
-           \override VerticalAlignment #'forced-distance = #5.6
+           \override VerticalAlignment.forced-distance = #5.6
          }
        }
      }
@@ -201,9 +182,7 @@
 
        >>
        \midi {
-	\context { \Score
-	tempoWholesPerMinute = #(ly:make-moment 152 4)
-	     }
+	\tempo 4 = 152
 
          \context {
            \type "Performer_group"

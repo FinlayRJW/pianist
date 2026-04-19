@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 %lastupdated = #(strftime "Fassung vom %d. %B %Y, %H:%M Uhr" (localtime (current-time)))
 footer = #(strftime "Mutopia-%Y/%B/%d-xxx" (localtime (current-time)))
 
@@ -24,7 +24,7 @@ footer = #(strftime "Mutopia-%Y/%B/%d-xxx" (localtime (current-time)))
  moreInfo               =       "Proofread by Hildegard Böhme"
 
  footer = "Mutopia-2013/03/23-484"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 \include "deutsch.ly"
@@ -40,9 +40,9 @@ global =   {
 
 %%%%%%%%%   Beginn des Definitionsteils   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                       %
-Axdefault = \accidentalStyle "default"
-Axpiano = \accidentalStyle "piano"
-Axmodern = \accidentalStyle "modern"
+Axdefault = \accidentalStyle default
+Axpiano = \accidentalStyle piano
+Axmodern = \accidentalStyle modern
 %
 oben = \change Staff = up
 unten = \change Staff = down
@@ -65,7 +65,7 @@ rechts =  \context Staff \relative c'{
   %%%%======== ------------------------------------------------ ---------
     f-. c-. des-. c-. as-. f-.                                      | % Takt  3
   %%%%======== ------------------------------------------------ ---------
-  \once \override Script #'avoid-slur = #'outside
+  \once \override Script.avoid-slur = #'outside
     c2.^^)                                                      | % Takt  4
   %%%%======== ------------------------------------------------ ---------
     r8 f-.( g-.) r as-.( b-.)                                   | % Takt  5
@@ -82,7 +82,7 @@ rechts =  \context Staff \relative c'{
   %%%%======== ------------------------------------------------ ---------
     f-. c-. des-. c-. as-. f-.                                  | % Takt 11
   %%%%======== ------------------------------------------------ ---------
-  \once \override Script #'avoid-slur = #'outside
+  \once \override Script.avoid-slur = #'outside
     c2.^^)                                                      | % Takt 12
   %%%%======== ------------------------------------------------ ---------
     r8 f-.( g-.) r as-.( b-.)                                   | % Takt 13
@@ -130,7 +130,7 @@ rechts =  \context Staff \relative c'{
     b8( as b c4.)                                           | % Takt 32
   %%%%======== ------------------------------------------------ ---------
   \ottava #1
-  \times 3/5 {
+  \tuplet 5/3 {
       <des' des'>8-.(
       <des des'>-.
       <des des'>-. <des des'>-.
@@ -139,17 +139,17 @@ rechts =  \context Staff \relative c'{
   }
     <des des'>4^>( <c c'>8)                                     | % Takt 33
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       des'8-.( des-. des-. des-. des,-.)
   }
     des4->( c8)                                                 | % Takt 34
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       <b b'>8( <c c'> <b b'> <as as'> <b b'>
   }
     <c c'>4.)                                                   | % Takt 35
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       b8^\markup { poco  rallentando }( c b as b
   }
     c4.)                                                        | % Takt 36
@@ -160,7 +160,7 @@ rechts =  \context Staff \relative c'{
   %%%%======== ------------------------------------------------ ---------
     f-. c-.  des-\prall ( c-.) as-. f-.               | % Takt 39
   %%%%======== ------------------------------------------------ ---------
-  \once \override Script #'avoid-slur = #'outside
+  \once \override Script.avoid-slur = #'outside
     c2.^^\)                                                     | % Takt 40
   %%%%======== ------------------------------------------------ ---------
     r8 f-.( g-.) r as-.( b-.)                                   | % Takt 41
@@ -212,13 +212,13 @@ rechts =  \context Staff \relative c'{
   %%%%======== ------------------------------------------------ ---------
     e8^\markup { smorz. }( dis e f4.)                                              | % Takt 60
   %%%%======== ------------------------------------------------ ---------
-  \times 4/5 {
+  \tuplet 5/4 {
     <g' g'>16-.[( <g g'>-. <g g'>-. <g g'>-. <g g'>-.]
   }
     <g g'>-.)[ r32 <g, g'>]
     <g g'>4^>( <f f'>8)                                         | % Takt 61
   %%%%======== ------------------------------------------------ ---------
-  \times 4/5 {
+  \tuplet 5/4 {
     g'16-.[( g-. g-. g-. g-.]
   }
     g-.)[ r32 g,]
@@ -243,8 +243,8 @@ rechts =  \context Staff \relative c'{
 links =  \context Staff \relative c{
   %%% =========   Für das Pedal:   ==========================================
   \set Staff.pedalSustainStyle = #'mixed
-  \override SustainPedalLineSpanner #'outside-staff-priority = #0
-  \override TextScript #'outside-staff-priority = #1000
+  \override SustainPedalLineSpanner.outside-staff-priority = #0
+  \override TextScript.outside-staff-priority = #1000
   %%% =======================================================================
 \Axpiano
     f,16( \PR c'_\markup { legatissimo } as' c, b' c,)
@@ -504,22 +504,22 @@ dynamics = \new Dynamics {
   %%%%======== ------------------------------------------------ ---------
     s8 \pp s8*5                                          | % Takt 32
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       s8 \f s-\markup { appassionato } s s s
   }
     s4.                                     | % Takt 33
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       s8 \pp s2
   }
     s4.                                                 | % Takt 34
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       s8 \f s2
   }
     s4.                                                 | % Takt 35
   %%%%======== ------------------------------------------------ ---------
-  \times 3/5 {
+  \tuplet 5/3 {
       s8 \pp s2
   }
     s4.)                                                        | % Takt 36
@@ -588,12 +588,12 @@ dynamics = \new Dynamics {
   %%%%======== ------------------------------------------------ ---------
     s8 \pp s8*5                                              | % Takt 60
   %%%%======== ------------------------------------------------ ---------
-  \times 4/5 {
+  \tuplet 5/4 {
     s16 \f s4
   }
     s2                                         | % Takt 61
   %%%%======== ------------------------------------------------ ---------
-  \times 4/5 {
+  \tuplet 5/4 {
     s16 \pp s4
   }
     s2                                                   | % Takt 62
@@ -627,7 +627,7 @@ dynamics = \new Dynamics {
   >>
   \layout {
     \context Staff
-    \override TextScript #'font-shape = #'italic
+    \override TextScript.font-shape = #'italic
   }
 \midi {
   \tempo 8=288

@@ -13,13 +13,13 @@ interface OnboardingStore {
   calibration: CalibrationData | null;
   headphonesMode: boolean;
   theme: 'dark' | 'light';
-  viewMode: 'waterfall' | 'sheet';
+  viewMode: 'waterfall' | 'sheet' | 'combined';
   completeOnboarding: () => void;
   setCalibration: (data: CalibrationData) => void;
   resetCalibration: () => void;
   setHeadphonesMode: (enabled: boolean) => void;
   setTheme: (theme: 'dark' | 'light') => void;
-  setViewMode: (mode: 'waterfall' | 'sheet') => void;
+  setViewMode: (mode: 'waterfall' | 'sheet' | 'combined') => void;
 }
 
 export const useOnboardingStore = create<OnboardingStore>()(

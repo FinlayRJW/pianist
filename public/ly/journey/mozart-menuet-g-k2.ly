@@ -3,7 +3,7 @@
 %          dimanche 28 février 2010
 %=============================================
 
-\version "2.19.49"
+\version "2.24.0"
 
 \header {
   title = "Menuett N°2 fûr das Pianoforte Kôch Verz N°2"
@@ -22,7 +22,7 @@
 Leipzig: Breitkopf & Härtel, 1877-1910. Plate W.A.M. 2.4."
 
  footer = "Mutopia-2016/11/30-1770"
- copyright = \markup {\override #'(font-name . "DejaVu Sans, Bold") \override #'(baseline-skip . 0) \right-column {\with-url #"http://www.MutopiaProject.org" {\abs-fontsize #9  "Mutopia " \concat {\abs-fontsize #12 \with-color #white \char ##x01C0 \abs-fontsize #9 "Project "}}}\override #'(font-name . "DejaVu Sans, Bold") \override #'(baseline-skip . 0 ) \center-column {\abs-fontsize #11.9 \with-color #grey \bold {\char ##x01C0 \char ##x01C0 }}\override #'(font-name . "DejaVu Sans,sans-serif") \override #'(baseline-skip . 0) \column { \abs-fontsize #8 \concat {"Typeset using " \with-url #"http://www.lilypond.org" "LilyPond " "by " \maintainer " " \char ##x2014 " " \footer}\concat {\concat {\abs-fontsize #8 { "Placed in the " \with-url #"http://creativecommons.org/licenses/publicdomain" "public domain " "by the typesetter " \char ##x2014 " free to distribute, modify, and perform" }}\abs-fontsize #13 \with-color #white \char ##x01C0 }}}
+ copyright = \markup {\override #'(font-name . "DejaVu Sans, Bold") \override #'(baseline-skip . 0) \right-column {\with-url "http://www.MutopiaProject.org" {\abs-fontsize #9  "Mutopia " \concat {\abs-fontsize #12 \with-color #white \char ##x01C0 \abs-fontsize #9 "Project "}}}\override #'(font-name . "DejaVu Sans, Bold") \override #'(baseline-skip . 0 ) \center-column {\abs-fontsize #11.9 \with-color #grey \bold {\char ##x01C0 \char ##x01C0 }}\override #'(font-name . "DejaVu Sans,sans-serif") \override #'(baseline-skip . 0) \column { \abs-fontsize #8 \concat {"Typeset using " \with-url "http://www.lilypond.org" "LilyPond " "by " \maintainer " " \char ##x2014 " " \footer}\concat {\concat {\abs-fontsize #8 { "Placed in the " \with-url "http://creativecommons.org/licenses/publicdomain" "public domain " "by the typesetter " \char ##x2014 " free to distribute, modify, and perform" }}\abs-fontsize #13 \with-color #white \char ##x01C0 }}}
  tagline = ##f
     }
 \paper {
@@ -127,7 +127,7 @@ AvoiceBA = \relative c{
             \override Score.BarNumber.break-visibility = #end-of-line-invisible %%every bar is numbered.!!!
             %% remove previous line to get barnumbers only at beginning of system.
              \accidentalStyle modern-cautionary
-            \set Score.markFormatter = #format-mark-box-letters %%boxed rehearsal-marks
+            \set Score.rehearsalMarkFormatter = #format-mark-box-letters %%boxed rehearsal-marks
             \override Score.TimeSignature.style = #'() %%makes timesigs always numerical
             %% remove previous line to get cut-time/alla breve or common time 
         >>
