@@ -2258,7 +2258,11 @@ c0 -135 30 -261 129 -360c15 -15 -9 -39 -24 -24c-132 135 -177 312 -177 501c0 291 
 <rect x="0.0000" y="-0.3449" width="8.3245" height="1.6473" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(18.2113, 155.2854)">
+<text font-family="DejaVu Sans" font-weight="bold" font-size="1.7142" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(18.4064, 157.2945)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3541" width="8.1294" height="2.0182" fill="none" stroke="none" stroke-width="0.0"/>
@@ -2300,8 +2304,16 @@ c0 -135 30 -261 129 -360c15 -15 -9 -39 -24 -24c-132 135 -177 312 -177 501c0 291 
 <rect x="0.0000" y="-0.3065" width="6.8612" height="1.4642" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(39.3445, 155.2854)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.5240" text-anchor="start" fill="currentColor">
+<tspan>LilyPond </tspan>
+</text>
+</g>
+<g transform="translate(46.2057, 155.2854)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.5240" text-anchor="start" fill="currentColor">
+<tspan>by Allen Garvin — Mutopia-2017/01/19-75</tspan>
+</text>
+</g>
 <g transform="translate(28.3861, 157.4030)">
 <text font-family="DejaVu Sans,sans-serif" font-size="1.5240" text-anchor="start" fill="currentColor">
 <tspan>Placed in the </tspan>

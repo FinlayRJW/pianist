@@ -3733,7 +3733,11 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <rect x="0.0000" y="-0.3621" width="8.7407" height="1.7296" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(19.1519, 163.0497)">
+<text font-family="DejaVu Sans" font-weight="bold" font-size="1.7999" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(19.3568, 165.1592)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3718" width="8.5358" height="2.1192" fill="none" stroke="none" stroke-width="0.0"/>
@@ -3775,8 +3779,16 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <rect x="0.0000" y="-0.3219" width="7.2042" height="1.5374" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(41.2818, 163.0497)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan>LilyPond </tspan>
+</text>
+</g>
+<g transform="translate(48.4860, 163.0497)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan>by Chris Sawer — Mutopia-2016/11/25-263</tspan>
+</text>
+</g>
 <g transform="translate(29.7755, 165.2732)">
 <text font-family="DejaVu Sans,sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
 <tspan>Placed in the </tspan>

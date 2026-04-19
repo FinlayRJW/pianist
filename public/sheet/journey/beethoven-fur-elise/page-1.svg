@@ -3742,7 +3742,11 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <rect x="0.0000" y="-0.3621" width="8.7407" height="1.7296" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(19.0495, 161.4066)">
+<text font-family="sans-serif" font-weight="bold" font-size="1.7999" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(19.2543, 163.5161)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3718" width="8.5358" height="2.1192" fill="none" stroke="none" stroke-width="0.0"/>
@@ -3784,8 +3788,16 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <rect x="0.0000" y="-0.3219" width="6.6579" height="1.5374" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(41.5549, 161.4066)">
+<text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan>LilyPond</tspan>
+</text>
+</g>
+<g transform="translate(48.2128, 161.4066)">
+<text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan> by Stelios Samelis — Mutopia-2015/08/18-931</tspan>
+</text>
+</g>
 <g transform="translate(29.5023, 163.5425)">
 <text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
 <tspan> Placed in the </tspan>

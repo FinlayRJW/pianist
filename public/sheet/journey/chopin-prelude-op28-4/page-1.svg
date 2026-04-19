@@ -4520,7 +4520,11 @@ c0 -172 36 -336 152 -468c16 -16 -8 -40 -24 -24c-156 176 -212 400 -212 636c0 376 
 <rect x="0.0000" y="-0.3812" width="9.2007" height="1.8207" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(20.1915, 171.6313)">
+<text font-family="DejaVu Sans" font-weight="bold" font-size="1.8947" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(20.4071, 173.8518)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3913" width="8.9851" height="2.2307" fill="none" stroke="none" stroke-width="0.0"/>
@@ -4562,8 +4566,16 @@ c0 -172 36 -336 152 -468c16 -16 -8 -40 -24 -24c-156 176 -212 400 -212 636c0 376 
 <rect x="0.0000" y="-0.3388" width="7.5834" height="1.6183" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(43.4229, 171.6313)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.6844" text-anchor="start" fill="currentColor">
+<tspan>LilyPond </tspan>
+</text>
+</g>
+<g transform="translate(51.0063, 171.6313)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.6844" text-anchor="start" fill="currentColor">
+<tspan>by Magnus Lewis-Smith — Mutopia-2016/10/28-468</tspan>
+</text>
+</g>
 <g transform="translate(31.3110, 173.9718)">
 <text font-family="DejaVu Sans,sans-serif" font-size="1.6844" text-anchor="start" fill="currentColor">
 <tspan>Placed in the </tspan>

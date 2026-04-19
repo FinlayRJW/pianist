@@ -4506,7 +4506,11 @@ c-19 0 -54 -1 -54 -66c0 -34 10 -73 27 -93c7 -9 -5 -20 -12 -11c-45 53 -93 147 -93
 <tspan>www.</tspan>
 </text>
 </g>
-
+<g transform="translate(38.6825, 177.1514)">
+<text font-family="serif" font-size="1.9601" text-anchor="start" fill="currentColor">
+<tspan>MutopiaProject</tspan>
+</text>
+</g>
 <g transform="translate(50.4602, 177.1514)">
 <text font-family="serif" font-size="1.5560" text-anchor="start" fill="currentColor">
 <tspan>.org</tspan>
@@ -4592,7 +4596,11 @@ c-19 0 -54 -1 -54 -66c0 -34 10 -73 27 -93c7 -9 -5 -20 -12 -11c-45 53 -93 147 -93
 <tspan>www.</tspan>
 </text>
 </g>
-
+<g transform="translate(46.9799, 179.8514)">
+<text font-family="serif" font-size="1.9601" text-anchor="start" fill="currentColor">
+<tspan>LilyPond</tspan>
+</text>
+</g>
 <g transform="translate(53.9018, 179.8514)">
 <text font-family="serif" font-size="1.5560" text-anchor="start" fill="currentColor">
 <tspan>.org</tspan>
@@ -4618,7 +4626,11 @@ c-19 0 -54 -1 -54 -66c0 -34 10 -73 27 -93c7 -9 -5 -20 -12 -11c-45 53 -93 147 -93
 <tspan>Reference:</tspan>
 </text>
 </g>
-
+<g transform="translate(79.7710, 179.8514)">
+<text font-family="serif" font-size="1.9601" text-anchor="start" fill="currentColor">
+<tspan>Mutopia-2010/12/21-1778</tspan>
+</text>
+</g>
 <g transform="translate(21.8162, 182.5514)">
 <text font-family="serif" font-size="1.5560" text-anchor="start" fill="currentColor">
 <tspan>This</tspan>

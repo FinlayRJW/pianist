@@ -1758,7 +1758,11 @@ c22 15 86 50 188 50z" fill="currentColor"/>
 <rect x="0.0000" y="-0.3292" width="7.9461" height="1.5724" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(17.3563, 148.2270)">
+<text font-family="DejaVu Sans" font-weight="bold" font-size="1.6363" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(17.5425, 150.1447)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3380" width="7.7598" height="1.9265" fill="none" stroke="none" stroke-width="0.0"/>
@@ -1800,8 +1804,16 @@ c22 15 86 50 188 50z" fill="currentColor"/>
 <rect x="0.0000" y="-0.2926" width="6.5493" height="1.3977" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(37.5834, 148.2270)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.4547" text-anchor="start" fill="currentColor">
+<tspan>LilyPond </tspan>
+</text>
+</g>
+<g transform="translate(44.1327, 148.2270)">
+<text font-family="DejaVu Sans,sans-serif" font-size="1.4547" text-anchor="start" fill="currentColor">
+<tspan>by Nicolas Morant — Mutopia-2016/11/30-1770</tspan>
+</text>
+</g>
 <g transform="translate(27.1231, 150.2483)">
 <text font-family="DejaVu Sans,sans-serif" font-size="1.4547" text-anchor="start" fill="currentColor">
 <tspan>Placed in the </tspan>
