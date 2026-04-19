@@ -14,11 +14,12 @@ export function usePlayerInput(
   const calibration = useOnboardingStore((s) => s.calibration);
   const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
 
-  const midi = useMidiInput(inputMode !== 'mic');
+  const hasBridgeConfig = midiBridgeUrl !== null;
+  const midi = useMidiInput(inputMode !== 'mic' && !hasBridgeConfig);
   const bridge = useWebSocketMidi(inputMode !== 'mic' ? midiBridgeUrl : null);
 
   const midiAvailable = midi.isConnected || bridge.isConnected;
-  const effectiveMicEnabled = inputMode === 'mic' || (inputMode === 'auto' && !midiAvailable);
+  const effectiveMicEnabled = inputMode === 'mic' || (inputMode === 'auto' && !midiAvailable && !hasBridgeConfig);
   const mic = useMicInput(effectiveMicEnabled && micEnabled, sensitivityRef, calibration);
 
   const usingMidi = inputMode === 'midi' || (inputMode === 'auto' && midiAvailable);
