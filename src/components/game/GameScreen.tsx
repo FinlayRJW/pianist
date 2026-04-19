@@ -49,6 +49,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const prevScoreRef = useRef(0);
   const prevComboRef = useRef(0);
   const prevRatingTimeRef = useRef<number | null>(null);
+  const prevCountdownRef = useRef<number | null>(null);
   const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
   const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
   const viewMode = useOnboardingStore((s) => s.viewMode);
@@ -125,8 +126,13 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       }
       const t = timeRef.current ?? 0;
       if (t < 0) {
-        setCountdownNum(Math.ceil(Math.abs(t)));
-      } else {
+        const num = Math.ceil(Math.abs(t));
+        if (num !== prevCountdownRef.current) {
+          prevCountdownRef.current = num;
+          setCountdownNum(num);
+        }
+      } else if (prevCountdownRef.current !== null) {
+        prevCountdownRef.current = null;
         setCountdownNum(null);
       }
     },
@@ -252,7 +258,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       {/* Header toolbar */}
       <div className="flex items-center px-4 py-2 bg-surface/80 backdrop-blur-sm border-b t-border-light gap-2 min-h-[44px]">
         <button
-          onClick={onBack}
+          onClick={() => { pause(); onBack(); }}
           className="t-text-secondary hover:t-text transition-colors text-sm shrink-0"
         >
           Back
@@ -336,39 +342,43 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
           </select>
 
           {/* View mode toggle */}
-          <button
-            onClick={() => {
-              if (!sheetAvailable) return;
-              const cycle = { waterfall: 'sheet', sheet: 'combined', combined: 'waterfall' } as const;
-              setViewMode(cycle[viewMode]);
-            }}
-            className={`p-1.5 rounded-full transition-colors ${
-              viewMode !== 'waterfall' && sheetAvailable
-                ? 'bg-accent/20 text-accent-light'
-                : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
-            } ${!sheetAvailable ? 'opacity-40 cursor-not-allowed' : ''}`}
-            title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
-          >
-            {viewMode === 'sheet' && sheetAvailable ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18V5l12-2v13" />
-                <circle cx="6" cy="18" r="3" />
-                <circle cx="18" cy="16" r="3" />
-              </svg>
-            ) : viewMode === 'combined' && sheetAvailable ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="8" rx="1" />
-                <rect x="3" y="14" width="18" height="7" rx="1" />
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <line x1="12" y1="3" x2="12" y2="21" />
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="3" y1="15" x2="21" y2="15" />
-              </svg>
-            )}
-          </button>
+          <div className="relative group">
+            <button
+              onClick={() => {
+                if (!sheetAvailable) return;
+                const cycle = { waterfall: 'sheet', sheet: 'combined', combined: 'waterfall' } as const;
+                setViewMode(cycle[viewMode]);
+              }}
+              className={`p-1.5 rounded-full transition-colors ${
+                viewMode !== 'waterfall' && sheetAvailable
+                  ? 'bg-accent/20 text-accent-light'
+                  : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
+              } ${!sheetAvailable ? 'opacity-40' : ''}`}
+            >
+              {viewMode === 'sheet' && sheetAvailable ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg>
+              ) : viewMode === 'combined' && sheetAvailable ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="8" rx="1" />
+                  <rect x="3" y="14" width="18" height="7" rx="1" />
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <line x1="12" y1="3" x2="12" y2="21" />
+                  <line x1="3" y1="9" x2="21" y2="9" />
+                  <line x1="3" y1="15" x2="21" y2="15" />
+                </svg>
+              )}
+            </button>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-2 py-1 rounded bg-surface text-xs t-text-secondary whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20 shadow-lg">
+              {sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
+            </div>
+          </div>
 
           <button
             onClick={doRestart}
