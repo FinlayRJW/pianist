@@ -1,7 +1,20 @@
 export function buildWsUrl(address: string): string {
   const trimmed = address.trim();
   if (trimmed.startsWith('ws://') || trimmed.startsWith('wss://')) return trimmed;
-  return `ws://${trimmed}:3141`;
+  if (trimmed.includes(':')) return `ws://${trimmed}`;
+  const port = sameHostPort() ?? 8080;
+  return `ws://${trimmed}:${port}`;
+}
+
+function sameHostPort(): number | null {
+  if (typeof window === 'undefined') return null;
+  const host = window.location.hostname;
+  const addr = defaultBridgeAddress();
+  if (host === addr || host === addr.replace('.local', '')) {
+    const p = parseInt(window.location.port, 10);
+    return isNaN(p) ? null : p;
+  }
+  return null;
 }
 
 export function defaultBridgeAddress(): string {
@@ -17,7 +30,7 @@ export function defaultBridgeAddress(): string {
 }
 
 export function stripWsUrl(url: string): string {
-  return url.replace(/^wss?:\/\//, '').replace(/:3141$/, '');
+  return url.replace(/^wss?:\/\//, '').replace(/:\d+$/, '');
 }
 
 export type BridgeTestStatus = 'idle' | 'connecting' | 'connected' | 'error';
@@ -86,7 +99,6 @@ export function testBridgeConnection(
     };
 
     ws.onclose = () => {
-      // only report error if we never got a hello
       if (!disposed) onUpdate({ status: 'error', device: null });
     };
   } catch {

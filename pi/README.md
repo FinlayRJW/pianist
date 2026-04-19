@@ -68,9 +68,9 @@ python3 midi-bridge.py --www ./www
 You should see:
 ```
 12:00:00 [INFO] Local IP: 192.168.1.xx
-12:00:00 [INFO] mDNS registered: _midi-bridge._tcp on port 3141
-12:00:00 [INFO] HTTP server serving /home/pi/midi-bridge/www on port 8080
-12:00:00 [INFO] WebSocket server listening on port 3141
+12:00:00 [INFO] mDNS registered: _midi-bridge._tcp on port 8080
+12:00:00 [INFO] Serving web app from /home/pi/midi-bridge/www on port 8080
+12:00:00 [INFO] WebSocket + HTTP server listening on port 8080
 12:00:00 [INFO] Opened MIDI device: USB MIDI Interface
 ```
 
@@ -82,7 +82,7 @@ On your iPad, open Safari and go to:
 http://pianobridge.local:8080
 ```
 
-The app will load from the Pi over HTTP, which allows WebSocket connections to work. During onboarding, choose **Connect via MIDI Bridge** — it will auto-detect the Pi since the app is served from the same host.
+The Pi serves both the web app and MIDI WebSocket on the same port. iPad Safari requires this — it blocks WebSocket connections to different ports and blocks `ws://` from HTTPS pages (like GitHub Pages). During onboarding, choose **Connect via MIDI Bridge** — it auto-detects the Pi since the app is served from the same host.
 
 ## Deploying updates
 
@@ -140,10 +140,10 @@ Now just plug in the Pi and your piano — open `http://pianobridge.local:8080` 
 **iPad can't connect to the web app**
 - Make sure both devices are on the same WiFi network
 - Try using the Pi's IP address instead of `.local`: `http://192.168.x.x:8080`
-- Check the Pi's firewall isn't blocking ports: `sudo ufw allow 3141 && sudo ufw allow 8080`
+- Check the Pi's firewall isn't blocking the port: `sudo ufw allow 8080`
 
 **MIDI Bridge test fails in the app**
-- If accessing via GitHub Pages (HTTPS), Safari blocks `ws://` connections — use the Pi-hosted version instead
+- On iPad, you must use the Pi-hosted version (`http://pianobridge.local:8080`) — Safari blocks `ws://` from HTTPS pages like GitHub Pages
 - Try entering the Pi's IP address manually instead of `.local`
 
 **High latency**
