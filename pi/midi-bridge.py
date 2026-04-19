@@ -22,6 +22,7 @@ from pathlib import Path
 
 import mido
 from websockets.asyncio.server import serve, ServerConnection
+from websockets.datastructures import Headers
 from websockets.http11 import Response
 from zeroconf.asyncio import AsyncZeroconf
 from zeroconf import ServiceInfo
@@ -97,7 +98,12 @@ def serve_static(request_path: str) -> Response | None:
         file_path = www_path / "index.html"
 
     if not file_path.exists():
-        return Response(HTTPStatus.NOT_FOUND, "Not Found", b"404 Not Found")
+        return Response(
+            HTTPStatus.NOT_FOUND,
+            "Not Found",
+            Headers({"Content-Type": "text/plain"}),
+            b"404 Not Found",
+        )
 
     body = file_path.read_bytes()
     content_type = mimetypes.guess_type(str(file_path))[0] or "application/octet-stream"
@@ -105,8 +111,8 @@ def serve_static(request_path: str) -> Response | None:
     return Response(
         HTTPStatus.OK,
         "OK",
+        Headers({"Content-Type": content_type, "Cache-Control": "no-cache"}),
         body,
-        headers={"Content-Type": content_type, "Cache-Control": "no-cache"},
     )
 
 
