@@ -20,6 +20,8 @@ export function PlayRoute() {
   const backPath = from === '/songs' ? '/songs' : '/';
 
   useEffect(() => {
+    setSong(null);
+    setError(null);
     if (!songId) return;
 
     const meta = getSongById(songId) ?? importedSongs.find((s) => s.id === songId);
