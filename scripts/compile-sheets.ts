@@ -33,7 +33,6 @@ interface CompileEntry {
 function buildEntryList(): CompileEntry[] {
   const entries: CompileEntry[] = [];
   for (const song of ALL_CATALOG_ENTRIES) {
-    if (!song.mutopiaPath) continue;
     const subdir = song.journeySong ? 'journey' : song.genre;
     const lyExt = song.lyDir ? '-lys.zip' : '.ly';
     const lyPath = join(PUBLIC_LY, subdir, `${song.id}${lyExt}`);
