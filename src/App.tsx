@@ -17,24 +17,40 @@ export default function App() {
   const piConnected = useUserStore((s) => s.piConnected);
   const currentUser = useUserStore((s) => s.currentUser);
   const checkPi = useUserStore((s) => s.checkPi);
+  const piChecked = useUserStore((s) => s.piChecked);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     invalidateCanvasThemeCache();
   }, [theme]);
 
+  const shouldCheckPi = !!midiBridgeUrl || (
+    typeof window !== 'undefined' &&
+    window.location.protocol === 'http:' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1'
+  );
+
   useEffect(() => {
-    if (onboardingCompleted && midiBridgeUrl) {
+    if (shouldCheckPi) {
       checkPi();
     }
-  }, [onboardingCompleted, midiBridgeUrl, checkPi]);
+  }, [shouldCheckPi, checkPi]);
 
-  if (!onboardingCompleted) {
-    return <OnboardingFlow />;
+  if (shouldCheckPi && !piChecked) {
+    return (
+      <div className="h-full flex items-center justify-center bg-midnight">
+        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
   if (piConnected && !currentUser) {
     return <UserPicker />;
+  }
+
+  if (!onboardingCompleted) {
+    return <OnboardingFlow />;
   }
 
   return (

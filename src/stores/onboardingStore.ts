@@ -33,7 +33,26 @@ export const useOnboardingStore = create<OnboardingStore>()(
       theme: 'dark',
       viewMode: 'waterfall',
       midiBridgeUrl: null,
-      completeOnboarding: () => set({ completed: true }),
+      completeOnboarding: () => {
+        set({ completed: true });
+        try {
+          const { useUserStore } = require('./userStore');
+          const { saveProgress } = require('../services/piApi');
+          const user = useUserStore.getState().currentUser;
+          if (user) {
+            const { useProgressStore } = require('./progressStore');
+            const ps = useProgressStore.getState();
+            saveProgress(user.id, {
+              version: 3,
+              scores: ps.scores,
+              bestStars: ps.bestStars,
+              adventureBestStars: ps.adventureBestStars,
+              journeyBestStars: ps.journeyBestStars,
+              onboardingCompleted: true,
+            }).catch(() => {});
+          }
+        } catch { /* no Pi */ }
+      },
       setCalibration: (data) => set({ calibration: data }),
       resetCalibration: () => set({ calibration: null }),
       setHeadphonesMode: (enabled) => set({ headphonesMode: enabled }),

@@ -9,12 +9,14 @@ import {
 } from '../services/piApi';
 import { useProgressStore } from './progressStore';
 import { useImportedSongsStore } from './importedSongsStore';
+import { useOnboardingStore } from './onboardingStore';
 import { saveProgress } from '../services/piApi';
 
 const LAST_USER_KEY = 'pianist-last-user';
 
 interface UserStore {
   piConnected: boolean;
+  piChecked: boolean;
   users: PiUser[];
   currentUser: PiUser | null;
   loading: boolean;
@@ -29,13 +31,14 @@ interface UserStore {
 
 export const useUserStore = create<UserStore>()((set, get) => ({
   piConnected: false,
+  piChecked: false,
   users: [],
   currentUser: null,
   loading: false,
 
   checkPi: async () => {
     const reachable = await checkPiReachable();
-    set({ piConnected: reachable });
+    set({ piConnected: reachable, piChecked: true });
     if (reachable) {
       await get().loadUsers();
       useImportedSongsStore.getState().syncFromPi();
@@ -72,6 +75,14 @@ export const useUserStore = create<UserStore>()((set, get) => ({
       const progress = await fetchProgress(userId);
       useProgressStore.getState().importProgress(JSON.stringify(progress));
       await useImportedSongsStore.getState().syncFromPi();
+
+      const onboarding = useOnboardingStore.getState();
+      if (progress.onboardingCompleted) {
+        if (!onboarding.completed) onboarding.completeOnboarding();
+      } else {
+        if (onboarding.completed) useOnboardingStore.setState({ completed: false });
+      }
+
       set({ currentUser: user, loading: false });
       localStorage.setItem(LAST_USER_KEY, userId);
     } catch {
@@ -106,6 +117,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
         bestStars: ps.bestStars,
         adventureBestStars: ps.adventureBestStars,
         journeyBestStars: ps.journeyBestStars,
+        onboardingCompleted: useOnboardingStore.getState().completed,
       }).catch(() => {});
     }
     set({ currentUser: null });

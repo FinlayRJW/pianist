@@ -236,6 +236,7 @@ async def api_get_progress(user_id: str) -> Response:
             "bestStars": {},
             "adventureBestStars": {},
             "journeyBestStars": {},
+            "onboardingCompleted": False,
         })
     return json_response(progress)
 

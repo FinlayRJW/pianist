@@ -195,12 +195,18 @@ useProgressStore.subscribe((state, prev) => {
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(() => {
     const { scores, bestStars, adventureBestStars, journeyBestStars } = useProgressStore.getState();
+    let onboardingCompleted = false;
+    try {
+      const { useOnboardingStore } = require('./onboardingStore');
+      onboardingCompleted = useOnboardingStore.getState().completed;
+    } catch { /* ignore */ }
     saveProgress(userId, {
       version: 3,
       scores,
       bestStars,
       adventureBestStars,
       journeyBestStars,
+      onboardingCompleted,
     }).catch(() => {});
   }, 1000);
 });

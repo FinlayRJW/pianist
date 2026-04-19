@@ -13,13 +13,24 @@ export interface ProgressData {
   bestStars: Record<string, number>;
   adventureBestStars: Record<string, number>;
   journeyBestStars: Record<string, number>;
+  onboardingCompleted?: boolean;
   exportedAt?: string;
 }
 
 function getApiBase(): string | null {
   const wsUrl = useOnboardingStore.getState().midiBridgeUrl;
-  if (!wsUrl) return null;
-  return wsUrl.replace(/^ws(s?):\/\//, 'http$1://').replace(/\/?$/, '') + '/api';
+  if (wsUrl) {
+    return wsUrl.replace(/^ws(s?):\/\//, 'http$1://').replace(/\/?$/, '') + '/api';
+  }
+  if (
+    typeof window !== 'undefined' &&
+    window.location.protocol === 'http:' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1'
+  ) {
+    return `${window.location.origin}/api`;
+  }
+  return null;
 }
 
 async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
