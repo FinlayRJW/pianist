@@ -458,7 +458,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                       className="absolute left-0 right-0"
                       style={effectiveMode === 'combined' ? {
                         bottom: KEYBOARD_HEIGHT,
-                        height: Math.round(canvasHeight / 2),
+                        height: Math.round(canvasHeight * 0.35),
                         opacity: 0.5,
                         pointerEvents: 'none' as const,
                         zIndex: 1,
@@ -472,7 +472,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                         timeRef={timeRef}
                         playing={isActive}
                         width={containerSize.width}
-                        height={effectiveMode === 'combined' ? Math.round(canvasHeight / 2) : (canvasHeight > 0 ? canvasHeight : 0)}
+                        height={effectiveMode === 'combined' ? Math.round(canvasHeight * 0.35) : (canvasHeight > 0 ? canvasHeight : 0)}
                         activeNotes={input.activeNotes.current}
                         hitNotes={scoring.hitNotes.current}
                         missedNotes={scoring.missedNotes.current}
