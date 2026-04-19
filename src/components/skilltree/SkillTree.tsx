@@ -36,20 +36,11 @@ export function SkillTree() {
 
   const currentTotalStars = totalStarsFn();
 
-  const firstStepsStars = useMemo(
-    () =>
-      SKILL_TREE_NODES
-        .filter((n) => n.areaId === 'beginner')
-        .reduce((sum, n) => sum + (bestStars[n.songId] ?? 0), 0),
-    [bestStars],
-  );
-
   const handlePlay = (songId: string) => navigate(`/play/${songId}`, { state: { from: '/' } });
 
   useEffect(() => {
     if (!scrollRef.current) return;
     const idx = sortedAreas.findIndex((area) => {
-      if (area.id !== 'beginner' && firstStepsStars < area.starsToUnlock) return false;
       const nodes = getAreaNodes(area.id);
       return nodes.some(
         (n) => unlockedNodes.includes(n.id) && !(bestStars[n.songId] > 0),
@@ -123,7 +114,7 @@ export function SkillTree() {
             const areaNodes = getAreaNodes(area.id);
             const maxStars = areaNodes.length * 3;
             const stars = areaStarsFn(area.id);
-            const isUnlocked = area.id === 'beginner' || firstStepsStars >= area.starsToUnlock;
+            const isUnlocked = true;
 
             return (
               <SkillTreeAreaColumn
@@ -136,7 +127,6 @@ export function SkillTree() {
                 isAreaUnlocked={isUnlocked}
                 areaStars={stars}
                 maxStars={maxStars}
-                firstStepsStars={firstStepsStars}
                 onPlay={handlePlay}
               />
             );

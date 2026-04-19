@@ -16,7 +16,6 @@ export interface SongMeta {
   timeSignature?: [number, number];
   keySignature?: string;
   source?: 'bundled' | 'imported';
-  requiresMidi?: boolean;
   journeySong?: boolean;
 }
 

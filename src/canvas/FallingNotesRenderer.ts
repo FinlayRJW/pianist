@@ -12,12 +12,23 @@ import {
 } from './constants';
 import { getCanvasTheme } from './theme';
 
-function binarySearchStart(notes: Note[], minTime: number): number {
+let cachedNotesRef: Note[] | null = null;
+let cachedMaxDur = 0;
+function getMaxDuration(notes: Note[]): number {
+  if (notes !== cachedNotesRef) {
+    cachedNotesRef = notes;
+    cachedMaxDur = 0;
+    for (const n of notes) if (n.duration > cachedMaxDur) cachedMaxDur = n.duration;
+  }
+  return cachedMaxDur;
+}
+
+function binarySearchStart(notes: Note[], minStartTime: number): number {
   let lo = 0;
   let hi = notes.length;
   while (lo < hi) {
     const mid = (lo + hi) >>> 1;
-    if (notes[mid].startTime + notes[mid].duration < minTime) {
+    if (notes[mid].startTime < minStartTime) {
       lo = mid + 1;
     } else {
       hi = mid;
@@ -47,8 +58,9 @@ export function drawFrame(
 
   const minTime = currentTime - LOOK_BEHIND_SEC;
   const maxTime = currentTime + LOOK_AHEAD_SEC;
+  const maxDur = getMaxDuration(notes);
 
-  const startIdx = binarySearchStart(notes, minTime);
+  const startIdx = binarySearchStart(notes, minTime - maxDur);
 
   drawNextNoteHighlight(ctx, notes, currentTime, canvasWidth, canvasHeight, hitNotes, missedNotes, theme);
 
@@ -56,6 +68,7 @@ export function drawFrame(
   for (let i = startIdx; i < notes.length; i++) {
     const note = notes[i];
     if (note.startTime > maxTime) break;
+    if (note.startTime + note.duration < minTime) continue;
     if (missedNotes.has(i)) continue;
     if (!activeNotes.has(note.midi)) continue;
     const timeDelta = note.startTime - currentTime;
@@ -84,6 +97,7 @@ export function drawFrame(
   for (let i = startIdx; i < notes.length; i++) {
     const note = notes[i];
     if (note.startTime > maxTime) break;
+    if (note.startTime + note.duration < minTime) continue;
 
     drawNote(ctx, note, i, currentTime, playLineY, canvasWidth, canvasHeight, pxPerSec, activeNoteMap, hitNotes, missedNotes, theme);
   }

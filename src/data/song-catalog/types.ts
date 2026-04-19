@@ -15,6 +15,5 @@ export interface SongCatalogEntry {
   mutopiaPath?: string;
   midZip?: string;
   lyDir?: boolean;
-  requiresMidi?: boolean;
   journeySong?: boolean;
 }

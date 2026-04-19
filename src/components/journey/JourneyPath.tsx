@@ -384,7 +384,7 @@ export function JourneyPath() {
           {allDone && (
             <div
               className="absolute"
-              style={{ left: layout.totalWidth - 80, top: centerY, transform: 'translate(-50%, -50%)' }}
+              style={{ left: layout.totalWidth - 160, top: centerY, transform: 'translate(-50%, -50%)' }}
             >
               <button
                 onClick={() => setShowCompletion(true)}

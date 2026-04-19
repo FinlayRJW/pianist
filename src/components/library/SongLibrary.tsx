@@ -95,7 +95,7 @@ export function SongLibrary() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto relative">
+    <div className="flex-1 overflow-y-auto relative" style={{ background: 'var(--constellation-bg)' }}>
       <div className="max-w-2xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between mb-4">
           <NavigationTabs />

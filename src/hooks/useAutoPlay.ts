@@ -56,8 +56,12 @@ export function useAutoPlay(
       if (triggered.has(i)) continue;
 
       triggered.add(i);
-      const freq = Tone.Frequency(note.midi, 'midi').toFrequency();
-      samplerRef.current.triggerAttackRelease(freq, note.duration, undefined, note.velocity / 127);
+      try {
+        const freq = Tone.Frequency(note.midi, 'midi').toFrequency();
+        samplerRef.current.triggerAttackRelease(freq, note.duration, undefined, note.velocity / 127);
+      } catch {
+        // Sampler may be disposed or not yet loaded
+      }
     }
   }, [notes, timeRef, playing, enabled]);
 

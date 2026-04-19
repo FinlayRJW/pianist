@@ -61,20 +61,6 @@ export function SongCard({ song, bestStars = 0, onClick }: Props) {
         <span className="t-text-tertiary text-xs">{song.durationSec}s</span>
         <span className="t-text-muted text-xs">&middot;</span>
         <span className="t-text-tertiary text-xs">{song.bpm} BPM</span>
-        {song.requiresMidi && (
-          <>
-            <span className="t-text-muted text-xs">&middot;</span>
-            <span className="text-xs font-medium text-orange-400 flex items-center gap-1">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="6" width="20" height="14" rx="1" />
-                <line x1="8" y1="6" x2="8" y2="16" />
-                <line x1="12" y1="6" x2="12" y2="16" />
-                <line x1="16" y1="6" x2="16" y2="16" />
-              </svg>
-              MIDI
-            </span>
-          </>
-        )}
       </div>
     </button>
   );

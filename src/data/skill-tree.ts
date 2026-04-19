@@ -2,13 +2,11 @@ import type { SkillTreeArea, SkillTreeNode } from '../types';
 import { SONG_CATALOG } from './songs';
 
 export const SKILL_TREE_AREAS: SkillTreeArea[] = [
-  { id: 'beginner', name: 'First Steps', genre: 'beginner', order: 0, starsToUnlock: 0, description: 'Learn the basics', color: '#22d3ee' },
-  { id: 'baroque', name: 'Baroque', genre: 'baroque', order: 1, starsToUnlock: 4, description: 'Bach, Handel, Scarlatti', color: '#c084fc' },
-  { id: 'classical', name: 'Classical', genre: 'classical', order: 2, starsToUnlock: 4, description: 'Mozart, Beethoven, Haydn', color: '#a78bfa' },
-  { id: 'romantic', name: 'Romantic', genre: 'romantic', order: 3, starsToUnlock: 4, description: 'Chopin, Liszt, Schumann', color: '#f472b6' },
-  { id: 'impressionist', name: 'Impressionist', genre: 'impressionist', order: 4, starsToUnlock: 4, description: 'Debussy, Satie, Ravel', color: '#67e8f9' },
-  { id: 'jazz', name: 'Jazz & Ragtime', genre: 'jazz', order: 5, starsToUnlock: 4, description: 'Joplin and early jazz', color: '#f59e0b' },
-  { id: 'advanced', name: 'Master Class', genre: 'advanced', order: 6, starsToUnlock: 4, description: 'The ultimate challenge', color: '#fbbf24' },
+  { id: 'baroque', name: 'Baroque', genre: 'baroque', order: 0, starsToUnlock: 0, description: 'Bach, Handel, Scarlatti', color: '#c084fc' },
+  { id: 'classical', name: 'Classical', genre: 'classical', order: 1, starsToUnlock: 0, description: 'Mozart, Beethoven, Haydn', color: '#a78bfa' },
+  { id: 'romantic', name: 'Romantic', genre: 'romantic', order: 2, starsToUnlock: 0, description: 'Chopin, Liszt, Schumann', color: '#f472b6' },
+  { id: 'impressionist', name: 'Impressionist', genre: 'impressionist', order: 3, starsToUnlock: 0, description: 'Debussy, Satie, Ravel', color: '#67e8f9' },
+  { id: 'jazz', name: 'Jazz & Ragtime', genre: 'jazz', order: 4, starsToUnlock: 0, description: 'Joplin and early jazz', color: '#f59e0b' },
 ];
 
 const TOP_PAD = 60;
@@ -26,13 +24,7 @@ function generateNodes(): SkillTreeNode[] {
   for (const area of SKILL_TREE_AREAS) {
     const areaSongs = SONG_CATALOG
       .filter((s) => s.genre === area.genre)
-      .sort((a, b) => {
-        if (area.id === 'beginner') {
-          if (a.id === 'schumann-melodie-op68-1') return -1;
-          if (b.id === 'schumann-melodie-op68-1') return 1;
-        }
-        return a.difficulty - b.difficulty || a.title.localeCompare(b.title);
-      });
+      .sort((a, b) => a.difficulty - b.difficulty || a.title.localeCompare(b.title));
 
     if (areaSongs.length === 0) continue;
 

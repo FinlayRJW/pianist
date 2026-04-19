@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useProgressStore } from '../../stores/progressStore';
 
@@ -9,23 +9,54 @@ export function NavigationTabs() {
   const freePlayUnlocked = useProgressStore((s) => s.freePlayUnlocked);
   const [showTooltip, setShowTooltip] = useState(false);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const journeyRef = useRef<HTMLButtonElement>(null);
+  const freePlayRef = useRef<HTMLButtonElement>(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+  const hasAnimated = useRef(false);
+
+  useLayoutEffect(() => {
+    const activeRef = isJourney ? journeyRef : freePlayRef;
+    const el = activeRef.current;
+    const container = containerRef.current;
+    if (!el || !container) return;
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    setIndicator({ left: elRect.left - containerRect.left, width: elRect.width });
+    if (!hasAnimated.current) {
+      requestAnimationFrame(() => { hasAnimated.current = true; });
+    }
+  }, [isJourney, freePlayUnlocked]);
+
   return (
-    <div className="flex gap-1 p-1 rounded-lg t-bg-overlay">
+    <div ref={containerRef} className="relative flex gap-1 p-1 rounded-lg t-bg-overlay">
+      <div
+        className="absolute rounded-md bg-accent shadow-sm"
+        style={{
+          left: indicator.left,
+          width: indicator.width,
+          top: 4,
+          bottom: 4,
+          transition: hasAnimated.current ? 'left 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+        }}
+      />
       <button
+        ref={journeyRef}
         onClick={() => navigate('/')}
-        className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
-          isJourney ? 'bg-accent text-white shadow-sm' : 't-text-secondary hover:t-text'
+        className={`relative z-10 px-4 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 ${
+          isJourney ? 'text-white' : 't-text-secondary hover:t-text'
         }`}
       >
         Journey
       </button>
       <div className="relative">
         <button
+          ref={freePlayRef}
           onClick={() => freePlayUnlocked && navigate('/songs')}
           onMouseEnter={() => !freePlayUnlocked && setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
-          className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center gap-1.5 ${
-            !isJourney ? 'bg-accent text-white shadow-sm' : freePlayUnlocked ? 't-text-secondary hover:t-text' : 't-text-muted cursor-not-allowed'
+          className={`relative z-10 px-4 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
+            !isJourney ? 'text-white' : freePlayUnlocked ? 't-text-secondary hover:t-text' : 't-text-muted cursor-not-allowed'
           }`}
         >
           {!freePlayUnlocked && (

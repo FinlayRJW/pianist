@@ -19,8 +19,7 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
   const [showTooltip, setShowTooltip] = useState(false);
   if (!song) return null;
   const hasStars = bestStars > 0;
-  const needsMidi = song.requiresMidi && !hasStars;
-  const isPlayable = isUnlocked && !needsMidi;
+  const isPlayable = isUnlocked;
   const size = isUnlocked ? UNLOCKED_SIZE : LOCKED_SIZE;
 
   const reqSong = node.requires.length > 0 ? songs[node.requires[0]] : undefined;
@@ -39,10 +38,10 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
       className={`relative flex flex-col items-center transition-transform duration-200 ${
         isPlayable ? 'cursor-pointer hover:scale-110' : 'cursor-help'
       }`}
-      style={{ width: 86, opacity: isUnlocked && needsMidi ? 0.5 : 1 }}
+      style={{ width: 86 }}
     >
       <div
-        className={isUnlocked && !hasStars && !needsMidi ? 'animate-node-glow' : undefined}
+        className={isUnlocked && !hasStars ? 'animate-node-glow' : undefined}
         style={{
           width: size,
           height: size,
@@ -56,9 +55,7 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
                 background: `radial-gradient(circle at 38% 32%, var(--constellation-node-highlight), ${areaColor} 65%)`,
                 boxShadow: hasStars
                   ? `0 0 6px rgba(255,255,255,0.4), 0 0 16px ${areaColor}aa, 0 0 40px ${areaColor}55, 0 0 70px ${areaColor}22`
-                  : needsMidi
-                    ? `0 0 3px ${areaColor}33`
-                    : `0 0 4px rgba(255,255,255,0.2), 0 0 12px ${areaColor}66, 0 0 30px ${areaColor}33`,
+                  : `0 0 4px rgba(255,255,255,0.2), 0 0 12px ${areaColor}66, 0 0 30px ${areaColor}33`,
               }
             : {
                 background: 'var(--constellation-locked-node-bg)',
@@ -71,21 +68,12 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
             className="text-[11px] font-bold"
             style={{ color: 'rgba(255,255,255,0.9)', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
           >
-            {needsMidi ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="6" width="20" height="14" rx="1" />
-                <line x1="8" y1="6" x2="8" y2="16" />
-                <line x1="12" y1="6" x2="12" y2="16" />
-                <line x1="16" y1="6" x2="16" y2="16" />
-              </svg>
-            ) : (
-              song.difficulty
-            )}
+            {song.difficulty}
           </span>
         )}
       </div>
 
-      {isUnlocked && !needsMidi && (
+      {isUnlocked && (
         <div className="flex gap-px mt-1.5">
           {[1, 2, 3].map((star) => (
             <svg
@@ -129,9 +117,7 @@ export function SkillTreeNodeCircle({ node, song, songs, bestStars, isUnlocked, 
           }}
         >
           <div className="font-medium" style={{ color: areaColor }}>{song.title}</div>
-          {isUnlocked && needsMidi ? (
-            <div style={{ color: 'var(--text-secondary)' }}>Requires MIDI keyboard</div>
-          ) : !isAreaUnlocked ? (
+          {!isAreaUnlocked ? (
             <div style={{ color: 'var(--text-secondary)' }}>Unlock this constellation first</div>
           ) : reqSong ? (
             <div style={{ color: 'var(--text-secondary)' }}>

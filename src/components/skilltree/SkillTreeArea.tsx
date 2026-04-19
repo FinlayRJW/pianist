@@ -10,7 +10,6 @@ interface Props {
   isAreaUnlocked: boolean;
   areaStars: number;
   maxStars: number;
-  firstStepsStars: number;
   onPlay: (songId: string) => void;
 }
 
@@ -20,7 +19,7 @@ const MIN_CONSTELLATION_W = 560;
 
 export function SkillTreeAreaColumn({
   area, nodes, songs, bestStars, unlockedNodes,
-  isAreaUnlocked, areaStars, maxStars, firstStepsStars, onPlay,
+  isAreaUnlocked, areaStars, maxStars, onPlay,
 }: Props) {
   if (nodes.length === 0) return null;
 
@@ -60,8 +59,6 @@ export function SkillTreeAreaColumn({
     }
   }
 
-  const starsShort = Math.max(0, area.starsToUnlock - firstStepsStars);
-
   return (
     <div className="flex-shrink-0 relative" style={{ width: containerW, height: containerH, scrollSnapAlign: 'center' }}>
       {/* Constellation title */}
@@ -72,15 +69,9 @@ export function SkillTreeAreaColumn({
         >
           {area.name}
         </h3>
-        {isAreaUnlocked ? (
-          <span className="text-[9px]" style={{ color: 'var(--constellation-stats)' }}>
-            {areaStars} / {maxStars} ★
-          </span>
-        ) : (
-          <span className="text-[9px]" style={{ color: 'var(--constellation-stats-locked)' }}>
-            {starsShort} more ★ in First Steps
-          </span>
-        )}
+        <span className="text-[9px]" style={{ color: 'var(--constellation-stats)' }}>
+          {areaStars} / {maxStars} ★
+        </span>
       </div>
 
       {/* Connection lines */}

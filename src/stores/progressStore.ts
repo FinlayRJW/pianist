@@ -26,19 +26,7 @@ interface ProgressStore {
 function computeUnlockedNodes(adventureBestStars: Record<string, 0 | 1 | 2 | 3>): string[] {
   const unlocked: string[] = [];
 
-  const firstStepsStars = SKILL_TREE_NODES
-    .filter((n) => n.areaId === 'beginner')
-    .reduce((sum, n) => sum + (adventureBestStars[n.songId] ?? 0), 0);
-
   for (const area of SKILL_TREE_AREAS) {
-    if (area.starsToUnlock === -1) {
-      const allOtherNodes = SKILL_TREE_NODES.filter((n) => n.areaId !== area.id);
-      const allPerfect = allOtherNodes.every((n) => (adventureBestStars[n.songId] ?? 0) >= 3);
-      if (!allPerfect) continue;
-    } else if (area.id !== 'beginner' && firstStepsStars < area.starsToUnlock) {
-      continue;
-    }
-
     const areaNodes = SKILL_TREE_NODES.filter((n) => n.areaId === area.id);
     for (const node of areaNodes) {
       if (node.requires.length === 0) {
