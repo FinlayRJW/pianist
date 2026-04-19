@@ -15,6 +15,7 @@ export function JourneyProgressBar({ completed }: Props) {
           style={{
             width: `${pct}%`,
             background: 'linear-gradient(90deg, #22d3ee, #c084fc, #f472b6, #fbbf24)',
+            backgroundSize: pct > 0 ? `${(100 / pct) * 100}% 100%` : undefined,
           }}
         />
       </div>
