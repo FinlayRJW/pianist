@@ -1,10 +1,8 @@
 import type { SongCatalogEntry } from './types';
 
 export const impressionistSongs: SongCatalogEntry[] = [
-  { id: 'gymnopedie-no1', title: 'Gymnopédie No. 1', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 66, durationSec: 190, timeSignature: [3, 4], keySignature: 'D', tags: ['satie', 'gymnopedie', 'two-hands'], mutopiaPath: 'SatieE/gymnopedie_1/gymnopedie_1' },
   { id: 'satie-gymnopedie-2', title: 'Gymnopédie No. 2', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 66, durationSec: 170, timeSignature: [3, 4], keySignature: 'C', tags: ['satie', 'gymnopedie', 'two-hands'], mutopiaPath: 'SatieE/gymnopedie_2/gymnopedie_2' },
   { id: 'satie-gymnopedie-3', title: 'Gymnopédie No. 3', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 66, durationSec: 180, timeSignature: [3, 4], keySignature: 'Am', tags: ['satie', 'gymnopedie', 'two-hands'], mutopiaPath: 'SatieE/gymnopedie_3/gymnopedie_3' },
-  { id: 'satie-gnossienne-1', title: 'Gnossienne No. 1', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 60, durationSec: 210, keySignature: 'Fm', tags: ['satie', 'gnossienne', 'two-hands'], mutopiaPath: 'SatieE/Gnossienne/no_1/no_1' },
   { id: 'satie-gnossienne-2', title: 'Gnossienne No. 2', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 58, durationSec: 170, keySignature: 'Gm', tags: ['satie', 'gnossienne', 'two-hands'], mutopiaPath: 'SatieE/Gnossienne/no_2/no_2' },
   { id: 'satie-gnossienne-3', title: 'Gnossienne No. 3', composer: 'Erik Satie', genre: 'impressionist', difficulty: 3, bpm: 55, durationSec: 180, keySignature: 'Am', tags: ['satie', 'gnossienne', 'two-hands'], mutopiaPath: 'SatieE/Gnossienne/no_3/no_3' },
   { id: 'debussy-prelude-l117-4', title: 'Les sons et les parfums (Prelude No. 4)', composer: 'Claude Debussy', genre: 'impressionist', difficulty: 4, bpm: 58, durationSec: 160, keySignature: 'A', tags: ['debussy', 'preludes', 'two-hands'], mutopiaPath: 'DebussyC/L117/L117-prel-4/L117-prel-4', lyDir: true },

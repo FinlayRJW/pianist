@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 \header {
  title = "2. Intermezzo"
  composer = "J. Brahms"
@@ -17,7 +17,7 @@
  maintainerWeb = "http://www.uigrad.com/mutopia"
  
  footer = "Mutopia-2013/03/23-535"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 % TODO: Reduce distance between slur and tuplet bracket e.g. in bar 49
@@ -150,7 +150,7 @@ upper = \transpose c c' {
 
       % measure 73, v1
       \u \oneVoice
-      r4 \times 2/3 { r8 a,([ cis] fis a cis') } |
+      r4 \tuplet 3/2 { r8 a,([ cis] fis a cis') } |
       <e e'>4( <d d'>) r4 |
       d( cis) s4 |
       \voiceOne
@@ -331,7 +331,7 @@ upper = \transpose c c' {
       % measure 73, v2
       s2. |
       \voiceTwo a2 s4 |
-      \m \oneVoice \tupletDown e,,4~  \times 2/3 { e,,8[ e,( a,] cis \u \voiceTwo e a~) } |
+      \m \oneVoice \tupletDown e,,4~  \tuplet 3/2 { e,,8[ e,( a,] cis \u \voiceTwo e a~) } |
       <dis fis a>2_\markup { \italic { dolce } } <d gis>4 |
 
       % measure 77, v2
@@ -522,7 +522,7 @@ lower = {
 
       % measure 73, v3
       \m \voiceOne <b, gis>( <a, fis>) \oneVoice r |
-      s \tupletDown \times 2/3 { r8 fis,([ a, d fis \u a~]) } |
+      s \tupletDown \tuplet 3/2 { r8 fis,([ a, d fis \u a~]) } |
       a2 \m s4 |
       s2. |
 
@@ -588,7 +588,7 @@ lower = {
     }
     \context Voice = DownBottom
     {
-      \override TupletBracket #'outside-staff-priority = #'0
+      \override TupletBracket.outside-staff-priority = #'0
       <a, e>4 |
       a,, s4 <a, d> |
       a,,8[( d) a,( fis,)] d,( d) |
@@ -661,23 +661,23 @@ lower = {
 
       % measure 49, v4
           \repeat volta 2 {
-      \times 2/3 {
+      \tuplet 3/2 {
         fis,8([ cis a] cis' a fis fis' a fis) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         e'([ a fis] d' a fis b, fis a) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         d'([ a fis] cis' a fis cis e a) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         cis'([ fis d] b fis gis, cis eis b) } |
 
       % measure 53, v4
-      \times 2/3 {
+      \tuplet 3/2 {
         fis,([ a fis] cis' a fis a' a fis) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         d,([ a, d fis a d]) fis,( d a) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         gis,([ e gis]) gis,( dis fis bis fis dis) } |
-      \times 2/3 {
+      \tuplet 3/2 {
         cis,([ gis, cis eis gis b] } eis'8) r |
 
       }
@@ -695,17 +695,17 @@ lower = {
       <cis fis cis'>\) <cis eis gis b>4.\fermata r8 |
 
       % measure 65, v4
-      \times 2/3 {
+      \tuplet 3/2 {
         fis,8_\markup { \italic { tre corde } } ([ cis a!]) e'([ a fis]) d'([ a fis]) } |
-      \times 2/3 { cis'([ a fis]) b([ fis b,] b,, b, d) } |
-      \times 2/3 { b([ fis cis]) a([ fis a,] a,, a, cis) } |
-      <b, d>4 \times 2/3 { gis,8([ b fis]) cis,([ eis cis]) } |
+      \tuplet 3/2 { cis'([ a fis]) b([ fis b,] b,, b, d) } |
+      \tuplet 3/2 { b([ fis cis]) a([ fis a,] a,, a, cis) } |
+      <b, d>4 \tuplet 3/2 { gis,8([ b fis]) cis,([ eis cis]) } |
 
       % measure 69, v4
-      \times 2/3 { fis,8([ cis a] cis'[ a fis] a[ fis cis]) } |
-      \times 2/3 { d,([ a, d] fis[ a d] fis ais d) } |
-      \times 2/3 { b,,([ fis, b,] d[ fis b,] d g b,) } |
-      \times 2/3 { cis,([ cis a,] fis[ cis cis,]) eis( b, cis,) } |
+      \tuplet 3/2 { fis,8([ cis a] cis'[ a fis] a[ fis cis]) } |
+      \tuplet 3/2 { d,([ a, d] fis[ a d] fis ais d) } |
+      \tuplet 3/2 { b,,([ fis, b,] d[ fis b,] d g b,) } |
+      \tuplet 3/2 { cis,([ cis a,] fis[ cis cis,]) eis( b, cis,) } |
 
       % measure 73, v4
       fis,2 s4 |
@@ -777,7 +777,7 @@ lower = {
 }
 
 dynamics = {
-  \override Dynamics.Hairpin  #'height = #0.5 % default is 0.66
+  \override Dynamics.Hairpin.height = #0.5 % default is 0.66
   \partial 4
   s4\p |
   s s s |
@@ -951,7 +951,7 @@ dynamics = {
 }
 
 dynamicsB = {
-  \override Dynamics.Hairpin  #'height = #0.5
+  \override Dynamics.Hairpin.height = #0.5
   \partial 4 s4  | s2. | s2. | s2. | s2. |
 
   % measure 5

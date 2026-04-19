@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 
 \header {
   filename      =       "op-25-01.ly"
@@ -19,7 +19,7 @@
  maintainerEmail = "roland@roland-goretzki.de"
 
  footer = "Mutopia-2013/03/23-489"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 \include "deutsch.ly"
@@ -54,16 +54,16 @@ appa = \markup { \italic appassionato }
 tempO = \markup { \italic { a tempo } }
 smorzando = \markup { \italic { smorzando } }
 
-Axdefault = \accidentalStyle "default"
-Axpiano = \accidentalStyle "piano"
+Axdefault = \accidentalStyle default
+Axpiano = \accidentalStyle piano
 
-KlammerWeg = \override TupletBracket #'stencil = ##f
-TriolenZahlWeg = \override TupletNumber #'stencil = ##f
+KlammerWeg = \override TupletBracket.stencil = ##f
+TriolenZahlWeg = \override TupletNumber.stencil = ##f
 
-DecoratedHairpin = #(define-music-function (parser location text) (markup?)
+DecoratedHairpin = #(define-music-function (text) (markup?)
 #{
-\once\override Hairpin #'height = #'1.5
-\once\override Hairpin #'stencil = #(lambda (grob)
+\once\override Hairpin.height = #'1.5
+\once\override Hairpin.stencil = #(lambda (grob)
 (ly:stencil-aligned-to
 (ly:stencil-add
 (ly:stencil-aligned-to
@@ -78,13 +78,13 @@ X LEFT))
 %%% Für den ständigen Wechsel der Größe der Notenköpfe:
 
 KlK = {
-        \override Fingering #'font-size = #-6
-        \override NoteHead #'font-size = #-3
+        \override Fingering.font-size = #-6
+        \override NoteHead.font-size = #-3
       }                                         % Kl ein K opf
 
 NoK = {
-        \revert Fingering #'font-size
-        \revert NoteHead #'font-size
+        \revert Fingering.font-size
+        \revert NoteHead.font-size
       }                                         % No rmal K opf
 
 %                                                                       %
@@ -94,13 +94,13 @@ NoK = {
 
 rechts =  \new Voice = "rechts" \relative c''{
     \tempo "Allegro sostenuto" 4=104
-    \override DynamicLineSpanner #'avoid-slur = #'inside
-    \override DynamicLineSpanner #'direction = #UP
-    \set tupletSpannerDuration = #(ly:make-moment 1 8)
+    \override DynamicLineSpanner.avoid-slur = #'inside
+    \override DynamicLineSpanner.direction = #UP
+    \tupletSpan 8
     \KlammerWeg
     es4(                 % Auftakt
   %%%%======== -------------------------------------------------------- ---------
-    \times 2/3 {
+    \tuplet 3/2 {
        es16-4 \KlK as,_2 c_3 es, as c
     \TriolenZahlWeg
       \NoK es \KlK as, c es, as c
@@ -355,7 +355,7 @@ rechts =  \new Voice = "rechts" \relative c''{
 Dynamics =  \new Dynamics {
     s4\p                                                  % Auftakt
   %%%%======== ---------------------------------------- --------------
-    \times 2/3 {
+    \tuplet 3/2 {
       s16 s s s s s \<  s s s s s s
       s s s s s s  s s s s s s \! | % Takt  1
   %%%%======== -------------------------------------------------------- ---------
@@ -556,13 +556,13 @@ Dynamics =  \new Dynamics {
 links =  \context Staff \relative c{
   %% -- %% Die linke Hand hat 113 Fingersätze!
   %% -- %% Davon sind 52 gesteuert und 61 Standard.
-  \override DynamicLineSpanner #'avoid-slur = #'inside
-  \override DynamicLineSpanner #'direction = #DOWN
+  \override DynamicLineSpanner.avoid-slur = #'inside
+  \override DynamicLineSpanner.direction = #DOWN
     r4                                                                  % Auftakt
   %%%%======== -------------------------------------------------------- ---------
-    \set tupletSpannerDuration = #(ly:make-moment 1 8)
+    \tupletSpan 8
   \KlammerWeg
-    \times 2/3 {
+    \tuplet 3/2 {
       as,16 \PR \KlK es''_3
       as c as es
   \TriolenZahlWeg
@@ -674,7 +674,7 @@ links =  \context Staff \relative c{
       \NoK es, \PH\PR \KlK g'-2 c g c, g' c g
       \NoK f, \PH\PR \KlK  d'-4 c' d,
       \NoK g, \PH\PR \KlK  d'-4
-    \times 2/3 {
+    \tuplet 3/2 {
       h' g d                                                          | % Takt 21
   %%%%======== -------------------------------------------------------- ---------
       \NoK c \PH\PR \KlK  e-3 g c g e-4
@@ -695,9 +695,9 @@ links =  \context Staff \relative c{
       \NoK a, \PH\PR \KlK e'-3 a cis a e
       a, e' a cis a e
       a, \PH\PR
-        \accidentalStyle "piano"
+        \accidentalStyle piano
            dis-3 fis c'
-        \accidentalStyle "default"
+        \accidentalStyle default
           fis, dis
       \NoK as \PH\PR \KlK es' ges c ges es                     | % Takt 25
   %%%%======== -------------------------------------------------------- ---------
@@ -719,13 +719,13 @@ links =  \context Staff \relative c{
     }
       \NoK f, \PH\PR \KlK f'-2 as-1 f
       c-4 \PH\PR f
-        \times 2/3 { as f c }
+        \tuplet 3/2 { as f c }
       \NoK f, \PH\PR \KlK f'-2
          a-1 f
        c-4 f
-        \times 2/3 { a f c }                      | % Takt 29
+        \tuplet 3/2 { a f c }                      | % Takt 29
   %%%%======== -------------------------------------------------------- ---------
-    \times 2/3 {
+    \tuplet 3/2 {
       \NoK b,! \PH\PR \KlK
         f''-3 b des b f
       b, \PH\PR f' b des b f
@@ -742,30 +742,30 @@ links =  \context Staff \relative c{
     }
       \NoK es, \PH\PR \KlK
          a'-2 c a
-       es-4 a \times 2/3 { c a es }
+       es-4 a \tuplet 3/2 { c a es }
       \NoK es, \PH\PR \KlK a'-2 c a-3
        es-5 \PH\PR a
-        \times 2/3 { f' a, es }                                       | % Takt 32
+        \tuplet 3/2 { f' a, es }                                       | % Takt 32
   %%%%======== -------------------------------------------------------- ---------
       \NoK es, \PH\PR \KlK b''-2 f' b, es,-5 b'
-        \times 2/3 { des b es, }
+        \tuplet 3/2 { des b es, }
       \NoK es, \PH\PR \KlK
        h''-2 d h
        es,-5 h'
-        \times 2/3 { g' h, es, }                                      | % Takt 33
+        \tuplet 3/2 { g' h, es, }                                      | % Takt 33
   %%%%======== -------------------------------------------------------- ---------
       \NoK es, \PH\PR \KlK c''-2 g' c, 
         es, \PH\PR c'
-    \times 2/3 {
+    \tuplet 3/2 {
       es c
       es, }
       \NoK es,
         \PH\PR \KlK c''-2
          ges'-1 c,
-      \times 2/3 { es, c'-3 es a es
+      \tuplet 3/2 { es, c'-3 es a es
         c }                                                           | % Takt 34
   %%%%======== -------------------------------------------------------- ---------
-    \times 2/3 {
+    \tuplet 3/2 {
       \NoK es, \PH\PR \KlK b'-3 d as'! d, b
       es, b' d as' d, b
       es, \PH\PR b' des as' des, b
@@ -835,7 +835,7 @@ links =  \context Staff \relative c{
     \NoK as,4-.
       \clef bass
     <as, es' c'>-.\arpeggio r \PH
-    \grace { d,16_3[ es] \override Flag #'stroke-style = #"grace" f8}
+    \grace { d,16_3[ es] \override Flag.stroke-style = #"grace" f8}
     \afterGrace es4\startTrillSpan {d16[ es] \stopTrillSpan }         | % Takt 48
   %%%%======== -------------------------------------------------------- ---------
     <as, as'-1 es'-2>1*1/4 \arpeggio \PR s s s \PH        | % Takt 49

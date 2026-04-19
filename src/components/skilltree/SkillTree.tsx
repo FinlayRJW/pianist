@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SKILL_TREE_AREAS, SKILL_TREE_NODES, getAreaNodes } from '../../data/skill-tree';
+import { SKILL_TREE_AREAS, getAreaNodes } from '../../data/skill-tree';
 import { SONG_CATALOG } from '../../data/songs';
 import { useProgressStore } from '../../stores/progressStore';
 import { SkillTreeAreaColumn } from './SkillTreeArea';

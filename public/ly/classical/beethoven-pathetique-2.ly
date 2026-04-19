@@ -1,4 +1,4 @@
-\version "2.14.2"
+\version "2.24.0"
 
 \header {
  title = "Sonata No. 8 \"Pathétique\""
@@ -31,7 +31,7 @@
  maintainerWeb = "http://cjsawer.whitewillow.co.uk/"
 
  footer = "Mutopia-2011/10/25-295"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
 \paper{
@@ -52,13 +52,13 @@ fingerUp = \set fingeringOrientations = #'(up)
 fingerDown = \set fingeringOrientations = #'(down)
 fingerUpDown = \set fingeringOrientations = #'(up down)
 allowScriptUnderSlur = {
-	\once \override TextScript #'avoid-slur = #'inside
-	\once \override TextScript #'outside-staff-priority = ##f}
-lengthenStems = \override Stem #'(details beamed-lengths) = #'(5)
-revertStemLenghts = \revert Stem #'(details beamed-lengths)
-hideTupletNumber = \override TupletNumber #'stencil = ##f
-unhideTupletNumber = \revert TupletNumber #'stencil 
-hideTupletBracket = \override TupletBracket #'bracket-visibility = ##f
+	\once \override TextScript.avoid-slur = #'inside
+	\once \override TextScript.outside-staff-priority = ##f}
+lengthenStems = \override Stem.details.beamed-lengths = #'(5)
+revertStemLenghts = \revert Stem.details.beamed-lengths
+hideTupletNumber = \override TupletNumber.stencil = ##f
+unhideTupletNumber = \revert TupletNumber.stencil 
+hideTupletBracket = \override TupletBracket.bracket-visibility = ##f
 
 
 topmain = \relative c' {
@@ -94,14 +94,14 @@ c'4^\markup{\finger "5-1"}~ c16( as'-4 g  f-2) |		%17
  d8[(^\markup \tiny \override #'(baseline-skip . 1) {
     \halign #-4
     \center-column {
-      \musicglyph #"scripts.turn"
+      \musicglyph "scripts.turn"
       	 }}^\markup{\halign #-2 \finger "3212"} 
  f16.-4  es32)] |
  es4^4  
  <f,^1>8.[_(^\markup{ 
   	\halign #-3  \center-column {
   		\general-align #Y #0.2 \finger "4321"
-		\general-align #Y #-2 \tiny \musicglyph #"scripts.turn"
+		\general-align #Y #-2 \tiny \musicglyph "scripts.turn"
 		\general-align #Y #-3 \teeny \natural	}
        }  as32^2  c_)] |		%21
  \grace {\stemUp \scaleDurations #' (1 . 6) {b16[_(^1 c^2 d_)^4] } \stemNeutral}
@@ -127,10 +127,10 @@ c'4^\markup{\finger "5-1"}~ c16( as'-4 g  f-2) |		%17
    \lengthenStems <as-4>8[( ces \allowScriptUnderSlur bes^\markup{\vspace #1 \finger "4-5"}  <as-4>)] \revertStemLenghts|		%41
  \stemNeutral
   
- <fis' fis,>-5~\sf \times 2/3 {  fis16[ <dis-4>-. <b-2>-.] } <b' b,>8~\sf \times 2/3 {  b16[ <gis-4>-. <e-2>-.] } |
+ <fis' fis,>-5~\sf \tuplet 3/2 {  fis16[ <dis-4>-. <b-2>-.] } <b' b,>8~\sf \tuplet 3/2 {  b16[ <gis-4>-. <e-2>-.] } |
  \hideTupletNumber \hideTupletBracket
- <e'e,>8~\sf \times 2/3 {  e16[ <cis-4>-. <ais-3>-.] } <b b,>8-.\noBeam \clef bass <dis,, b a fis>-. |
- \times 2/3 { <e-5  b-3 gis-2>16[\fp <b-2 gis-1> <b gis>] <b gis>[ <b gis> <b gis>]
+ <e'e,>8~\sf \tuplet 3/2 {  e16[ <cis-4>-. <ais-3>-.] } <b b,>8-.\noBeam \clef bass <dis,, b a fis>-. |
+ \tuplet 3/2 { <e-5  b-3 gis-2>16[\fp <b-2 gis-1> <b gis>] <b gis>[ <b gis> <b gis>]
    <b gis>[_\markup{\vspace #.5 \italic "decresc."} <b gis> <b gis>] <b gis>[ <b gis> <b gis>] } | \noBreak
  \stemUp
  e8-4[( gis \allowScriptUnderSlur fis^\markup{\vspace #-1.9 \finger "4-5"}  e-4)] |		%45
@@ -145,7 +145,7 @@ c'4^\markup{\finger "5-1"}~ c16( as'-4 g  f-2) |		%17
  <es,-3>4.( <e-4>8 |
   \lengthenStems f4) <bes,-4>8.( <c-5>32  <des-4>) \revertStemLenghts|
  es4( <a,-4> |
-  des) \times 2/3 {  des16-5[(  c-4) bes-3-.]  bes-4[(  as!) g-.] } |	%57
+  des) \tuplet 3/2 {  des16-5[(  c-4) bes-3-.]  bes-4[(  as!) g-.] } |	%57
  <bes-5 g-3>4(  as8-4) \clef treble s |
  c'4( <bes-4> |
  es4.  <des-4>8) |
@@ -153,35 +153,35 @@ c'4^\markup{\finger "5-1"}~ c16( as'-4 g  f-2) |		%17
  <es,-3>4.( <e-4>8 |
   f4) \lengthenStems <bes,-2-4>8.( <c-5>32  <des-4>) \revertStemLenghts|
  es4( <a,-4> |
-  des) \times 2/3 {des16^5[( c^4) bes^3-.]  bes^5[(  as!) g-.] } |	%65
+  des) \tuplet 3/2 {des16^5[( c^4) bes^3-.]  bes^5[(  as!) g-.] } |	%65
  \stemNeutral
  \slurNeutral
  \tieNeutral
  <as  c,>8 b\rest b\rest <es-2>16.(  e32) |
- f8~_\< \times 2/3 {  f16[(  es!) des-.(]  c[-._\! bes-.^3_\>  as)-.] }  g32[( des' bes  g)]_\! |
+ f8~_\< \tuplet 3/2 {  f16[(  es!) des-.(]  c[-._\! bes-.^3_\>  as)-.] }  g32[( des' bes  g)]_\! |
   %\allowScriptUnderSlur
   as16.-2([^\markup \tiny  \override #'(baseline-skip . 1) {
     \halign #-2  \center-column { 
     	 \finger "3213"
-	 \musicglyph #"scripts.turn"}}
+	 \musicglyph "scripts.turn"}}
   c32^5]  es,8^1) r <es'' es,>16.-4( <e e,>32) |
- <f f,>8~ \times 2/3 { <f f,>16[( <es! es,!>-4) <des des,>-4-.(]
+ <f f,>8~ \tuplet 3/2 { <f f,>16[( <es! es,!>-4) <des des,>-4-.(]
    <c c,>[-. <bes bes,>-4-. <as as,>-4)-.] <g g,-5>[( <des'-4 des,> <g,-5 g,>)] } |	%69
-   <as as,>8-4 b,\rest \grace{ \override Stem  #'stroke-style = #"grace" {\stemUp es8^3_(_\markup{\dynamic rf} \stemNeutral}
-   \revert Stem #'stroke-style }
+   <as as,>8-4 b,\rest \grace{ \override Flag.stroke-style = #"grace" {\stemUp es8^3_(_\markup{\dynamic rf} \stemNeutral}
+   \revert Flag.stroke-style }
    \unhideTupletNumber
-   \times 2/3 {des16)[( c  des)]} \times 2/3{ f[(  es) des-.] } \hideTupletNumber|
+   \tuplet 3/2 {des16)[( c  des)]} \tuplet 3/2{ f[(  es) des-.] } \hideTupletNumber|
  c8 b\rest \stemUp \grace {
-\override Stem   #'stroke-style = #"grace"
+\override Flag.stroke-style = #"grace"
    c8^4( 
-  \revert Stem #'stroke-style }
- \times 2/3 {
+  \revert Flag.stroke-style }
+ \tuplet 3/2 {
      bes16)[_\markup{ \dynamic rf}( a  bes)]  des[(  c) bes_.] } |
  s4 \clef bass \grace {
-\override Stem   #'stroke-style = #"grace"
+\override Flag.stroke-style = #"grace"
    c,8^4( 
-  \revert Stem #'stroke-style }
- \times 2/3 {
+  \revert Flag.stroke-style }
+ \tuplet 3/2 {
      bes16)[_\markup{\dynamic rf}( a  bes)]  des[(  c) bes_.] } |
  \stemDown
  as!16 \pp d,\rest <as'^4 es c> d,\rest \fingerLeft <as'-5 c, as>4^\markup{" "}^\fermata \bar "|."		%73
@@ -201,8 +201,8 @@ topsecondary =  \relative c' {
 
   \hideTupletBracket
   \unhideTupletNumber
- \times 2/3 { c[^. es^. as^.] }
- \times 2/3 { \stemNeutral \hideTupletNumber
+ \tuplet 3/2 { c[^. es^. as^.] }
+ \tuplet 3/2 { \stemNeutral \hideTupletNumber
  c^\markup{\finger 1}[-. es-. as-.] \stemDown }
  c,16 es c es bes es bes es |		%9
  es as es as es bes'-2 es, bes' |
@@ -227,12 +227,12 @@ topsecondary =  \relative c' {
  f des f des des des des des |
  des es des es c8 r |
   \unhideTupletNumber
- \times 2/3 { <es'  ces>16[\pp <es ces> <es ces>]} 
- \times 2/3 {<es ces>[ <es ces> <es ces>]}
- \times 2/3 {<es ces>[ <es ces> <es ces>]}
- \times 2/3 { <es ces>[ <es ces> <es ces>]} |		%37
+ \tuplet 3/2 { <es'  ces>16[\pp <es ces> <es ces>]} 
+ \tuplet 3/2 {<es ces>[ <es ces> <es ces>]}
+ \tuplet 3/2 {<es ces>[ <es ces> <es ces>]}
+ \tuplet 3/2 { <es ces>[ <es ces> <es ces>]} |		%37
   \hideTupletNumber
-  \times 2/3 {
+  \tuplet 3/2 {
   <es des>[ <es des> <es des>] <es des>[ <es des> <es des>]
     <es des>[ <es des> <es des>] <es des>[ <es des> <es des>] |
   <es ces>[ <es ces> <es ces>] <es ces>[ <es ces> <es ces>]
@@ -243,7 +243,7 @@ topsecondary =  \relative c' {
     <es ces>[ <es ces> <es ces>] <es ces>[ <es ces> <es ces>] |		%41
  }
  s2*3 |
- \times 2/3 {
+ \tuplet 3/2 {
   <b  gis>16[\pp <b gis> <b gis>] <b gis>[ <b gis> <b gis>]
     <b gis>[ <b gis> <b gis>] <b gis>[ <b gis> <b gis>] | \noBreak	%45
   <b a>[ <b a> <b a>] <b a>[ <b a> <b a>]
@@ -260,7 +260,7 @@ topsecondary =  \relative c' {
     <bes g des>[ <bes g des> <bes g des>] <bes g es des>[ <bes g es des> <bes g es des>] |
    c,![(\p  <es-2>)_. <es-1>_.]  <as-3>[(  <es-2>)_. <es-1>_.]  g[(  es)_. es_.]  g[(  es)_. es_.] |
    as[(  es)_. es_.]  as[(  es)_. es_.]  <bes'-3>[(  es,)_. es_.] 
-   \once \override Fingering #'staff-padding = #'()
+   \once \override Fingering.staff-padding = #'()
    <bes'_2>[(  es,)_. es_.] |
    as[(  es)_. es_.]  bes'[(  es,)_. es_.]  c'[(  as)_. as_.]  d[(  as)_. as_.] |	%53
    g[(  bes)_. bes_.]  g[(  bes)_. bes_.]  g[(  bes)_. bes_.]  g[(  bes)_. bes_.] |
@@ -342,12 +342,12 @@ bottom = \relative c {
  as,8 as' as, r |
  <as'' as,>4 r |		%37
  \fingerDown bes8-2~ \unhideTupletNumber 
-  \times 2/3 {bes16[ \fingerUp <bes-3>( a]} \times 2/3 {bes)[-. <bes-2>-.(  as)-.]}
-  \times 2/3 {<g-1>[-.( f-. es)-.]} \hideTupletNumber|
+  \tuplet 3/2 {bes16[ \fingerUp <bes-3>( a]} \tuplet 3/2 {bes)[-. <bes-2>-.(  as)-.]}
+  \tuplet 3/2 {<g-1>[-.( f-. es)-.]} \hideTupletNumber|
  \fingerDown <as-1>8 r r4 |
- es8_3~ \times 2/3 {  es16[ es_2( d]   es)[-. fes-.(  es)-.]  des[-.( <ces-1>-.  bes)-.] } |
+ es8_3~ \tuplet 3/2 {  es16[ es_2( d]   es)[-. fes-.(  es)-.]  des[-.( <ces-1>-.  bes)-.] } |
  as8 r r4 |			%41
- \times 2/3 {
+ \tuplet 3/2 {
   <fis' dis b a>16_5[ <fis dis b a> <fis dis b a>] <fis dis b a>[ <fis dis b a> <fis dis b a>]
     <gis e b gis>[ <gis e b gis> <gis e b gis>] <gis e b gis>[ <gis e b gis> <gis e b gis>] |
   <ais fis e cis>[ <ais fis e cis> <ais fis e cis>] <ais fis e cis>[ <ais fis e cis> <ais fis e cis>]
@@ -355,11 +355,11 @@ bottom = \relative c {
  }
  <e e,>8 r r4 |
  <e e,> r |			%45
- <fis>8_2~ \times 2/3 {  fis16[ fis^3( eis]   fis)[-. fis-2-.(  e-1)-.]  dis[-.( cis-.  b)-.] } |
+ <fis>8_2~ \tuplet 3/2 {  fis16[ fis^3( eis]   fis)[-. fis-2-.(  e-1)-.]  dis[-.( cis-.  b)-.] } |
  <e-1>8 r r4 |
- \times 2/3 { r16 \fingerUp <f,,!-5>[-. <as!-4>-.]  <ces-3>[-. <d-2>-. <f!-1>-.] } <as!-2>8 r |
- \times 2/3 { r16  <f,-5>[-. <as-4>-.]  ces[-. d-. <f-1>-.] } <as-2>8 r |		%49
- \times 2/3 { r16  fes_4[-. as-.] } bes!8-. \times 2/3 { r16  es,_4[-. g-.] } bes8-. |
+ \tuplet 3/2 { r16 \fingerUp <f,,!-5>[-. <as!-4>-.]  <ces-3>[-. <d-2>-. <f!-1>-.] } <as!-2>8 r |
+ \tuplet 3/2 { r16  <f,-5>[-. <as-4>-.]  ces[-. d-. <f-1>-.] } <as-2>8 r |		%49
+ \tuplet 3/2 { r16  fes_4[-. as-.] } bes!8-. \tuplet 3/2 { r16  es,_4[-. g-.] } bes8-. |
  <as as,>4^\markup{\finger "1-4"}( des_2 |
  c_1  g_4) |
   as8[( g f  f')] |		%53
@@ -369,7 +369,7 @@ bottom = \relative c {
  bes,  <es-2>) |			%57
  as,8 as' as, r |
  << {
-  \times 2/3 {
+  \tuplet 3/2 {
     \hideTupletBracket
     \hideTupletNumber
     as''16[(  es) es]  as[(  es) es]  g[(  es) es]  g[(  es) es] |
@@ -382,15 +382,15 @@ bottom = \relative c {
   <c-4> g) |
    as8[( g  f) f] |		% 61 (2)
  } >>
- \times 2/3 {  es16[-. <g-4>-. bes-.]  <es^1>[-. <g^4>-. bes-.] } <es^1>4 |
- \times 2/3 {  <des,,-5>16[-. <g-3>-. bes-.]  <des^1>[-. <g^3>-. bes-.] } des4^\markup{\finger "1-2"} |
+ \tuplet 3/2 {  es16[-. <g-4>-. bes-.]  <es^1>[-. <g^4>-. bes-.] } <es^1>4 |
+ \tuplet 3/2 {  <des,,-5>16[-. <g-3>-. bes-.]  <des^1>[-. <g^3>-. bes-.] } des4^\markup{\finger "1-2"} |
  <c^1>( \allowScriptUnderSlur f,^\markup{\finger "3-1"} |
-  <bes,_3>) << { \times 2/3 { 
+  <bes,_3>) << { \tuplet 3/2 { 
   \hideTupletBracket
   \hideTupletNumber
  bes16[(  es) es]  es,[(  es') es] } } \\ { es,8 es } >> |	%65
   \hideTupletNumber
- \times 2/3 {
+ \tuplet 3/2 {
  \stemDown as16_3[ es'_1-.(^\markup{\vspace #-.3 \halign #0.7 \dynamic "pp"}  es_2)-.]
  \stemNeutral es_3[-.( es_2-.  es_1)-.]  es_3[ es_2 es_1]  es[ es es] |
   <es des es,>[ <es des es,> <es des es,>] <es des es,>[ <es des es,> <es des es,>]

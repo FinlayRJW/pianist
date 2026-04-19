@@ -1,4 +1,4 @@
-\version "2.12.2"
+\version "2.24.0"
 
 \header {
 
@@ -21,7 +21,7 @@
   moreInfo = "This file was created from a public domain scan of the work's first edition which is located in the Petrucci Music Library, http://imslp.org/."
 
  footer = "Mutopia-2009/06/03-1654"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2009. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution 3.0 (Unported) License, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/by/3.0" http://creativecommons.org/licenses/by/3.0 } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2009. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution 3.0 (Unported) License, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/by/3.0" http://creativecommons.org/licenses/by/3.0 } } } }
 }
 
 \score {
@@ -32,7 +32,7 @@
   \new Staff = "up" \relative c'' << { \time 4/4 \key e \major \clef treble
   \set Staff.extraNatural = ##f
 
-  \once \override TextScript #'extra-offset = #'(-3.5 . 0.0) \stemUp
+  \once \override TextScript.extra-offset = #'(-3.5 . 0.0) \stemUp
 		b4\rest ^\markup { \bold "Andante con moto." }
 		<b, e gis>2 ^\(^. <b_~ e_~ b'^~>4^.			| % 1
   <b e b'> <b e a>2^. <b_~ cis_~ fis^~>4^.\)				| % 2

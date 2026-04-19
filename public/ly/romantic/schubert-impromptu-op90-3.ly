@@ -9,7 +9,7 @@
 %                                                  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\version "2.18.2"
+\version "2.24.0"
 \include "italiano.ly"
 
 #(set-global-staff-size 18)
@@ -18,7 +18,7 @@
 %#(set-paper-size "a4")
 %#(set-paper-size "letter")
  line-width = 190\mm
- top-system-spacing #'minimum-distance = #15
+ top-system-spacing.minimum-distance = #15
  oddHeaderMarkup  = \markup \fill-line {
   " " { \italic "♫  Franz Schubert: Impromptu in Ges-dur (D 899-3)  ♫" }  \fromproperty #'page:page-number-string }
  evenHeaderMarkup = \markup \fill-line {
@@ -44,7 +44,7 @@
  maintainer = "Ph. Raynaud"
  moreInfo = ""
  footer = "Mutopia-2015/11/26-1193"
- copyright =  \markup { \override #'(baseline-skip . 0 ) \right-column { \sans \bold \with-url #"http://www.MutopiaProject.org" { \abs-fontsize #9  "Mutopia " \concat { \abs-fontsize #12 \with-color #white \char ##x01C0 \abs-fontsize #9 "Project " } } } \override #'(baseline-skip . 0 ) \center-column { \abs-fontsize #11.9 \with-color #grey \bold { \char ##x01C0 \char ##x01C0 } } \override #'(baseline-skip . 0 ) \column { \abs-fontsize #8 \sans \concat { " Typeset using " \with-url #"http://www.lilypond.org" "LilyPond" " by " \maintainer " " \char ##x2014 " " \footer } \concat { \concat { \abs-fontsize #8 \sans{ " Placed in the " \with-url #"http://creativecommons.org/licenses/publicdomain" "public domain" " by the typesetter " \char ##x2014 " free to distribute, modify, and perform" } } \abs-fontsize #13 \with-color #white \char ##x01C0 } } }
+ copyright =  \markup { \override #'(baseline-skip . 0 ) \right-column { \sans \bold \with-url "http://www.MutopiaProject.org" { \abs-fontsize #9  "Mutopia " \concat { \abs-fontsize #12 \with-color #white \char ##x01C0 \abs-fontsize #9 "Project " } } } \override #'(baseline-skip . 0 ) \center-column { \abs-fontsize #11.9 \with-color #grey \bold { \char ##x01C0 \char ##x01C0 } } \override #'(baseline-skip . 0 ) \column { \abs-fontsize #8 \sans \concat { " Typeset using " \with-url "http://www.lilypond.org" "LilyPond" " by " \maintainer " " \char ##x2014 " " \footer } \concat { \concat { \abs-fontsize #8 \sans{ " Placed in the " \with-url "http://creativecommons.org/licenses/publicdomain" "public domain" " by the typesetter " \char ##x2014 " free to distribute, modify, and perform" } } \abs-fontsize #13 \with-color #white \char ##x01C0 } } }
  tagline = ##f
 }
 
@@ -77,7 +77,7 @@ TUPNNO = \override TupletNumber.transparent = ##t
 TUPBNO = \override TupletBracket.transparent = ##t
 TUPNO  = { \TUPNNO \TUPBNO }
 % VARIER LA HAUTEUR D'UNE BARRE DE LIGATURE
-BEAMPOS = #(define-music-function (parser location beg-end) (pair?)
+BEAMPOS = #(define-music-function (beg-end) (pair?)
  #{ \once \override Beam.positions = #beg-end #})
 % DÉPLACER UNE DYNAMIQUE OU MODIFIER SON LIBELLÉ
 dimin = #(make-music 'DecrescendoEvent 'span-direction START 'span-type 'text 'span-text "dimin.")
@@ -88,14 +88,14 @@ crescenDO = { \set crescendoText = \markup { \italic "do" }   \set crescendoSpan
 %----- REMPLACEMENT DE LA MESURE 4/2
 KEYTIME = { \key solb \major
 \override Staff.TimeSignature.stencil = #ly:text-interface::print
-\override Staff.TimeSignature.text = \markup { \musicglyph #"timesig.C22" \musicglyph #"timesig.C22" }
+\override Staff.TimeSignature.text = \markup { \musicglyph "timesig.C22" \musicglyph "timesig.C22" }
 \time 4/2 }
 %----- MOUVEMENT
 MOVEMENT = \markup { \bold \large  { \hspace #-5 \italic "Andante." } }
 %----- RÉTABLISSEMENT DU "dash"
 DTSDASHOK = \once \override DynamicTextSpanner.style = #'dashed-line
 %----- MARKUP
-SFORZATO = \markup { \musicglyph #"scripts.sforzato" }
+SFORZATO = \markup { \musicglyph "scripts.sforzato" }
 FFZ = #(make-dynamic-script "ffz")
 
 

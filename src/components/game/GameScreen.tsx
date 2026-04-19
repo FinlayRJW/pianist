@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import * as Tone from 'tone';
 import type { ParsedSong, SongScore } from '../../types';
 import { FallingNotesCanvas } from './FallingNotesCanvas';
+import { SheetMusicDisplay } from './SheetMusicDisplay';
 import { PianoKeyboard } from './PianoKeyboard';
 import { ScoreOverlay } from './ScoreOverlay';
 import { ResultsModal } from './ResultsModal';
 import { useSongPlayer } from '../../hooks/useSongPlayer';
 import { useAnimationFrame } from '../../hooks/useAnimationFrame';
 import { useAutoPlay } from '../../hooks/useAutoPlay';
+import { useSheetMusic } from '../../hooks/useSheetMusic';
 import { usePlayerInput, type InputMode } from '../../hooks/usePlayerInput';
 import { useScoring } from '../../hooks/useScoring';
 import { useProgressStore } from '../../stores/progressStore';
@@ -46,6 +48,10 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const wasPlayingRef = useRef(false);
   const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
   const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
+  const viewMode = useOnboardingStore((s) => s.viewMode);
+  const setViewMode = useOnboardingStore((s) => s.setViewMode);
+  const sheet = useSheetMusic(song.meta);
+  const sheetAvailable = !sheet.loading && !sheet.error && sheet.timingMap !== null;
 
   const { timeRef, gameState, play, resume, pause, reset, tick, setSpeed, speedRef } =
     useSongPlayer(song.totalDuration);
@@ -168,11 +174,14 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       } else if (e.code === 'KeyR') {
         e.preventDefault();
         doRestart();
+      } else if (e.code === 'KeyV' && sheetAvailable) {
+        e.preventDefault();
+        setViewMode(viewMode === 'waterfall' ? 'sheet' : 'waterfall');
       }
     }
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [togglePlay, doRestart]);
+  }, [togglePlay, doRestart, sheetAvailable, viewMode, setViewMode]);
 
   const handleSpeedChange = useCallback(
     (newSpeed: number) => {
@@ -310,6 +319,33 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
             ))}
           </select>
 
+          {/* View mode toggle */}
+          <button
+            onClick={() => setViewMode(viewMode === 'waterfall' ? 'sheet' : 'waterfall')}
+            className={`p-1.5 rounded-full transition-colors ${
+              viewMode === 'sheet' && sheetAvailable
+                ? 'bg-accent/20 text-accent-light'
+                : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
+            } ${!sheetAvailable ? 'opacity-40 cursor-not-allowed' : ''}`}
+            title={`${viewMode === 'sheet' ? 'Waterfall' : 'Sheet music'} view (V)`}
+            disabled={!sheetAvailable}
+          >
+            {viewMode === 'sheet' && sheetAvailable ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="12" y1="3" x2="12" y2="21" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="3" y1="15" x2="21" y2="15" />
+              </svg>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
+            )}
+          </button>
+
           <button
             onClick={doRestart}
             className="p-1.5 rounded-full t-bg-overlay t-text-secondary hover:t-bg-overlay-hover transition-colors"
@@ -380,16 +416,26 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       <div ref={containerRef} className="flex-1 relative overflow-hidden">
         {containerSize.width > 0 && (
           <>
-            <FallingNotesCanvas
-              notes={song.notes}
-              timeRef={timeRef}
-              playing={isActive}
-              width={containerSize.width}
-              height={canvasHeight > 0 ? canvasHeight : 0}
-              activeNotes={input.activeNotes.current}
-              hitNotes={scoring.hitNotes.current}
-              missedNotes={scoring.missedNotes.current}
-            />
+            {viewMode === 'sheet' && sheetAvailable ? (
+              <SheetMusicDisplay
+                songMeta={song.meta}
+                timeRef={timeRef}
+                playing={isActive}
+                width={containerSize.width}
+                height={canvasHeight > 0 ? canvasHeight : 0}
+              />
+            ) : (
+              <FallingNotesCanvas
+                notes={song.notes}
+                timeRef={timeRef}
+                playing={isActive}
+                width={containerSize.width}
+                height={canvasHeight > 0 ? canvasHeight : 0}
+                activeNotes={input.activeNotes.current}
+                hitNotes={scoring.hitNotes.current}
+                missedNotes={scoring.missedNotes.current}
+              />
+            )}
             {gameState === 'playing' && (
               <ScoreOverlay score={liveScore} combo={liveCombo} lastRating={liveRating} />
             )}

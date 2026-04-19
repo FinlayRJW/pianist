@@ -50,6 +50,9 @@
   --sheet-staff: rgba(255, 255, 255, 0.25);
   --sheet-note: rgba(255, 255, 255, 0.85);
   --sheet-active: #818cf8;
+  --sheet-cursor: #818cf8;
+  --sheet-cursor-glow: rgba(129, 140, 248, 0.4);
+  --sheet-dim: 0.3;
   --canvas-next-col-rgb: 99, 102, 241;
 }
 
@@ -103,6 +106,9 @@
   --sheet-staff: rgba(0, 0, 0, 0.3);
   --sheet-note: rgba(0, 0, 0, 0.85);
   --sheet-active: #6366f1;
+  --sheet-cursor: #6366f1;
+  --sheet-cursor-glow: rgba(99, 102, 241, 0.3);
+  --sheet-dim: 0.25;
   --canvas-next-col-rgb: 79, 70, 229;
 }
 

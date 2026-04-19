@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 %lastupdated = #(strftime "%Y/%B/%d" (localtime (current-time)))
 footer = #(strftime "Mutopia-%Y/%B/%d-xxx" (localtime (current-time)))
 
@@ -22,7 +22,7 @@ footer = #(strftime "Mutopia-%Y/%B/%d-xxx" (localtime (current-time)))
  maintainerWeb          =       "http://www.roland-goretzki.de/"
 
  footer = "Mutopia-2018/05/15-743"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 \include "deutsch.ly"
@@ -35,15 +35,15 @@ global = { \key c \minor \time 4/4 s1*84 \bar "|." }
 oben = \change Staff = up
 unten = \change Staff = down
 % -- %
-Axdefault = \accidentalStyle "default"
-Axpiano = \accidentalStyle "piano"
+Axdefault = \accidentalStyle default
+Axpiano = \accidentalStyle piano
 % -- %
-KlammerAn = \override TupletBracket #'bracket-visibility = ##t
+KlammerAn = \override TupletBracket.bracket-visibility = ##t
 % -- %
-DecoratedHairpin = #(define-music-function (parser location text) (markup?)
+DecoratedHairpin = #(define-music-function (text) (markup?)
 #{
-\once\override Hairpin #'height = #'1.5
-\once\override Hairpin #'stencil = #(lambda (grob)
+\once\override Hairpin.height = #'1.5
+\once\override Hairpin.stencil = #(lambda (grob)
 (ly:stencil-aligned-to
 (ly:stencil-add
 (ly:stencil-aligned-to
@@ -61,9 +61,9 @@ rechts = \new Voice = "rechts" \relative c'{
 \set Staff.midiMinimumVolume = #-.5
 \set Staff.midiMaximumVolume = #1
   \tempo "Allegro con fuoco" 4 = 160
-  \set tupletSpannerDuration = #(ly:make-moment 1 4)
-  \override Accidental #'avoid-slur = #'around
-  \override Script #'avoid-slur = #'inside
+  \tupletSpan 4
+  \override Accidental.avoid-slur = #'around
+  \override Script.avoid-slur = #'inside
     <h' d f g h>2^>\f r                                           % Takt  1
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   r r4 <as es' f as>8.(\> <g g'>16)\!                               % Takt  2
@@ -73,7 +73,7 @@ rechts = \new Voice = "rechts" \relative c'{
   r r4 <as es' f as>8.(\> <g g'>16)\!                               % Takt  4
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <f' g d' f>8-.
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   as'16^>( [ g] f^> d es d h^> g as g f^> d es d                % Takt  5
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   h-> g as g f-> d es d \unten \voiceOne h!^> g as g f^> d es d   % Takt  6
@@ -119,7 +119,7 @@ rechts = \new Voice = "rechts" \relative c'{
      <g c es g>8. \< <g  c es g>16 \! ]        % Takt 21
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
    <as c es as>2^>( ~ <g  c es g>8) r16
    <c c'>16-\markup { \italic cresc. } ( [
     <d d'>8. <es es'>16) ]                                      % Takt 22
@@ -165,11 +165,11 @@ rechts = \new Voice = "rechts" \relative c'{
   <as' c f as>2\ff( <f c' f>4 <c f c'>)                         % Takt 37
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   
     <b f' b>2^>( ~ <as f' as>4) r                               % Takt 38
   %%%%%%%%%%%%% ----------------------------------------------- ---------
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   <as' c f as>2( <f c' f>4 <c f c'>)                            % Takt 39
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <c f c'>2.^> <h f' h>8.(\< <c c'>16)\!                            % Takt 40
@@ -183,7 +183,7 @@ rechts = \new Voice = "rechts" \relative c'{
   r r4 <as, es' f as>8.(\< <g g'>16)\!                              % Takt 44
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <f' g d' g>8-.
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   as'16^>[( g] f^> d es d h^> g as g f^> d es d                 % Takt 45
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   h-> g as g f-> d es d \unten \voiceOne h!^> g as g f^> d es d   % Takt 46
@@ -195,7 +195,7 @@ rechts = \new Voice = "rechts" \relative c'{
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   c8)\oben \oneVoice r r4 r2                                  % Takt 49
   %%%%%%%%%%%%% ----------------------------------------------- ---------
-    r2 r8 r16 <c'' c'>16(\f\< \times 2/3 { 
+    r2 r8 r16 <c'' c'>16(\f\< \tuplet 3/2 { 
     <cis  cis'>8 <d d'>8. <es es'>16) \! }                   % Takt 50
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \Axdefault
@@ -204,8 +204,8 @@ rechts = \new Voice = "rechts" \relative c'{
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \tupletUp \KlammerAn
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
-  <as c es as>2^>( ~ \times 2/3 { <g c es g>8-.)
+  \once\override Script.avoid-slur = #'around
+  <as c es as>2^>( ~ \tuplet 3/2 { <g c es g>8-.)
      <h h'>_( \f [ <c c'> ] 
     <cis cis'> [ \< <d d'>) r16 <es es'> \! ] }                 % Takt 52
   %%%%%%%%%%%%% ----------------------------------------------- ---------
@@ -213,41 +213,41 @@ rechts = \new Voice = "rechts" \relative c'{
     <g, c es g>16[\< <g c es g>8. <g c es g>16 \! ]             % Takt 53
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
     <a c es a>1^>(\fz                          % Takt 54
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   \tupletNeutral
   <a d a' d>8)\arpeggio-. r <g d' g >4^>
-    \times 2/3 { r8 <g des' g>[ <g des' g> ]
+    \tuplet 3/2 { r8 <g des' g>[ <g des' g> ]
     <g des' g>[ <as des as'>8 r16 <g des' g> ] }                % Takt 55
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <g c g'>16( <c c'>) r8 <f, c' f >4^>
-    \times 2/3 { r8 <f c' f> [ <f c' f> ] }
+    \tuplet 3/2 { r8 <f c' f> [ <f c' f> ] }
     <e c' e>16( [ \< <f c' f> <g c g'>) \! r32 <f c' f> ]       % Takt 56
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <e c' e>4-. << { <es es'>2^> ~ <es es'>8. <es es' >16}
-    \new Voice {\voiceFour \once \override NoteColumn #'force-hshift = #1.7
+    \new Voice {\voiceFour \once \override NoteColumn.force-hshift = #1.7
     c'2.} >>  % Takt 57
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   << { h2 } \\ {
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'inside
+  \once\override Script.avoid-slur = #'inside
     <es, es' >4(^> <d d'>) } >> r2                              % Takt 58
   %%%%%%%%%%%%% ----------------------------------------------- ---------
     R1                                                          % Takt 59
   %%%%%%%%%%%%% ----------------------------------------------- ---------
-  r2 \times 2/3 {  r8 \f  <h' h'>(
+  r2 \tuplet 3/2 {  r8 \f  <h' h'>(
     \< [ <c c'> ] <cis cis'> [ <d d'>) r16 <es  es'> \! ] }     % Takt 60
   %%%%%%%%%%%%% ----------------------------------------------- ---------
     <es es'>2^> r8 r16_\p
       <g,  c es g>16[\< <g c es g>8. <g  c es g>16 \! ]         % Takt 61
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   
-    <as c es as>2^>( ~ \times 2/3 { <g c es g>8)-.
+    <as c es as>2^>( ~ \tuplet 3/2 { <g c es g>8)-.
      <h h'> \f [  <c c'> \<
     ] } <cis cis'>16[( <d d'> <f f'>) \! r32 <es es'> ]         % Takt 62
   %%%%%%%%%%%%% ----------------------------------------------- ---------
@@ -260,19 +260,19 @@ rechts = \new Voice = "rechts" \relative c'{
     s \< s s4 s16 
     s s8. s16 s \! s } >>           % Takt 64
   %%%%%%%%%%%%% ----------------------------------------------- ---------
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
   <b des b'>2^>( \ff <as b des as'>4
     <ges b des ges>8. <f b des f>16)                            % Takt 65
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
     <f \> b des f>2^>( ~ <e b' e>4) r                           % Takt 66
   %%%%%%%%%%%%% ----------------------------------------------- ---------
    <as ces fes as>2( \f <ges as ces ges'>4
     <fes as ces fes>8. <es as ces es>16)                        % Takt 67
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   \once\set doubleSlurs = ##t
-  \once\override Script #'avoid-slur = #'around
+  \once\override Script.avoid-slur = #'around
     <es as ces es>2^>( ~ <d as' d>4) r                          % Takt 68
   %%%%%%%%%%%%% ----------------------------------------------- ---------
   <g! es' g!>1^>\sf                      % Takt 69
@@ -343,10 +343,10 @@ rechts = \new Voice = "rechts" \relative c'{
 }
 
 links = \new Voice = "links" \relative c{
-  \override DynamicLineSpanner #'avoid-slur = #'inside
-  \override DynamicLineSpanner #'outside-staff-priority = ##f
+  \override DynamicLineSpanner.avoid-slur = #'inside
+  \override DynamicLineSpanner.outside-staff-priority = ##f
   \slurDown
-  \once\override Script #'stencil = ##f % an invisible forte sign for the midi
+  \once\override Script.stencil = ##f % an invisible forte sign for the midi
     r8\f as''16^>^\markup { \italic legatissimo }(
     g f^> d es d h^> g as g f^> d es d                          % Takt  1
   %%%%%%%%%%%%% ----------------------------------------------- ---------
@@ -606,8 +606,8 @@ links = \new Voice = "links" \relative c{
   \layout {
      \context {
        \Score
-       \override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1 2)
-       \override SpacingSpanner #'shortest-duration-space = #1.5
+       \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+       \override SpacingSpanner.shortest-duration-space = #1.5
      }
   }
   \midi {

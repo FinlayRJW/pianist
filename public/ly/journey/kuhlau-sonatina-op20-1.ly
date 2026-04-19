@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 #(set-global-staff-size 16)
 \include "nederlands.ly"
 \header {
@@ -19,20 +19,20 @@
   maintainerEmail   = "basvanlola@zonnet.com"
 
  footer = "Mutopia-2013/02/21-232"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 Global =  {\key c\major \time 4/4}
 
-TupsOn =  {%\once \override TupletBracket   #'bracket-visibility = #'if-no-beam
-           \once \override TupletNumber   #'text = "3"}
+TupsOn =  {%\once \override TupletBracket.bracket-visibility = #'if-no-beam
+           \once \override TupletNumber.text = "3"}
 
 dolce = \markup {\italic "dolce"}
 
 VoiceI =  \relative c'' {
-  \set tupletSpannerDuration = #(ly:make-moment 1 4)
-  \override TupletBracket   #'bracket-visibility = #'if-no-beam
-  \override TupletNumber   #'text = ""
+  \tupletSpan 4
+  \override TupletBracket.bracket-visibility = #'if-no-beam
+  \override TupletNumber.text = ""
   \repeat volta 2 {
 
   c2_\p e
@@ -50,7 +50,7 @@ VoiceI =  \relative c'' {
   r g <d' f> g, <d' f> g, <d' f> g,
   r g <d' f> g, <d' f> g, <d' f> g,
 
-  \times 2/3 {\TupsOn r8 g_\f c es c g  es' c g es' c g
+  \tuplet 3/2 {\TupsOn r8 g_\f c es c g  es' c g es' c g
   \TupsOn r g c es c g es' c g es' c g
   \TupsOn r a c d c a d c a d c a
   \TupsOn r a c d c a d c a d c a}
@@ -112,7 +112,7 @@ VoiceI =  \relative c'' {
 
   r g <d' f> g, <d' f> g, <d' f> g,
   r g <d' f> g, <d' f> g, <d' f> g,
-  \times 2/3 {\TupsOn r8_\f g c es c g es' c g es' c g
+  \tuplet 3/2 {\TupsOn r8_\f g c es c g es' c g es' c g
   \TupsOn r g c es c g es' c g es' c g
 
   \TupsOn r g d' f d g, f' d g, f' d g,

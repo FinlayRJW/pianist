@@ -2,10 +2,7 @@ import type { SongCatalogEntry } from './types';
 
 export const romanticSongs: SongCatalogEntry[] = [
   // Difficulty 3
-  { id: 'burgmuller-arabesque', title: 'Arabesque, Op. 100 No. 2', composer: 'Friedrich Burgmüller', genre: 'romantic', difficulty: 3, bpm: 140, durationSec: 55, keySignature: 'Am', tags: ['burgmuller', 'etude', 'teaching-piece'], mutopiaPath: 'BurgmullerJFF/O100/25EF-02/25EF-02' },
-  { id: 'schumann-traumerei', title: 'Träumerei (Kinderszenen No. 7)', composer: 'Robert Schumann', genre: 'romantic', difficulty: 3, bpm: 56, durationSec: 160, keySignature: 'F', tags: ['schumann', 'kinderszenen', 'lyrical', 'two-hands'], mutopiaPath: 'SchumannR/O15/SchumannOp15No07/SchumannOp15No07' },
   { id: 'mendelssohn-song-spring', title: 'Spring Song (Songs Without Words)', composer: 'Felix Mendelssohn', genre: 'romantic', difficulty: 3, bpm: 80, durationSec: 150, keySignature: 'A', tags: ['mendelssohn', 'songs-without-words', 'two-hands'], mutopiaPath: 'Mendelssohn-BartholdyF/O53/SongWW_opus53no5/SongWW_opus53no5' },
-  { id: 'chopin-prelude-e-minor', title: 'Prelude Op. 28 No. 4 in E Minor', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 3, bpm: 55, durationSec: 120, keySignature: 'Em', tags: ['chopin', 'prelude', 'two-hands'], mutopiaPath: 'ChopinFF/O28/Chop-28-4/Chop-28-4' },
   { id: 'chopin-mazurka-op6-1', title: 'Mazurka Op. 6 No. 1', composer: 'Frédéric Chopin', genre: 'romantic', difficulty: 3, bpm: 132, durationSec: 100, timeSignature: [3, 4], keySignature: 'F#m', tags: ['chopin', 'mazurka', 'two-hands'], mutopiaPath: 'ChopinFF/O6/Mazurka-Op6-No1/Mazurka-Op6-No1' },
   { id: 'liszt-consolation-1', title: 'Consolation No. 1 in E Major', composer: 'Franz Liszt', genre: 'romantic', difficulty: 3, bpm: 52, durationSec: 180, keySignature: 'E', tags: ['liszt', 'consolation', 'lyrical', 'two-hands'], mutopiaPath: 'LisztF/S.172/liszt-consolation-no1/liszt-consolation-no1' },
 

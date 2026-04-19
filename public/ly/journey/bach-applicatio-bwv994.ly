@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.24.0"
 
 \header {
   enteredby = 	"Allen Garvin"
@@ -17,7 +17,7 @@
   mutopiacomposer =   "BachJS"
   mutopiaopus =       "BWV 994"
  footer = "Mutopia-2007/04/22-66"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
 voiceone = \relative c' {
@@ -29,9 +29,9 @@ voiceone = \relative c' {
     c[\mordent d e f]\prallmordent g4 g, |			% bar 2
     <<
        {
-         \override Voice.Script #'padding = #2
+         \override Voice.Script.padding = #2
          <c\mordent e>2 <b\mordent d>
-         \revert Voice.Script #'padding
+         \revert Voice.Script.padding
        } \\
        { r4 g r g }
     >> |							% bar 3
@@ -102,9 +102,6 @@ voicetwo = \relative c {
   \layout {}
 
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 85 4)
-    }
+    \tempo 4 = 85
   }
 }

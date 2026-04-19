@@ -1,4 +1,4 @@
-\version "2.16.1"
+\version "2.24.0"
 
 \header{
   filename      =       "w10-h-moll-cfi.ly"
@@ -18,7 +18,7 @@
  maintainerEmail = "roland@roland-goretzki.de"
 
  footer = "Mutopia-2013/03/23-511"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
+ tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-column { \small \line { Sheet music from \with-url "http://www.MutopiaProject.org" \line { \concat { \teeny www. \normalsize MutopiaProject \teeny .org } \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url "http://www.LilyPond.org" \line { \concat { \teeny www. \normalsize LilyPond \teeny .org }} by \concat { \maintainer . } \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details \concat { see: \hspace #0.3 \with-url "http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } } }
 }
 
 \include "deutsch.ly"
@@ -65,7 +65,7 @@ global =  {
 rechts =  \context Staff \relative c'{
   \tempo "Moderato" 4 = 152
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \override Score.TextScript #'font-shape = #'italic
+  \override Score.TextScript.font-shape = #'italic
   \set Score.alternativeNumberingStyle = #'numbers
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,8 +144,8 @@ rechts =  \context Staff \relative c'{
    a!
 -4 %FINGER
   ( g
-  \override TextSpanner #'(bound-details left text) = "poco rit."
-  \override TextSpanner #'(bound-details right text) = \atempo
+  \override TextSpanner.bound-details.left.text = "poco rit."
+  \override TextSpanner.bound-details.right.text = \atempo
   h,
 -1 %FINGER
   \startTextSpan cis d  e
@@ -481,7 +481,7 @@ _3 %FINGER
 -2 %FINGER
   )
 %_______________________________________________________________ Takt 61 __ > % (93)
-  \override TextSpanner #'(bound-details right text) = ##f
+  \override TextSpanner.bound-details.right.text = ##f
      a!
 -4 %FINGER
   ( g \startTextSpan
@@ -844,7 +844,7 @@ _3 %FINGER
 -1 %FINGER
   )
 %_______________________________________________________________ Takt 29 __ > !! Takt 109 __ > % (141)
-  \override TextSpanner #'(bound-details right text) = \atempo
+  \override TextSpanner.bound-details.right.text = \atempo
   a!
 -4 %FINGER
   ( g
