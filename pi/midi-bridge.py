@@ -15,8 +15,9 @@ import signal
 import socket
 
 import mido
-import websockets
-from zeroconf import ServiceInfo, Zeroconf
+from websockets.asyncio.server import serve, ServerConnection
+from zeroconf.asyncio import AsyncZeroconf
+from zeroconf import ServiceInfo
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,7 +26,7 @@ logging.basicConfig(
 )
 log = logging.getLogger("midi-bridge")
 
-clients: set[websockets.WebSocketServerProtocol] = set()
+clients: set[ServerConnection] = set()
 device_name: str | None = None
 
 
@@ -48,7 +49,7 @@ def broadcast(message: dict) -> None:
     for ws in clients:
         try:
             ws.send_nowait(data)
-        except websockets.ConnectionClosed:
+        except Exception:
             dead.add(ws)
     clients.difference_update(dead)
 
@@ -97,7 +98,7 @@ async def midi_reader(preferred_device: str | None) -> None:
             await asyncio.sleep(2)
 
 
-async def ws_handler(ws: websockets.WebSocketServerProtocol) -> None:
+async def ws_handler(ws: ServerConnection) -> None:
     clients.add(ws)
     log.info("Client connected (%d total)", len(clients))
 
@@ -110,18 +111,17 @@ async def ws_handler(ws: websockets.WebSocketServerProtocol) -> None:
             msg = json.loads(raw)
             if msg.get("type") == "ping":
                 await ws.send(json.dumps({"type": "pong"}))
-    except websockets.ConnectionClosed:
+    except Exception:
         pass
     finally:
         clients.discard(ws)
         log.info("Client disconnected (%d remaining)", len(clients))
 
 
-def register_mdns(port: int) -> Zeroconf:
+async def register_mdns(port: int) -> AsyncZeroconf:
     ip = get_local_ip()
     log.info("Local IP: %s", ip)
 
-    zc = Zeroconf()
     info = ServiceInfo(
         "_midi-bridge._tcp.local.",
         "Piano MIDI Bridge._midi-bridge._tcp.local.",
@@ -129,20 +129,21 @@ def register_mdns(port: int) -> Zeroconf:
         port=port,
         properties={"version": "1"},
     )
-    zc.register_service(info)
+    azc = AsyncZeroconf()
+    await azc.async_register_service(info)
     log.info("mDNS registered: _midi-bridge._tcp on port %d", port)
-    return zc
+    return azc
 
 
 async def main(port: int, preferred_device: str | None) -> None:
-    zc = register_mdns(port)
+    azc = await register_mdns(port)
 
     stop = asyncio.Event()
     loop = asyncio.get_event_loop()
     for sig in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(sig, stop.set)
 
-    async with websockets.serve(ws_handler, "0.0.0.0", port):
+    async with serve(ws_handler, "0.0.0.0", port):
         log.info("WebSocket server listening on port %d", port)
         midi_task = asyncio.create_task(midi_reader(preferred_device))
 
@@ -154,8 +155,8 @@ async def main(port: int, preferred_device: str | None) -> None:
         except asyncio.CancelledError:
             pass
 
-    zc.unregister_all_services()
-    zc.close()
+    await azc.async_unregister_all_services()
+    await azc.async_close()
     log.info("Shutdown complete")
 
 
