@@ -86,7 +86,7 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
 
   const svgContent = svgContents[fs.pageIdx];
   const [pageW, pageH] = fs.viewBox;
-  const svgWidth = width * 0.92;
+  const svgWidth = width * 0.85;
   const svgScale = svgWidth / pageW;
   const fullSvgHeight = pageH * svgScale;
   const svgLeftOffset = (width - svgWidth) / 2;
