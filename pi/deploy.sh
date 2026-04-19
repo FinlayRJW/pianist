@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
+
 REPO="https://github.com/FinlayRJW/pianist.git"
 APP_DIR="/home/finlay/midi-bridge"
 REPO_DIR="$APP_DIR/repo"
