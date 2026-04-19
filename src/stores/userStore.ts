@@ -5,12 +5,14 @@ import {
   createUser as apiCreateUser,
   deleteUser as apiDeleteUser,
   fetchProgress,
+  fetchSettings,
+  saveProgress,
+  saveSettings,
   type PiUser,
 } from '../services/piApi';
 import { useProgressStore } from './progressStore';
 import { useImportedSongsStore } from './importedSongsStore';
 import { useOnboardingStore } from './onboardingStore';
-import { saveProgress } from '../services/piApi';
 
 const LAST_USER_KEY = 'pianist-last-user';
 
@@ -63,17 +65,25 @@ export const useUserStore = create<UserStore>()((set, get) => ({
     try {
       if (currentUser) {
         const ps = useProgressStore.getState();
-        await saveProgress(currentUser.id, {
-          version: 3,
-          scores: ps.scores,
-          bestStars: ps.bestStars,
-          adventureBestStars: ps.adventureBestStars,
-          journeyBestStars: ps.journeyBestStars,
-        }).catch(() => {});
+        const ob = useOnboardingStore.getState();
+        await Promise.all([
+          saveProgress(currentUser.id, {
+            version: 3,
+            scores: ps.scores,
+            bestStars: ps.bestStars,
+            adventureBestStars: ps.adventureBestStars,
+            journeyBestStars: ps.journeyBestStars,
+          }).catch(() => {}),
+          saveSettings(currentUser.id, ob.exportSettings()).catch(() => {}),
+        ]);
       }
 
-      const progress = await fetchProgress(userId);
+      const [progress, settings] = await Promise.all([
+        fetchProgress(userId),
+        fetchSettings(userId).catch(() => ({})),
+      ]);
       useProgressStore.getState().importProgress(JSON.stringify(progress));
+      useOnboardingStore.getState().importSettings(settings);
       await useImportedSongsStore.getState().syncFromPi();
 
       const onboarding = useOnboardingStore.getState();
@@ -111,14 +121,16 @@ export const useUserStore = create<UserStore>()((set, get) => ({
     const { currentUser } = get();
     if (currentUser) {
       const ps = useProgressStore.getState();
+      const ob = useOnboardingStore.getState();
       saveProgress(currentUser.id, {
         version: 3,
         scores: ps.scores,
         bestStars: ps.bestStars,
         adventureBestStars: ps.adventureBestStars,
         journeyBestStars: ps.journeyBestStars,
-        onboardingCompleted: useOnboardingStore.getState().completed,
+        onboardingCompleted: ob.completed,
       }).catch(() => {});
+      saveSettings(currentUser.id, ob.exportSettings()).catch(() => {});
     }
     set({ currentUser: null });
     localStorage.removeItem(LAST_USER_KEY);

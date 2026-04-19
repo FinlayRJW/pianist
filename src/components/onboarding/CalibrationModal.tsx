@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { MidiBridgeSettings } from './MidiBridgeSettings';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
+import { useUserStore } from '../../stores/userStore';
 import { JOURNEY_STEPS, getStepSongIds, getNextIncompleteStep, isFirstNotesComplete, isJourneyComplete } from '../../data/journey';
 
 interface Props {
@@ -179,7 +180,7 @@ export function CalibrationModal({ onClose }: Props) {
         </div>
 
         {/* Dev tools */}
-        {import.meta.env.DEV && (
+        {(import.meta.env.DEV || useUserStore.getState().currentUser?.name.toLowerCase() === 'dev') && (
           <div>
             <label className="text-xs font-medium t-text-secondary block mb-2">Dev Tools</label>
             <DevFreePlayToggle />

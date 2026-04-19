@@ -111,6 +111,9 @@ async def api_delete_user(request: web.Request) -> web.Response:
     progress_file = data_path / "progress" / f"{user_id}.json"
     if progress_file.exists():
         progress_file.unlink()
+    settings_file = data_path / "settings" / f"{user_id}.json"
+    if settings_file.exists():
+        settings_file.unlink()
 
     return web.Response(status=204)
 
@@ -141,6 +144,28 @@ async def api_put_progress(request: web.Request) -> web.Response:
     progress_file = data_path / "progress" / f"{user_id}.json"
     async with get_lock(f"progress-{user_id}"):
         write_json_atomic(progress_file, body)
+    return web.Response(status=204)
+
+
+async def api_get_settings(request: web.Request) -> web.Response:
+    user_id = request.match_info["user_id"]
+    settings_file = data_path / "settings" / f"{user_id}.json"
+    async with get_lock(f"settings-{user_id}"):
+        settings = read_json(settings_file, {})
+    return web.json_response(settings)
+
+
+async def api_put_settings(request: web.Request) -> web.Response:
+    user_id = request.match_info["user_id"]
+    users_file = data_path / "users.json"
+    users = read_json(users_file, [])
+    if not any(u["id"] == user_id for u in users):
+        return web.json_response({"error": "User not found"}, status=404)
+
+    body = await request.json()
+    settings_file = data_path / "settings" / f"{user_id}.json"
+    async with get_lock(f"settings-{user_id}"):
+        write_json_atomic(settings_file, body)
     return web.Response(status=204)
 
 
@@ -404,6 +429,7 @@ async def main(port: int, preferred_device: str | None, www_dir: str | None, dat
     data_path = Path(data_dir).resolve()
     data_path.mkdir(parents=True, exist_ok=True)
     (data_path / "progress").mkdir(exist_ok=True)
+    (data_path / "settings").mkdir(exist_ok=True)
     (data_path / "songs").mkdir(exist_ok=True)
     (data_path / "songs" / "midi").mkdir(exist_ok=True)
     log.info("Data directory: %s", data_path)
@@ -417,6 +443,8 @@ async def main(port: int, preferred_device: str | None, www_dir: str | None, dat
     app.router.add_delete("/api/users/{user_id}", api_delete_user)
     app.router.add_get("/api/users/{user_id}/progress", api_get_progress)
     app.router.add_put("/api/users/{user_id}/progress", api_put_progress)
+    app.router.add_get("/api/users/{user_id}/settings", api_get_settings)
+    app.router.add_put("/api/users/{user_id}/settings", api_put_settings)
     app.router.add_get("/api/songs", api_list_songs)
     app.router.add_post("/api/songs", api_create_song)
     app.router.add_delete("/api/songs/{song_id}", api_delete_song)

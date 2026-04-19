@@ -80,6 +80,27 @@ export async function saveProgress(userId: string, data: ProgressData): Promise<
   });
 }
 
+// ── Settings ──
+
+export interface UserSettings {
+  theme?: 'dark' | 'light';
+  viewMode?: 'waterfall' | 'sheet' | 'combined';
+  octaveEquivalence?: boolean;
+  autoPlaySound?: boolean;
+}
+
+export async function fetchSettings(userId: string): Promise<UserSettings> {
+  const res = await apiFetch(`/users/${userId}/settings`);
+  return res.json();
+}
+
+export async function saveSettings(userId: string, data: UserSettings): Promise<void> {
+  await apiFetch(`/users/${userId}/settings`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
 // ── Songs ──
 
 export async function fetchSongs(): Promise<SongMeta[]> {

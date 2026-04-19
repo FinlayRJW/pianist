@@ -33,7 +33,8 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const navigate = useNavigate();
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
+  const autoPlayEnabled = useOnboardingStore((s) => s.autoPlaySound);
+  const setAutoPlayEnabled = useOnboardingStore((s) => s.setAutoPlaySound);
   const [speed, setSpeedState] = useState(1);
   const [results, setResults] = useState<SongScore | null>(null);
   const [liveScore, setLiveScore] = useState(0);
@@ -261,7 +262,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
           <ToggleSwitch
             label="Sound"
             enabled={autoPlayEnabled}
-            onToggle={() => { Tone.start(); setAutoPlayEnabled((v) => !v); }}
+            onToggle={() => { Tone.start(); setAutoPlayEnabled(!autoPlayEnabled); }}
           />
 
           <div className="relative group">
