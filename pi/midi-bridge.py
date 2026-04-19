@@ -244,10 +244,15 @@ def serve_static_file(request_path: str) -> web.Response:
 
     path = request_path.split("?")[0]
 
+    if path == "/" or path == "":
+        raise web.HTTPFound("/pianist/")
+
     if path.startswith("/pianist/"):
         path = path[len("/pianist"):]
     elif path == "/pianist":
         path = "/"
+    else:
+        raise web.HTTPNotFound()
 
     file_path = www_path / path.lstrip("/")
 
