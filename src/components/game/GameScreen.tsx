@@ -375,7 +375,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                 </svg>
               )}
             </button>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg bg-black/90 text-xs text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20 shadow-xl">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg bg-black/90 text-xs text-white/70 font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20 shadow-xl">
               {sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
             </div>
           </div>
