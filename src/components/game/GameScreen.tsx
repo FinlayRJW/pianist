@@ -46,6 +46,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const [countdownNum, setCountdownNum] = useState<number | null>(null);
   const [showCalibrationModal, setShowCalibrationModal] = useState(false);
   const wasPlayingRef = useRef(false);
+  const prevScoreRef = useRef(0);
+  const prevComboRef = useRef(0);
+  const prevRatingTimeRef = useRef<number | null>(null);
   const headphonesMode = useOnboardingStore((s) => s.headphonesMode);
   const setHeadphonesMode = useOnboardingStore((s) => s.setHeadphonesMode);
   const viewMode = useOnboardingStore((s) => s.viewMode);
@@ -105,10 +108,20 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         scoring.checkMisses();
         scoring.checkSustain(input.activeNotes.current);
       }
-      setLiveScore(scoring.scoreRef.current);
-      setLiveCombo(scoring.comboRef.current);
-      if (scoring.lastRatingRef.current) {
-        setLiveRating({ ...scoring.lastRatingRef.current });
+      const score = scoring.scoreRef.current;
+      const combo = scoring.comboRef.current;
+      const rating = scoring.lastRatingRef.current;
+      if (score !== prevScoreRef.current) {
+        prevScoreRef.current = score;
+        setLiveScore(score);
+      }
+      if (combo !== prevComboRef.current) {
+        prevComboRef.current = combo;
+        setLiveCombo(combo);
+      }
+      if (rating && rating.time !== prevRatingTimeRef.current) {
+        prevRatingTimeRef.current = rating.time;
+        setLiveRating({ ...rating });
       }
       const t = timeRef.current ?? 0;
       if (t < 0) {
@@ -323,7 +336,6 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
           </select>
 
           {/* View mode toggle */}
-          <span title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}>
           <button
             onClick={() => {
               if (!sheetAvailable) return;
@@ -335,7 +347,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                 ? 'bg-accent/20 text-accent-light'
                 : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
             } ${!sheetAvailable ? 'opacity-40 cursor-not-allowed' : ''}`}
-            disabled={!sheetAvailable}
+            title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
           >
             {viewMode === 'sheet' && sheetAvailable ? (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -357,7 +369,6 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
               </svg>
             )}
           </button>
-          </span>
 
           <button
             onClick={doRestart}
