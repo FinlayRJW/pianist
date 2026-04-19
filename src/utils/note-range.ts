@@ -4,7 +4,6 @@ import { isBlackKey } from '../canvas/PianoKeyRenderer';
 
 const MIN_SEMITONES = 24;
 const PAD_SEMITONES = 5;
-const FULL_WHITE_KEYS = 52;
 
 export function countWhiteKeys(range: NoteRange): number {
   let count = 0;
