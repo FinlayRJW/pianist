@@ -86,18 +86,17 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
 
   const svgContent = svgContents[fs.pageIdx];
   const [pageW, pageH] = fs.viewBox;
-  const svgScale = width / pageW;
+  const svgWidth = width * 0.92;
+  const svgScale = svgWidth / pageW;
   const fullSvgHeight = pageH * svgScale;
+  const svgLeftOffset = (width - svgWidth) / 2;
 
   const sysTopPx = fs.system.y * svgScale;
   const sysHeightPx = fs.system.height * svgScale;
 
-  // Center the current system vertically in the viewport, with a slight
-  // upward bias so the next system peeks in below
   const paddingAbove = Math.max(0, (height - sysHeightPx) * 0.35);
   const scrollY = -sysTopPx + paddingAbove;
 
-  // Disable transition on page change (different SVG content)
   const pageChanged = fs.pageIdx !== prevPageRef.current;
   prevPageRef.current = fs.pageIdx;
 
@@ -109,8 +108,9 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height }: Props) {
       <div
         ref={innerRef}
         style={{
-          width,
+          width: svgWidth,
           height: fullSvgHeight,
+          marginLeft: svgLeftOffset,
           transform: `translateY(${scrollY}px)`,
           transition: pageChanged ? 'none' : 'transform 0.4s ease',
           color: 'var(--sheet-note)',
