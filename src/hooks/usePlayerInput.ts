@@ -84,6 +84,7 @@ export function usePlayerInput(
     rmsLevel: usingMidi ? 0 : mic.rmsLevel,
     clarity: usingMidi ? 0 : mic.clarity,
     usingMidi,
+    hasBridgeConfig,
     midiConnected: midi.isConnected,
     midiBridgeConnected: bridge.isConnected,
     midiDeviceName: usingBridge ? bridge.deviceName : midi.deviceName,

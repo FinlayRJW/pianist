@@ -84,6 +84,10 @@ export function useMicInput(
 
   const startListening = useCallback(async () => {
     try {
+      if (!navigator.mediaDevices?.getUserMedia) {
+        setState((prev) => ({ ...prev, error: 'Microphone not available on this device', isListening: false }));
+        return;
+      }
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: false,

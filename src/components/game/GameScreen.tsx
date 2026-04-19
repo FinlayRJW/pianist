@@ -65,7 +65,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   const input = usePlayerInput(inputMode, micNotMuted, sensitivityRef);
   const scoring = useScoring(song.notes, timeRef, input.usingMidi, speedRef);
 
-  const showMicControls = !input.usingMidi;
+  const showMicControls = !input.usingMidi && !input.hasBridgeConfig;
 
   useEffect(() => {
     return input.onNoteOn((midi) => {
@@ -287,9 +287,11 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
           </div>
 
           {/* MIDI status */}
-          {input.usingMidi && (
-            <span className="text-[9px] text-emerald-400 max-w-[100px] truncate">
-              {input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI'}
+          {(input.usingMidi || input.hasBridgeConfig) && (
+            <span className={`text-[9px] max-w-[100px] truncate ${input.isListening ? 'text-emerald-400' : 'text-yellow-400'}`}>
+              {input.isListening
+                ? (input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI')
+                : 'Reconnecting...'}
             </span>
           )}
 
@@ -414,7 +416,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       {/* MIDI not connected warning when in MIDI-only mode */}
       {inputMode === 'midi' && !input.midiConnected && !input.midiBridgeConnected && (
         <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
-          No MIDI device detected. Connect a MIDI keyboard, or set up a MIDI Bridge in Settings.
+          {input.hasBridgeConfig
+            ? 'Reconnecting to MIDI Bridge...'
+            : 'No MIDI device detected. Connect a MIDI keyboard, or set up a MIDI Bridge in Settings.'}
         </div>
       )}
 
