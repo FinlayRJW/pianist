@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useMidiInput } from '../../hooks/useMidiInput';
+import { useWebSocketMidi } from '../../hooks/useWebSocketMidi';
 import { useMicInput } from '../../hooks/useMicInput';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 
@@ -83,7 +84,10 @@ function noteColor(midi: number): string {
 
 export function HandPlacementStep({ hasMidi, onFinish }: Props) {
   const calibration = useOnboardingStore((s) => s.calibration);
+  const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
   const midi = useMidiInput(hasMidi);
+  const bridge = useWebSocketMidi(hasMidi ? midiBridgeUrl : null);
+  const activeMidi = midi.isConnected ? midi : bridge;
   const mic = useMicInput(!hasMidi, undefined, calibration);
   const [floatingNotes, setFloatingNotes] = useState<FloatingNote[]>([]);
   const [activeKeys, setActiveKeys] = useState<Set<number>>(new Set());
@@ -115,11 +119,11 @@ export function HandPlacementStep({ hasMidi, onFinish }: Props) {
 
   useEffect(() => {
     if (!hasMidi) return;
-    midi.onNoteOn.current = (midiNote: number) => {
+    activeMidi.onNoteOn.current = (midiNote: number) => {
       setActiveKeys((prev) => new Set(prev).add(midiNote));
       spawnFloat(midiNote);
     };
-    midi.onNoteOff.current = (midiNote: number) => {
+    activeMidi.onNoteOff.current = (midiNote: number) => {
       setActiveKeys((prev) => {
         const next = new Set(prev);
         next.delete(midiNote);
@@ -127,10 +131,10 @@ export function HandPlacementStep({ hasMidi, onFinish }: Props) {
       });
     };
     return () => {
-      midi.onNoteOn.current = null;
-      midi.onNoteOff.current = null;
+      activeMidi.onNoteOn.current = null;
+      activeMidi.onNoteOff.current = null;
     };
-  }, [hasMidi, midi, spawnFloat]);
+  }, [hasMidi, activeMidi, spawnFloat]);
 
   useEffect(() => {
     if (hasMidi) return;

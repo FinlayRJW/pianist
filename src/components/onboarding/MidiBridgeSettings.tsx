@@ -1,13 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useOnboardingStore } from '../../stores/onboardingStore';
-
-type Status = 'idle' | 'connecting' | 'connected' | 'error';
-
-function buildWsUrl(address: string): string {
-  const trimmed = address.trim();
-  if (trimmed.startsWith('ws://') || trimmed.startsWith('wss://')) return trimmed;
-  return `ws://${trimmed}:3141`;
-}
+import {
+  buildWsUrl,
+  defaultBridgeAddress,
+  stripWsUrl,
+  testBridgeConnection,
+  type BridgeTestStatus,
+} from '../../utils/midi-bridge';
 
 export function MidiBridgeSettings() {
   const midiBridgeUrl = useOnboardingStore((s) => s.midiBridgeUrl);
@@ -16,42 +15,28 @@ export function MidiBridgeSettings() {
   const enabled = midiBridgeUrl !== null;
   const [address, setAddress] = useState(() => {
     if (!midiBridgeUrl) return '';
-    return midiBridgeUrl.replace(/^wss?:\/\//, '').replace(/:3141$/, '');
+    return stripWsUrl(midiBridgeUrl);
   });
-  const [testStatus, setTestStatus] = useState<Status>('idle');
+  const [testStatus, setTestStatus] = useState<BridgeTestStatus>('idle');
   const [testDevice, setTestDevice] = useState<string | null>(null);
-  const testWsRef = useRef<WebSocket | null>(null);
-  const testTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cleanupRef = useRef<(() => void) | null>(null);
 
-  const cleanupTest = useCallback(() => {
-    if (testTimerRef.current) {
-      clearTimeout(testTimerRef.current);
-      testTimerRef.current = null;
-    }
-    if (testWsRef.current) {
-      testWsRef.current.onopen = null;
-      testWsRef.current.onclose = null;
-      testWsRef.current.onerror = null;
-      testWsRef.current.onmessage = null;
-      testWsRef.current.close();
-      testWsRef.current = null;
-    }
+  useEffect(() => {
+    return () => cleanupRef.current?.();
   }, []);
-
-  useEffect(() => cleanupTest, [cleanupTest]);
 
   const handleToggle = useCallback(() => {
     if (enabled) {
       setMidiBridgeUrl(null);
       setTestStatus('idle');
       setTestDevice(null);
-      cleanupTest();
+      cleanupRef.current?.();
     } else {
-      const addr = address.trim() || 'pianobridge.local';
-      if (!address.trim()) setAddress('pianobridge.local');
+      const addr = address.trim() || defaultBridgeAddress();
+      if (!address.trim()) setAddress(addr);
       setMidiBridgeUrl(buildWsUrl(addr));
     }
-  }, [enabled, address, setMidiBridgeUrl, cleanupTest]);
+  }, [enabled, address, setMidiBridgeUrl]);
 
   const handleAddressBlur = useCallback(() => {
     if (!enabled || !address.trim()) return;
@@ -65,51 +50,15 @@ export function MidiBridgeSettings() {
   }, []);
 
   const handleTest = useCallback(() => {
-    cleanupTest();
-    const url = buildWsUrl(address.trim() || 'pianobridge.local');
-    setTestStatus('connecting');
-    setTestDevice(null);
-
-    try {
-      const ws = new WebSocket(url);
-      testWsRef.current = ws;
-
-      testTimerRef.current = setTimeout(() => {
-        setTestStatus('error');
-        cleanupTest();
-      }, 5000);
-
-      ws.onmessage = (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg.type === 'hello') {
-            setTestStatus('connected');
-            setTestDevice(msg.device ?? 'Unknown device');
-            if (testTimerRef.current) {
-              clearTimeout(testTimerRef.current);
-              testTimerRef.current = null;
-            }
-            setTimeout(() => cleanupTest(), 3000);
-          }
-        } catch {
-          // ignore
-        }
-      };
-
-      ws.onerror = () => {
-        setTestStatus('error');
-        cleanupTest();
-      };
-
-      ws.onclose = () => {
-        if (testStatus === 'connecting') {
-          setTestStatus('error');
-        }
-      };
-    } catch {
-      setTestStatus('error');
-    }
-  }, [address, cleanupTest, testStatus]);
+    cleanupRef.current?.();
+    cleanupRef.current = testBridgeConnection(
+      address.trim(),
+      ({ status, device }) => {
+        setTestStatus(status);
+        if (device) setTestDevice(device);
+      },
+    );
+  }, [address]);
 
   return (
     <div className="space-y-3">
@@ -144,7 +93,7 @@ export function MidiBridgeSettings() {
               onChange={(e) => setAddress(e.target.value)}
               onBlur={handleAddressBlur}
               onKeyDown={handleAddressKeyDown}
-              placeholder="pianobridge.local"
+              placeholder={defaultBridgeAddress()}
               className="flex-1 px-3 py-1.5 rounded-lg t-bg-overlay t-text text-xs border t-border-light outline-none focus:border-accent/50 transition-colors placeholder:t-text-muted"
             />
             <button

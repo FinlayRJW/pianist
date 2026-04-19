@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from 'react';
 interface Props {
   onMidiFound: (deviceName: string) => void;
   onNoMidi: () => void;
+  onUseBridge: () => void;
 }
 
-export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
+export function MidiCheckStep({ onMidiFound, onNoMidi, onUseBridge }: Props) {
   const [status, setStatus] = useState<'scanning' | 'found' | 'not-found'>('scanning');
   const [deviceName, setDeviceName] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -134,12 +135,20 @@ export function MidiCheckStep({ onMidiFound, onNoMidi }: Props) {
       )}
 
       {status === 'not-found' && (
-        <button
-          onClick={onNoMidi}
-          className="px-8 py-3 rounded-full bg-accent text-white font-semibold text-lg hover:bg-accent-light transition-colors"
-        >
-          Set Up Microphone
-        </button>
+        <div className="flex flex-col gap-3 items-center">
+          <button
+            onClick={onUseBridge}
+            className="px-8 py-3 rounded-full bg-accent text-white font-semibold text-lg hover:bg-accent-light transition-colors"
+          >
+            Connect via MIDI Bridge
+          </button>
+          <button
+            onClick={onNoMidi}
+            className="px-6 py-2 rounded-full t-bg-overlay t-text-secondary font-medium t-bg-overlay-hover transition-colors"
+          >
+            Set Up Microphone Instead
+          </button>
+        </div>
       )}
     </div>
   );

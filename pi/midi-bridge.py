@@ -4,15 +4,19 @@ MIDI Bridge — forwards USB MIDI from a piano to WebSocket clients over WiFi.
 Run on a Raspberry Pi connected to the piano via USB MIDI adapter.
 
 Usage:
-    python3 midi-bridge.py [--port 3141] [--device "USB MIDI"]
+    python3 midi-bridge.py [--port 3141] [--device "USB MIDI"] [--www ./dist]
 """
 
 import argparse
 import asyncio
+import functools
 import json
 import logging
 import signal
 import socket
+import threading
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from pathlib import Path
 
 import mido
 from websockets.asyncio.server import serve, ServerConnection
@@ -66,6 +70,32 @@ def find_midi_device(preferred: str | None) -> str | None:
         if "through" not in name.lower():
             return name
     return names[0]
+
+
+class SPAHandler(SimpleHTTPRequestHandler):
+    """Serves static files, falling back to index.html for SPA routing."""
+
+    def do_GET(self):
+        if self.path.startswith("/pianist/"):
+            self.path = self.path[len("/pianist"):]
+        elif self.path == "/pianist":
+            self.path = "/"
+        path = self.translate_path(self.path)
+        if not Path(path).exists() and not Path(path).suffix:
+            self.path = "/index.html"
+        return super().do_GET()
+
+    def log_message(self, format, *args):
+        pass
+
+
+def start_http_server(directory: str, port: int) -> HTTPServer:
+    handler = functools.partial(SPAHandler, directory=directory)
+    server = HTTPServer(("0.0.0.0", port), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    log.info("HTTP server serving %s on port %d", directory, port)
+    return server
 
 
 async def midi_reader(preferred_device: str | None) -> None:
@@ -135,8 +165,16 @@ async def register_mdns(port: int) -> AsyncZeroconf:
     return azc
 
 
-async def main(port: int, preferred_device: str | None) -> None:
+async def main(port: int, preferred_device: str | None, www_dir: str | None, http_port: int) -> None:
     azc = await register_mdns(port)
+
+    http_server = None
+    if www_dir:
+        www_path = Path(www_dir).resolve()
+        if not www_path.is_dir():
+            log.error("--www directory does not exist: %s", www_path)
+        else:
+            http_server = start_http_server(str(www_path), http_port)
 
     stop = asyncio.Event()
     loop = asyncio.get_event_loop()
@@ -155,6 +193,9 @@ async def main(port: int, preferred_device: str | None) -> None:
         except asyncio.CancelledError:
             pass
 
+    if http_server:
+        http_server.shutdown()
+
     await azc.async_unregister_all_services()
     await azc.async_close()
     log.info("Shutdown complete")
@@ -162,8 +203,10 @@ async def main(port: int, preferred_device: str | None) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MIDI to WebSocket bridge")
-    parser.add_argument("--port", type=int, default=3141)
+    parser.add_argument("--port", type=int, default=3141, help="WebSocket port (default: 3141)")
     parser.add_argument("--device", type=str, default=None, help="Preferred MIDI device name (partial match)")
+    parser.add_argument("--www", type=str, default=None, help="Directory to serve as web app (enables HTTP server)")
+    parser.add_argument("--http-port", type=int, default=8080, help="HTTP server port (default: 8080)")
     args = parser.parse_args()
 
-    asyncio.run(main(args.port, args.device))
+    asyncio.run(main(args.port, args.device, args.www, args.http_port))

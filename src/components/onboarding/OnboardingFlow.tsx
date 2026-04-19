@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { WelcomeStep } from './WelcomeStep';
 import { MidiCheckStep } from './MidiCheckStep';
+import { BridgeSetupStep } from './BridgeSetupStep';
 import { MicCalibrationStep } from './MicCalibrationStep';
 import { HandPlacementStep } from './HandPlacementStep';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import type { CalibrationData } from '../../stores/onboardingStore';
 
-type Step = 'welcome' | 'midi-check' | 'mic-calibration' | 'hand-placement';
+type Step = 'welcome' | 'midi-check' | 'bridge-setup' | 'mic-calibration' | 'hand-placement';
 
 export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('welcome');
@@ -21,6 +22,15 @@ export function OnboardingFlow() {
 
   const handleNoMidi = useCallback(() => {
     setStep('mic-calibration');
+  }, []);
+
+  const handleUseBridge = useCallback(() => {
+    setStep('bridge-setup');
+  }, []);
+
+  const handleBridgeConnected = useCallback(() => {
+    setInputMode('midi');
+    setStep('hand-placement');
   }, []);
 
   const handleCalibrationComplete = useCallback((data: CalibrationData) => {
@@ -45,7 +55,13 @@ export function OnboardingFlow() {
 
         {step === 'midi-check' && (
           <div className="animate-fadeIn">
-            <MidiCheckStep onMidiFound={handleMidiFound} onNoMidi={handleNoMidi} />
+            <MidiCheckStep onMidiFound={handleMidiFound} onNoMidi={handleNoMidi} onUseBridge={handleUseBridge} />
+          </div>
+        )}
+
+        {step === 'bridge-setup' && (
+          <div className="animate-fadeIn">
+            <BridgeSetupStep onConnected={handleBridgeConnected} onSkip={handleNoMidi} />
           </div>
         )}
 

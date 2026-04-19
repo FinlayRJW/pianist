@@ -2,6 +2,8 @@
 
 Turns a Raspberry Pi into a wireless MIDI bridge: reads USB MIDI from your piano and streams it over WiFi to the Pianist web app on your iPad.
 
+The Pi also serves the web app over HTTP, which is required because iPad Safari blocks WebSocket connections from HTTPS pages (like GitHub Pages).
+
 ## What you need
 
 - Raspberry Pi (any model with WiFi — Zero W, 3, 4, 5)
@@ -40,19 +42,17 @@ source venv/bin/activate
 pip install mido python-rtmidi websockets zeroconf
 ```
 
-### 4. Copy the bridge script
+### 4. Copy files to the Pi
 
-From your computer (not the Pi), copy the script over:
+From your computer, copy the bridge script and built web app:
 
 ```bash
+# Copy the bridge script
 scp pi/midi-bridge.py pi@pianobridge.local:~/midi-bridge/
-```
 
-Or just paste the contents directly on the Pi:
-
-```bash
-nano ~/midi-bridge/midi-bridge.py
-# paste contents, save with Ctrl+X
+# Build the web app and copy it to the Pi
+npm run build
+scp -r dist pi@pianobridge.local:~/midi-bridge/www
 ```
 
 ### 5. Test it
@@ -62,39 +62,48 @@ Plug the USB MIDI adapter into the Pi, then:
 ```bash
 cd ~/midi-bridge
 source venv/bin/activate
-python3 midi-bridge.py
+python3 midi-bridge.py --www ./www
 ```
 
 You should see:
 ```
 12:00:00 [INFO] Local IP: 192.168.1.xx
 12:00:00 [INFO] mDNS registered: _midi-bridge._tcp on port 3141
+12:00:00 [INFO] HTTP server serving /home/pi/midi-bridge/www on port 8080
 12:00:00 [INFO] WebSocket server listening on port 3141
 12:00:00 [INFO] Opened MIDI device: USB MIDI Interface
 ```
 
-Play a note on your piano — if you see no errors, it's working. Press `Ctrl+C` to stop.
+### 6. Open on iPad
 
-### 6. Connect from the iPad
+On your iPad, open Safari and go to:
 
-Open the Pianist app on your iPad, go to **Settings** (gear icon in the game screen), and under **MIDI Bridge**:
+```
+http://pianobridge.local:8080
+```
 
-1. Toggle it on
-2. Enter the Pi's address: `pianobridge.local` (or the IP shown in the Pi's logs)
-3. Hit **Test** — you should see a green "Connected" status
+The app will load from the Pi over HTTP, which allows WebSocket connections to work. During onboarding, choose **Connect via MIDI Bridge** — it will auto-detect the Pi since the app is served from the same host.
 
-Now play a song — your piano input comes through wirelessly.
+## Deploying updates
+
+When you update the web app, rebuild and copy to the Pi:
+
+```bash
+npm run build
+scp -r dist/* pi@pianobridge.local:~/midi-bridge/www/
+```
+
+No need to restart the bridge — the HTTP server picks up the new files immediately.
 
 ## Run on boot (optional)
 
 To start the bridge automatically when the Pi powers on:
 
 ```bash
-# Update the service file with your venv path
 sudo cp ~/midi-bridge/midi-bridge.service /etc/systemd/system/
 ```
 
-Edit the service to use the venv Python:
+Edit the service to use the venv Python and enable the web server:
 
 ```bash
 sudo nano /etc/systemd/system/midi-bridge.service
@@ -102,7 +111,7 @@ sudo nano /etc/systemd/system/midi-bridge.service
 
 Change the `ExecStart` line to:
 ```
-ExecStart=/home/pi/midi-bridge/venv/bin/python3 /home/pi/midi-bridge/midi-bridge.py
+ExecStart=/home/pi/midi-bridge/venv/bin/python3 /home/pi/midi-bridge/midi-bridge.py --www /home/pi/midi-bridge/www
 ```
 
 Then enable and start:
@@ -119,7 +128,7 @@ Check it's running:
 sudo systemctl status midi-bridge
 ```
 
-Now just plug in the Pi and your piano — it works automatically.
+Now just plug in the Pi and your piano — open `http://pianobridge.local:8080` on your iPad and play.
 
 ## Troubleshooting
 
@@ -128,10 +137,14 @@ Now just plug in the Pi and your piano — it works automatically.
 - Run `arecordmidi -l` to verify the Pi sees the MIDI device
 - Try unplugging and replugging the adapter
 
-**iPad can't connect**
+**iPad can't connect to the web app**
 - Make sure both devices are on the same WiFi network
-- Try using the Pi's IP address instead of `.local` hostname
-- Check the Pi's firewall isn't blocking port 3141: `sudo ufw allow 3141`
+- Try using the Pi's IP address instead of `.local`: `http://192.168.x.x:8080`
+- Check the Pi's firewall isn't blocking ports: `sudo ufw allow 3141 && sudo ufw allow 8080`
+
+**MIDI Bridge test fails in the app**
+- If accessing via GitHub Pages (HTTPS), Safari blocks `ws://` connections — use the Pi-hosted version instead
+- Try entering the Pi's IP address manually instead of `.local`
 
 **High latency**
 - WiFi latency on a local network is typically 1-5ms, which is imperceptible
