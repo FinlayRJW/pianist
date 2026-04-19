@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { MicCalibrationStep } from './MicCalibrationStep';
+import { MidiBridgeSettings } from './MidiBridgeSettings';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
 import { JOURNEY_STEPS, getStepSongIds, getNextIncompleteStep, isFirstNotesComplete, isJourneyComplete } from '../../data/journey';
@@ -177,6 +178,12 @@ export function CalibrationModal({ onClose }: Props) {
               </div>
             )}
           </div>
+        </div>
+
+        {/* MIDI Bridge */}
+        <div className="mb-6">
+          <label className="text-xs font-medium t-text-secondary block mb-2">MIDI Bridge</label>
+          <MidiBridgeSettings />
         </div>
 
         {/* Dev tools */}

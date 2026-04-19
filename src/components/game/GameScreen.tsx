@@ -288,8 +288,8 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
 
           {/* MIDI status */}
           {input.usingMidi && (
-            <span className="text-[9px] text-emerald-400 max-w-[80px] truncate">
-              {input.midiDeviceName ?? 'MIDI'}
+            <span className="text-[9px] text-emerald-400 max-w-[100px] truncate">
+              {input.midiBridgeConnected ? `Bridge: ${input.midiDeviceName ?? 'Connected'}` : input.midiDeviceName ?? 'MIDI'}
             </span>
           )}
 
@@ -412,9 +412,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       </div>
 
       {/* MIDI not connected warning when in MIDI-only mode */}
-      {inputMode === 'midi' && !input.midiConnected && (
+      {inputMode === 'midi' && !input.midiConnected && !input.midiBridgeConnected && (
         <div className="px-4 py-1.5 t-caution-bg border-b t-caution-border t-caution text-xs text-center">
-          No MIDI device detected. Connect a MIDI keyboard and refresh.
+          No MIDI device detected. Connect a MIDI keyboard, or set up a MIDI Bridge in Settings.
         </div>
       )}
 
