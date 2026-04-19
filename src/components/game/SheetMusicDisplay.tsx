@@ -117,66 +117,35 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height, singleRow 
   const { timingMap, svgContents, flatSystems, loading, error } = useSheetMusic(songMeta);
   const [displayIdx, setDisplayIdx] = useState(0);
   const currentSysRef = useRef(0);
-  const isTransitioning = useRef(false);
   const innerRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const safetyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const isTransitioning = useRef(false);
+  const pendingResetRef = useRef(false);
 
   const rowCount = singleRow ? 1 : 2;
   const rowHeight = height / rowCount;
 
   const baseOffset = singleRow ? 0 : -rowHeight;
 
-  const triggerTransition = useCallback(
-    (newIdx: number) => {
-      if (!innerRef.current || isTransitioning.current) return;
-
-      const jump = newIdx - currentSysRef.current;
-      if (Math.abs(jump) > 1) {
-        currentSysRef.current = newIdx;
-        setDisplayIdx(newIdx);
-        if (innerRef.current) {
-          innerRef.current.style.transition = 'none';
-          innerRef.current.style.transform = `translateY(${baseOffset}px)`;
-        }
-        return;
-      }
-
-      isTransitioning.current = true;
-      innerRef.current.style.transition = 'transform 300ms ease-out';
-      innerRef.current.style.transform = `translateY(${baseOffset - rowHeight}px)`;
-
-      clearTimeout(safetyTimer.current);
-      const finalize = () => {
-        clearTimeout(safetyTimer.current);
-        currentSysRef.current = newIdx;
-        isTransitioning.current = false;
-        setDisplayIdx(newIdx);
-      };
-
-      const onEnd = () => {
-        innerRef.current?.removeEventListener('transitionend', onEnd);
-        finalize();
-      };
-      innerRef.current.addEventListener('transitionend', onEnd);
-      safetyTimer.current = setTimeout(finalize, 500);
-    },
-    [rowHeight, baseOffset],
-  );
-
   useLayoutEffect(() => {
-    if (innerRef.current) {
-      innerRef.current.style.transition = 'none';
-      innerRef.current.style.transform = `translateY(${baseOffset}px)`;
+    if (pendingResetRef.current && innerRef.current) {
+      const el = innerRef.current;
+      el.style.transition = 'none';
+      el.style.transform = `translateY(${baseOffset}px)`;
+      pendingResetRef.current = false;
+      requestAnimationFrame(() => {
+        if (innerRef.current) {
+          innerRef.current.style.transition = '';
+        }
+        isTransitioning.current = false;
+      });
     }
   }, [displayIdx, baseOffset]);
 
-  const animate = useCallback((deltaMs: number) => {
-    if (!timingMap || !cursorRef.current || flatSystems.length === 0) return;
+  const animate = useCallback(() => {
+    if (!timingMap || flatSystems.length === 0) return;
+    if (isTransitioning.current) return;
 
-    // Add ~1 frame look-ahead to compensate for rAF ordering
-    // (this rAF fires before the game tick updates timeRef)
-    const time = (timeRef.current ?? 0) + deltaMs * 0.001;
+    const time = timeRef.current ?? 0;
     const measures = timingMap.measures;
     if (measures.length === 0) return;
 
@@ -187,57 +156,36 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height, singleRow 
       : rawMeasureIdx;
     const sysIdx = findSystemForMeasure(flatSystems, measureIdx);
 
-    if (sysIdx !== currentSysRef.current && !isTransitioning.current) {
-      triggerTransition(sysIdx);
-    }
+    if (sysIdx !== currentSysRef.current) {
+      const delta = sysIdx - currentSysRef.current;
+      currentSysRef.current = sysIdx;
 
-    // Cursor positioning — per-measure interpolation using barline positions
-    const fs = flatSystems[sysIdx];
-    const sys = fs.system;
+      if (!singleRow && Math.abs(delta) === 1 && innerRef.current) {
+        isTransitioning.current = true;
+        const el = innerRef.current;
+        el.style.transition = 'transform 0.3s ease';
+        el.style.transform = `translateY(${baseOffset - delta * rowHeight}px)`;
 
-    let cursorXFraction: number;
-    if (sys.barlineXs && sys.barlineXs.length >= 2) {
-      const bxs = sys.barlineXs;
-      const firstGap = bxs[1] - bxs[0];
-      const musicStart = Math.max(0.02, bxs[0] - firstGap);
-      const boundaries = [musicStart, ...bxs];
-      while (boundaries.length < sys.measureCount + 1) {
-        const lastGap = boundaries[boundaries.length - 1] - boundaries[boundaries.length - 2];
-        boundaries.push(Math.min(0.99, boundaries[boundaries.length - 1] + lastGap));
+        const onEnd = () => {
+          pendingResetRef.current = true;
+          setDisplayIdx(sysIdx);
+        };
+        el.addEventListener('transitionend', onEnd, { once: true });
+
+        setTimeout(() => {
+          if (isTransitioning.current) {
+            el.removeEventListener('transitionend', onEnd);
+            el.style.transition = 'none';
+            el.style.transform = `translateY(${baseOffset}px)`;
+            setDisplayIdx(sysIdx);
+            isTransitioning.current = false;
+          }
+        }, 500);
+      } else {
+        setDisplayIdx(sysIdx);
       }
-
-      const localMeasure = Math.max(0, Math.min(measureIdx - sys.firstMeasure, boundaries.length - 2));
-      const leftX = boundaries[localMeasure];
-      const rightX = boundaries[localMeasure + 1];
-      const mStart = measures[rawMeasureIdx]?.timeStart ?? 0;
-      const mEnd = measures[rawMeasureIdx]?.timeEnd ?? mStart + 1;
-      const measureProgress = Math.max(0, Math.min(1, (time - mStart) / (mEnd - mStart || 1)));
-      cursorXFraction = leftX + measureProgress * (rightX - leftX);
-    } else {
-      const sysStartTime = measures[sys.firstMeasure]?.timeStart ?? 0;
-      const lastMIdx = Math.min(sys.firstMeasure + sys.measureCount - 1, measures.length - 1);
-      const sysEndTime = measures[lastMIdx]?.timeEnd ?? sysStartTime + 1;
-      const sysProgress = Math.max(0, Math.min(1, (time - sysStartTime) / (sysEndTime - sysStartTime || 1)));
-      const marginLeft = 0.12;
-      const marginRight = 0.03;
-      cursorXFraction = marginLeft + sysProgress * (1 - marginLeft - marginRight);
     }
-
-    const layout = computeSystemLayout(fs, width);
-    // Match the scale logic from SystemRow
-    const scale = layout.visibleHeight > rowHeight ? rowHeight / layout.visibleHeight : 1;
-    const scaledVisibleHeight = layout.visibleHeight * scale;
-    const svgWidth = width * scale;
-    const svgLeftOffset = (width - svgWidth) / 2;
-    const cursorPixelX = svgLeftOffset + cursorXFraction * svgWidth;
-
-    const isOnCurrentRow = sysIdx === currentSysRef.current;
-    const cursorRowTop = isOnCurrentRow ? 0 : rowHeight;
-    const cursorTop = cursorRowTop + (rowHeight - scaledVisibleHeight) / 2;
-
-    cursorRef.current.style.transform = `translate(${cursorPixelX}px, ${cursorTop}px)`;
-    cursorRef.current.style.height = `${scaledVisibleHeight}px`;
-  }, [timingMap, flatSystems, timeRef, width, rowHeight, triggerTransition]);
+  }, [timingMap, flatSystems, timeRef, baseOffset, rowHeight, singleRow]);
 
   useAnimationFrame(animate, true);
 
@@ -274,11 +222,7 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height, singleRow 
       style={{ width, height, background: 'var(--sheet-bg)' }}
       className="relative overflow-hidden"
     >
-      <div
-        ref={innerRef}
-        className="will-change-transform"
-        style={{ transform: `translateY(${baseOffset}px)` }}
-      >
+      <div ref={innerRef} style={{ transform: `translateY(${baseOffset}px)` }}>
         {slotsToRender.map((fs, i) => {
           if (!fs) {
             return <div key={i} style={{ height: rowHeight, width }} />;
@@ -296,18 +240,6 @@ export function SheetMusicDisplay({ songMeta, timeRef, width, height, singleRow 
         })}
       </div>
 
-      {/* Cursor line */}
-      <div
-        ref={cursorRef}
-        className="absolute top-0 left-0 pointer-events-none will-change-transform"
-        style={{
-          width: 2.5,
-          background: 'var(--sheet-cursor)',
-          boxShadow: `0 0 10px var(--sheet-cursor-glow), 0 0 24px var(--sheet-cursor-glow)`,
-          borderRadius: 1,
-          zIndex: 10,
-        }}
-      />
     </div>
   );
 }
