@@ -271,7 +271,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
         <div className="flex items-center gap-2 shrink-0">
           {/* Input mode selector */}
           <div className="flex items-center gap-0.5 t-bg-overlay rounded-full p-0.5">
-            {(['auto', 'midi', 'mic'] as InputMode[]).map((mode) => (
+            {(input.hasBridgeConfig ? ['auto', 'midi'] as InputMode[] : ['auto', 'midi', 'mic'] as InputMode[]).map((mode) => (
               <button
                 key={mode}
                 onClick={() => handleInputModeChange(mode)}

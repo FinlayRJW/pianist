@@ -3,6 +3,7 @@ import { MicCalibrationStep } from './MicCalibrationStep';
 import { MidiBridgeSettings } from './MidiBridgeSettings';
 import { useOnboardingStore } from '../../stores/onboardingStore';
 import { useProgressStore } from '../../stores/progressStore';
+import { useUserStore } from '../../stores/userStore';
 import { JOURNEY_STEPS, getStepSongIds, getNextIncompleteStep, isFirstNotesComplete, isJourneyComplete } from '../../data/journey';
 import type { CalibrationData } from '../../stores/onboardingStore';
 
@@ -15,6 +16,7 @@ export function CalibrationModal({ onClose }: Props) {
   const theme = useOnboardingStore((s) => s.theme);
   const setTheme = useOnboardingStore((s) => s.setTheme);
 
+  const piConnected = useUserStore((s) => s.piConnected);
   const exportProgress = useProgressStore((s) => s.exportProgress);
   const importProgress = useProgressStore((s) => s.importProgress);
   const resetProgress = useProgressStore((s) => s.resetProgress);
@@ -194,11 +196,13 @@ export function CalibrationModal({ onClose }: Props) {
           </div>
         )}
 
-        {/* Calibration */}
-        <div className="border-t t-border pt-5">
-          <label className="text-xs font-medium t-text-secondary block mb-3">Input Calibration</label>
-          <MicCalibrationStep onComplete={handleComplete} />
-        </div>
+        {/* Calibration — hidden when using Pi/MIDI bridge */}
+        {!piConnected && (
+          <div className="border-t t-border pt-5">
+            <label className="text-xs font-medium t-text-secondary block mb-3">Input Calibration</label>
+            <MicCalibrationStep onComplete={handleComplete} />
+          </div>
+        )}
       </div>
     </div>
   );

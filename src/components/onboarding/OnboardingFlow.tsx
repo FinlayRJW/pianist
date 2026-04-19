@@ -5,6 +5,7 @@ import { BridgeSetupStep } from './BridgeSetupStep';
 import { MicCalibrationStep } from './MicCalibrationStep';
 import { HandPlacementStep } from './HandPlacementStep';
 import { useOnboardingStore } from '../../stores/onboardingStore';
+import { useUserStore } from '../../stores/userStore';
 import type { CalibrationData } from '../../stores/onboardingStore';
 
 type Step = 'welcome' | 'midi-check' | 'bridge-setup' | 'mic-calibration' | 'hand-placement';
@@ -14,6 +15,7 @@ export function OnboardingFlow() {
   const [inputMode, setInputMode] = useState<'midi' | 'mic'>('mic');
 
   const { completeOnboarding, setCalibration } = useOnboardingStore();
+  const piConnected = useUserStore((s) => s.piConnected);
 
   const handleMidiFound = useCallback(() => {
     setInputMode('midi');
@@ -21,8 +23,12 @@ export function OnboardingFlow() {
   }, []);
 
   const handleNoMidi = useCallback(() => {
-    setStep('mic-calibration');
-  }, []);
+    if (piConnected) {
+      setStep('bridge-setup');
+    } else {
+      setStep('mic-calibration');
+    }
+  }, [piConnected]);
 
   const handleUseBridge = useCallback(() => {
     setStep('bridge-setup');
@@ -49,7 +55,7 @@ export function OnboardingFlow() {
       <div className="w-full max-w-md">
         {step === 'welcome' && (
           <div className="animate-fadeIn">
-            <WelcomeStep onContinue={() => setStep('midi-check')} />
+            <WelcomeStep onContinue={() => setStep(piConnected ? 'bridge-setup' : 'midi-check')} />
           </div>
         )}
 
@@ -61,7 +67,7 @@ export function OnboardingFlow() {
 
         {step === 'bridge-setup' && (
           <div className="animate-fadeIn">
-            <BridgeSetupStep onConnected={handleBridgeConnected} onSkip={handleNoMidi} />
+            <BridgeSetupStep onConnected={handleBridgeConnected} onSkip={handleNoMidi} piConnected={piConnected} />
           </div>
         )}
 

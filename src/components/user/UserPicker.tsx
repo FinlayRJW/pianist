@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useUserStore, getLastUserId } from '../../stores/userStore';
 
 export function UserPicker() {
-  const { users, loading, selectUser, createUser, loadUsers } = useUserStore();
+  const { users, loading, selectUser, createUser, deleteUser, loadUsers } = useUserStore();
   const [newName, setNewName] = useState('');
   const [creating, setCreating] = useState(false);
   const [showNewUser, setShowNewUser] = useState(false);
   const [autoSelectAttempted, setAutoSelectAttempted] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   useEffect(() => {
     loadUsers();
@@ -56,16 +57,44 @@ export function UserPicker() {
 
         <div className="space-y-3 mb-6">
           {users.map((user) => (
-            <button
-              key={user.id}
-              onClick={() => selectUser(user.id)}
-              className="w-full flex items-center gap-4 px-5 py-4 rounded-xl bg-surface/60 hover:bg-surface/80 border t-border-light hover:border-accent/40 transition-all group"
-            >
-              <div className="w-11 h-11 rounded-full bg-accent/20 flex items-center justify-center text-accent-light text-lg font-bold shrink-0 group-hover:bg-accent/30 transition-colors">
-                {user.name[0].toUpperCase()}
-              </div>
-              <span className="t-text font-medium text-base">{user.name}</span>
-            </button>
+            <div key={user.id} className="relative">
+              <button
+                onClick={() => selectUser(user.id)}
+                className="w-full flex items-center gap-4 px-5 py-4 rounded-xl bg-surface/60 hover:bg-surface/80 border t-border-light hover:border-accent/40 transition-all group"
+              >
+                <div className="w-11 h-11 rounded-full bg-accent/20 flex items-center justify-center text-accent-light text-lg font-bold shrink-0 group-hover:bg-accent/30 transition-colors">
+                  {user.name[0].toUpperCase()}
+                </div>
+                <span className="t-text font-medium text-base flex-1 text-left">{user.name}</span>
+                <span
+                  role="button"
+                  onClick={(e) => { e.stopPropagation(); setDeleteConfirm(user.id); }}
+                  className="t-text-muted hover:text-red-400 transition-colors p-1"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  </svg>
+                </span>
+              </button>
+              {deleteConfirm === user.id && (
+                <div className="absolute inset-0 rounded-xl bg-midnight/90 backdrop-blur-sm flex items-center justify-center gap-3 z-10">
+                  <span className="text-sm t-text-secondary">Delete player?</span>
+                  <button
+                    onClick={() => { deleteUser(user.id); setDeleteConfirm(null); }}
+                    className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/30 transition-colors"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirm(null)}
+                    className="px-3 py-1.5 rounded-lg t-bg-overlay t-text-secondary text-xs font-medium hover:t-text transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
           ))}
         </div>
 

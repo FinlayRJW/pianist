@@ -10,9 +10,10 @@ import {
 interface Props {
   onConnected: () => void;
   onSkip: () => void;
+  piConnected?: boolean;
 }
 
-export function BridgeSetupStep({ onConnected, onSkip }: Props) {
+export function BridgeSetupStep({ onConnected, onSkip, piConnected }: Props) {
   const setMidiBridgeUrl = useOnboardingStore((s) => s.setMidiBridgeUrl);
   const defaultAddr = defaultBridgeAddress();
   const [address, setAddress] = useState(defaultAddr);
@@ -139,12 +140,14 @@ export function BridgeSetupStep({ onConnected, onSkip }: Props) {
         </button>
       )}
 
-      <button
-        onClick={onSkip}
-        className="px-6 py-2 rounded-full t-bg-overlay t-text-secondary font-medium t-bg-overlay-hover transition-colors"
-      >
-        Skip — Use Microphone Instead
-      </button>
+      {!piConnected && (
+        <button
+          onClick={onSkip}
+          className="px-6 py-2 rounded-full t-bg-overlay t-text-secondary font-medium t-bg-overlay-hover transition-colors"
+        >
+          Skip — Use Microphone Instead
+        </button>
+      )}
     </div>
   );
 }
