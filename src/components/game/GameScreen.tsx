@@ -87,6 +87,8 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
   }, [input, scoring, gameState]);
 
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
     function measure() {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -94,8 +96,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
       }
     }
     measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   const isActive = gameState === 'playing' || gameState === 'countdown';
