@@ -17,19 +17,15 @@ import json
 import logging
 import mimetypes
 import os
-import re
 import signal
 import socket
 import tempfile
 import uuid
 from datetime import datetime, timezone
-from http import HTTPStatus
 from pathlib import Path
 
 import mido
-from websockets.asyncio.server import serve, ServerConnection
-from websockets.datastructures import Headers
-from websockets.http11 import Response
+from aiohttp import web
 from zeroconf.asyncio import AsyncZeroconf
 from zeroconf import ServiceInfo
 
@@ -40,7 +36,7 @@ logging.basicConfig(
 )
 log = logging.getLogger("midi-bridge")
 
-clients: set[ServerConnection] = set()
+clients: set[web.WebSocketResponse] = set()
 device_name: str | None = None
 www_path: Path | None = None
 data_path: Path | None = None
@@ -72,127 +68,20 @@ def read_json(path: Path, default=None):
         return json.load(f)
 
 
-def json_response(data, status=HTTPStatus.OK) -> Response:
-    body = json.dumps(data).encode()
-    return Response(
-        status,
-        status.phrase,
-        Headers({
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-        }),
-        body,
-    )
+# ── REST API handlers ────────────────────────────────────────────────
 
-
-def no_content_response() -> Response:
-    return Response(
-        HTTPStatus.NO_CONTENT,
-        "No Content",
-        Headers({"Access-Control-Allow-Origin": "*"}),
-        b"",
-    )
-
-
-def error_response(status: HTTPStatus, message: str) -> Response:
-    return json_response({"error": message}, status)
-
-
-def cors_preflight_response() -> Response:
-    return Response(
-        HTTPStatus.NO_CONTENT,
-        "No Content",
-        Headers({
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Max-Age": "86400",
-        }),
-        b"",
-    )
-
-
-# ── REST API ──────────────────────────────────────────────────────────
-
-async def handle_api(request) -> Response:
-    path = request.path
-    method = request.method if hasattr(request, "method") else "GET"
-
-    if method == "OPTIONS":
-        return cors_preflight_response()
-
-    try:
-        body = request.body if hasattr(request, "body") else b""
-    except Exception:
-        body = b""
-
-    try:
-        # GET /api/users
-        if path == "/api/users" and method == "GET":
-            return await api_list_users()
-
-        # POST /api/users
-        if path == "/api/users" and method == "POST":
-            data = json.loads(body) if body else {}
-            return await api_create_user(data)
-
-        # DELETE /api/users/:id
-        m = re.match(r"^/api/users/([^/]+)$", path)
-        if m and method == "DELETE":
-            return await api_delete_user(m.group(1))
-
-        # GET /api/users/:id/progress
-        m = re.match(r"^/api/users/([^/]+)/progress$", path)
-        if m and method == "GET":
-            return await api_get_progress(m.group(1))
-
-        # PUT /api/users/:id/progress
-        m = re.match(r"^/api/users/([^/]+)/progress$", path)
-        if m and method == "PUT":
-            data = json.loads(body) if body else {}
-            return await api_put_progress(m.group(1), data)
-
-        # GET /api/songs
-        if path == "/api/songs" and method == "GET":
-            return await api_list_songs()
-
-        # POST /api/songs
-        if path == "/api/songs" and method == "POST":
-            data = json.loads(body) if body else {}
-            return await api_create_song(data)
-
-        # DELETE /api/songs/:id
-        m = re.match(r"^/api/songs/([^/]+)$", path)
-        if m and method == "DELETE":
-            return await api_delete_song(m.group(1))
-
-        # GET /api/songs/:id/midi
-        m = re.match(r"^/api/songs/([^/]+)/midi$", path)
-        if m and method == "GET":
-            return await api_get_song_midi(m.group(1))
-
-        return error_response(HTTPStatus.NOT_FOUND, "Not found")
-
-    except json.JSONDecodeError:
-        return error_response(HTTPStatus.BAD_REQUEST, "Invalid JSON")
-    except Exception as e:
-        log.exception("API error: %s", e)
-        return error_response(HTTPStatus.INTERNAL_SERVER_ERROR, str(e))
-
-
-# ── User endpoints ────────────────────────────────────────────────────
-
-async def api_list_users() -> Response:
+async def api_list_users(_request: web.Request) -> web.Response:
     users_file = data_path / "users.json"
     async with get_lock("users"):
         users = read_json(users_file, [])
-    return json_response(users)
+    return web.json_response(users)
 
 
-async def api_create_user(body: dict) -> Response:
+async def api_create_user(request: web.Request) -> web.Response:
+    body = await request.json()
     name = body.get("name", "").strip()
     if not name:
-        return error_response(HTTPStatus.BAD_REQUEST, "Name is required")
+        return web.json_response({"error": "Name is required"}, status=400)
 
     user = {
         "id": uuid.uuid4().hex[:8],
@@ -206,28 +95,28 @@ async def api_create_user(body: dict) -> Response:
         users.append(user)
         write_json_atomic(users_file, users)
 
-    return json_response(user, HTTPStatus.CREATED)
+    return web.json_response(user, status=201)
 
 
-async def api_delete_user(user_id: str) -> Response:
+async def api_delete_user(request: web.Request) -> web.Response:
+    user_id = request.match_info["user_id"]
     users_file = data_path / "users.json"
     async with get_lock("users"):
         users = read_json(users_file, [])
         filtered = [u for u in users if u["id"] != user_id]
         if len(filtered) == len(users):
-            return error_response(HTTPStatus.NOT_FOUND, "User not found")
+            return web.json_response({"error": "User not found"}, status=404)
         write_json_atomic(users_file, filtered)
 
     progress_file = data_path / "progress" / f"{user_id}.json"
     if progress_file.exists():
         progress_file.unlink()
 
-    return no_content_response()
+    return web.Response(status=204)
 
 
-# ── Progress endpoints ────────────────────────────────────────────────
-
-async def api_get_progress(user_id: str) -> Response:
+async def api_get_progress(request: web.Request) -> web.Response:
+    user_id = request.match_info["user_id"]
     progress_file = data_path / "progress" / f"{user_id}.json"
     async with get_lock(f"progress-{user_id}"):
         progress = read_json(progress_file, {
@@ -238,39 +127,40 @@ async def api_get_progress(user_id: str) -> Response:
             "journeyBestStars": {},
             "onboardingCompleted": False,
         })
-    return json_response(progress)
+    return web.json_response(progress)
 
 
-async def api_put_progress(user_id: str, body: dict) -> Response:
+async def api_put_progress(request: web.Request) -> web.Response:
+    user_id = request.match_info["user_id"]
     users_file = data_path / "users.json"
     users = read_json(users_file, [])
     if not any(u["id"] == user_id for u in users):
-        return error_response(HTTPStatus.NOT_FOUND, "User not found")
+        return web.json_response({"error": "User not found"}, status=404)
 
+    body = await request.json()
     progress_file = data_path / "progress" / f"{user_id}.json"
     async with get_lock(f"progress-{user_id}"):
         write_json_atomic(progress_file, body)
-    return no_content_response()
+    return web.Response(status=204)
 
 
-# ── Song endpoints ────────────────────────────────────────────────────
-
-async def api_list_songs() -> Response:
+async def api_list_songs(_request: web.Request) -> web.Response:
     songs_file = data_path / "songs" / "meta.json"
     async with get_lock("songs"):
         songs = read_json(songs_file, [])
-    return json_response(songs)
+    return web.json_response(songs)
 
 
-async def api_create_song(body: dict) -> Response:
+async def api_create_song(request: web.Request) -> web.Response:
+    body = await request.json()
     meta = body.get("meta")
     midi_b64 = body.get("midi")
     if not meta or not midi_b64:
-        return error_response(HTTPStatus.BAD_REQUEST, "meta and midi are required")
+        return web.json_response({"error": "meta and midi are required"}, status=400)
 
     song_id = meta.get("id")
     if not song_id:
-        return error_response(HTTPStatus.BAD_REQUEST, "meta.id is required")
+        return web.json_response({"error": "meta.id is required"}, status=400)
 
     midi_data = base64.b64decode(midi_b64)
 
@@ -286,63 +176,138 @@ async def api_create_song(body: dict) -> Response:
         songs.append(meta)
         write_json_atomic(songs_file, songs)
 
-    return json_response(meta, HTTPStatus.CREATED)
+    return web.json_response(meta, status=201)
 
 
-async def api_delete_song(song_id: str) -> Response:
+async def api_delete_song(request: web.Request) -> web.Response:
+    song_id = request.match_info["song_id"]
     songs_file = data_path / "songs" / "meta.json"
     async with get_lock("songs"):
         songs = read_json(songs_file, [])
         filtered = [s for s in songs if s.get("id") != song_id]
         if len(filtered) == len(songs):
-            return error_response(HTTPStatus.NOT_FOUND, "Song not found")
+            return web.json_response({"error": "Song not found"}, status=404)
         write_json_atomic(songs_file, filtered)
 
     midi_file = data_path / "songs" / "midi" / f"{song_id}.mid"
     if midi_file.exists():
         midi_file.unlink()
 
-    return no_content_response()
+    return web.Response(status=204)
 
 
-async def api_get_song_midi(song_id: str) -> Response:
+async def api_get_song_midi(request: web.Request) -> web.Response:
+    song_id = request.match_info["song_id"]
     midi_file = data_path / "songs" / "midi" / f"{song_id}.mid"
     if not midi_file.exists():
-        return error_response(HTTPStatus.NOT_FOUND, "MIDI file not found")
+        return web.json_response({"error": "MIDI file not found"}, status=404)
 
     body = midi_file.read_bytes()
-    return Response(
-        HTTPStatus.OK,
-        "OK",
-        Headers({
-            "Content-Type": "application/octet-stream",
-            "Access-Control-Allow-Origin": "*",
-        }),
-        body,
+    return web.Response(
+        body=body,
+        content_type="application/octet-stream",
     )
 
 
-# ── Existing server functions ─────────────────────────────────────────
+# ── WebSocket + Static fallback ──────────────────────────────────────
 
-def get_local_ip() -> str:
+async def ws_handler(request: web.Request) -> web.WebSocketResponse:
+    ws = web.WebSocketResponse()
+    await ws.prepare(request)
+    clients.add(ws)
+    log.info("Client connected (%d total)", len(clients))
+
     try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
-    except OSError:
-        return "127.0.0.1"
+        await ws.send_str(json.dumps({
+            "type": "hello",
+            "device": device_name,
+        }))
+        async for msg in ws:
+            if msg.type == web.WSMsgType.TEXT:
+                data = json.loads(msg.data)
+                if data.get("type") == "ping":
+                    await ws.send_str(json.dumps({"type": "pong"}))
+            elif msg.type in (web.WSMsgType.ERROR, web.WSMsgType.CLOSE):
+                break
+    except Exception:
+        pass
+    finally:
+        clients.discard(ws)
+        log.info("Client disconnected (%d remaining)", len(clients))
+
+    return ws
 
 
-def broadcast(message: dict) -> None:
+def serve_static_file(request_path: str) -> web.Response:
+    if www_path is None:
+        raise web.HTTPNotFound()
+
+    path = request_path.split("?")[0]
+
+    if path.startswith("/pianist/"):
+        path = path[len("/pianist"):]
+    elif path == "/pianist":
+        path = "/"
+
+    file_path = www_path / path.lstrip("/")
+
+    if file_path.is_dir():
+        file_path = file_path / "index.html"
+
+    if not file_path.exists() or not file_path.is_file():
+        file_path = www_path / "index.html"
+
+    if not file_path.exists():
+        raise web.HTTPNotFound()
+
+    body = file_path.read_bytes()
+    content_type = mimetypes.guess_type(str(file_path))[0] or "application/octet-stream"
+
+    return web.Response(
+        body=body,
+        content_type=content_type,
+        headers={"Cache-Control": "no-cache"},
+    )
+
+
+# ── Middleware ────────────────────────────────────────────────────────
+
+@web.middleware
+async def cors_middleware(request: web.Request, handler):
+    if request.method == "OPTIONS":
+        return web.Response(status=204, headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Max-Age": "86400",
+        })
+    response = await handler(request)
+    if not isinstance(response, web.WebSocketResponse):
+        response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+@web.middleware
+async def fallback_middleware(request: web.Request, handler):
+    try:
+        return await handler(request)
+    except web.HTTPNotFound:
+        ws_resp = web.WebSocketResponse()
+        if ws_resp.can_prepare(request):
+            return await ws_handler(request)
+        return serve_static_file(request.path)
+
+
+# ── MIDI ──────────────────────────────────────────────────────────────
+
+async def broadcast(message: dict) -> None:
     if not clients:
         return
     data = json.dumps(message)
     dead = set()
-    for ws in clients:
+    for ws in list(clients):
         try:
-            ws.send_nowait(data)
+            await ws.send_str(data)
         except Exception:
             dead.add(ws)
     clients.difference_update(dead)
@@ -362,55 +327,15 @@ def find_midi_device(preferred: str | None) -> str | None:
     return names[0]
 
 
-def serve_static(request_path: str) -> Response | None:
-    if www_path is None:
-        return None
-
-    path = request_path.split("?")[0]
-
-    if path.startswith("/pianist/"):
-        path = path[len("/pianist"):]
-    elif path == "/pianist":
-        path = "/"
-
-    file_path = www_path / path.lstrip("/")
-
-    if file_path.is_dir():
-        file_path = file_path / "index.html"
-
-    if not file_path.exists() or not file_path.is_file():
-        file_path = www_path / "index.html"
-
-    if not file_path.exists():
-        return Response(
-            HTTPStatus.NOT_FOUND,
-            "Not Found",
-            Headers({"Content-Type": "text/plain"}),
-            b"404 Not Found",
-        )
-
-    body = file_path.read_bytes()
-    content_type = mimetypes.guess_type(str(file_path))[0] or "application/octet-stream"
-
-    return Response(
-        HTTPStatus.OK,
-        "OK",
-        Headers({"Content-Type": content_type, "Cache-Control": "no-cache"}),
-        body,
-    )
-
-
-async def process_request(connection, request):
-    if request.headers.get("Upgrade", "").lower() == "websocket":
-        return None
-
-    if request.path.startswith("/api/"):
-        return await handle_api(request)
-
-    response = serve_static(request.path)
-    if response:
-        return response
-    return None
+def get_local_ip() -> str:
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except OSError:
+        return "127.0.0.1"
 
 
 async def midi_reader(preferred_device: str | None) -> None:
@@ -434,33 +359,13 @@ async def midi_reader(preferred_device: str | None) -> None:
                         None, lambda: port.receive(block=True)
                     )
                     if msg.type == "note_on" and msg.velocity > 0:
-                        broadcast({"type": "noteOn", "note": msg.note, "velocity": msg.velocity})
+                        await broadcast({"type": "noteOn", "note": msg.note, "velocity": msg.velocity})
                     elif msg.type == "note_off" or (msg.type == "note_on" and msg.velocity == 0):
-                        broadcast({"type": "noteOff", "note": msg.note})
+                        await broadcast({"type": "noteOff", "note": msg.note})
         except (OSError, IOError) as e:
             log.warning("MIDI device disconnected (%s), retrying in 2s...", e)
             device_name = None
             await asyncio.sleep(2)
-
-
-async def ws_handler(ws: ServerConnection) -> None:
-    clients.add(ws)
-    log.info("Client connected (%d total)", len(clients))
-
-    try:
-        await ws.send(json.dumps({
-            "type": "hello",
-            "device": device_name,
-        }))
-        async for raw in ws:
-            msg = json.loads(raw)
-            if msg.get("type") == "ping":
-                await ws.send(json.dumps({"type": "pong"}))
-    except Exception:
-        pass
-    finally:
-        clients.discard(ws)
-        log.info("Client disconnected (%d remaining)", len(clients))
 
 
 async def register_mdns(port: int) -> AsyncZeroconf:
@@ -480,6 +385,8 @@ async def register_mdns(port: int) -> AsyncZeroconf:
     return azc
 
 
+# ── Main ──────────────────────────────────────────────────────────────
+
 async def main(port: int, preferred_device: str | None, www_dir: str | None, data_dir: str) -> None:
     global www_path, data_path
 
@@ -498,25 +405,43 @@ async def main(port: int, preferred_device: str | None, www_dir: str | None, dat
 
     azc = await register_mdns(port)
 
+    app = web.Application(middlewares=[cors_middleware, fallback_middleware])
+
+    app.router.add_get("/api/users", api_list_users)
+    app.router.add_post("/api/users", api_create_user)
+    app.router.add_delete("/api/users/{user_id}", api_delete_user)
+    app.router.add_get("/api/users/{user_id}/progress", api_get_progress)
+    app.router.add_put("/api/users/{user_id}/progress", api_put_progress)
+    app.router.add_get("/api/songs", api_list_songs)
+    app.router.add_post("/api/songs", api_create_song)
+    app.router.add_delete("/api/songs/{song_id}", api_delete_song)
+    app.router.add_get("/api/songs/{song_id}/midi", api_get_song_midi)
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
+    if www_path:
+        log.info("Serving web app from %s on port %d", www_path, port)
+    log.info("WebSocket + HTTP + API server listening on port %d", port)
+
+    midi_task = asyncio.create_task(midi_reader(preferred_device))
+
     stop = asyncio.Event()
     loop = asyncio.get_event_loop()
     for sig in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(sig, stop.set)
 
-    async with serve(ws_handler, "0.0.0.0", port, process_request=process_request):
-        if www_path:
-            log.info("Serving web app from %s on port %d", www_path, port)
-        log.info("WebSocket + HTTP + API server listening on port %d", port)
-        midi_task = asyncio.create_task(midi_reader(preferred_device))
+    await stop.wait()
 
-        await stop.wait()
+    midi_task.cancel()
+    try:
+        await midi_task
+    except asyncio.CancelledError:
+        pass
 
-        midi_task.cancel()
-        try:
-            await midi_task
-        except asyncio.CancelledError:
-            pass
-
+    await runner.cleanup()
     await azc.async_unregister_all_services()
     await azc.async_close()
     log.info("Shutdown complete")

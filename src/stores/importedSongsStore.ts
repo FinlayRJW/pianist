@@ -7,6 +7,7 @@ import {
   fetchSongs as apiFetchSongs,
   fetchMidiData as apiFetchMidiData,
 } from '../services/piApi';
+import { useUserStore } from './userStore';
 
 const DB_NAME = 'pianist-imported';
 const STORE_NAME = 'midi-files';
@@ -61,12 +62,7 @@ async function deleteMidiData(songId: string): Promise<void> {
 }
 
 function isPiConnected(): boolean {
-  try {
-    const { useUserStore } = require('./userStore');
-    return useUserStore.getState().piConnected;
-  } catch {
-    return false;
-  }
+  return useUserStore.getState().piConnected;
 }
 
 interface ImportedSongsStore {

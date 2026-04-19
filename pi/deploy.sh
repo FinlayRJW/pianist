@@ -44,4 +44,12 @@ cp -r dist "$WWW_DIR"
 cp pi/midi-bridge.py "$APP_DIR/midi-bridge.py"
 cp pi/midi-bridge.service "$APP_DIR/midi-bridge.service"
 
+# Ensure Python venv and deps
+if [ ! -d "$VENV_DIR" ]; then
+    echo "$(date '+%H:%M:%S') [deploy] Creating Python venv..."
+    python3 -m venv "$VENV_DIR"
+fi
+echo "$(date '+%H:%M:%S') [deploy] Installing Python dependencies..."
+"$VENV_DIR/bin/pip" install --quiet -r pi/requirements.txt
+
 echo "$(date '+%H:%M:%S') [deploy] Done. www dir: $WWW_DIR"

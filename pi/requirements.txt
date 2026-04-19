@@ -1,4 +1,4 @@
 mido
 python-rtmidi
-websockets
+aiohttp
 zeroconf

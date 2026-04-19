@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useUserStore } from './userStore';
+import { useProgressStore } from './progressStore';
+import { saveProgress } from '../services/piApi';
 
 export interface CalibrationData {
   gain: number;
@@ -35,23 +38,18 @@ export const useOnboardingStore = create<OnboardingStore>()(
       midiBridgeUrl: null,
       completeOnboarding: () => {
         set({ completed: true });
-        try {
-          const { useUserStore } = require('./userStore');
-          const { saveProgress } = require('../services/piApi');
-          const user = useUserStore.getState().currentUser;
-          if (user) {
-            const { useProgressStore } = require('./progressStore');
-            const ps = useProgressStore.getState();
-            saveProgress(user.id, {
-              version: 3,
-              scores: ps.scores,
-              bestStars: ps.bestStars,
-              adventureBestStars: ps.adventureBestStars,
-              journeyBestStars: ps.journeyBestStars,
-              onboardingCompleted: true,
-            }).catch(() => {});
-          }
-        } catch { /* no Pi */ }
+        const user = useUserStore.getState().currentUser;
+        if (user) {
+          const ps = useProgressStore.getState();
+          saveProgress(user.id, {
+            version: 3,
+            scores: ps.scores,
+            bestStars: ps.bestStars,
+            adventureBestStars: ps.adventureBestStars,
+            journeyBestStars: ps.journeyBestStars,
+            onboardingCompleted: true,
+          }).catch(() => {});
+        }
       },
       setCalibration: (data) => set({ calibration: data }),
       resetCalibration: () => set({ calibration: null }),

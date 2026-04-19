@@ -49,7 +49,7 @@ cd ~/midi-bridge
 # Python venv for the bridge
 python3 -m venv venv
 source venv/bin/activate
-pip install mido python-rtmidi websockets zeroconf
+pip install mido python-rtmidi aiohttp zeroconf
 ```
 
 ### 5. Copy scripts from your computer

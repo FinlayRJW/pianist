@@ -4,6 +4,8 @@ import type { SongScore } from '../types';
 import { SKILL_TREE_AREAS, SKILL_TREE_NODES } from '../data/skill-tree';
 import { isJourneyComplete, isFirstNotesComplete } from '../data/journey';
 import { saveProgress } from '../services/piApi';
+import { useUserStore } from './userStore';
+import { useOnboardingStore } from './onboardingStore';
 
 interface ProgressStore {
   scores: Record<string, SongScore[]>;
@@ -177,30 +179,16 @@ export const useProgressStore = create<ProgressStore>()(
 
 let syncTimer: ReturnType<typeof setTimeout> | null = null;
 
-function getUserId(): string | null {
-  try {
-    const { useUserStore } = require('./userStore');
-    const user = useUserStore.getState().currentUser;
-    return user?.id ?? null;
-  } catch {
-    return null;
-  }
-}
-
 useProgressStore.subscribe((state, prev) => {
   if (state.scores === prev.scores) return;
-  const userId = getUserId();
-  if (!userId) return;
+  const user = useUserStore.getState().currentUser;
+  if (!user) return;
 
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(() => {
     const { scores, bestStars, adventureBestStars, journeyBestStars } = useProgressStore.getState();
-    let onboardingCompleted = false;
-    try {
-      const { useOnboardingStore } = require('./onboardingStore');
-      onboardingCompleted = useOnboardingStore.getState().completed;
-    } catch { /* ignore */ }
-    saveProgress(userId, {
+    const onboardingCompleted = useOnboardingStore.getState().completed;
+    saveProgress(user.id, {
       version: 3,
       scores,
       bestStars,
