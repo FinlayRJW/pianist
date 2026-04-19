@@ -3968,7 +3968,11 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <rect x="0.0000" y="-0.3621" width="8.7407" height="1.7296" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
+<g transform="translate(19.0495, 163.1138)">
+<text font-family="sans-serif" font-weight="bold" font-size="1.7999" text-anchor="start" fill="currentColor">
+<tspan>Mutopia </tspan>
+</text>
+</g>
 <g transform="translate(19.2543, 165.2233)">
 <a xlink:href="http://www.MutopiaProject.org">
 <rect x="0.0000" y="-0.3718" width="8.5358" height="2.1192" fill="none" stroke="none" stroke-width="0.0"/>
@@ -4010,8 +4014,16 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <rect x="0.0000" y="-0.3219" width="6.6579" height="1.5374" fill="none" stroke="none" stroke-width="0.0"/>
 </a>
 </g>
-
-
+<g transform="translate(41.5549, 163.1138)">
+<text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan>LilyPond</tspan>
+</text>
+</g>
+<g transform="translate(48.2128, 163.1138)">
+<text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
+<tspan> by Rune Zedeler and Chris Sawer — Mutopia-2015/08/13-108</tspan>
+</text>
+</g>
 <g transform="translate(29.5023, 165.2496)">
 <text font-family="sans-serif" font-size="1.6002" text-anchor="start" fill="currentColor">
 <tspan> Placed in the </tspan>
