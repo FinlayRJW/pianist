@@ -4,24 +4,10 @@
 tspan { white-space: pre; }
 ]]>
 </style>
-<g transform="translate(50.8394, 6.2124)">
-<text font-family="serif" font-weight="bold" font-size="3.4929" text-anchor="start" fill="currentColor">
-<tspan>Consolation</tspan>
-</text>
-</g>
-<g transform="translate(107.2555, 9.7124)">
-<text font-family="serif" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>F. Liszt</tspan>
-</text>
-</g>
-<g transform="translate(103.8753, 11.7325)">
-<text font-family="serif" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>S.172 No.1</tspan>
-</text>
-</g>
-<g transform="translate(41.5983, 19.0529)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
 <g transform="translate(14.2264, 21.0529)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="99.5346" y2="0"/>
 </g>
@@ -37,9 +23,7 @@ tspan { white-space: pre; }
 <g transform="translate(14.2264, 17.0529)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="99.5346" y2="0"/>
 </g>
-<g transform="translate(113.6210, 12.2658)">
-<rect x="0.0000" y="8.8371" width="0.1900" height="7.8956" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 33.9984)">
 <rect x="95.4007" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -64,27 +48,13 @@ tspan { white-space: pre; }
 <g transform="translate(14.2264, 28.9984)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="99.5346" y2="0"/>
 </g>
-<g transform="translate(113.6210, 30.9984)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(113.6210, 19.0529)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(96.4547, 12.2658)">
-<rect x="0.0000" y="8.8371" width="0.1900" height="7.8956" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(96.4547, 30.9984)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(96.4547, 19.0529)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(74.8313, 12.2658)">
-<rect x="0.0000" y="8.8371" width="0.1900" height="7.8956" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(74.8313, 30.9984)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
+
 <g transform="translate(5.6906, 22.0529)">
 <rect x="103.3351" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -133,24 +103,12 @@ tspan { white-space: pre; }
 <g transform="translate(5.6906, 22.0529)">
 <rect x="25.5316" y="-0.1000" width="2.0660" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
-<g transform="translate(74.8313, 19.0529)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(56.9420, 12.2658)">
-<rect x="0.0000" y="8.8371" width="0.1900" height="7.8956" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(56.9420, 30.9984)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(56.9420, 19.0529)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(41.5983, 12.2658)">
-<rect x="0.0000" y="8.8371" width="0.1900" height="7.8956" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(41.5983, 30.9984)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
 <g transform="translate(76.0038, 31.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -216,12 +174,8 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <g transform="translate(32.8788, 28.0984)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(32.8788, 19.0529)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.7410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(32.8788, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(37.2040, 22.5529)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -243,12 +197,8 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <g transform="translate(38.4432, 28.0984)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(38.4432, 19.0529)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="6.6472" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(38.4432, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(76.0038, 19.0529)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.7123 0.2500C2.7750 -0.6409 7.6781 -0.6409 8.7407 0.2500L8.7407 0.2500C7.6781 -0.5209 2.7750 -0.5209 1.7123 0.2500z"/>
 </g>
@@ -273,22 +223,10 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <g transform="translate(42.7708, 31.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(27.7764, 24.4240)">
-<text font-family="serif" font-style="italic" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>dolce</tspan>
-</text>
-</g>
-<g transform="translate(44.0100, 19.0529)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="6.6472" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(44.0100, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(24.2764, 13.7526)">
-<text font-family="serif" font-weight="bold" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>Andante con moto.</tspan>
-</text>
-</g>
+
+
+
+
 <g transform="translate(76.0038, 30.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -0.5537C3.2432 -1.8156 7.7184 -1.6063 9.1628 -0.2037L9.1628 -0.2037C7.7128 -1.4865 3.2376 -1.6957 1.6773 -0.5537z"/>
 </g>
@@ -318,12 +256,8 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <g transform="translate(48.2274, 28.0984)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(48.2274, 19.0529)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="6.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(48.2274, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.7410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(76.0038, 26.7853)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0000" y1="0.0000" x2="9.5928" y2="0.6666"/>
 </g>
@@ -351,12 +285,8 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <g transform="translate(53.7918, 28.0984)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(53.7918, 19.0529)">
-<rect x="-0.0650" y="-2.0000" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(53.7918, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(76.0038, 19.0529)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -1.6950C3.8644 -3.6328 16.3270 -4.5314 18.7694 -2.9274L18.7694 -2.9274C16.3349 -4.4217 3.8723 -3.5231 1.6773 -1.6950z"/>
 </g>
@@ -385,12 +315,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(62.2588, 19.0529)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6042 -0.7805C3.0215 -2.6602 7.5528 -2.9599 9.1628 -1.2805L9.1628 -1.2805C7.5601 -2.8502 3.0287 -2.5504 1.6042 -0.7805z"/>
 </g>
-<g transform="translate(59.3537, 19.0529)">
-<rect x="-0.0650" y="-2.0000" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(59.3537, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(62.2588, 22.5529)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -403,12 +329,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(63.4980, 31.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(63.4980, 19.0529)">
-<rect x="-0.0650" y="-0.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(63.4980, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(53.7918, 30.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.5042 0.7855C2.2463 0.0321 4.4198 0.0321 5.1620 0.7855L5.1620 0.7855C4.4198 0.1521 2.2463 0.1521 1.5042 0.7855z"/>
 </g>
@@ -424,12 +346,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(66.4031, 31.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(67.6423, 19.0529)">
-<rect x="-0.0650" y="-1.5000" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(67.6423, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(52.5526, 30.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.5042 2.0000C2.2713 2.7671 4.5948 2.7671 5.3620 2.0000L5.3620 2.0000C4.5948 2.6471 2.2713 2.6471 1.5042 2.0000z"/>
 </g>
@@ -445,15 +363,9 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(70.5474, 33.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(71.7866, 19.0529)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(71.7866, 30.9984)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(70.6124, 30.9984)">
-<rect x="-0.0650" y="3.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(52.5526, 19.0529)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6392 0.7866C2.4666 -0.0111 5.1867 -0.0111 6.0141 0.7866L6.0141 0.7866C5.1867 0.1089 2.4666 0.1089 1.6392 0.7866z"/>
 </g>
@@ -481,9 +393,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(77.3162, 19.0529)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(18.5264, 17.0529)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -500,21 +410,15 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(77.3162, 30.9984)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(76.0688, 30.9984)">
-<rect x="-0.0650" y="2.7590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(52.5526, 19.0529)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.5042 4.0000C2.2713 4.7671 4.5948 4.7671 5.3620 4.0000L5.3620 4.0000C4.5948 4.6471 2.2713 4.6471 1.5042 4.0000z"/>
 </g>
 <g transform="translate(80.1481, 23.0529)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(80.2131, 19.0529)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(78.6981, 23.0529)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -534,27 +438,17 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(84.2924, 31.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(85.5317, 19.0529)">
-<rect x="-0.0650" y="-1.8126" width="0.1300" height="4.1265" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(84.3574, 19.0529)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(83.2464, 23.0529)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
-<g transform="translate(85.5317, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(84.3574, 30.9984)">
-<rect x="-0.0650" y="1.1861" width="0.1300" height="2.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(87.0167, 20.5529)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(88.2559, 19.0529)">
-<rect x="-0.0650" y="-1.9227" width="0.1300" height="3.2366" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(37.2040, 30.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6392 -0.2250C2.4672 -1.0230 5.1910 -1.0230 6.0189 -0.2250L6.0189 -0.2250C5.1910 -0.9030 2.4672 -0.9030 1.6392 -0.2250z"/>
 </g>
@@ -565,18 +459,14 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(91.2302, 19.0529)">
-<rect x="-0.0650" y="-2.0429" width="0.1300" height="2.3568" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(37.2040, 30.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.8521 3.0000C1.7612 3.8344 5.1098 3.8344 6.0189 3.0000L6.0189 3.0000C5.1098 3.7144 1.7612 3.7144 0.8521 3.0000z"/>
 </g>
 <g transform="translate(93.5652, 19.5529)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(94.8044, 19.0529)">
-<rect x="-0.0650" y="-2.1874" width="0.1300" height="2.5013" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(92.1152, 19.5529)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -598,9 +488,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(14.1664, 25.0257)">
-<rect x="0.0000" y="-8.0228" width="0.1600" height="16.0456" ry="0.0500" fill="currentColor"/>
-</g>
+
 <g transform="translate(97.6273, 30.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -609,14 +497,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-84 -448c0 308 -152 444 -152 448s152 140 152 448c0 320 -132 604 -132 960c0 224 56 436 204 604c16 16 40 -8 24 -24c-112 -124 -148 -280 -148 -444c0 -312 120 -592 120 -944c0 -224 -52 -432 -196 -600c144 -168 196 -376 196 -600c0 -352 -120 -632 -120 -944
 c0 -164 36 -320 148 -444c16 -16 -8 -40 -24 -24c-148 168 -204 380 -204 604c0 356 132 640 132 960z" fill="currentColor"/>
 </g>
-<g transform="translate(98.9396, 19.0529)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(5.8855, 25.7744)">
-<text font-family="serif" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>Piano</tspan>
-</text>
-</g>
+
+
 <g transform="translate(37.2040, 19.0529)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.5042 4.0000C2.2719 4.7674 4.5991 4.7674 5.3668 4.0000L5.3668 4.0000C4.5991 4.6474 2.2719 4.6474 1.5042 4.0000z"/>
 </g>
@@ -641,12 +523,8 @@ c0 -164 36 -320 148 -444c16 -16 -8 -40 -24 -24c-148 168 -204 380 -204 604c0 356 
 <g transform="translate(102.0694, 34.9434)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(101.4823, 19.0529)">
-<rect x="-0.0650" y="1.1861" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(102.6566, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(31.5665, 30.9984)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.3123 -3.6950C4.0365 -5.5674 25.0631 -5.5674 27.7872 -3.6950L27.7872 -3.6950C25.0631 -5.4574 4.0365 -5.4574 1.3123 -3.6950z"/>
 </g>
@@ -665,9 +543,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(106.8740, 19.0529)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(31.5665, 19.0529)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.3266 -3.6950C3.8936 -5.4410 19.7852 -4.9470 22.2388 -3.0450L22.2388 -3.0450C19.7818 -4.8371 3.8902 -5.3310 1.3266 -3.6950z"/>
 </g>
@@ -689,18 +565,10 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(110.0038, 33.9434)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(109.4167, 19.0529)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(110.5909, 30.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(76.0688, 19.0529)">
-<rect x="-0.0650" y="3.6861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(32.7888, 42.9984)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
 <g transform="translate(5.6906, 44.9984)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
@@ -716,9 +584,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 40.9984)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 38.3231)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="6.7790" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 50.8274)">
 <rect x="95.8024" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -752,30 +618,14 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 51.8274)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 53.8274)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(113.6210, 42.9984)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(90.4317, 38.3231)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="6.7790" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(90.4317, 53.8274)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(90.4317, 42.9984)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(71.1512, 38.3231)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="6.7790" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(71.1512, 53.8274)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(71.1512, 42.9984)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
+
+
 <g transform="translate(5.6906, 45.9984)">
 <rect x="46.6582" y="-0.1000" width="2.0660" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -800,29 +650,15 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 45.9984)">
 <rect x="14.6446" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
-<g transform="translate(50.3742, 38.3231)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="6.7790" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(50.3742, 53.8274)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(50.3742, 42.9984)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(32.7888, 38.3231)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="6.7790" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(32.7888, 53.8274)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
 <g transform="translate(61.8137, 44.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(4.8028, 39.9280)">
-<text font-family="serif" font-size="1.7459" text-anchor="start" fill="currentColor">
-<tspan>6</tspan>
-</text>
-</g>
+
 <g transform="translate(102.9932, 40.1884)">
 <polygon stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="9.0836 -0.5800 9.0836 -0.1800 0.0400 0.2000 0.0400 -0.2000"/>
 </g>
@@ -841,9 +677,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(18.2029, 42.9984)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(97.6941, 53.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.7545 -5.5450C1.9684 -6.2227 4.1107 -5.7033 4.8794 -4.5450L4.8794 -4.5450C4.0824 -5.5867 1.9401 -6.1061 0.7545 -5.5450z"/>
 </g>
@@ -868,12 +702,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(21.3134, 57.2724)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(20.7263, 42.9984)">
-<rect x="-0.0650" y="0.6861" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(21.9005, 53.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(91.7015, 42.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.8887 -0.7500C2.1079 -1.6859 9.3504 -1.6859 10.5696 -0.7500L10.5696 -0.7500C9.3504 -1.5659 2.1079 -1.5659 0.8887 -0.7500z"/>
 </g>
@@ -892,9 +722,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(26.0985, 42.9984)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(87.6539, 42.9984)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M2.3674 -1.6950C4.7311 -3.7813 21.6193 -5.4960 24.3541 -3.9273L24.3541 -3.9273C21.6304 -5.3865 4.7422 -3.6719 2.3674 -1.6950z"/>
 </g>
@@ -919,12 +747,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(29.2089, 56.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(28.6218, 42.9984)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(29.7960, 53.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(78.4032, 53.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.3795 -4.6950C2.9679 -5.7185 6.9188 -5.1344 8.1431 -3.6950L8.1431 -3.6950C6.9013 -5.0157 2.9504 -5.5998 1.3795 -4.6950z"/>
 </g>
@@ -942,9 +766,7 @@ c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(35.1969, 42.9984)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(9.9906, 40.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -976,12 +798,8 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(39.1447, 54.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(37.9705, 42.9984)">
-<rect x="-0.0650" y="3.1861" width="0.1300" height="2.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(39.1447, 53.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(42.0303, 46.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -994,12 +812,8 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(42.0303, 54.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(42.0953, 42.9984)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(43.2695, 53.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(46.1552, 46.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1012,16 +826,12 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(46.1552, 54.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(46.2202, 42.9984)">
-<rect x="-0.0650" y="1.1861" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(44.7052, 46.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(47.3944, 53.8274)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(58.3015, 46.5500)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0000" y1="0.0000" x2="11.3456" y2="0.6666"/>
 </g>
@@ -1057,25 +867,17 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(54.0055, 42.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(52.7581, 42.9984)">
-<rect x="-0.0650" y="3.2590" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(51.2431, 46.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(54.0055, 53.8274)">
-<rect x="-0.0650" y="-3.6667" width="0.1300" height="2.9077" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(54.5205, 57.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
-<g transform="translate(52.7581, 53.8274)">
-<rect x="-0.0650" y="3.7590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(52.6931, 42.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.7123 0.7862C2.4593 0.0301 4.6614 0.0301 5.4083 0.7862L5.4083 0.7862C4.6614 0.1501 2.4593 0.1501 1.7123 0.7862z"/>
 </g>
@@ -1088,18 +890,12 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(58.3015, 53.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(59.5407, 42.9984)">
-<rect x="-0.0650" y="-1.8164" width="0.1300" height="2.6303" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(59.5407, 53.8274)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(5.6906, 53.8274)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M8.7000 2.7500C10.8424 4.5264 21.2983 4.7347 23.5097 3.0450L23.5097 3.0450C21.3005 4.6247 10.8446 4.4164 8.7000 2.7500z"/>
 </g>
-<g transform="translate(63.0529, 42.9984)">
-<rect x="-0.0650" y="-2.1617" width="0.1300" height="3.4756" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(60.4160, 44.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M152 0c23 -23 56 -28 89 -28c6 0 10 -4 10 -10l9 -87c1 -6 -4 -11 -10 -10l-87 9c-5 1 -10 5 -10 10c0 33 -5 66 -28 89c-23 -23 -27 -56 -27 -89c0 -5 -5 -9 -10 -10l-88 -9c-6 -1 -11 4 -10 10l9 87c0 6 4 10 10 10c33 0 66 5 89 28c-23 23 -56 28 -89 28
 c-6 0 -10 4 -10 10l-9 87c-1 6 4 11 10 10l88 -9c5 -1 9 -5 9 -10c0 -33 5 -66 28 -89c23 23 28 56 28 89c0 5 5 9 10 10l87 9c6 1 11 -4 10 -10l-9 -87c0 -6 -4 -10 -10 -10c-33 0 -66 -5 -89 -28z" fill="currentColor"/>
@@ -1126,9 +922,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(66.6175, 42.9984)">
-<rect x="-0.0650" y="-2.5121" width="0.1300" height="2.8260" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(63.9282, 43.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -1139,9 +933,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(68.3428, 42.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(69.5820, 42.9984)">
-<rect x="-0.0650" y="-2.8036" width="0.1300" height="2.1175" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(24.7861, 42.9984)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.7123 -0.7500C2.8336 -1.6591 8.5024 -1.6591 9.6237 -0.7500L9.6237 -0.7500C8.5024 -1.5391 2.8336 -1.5391 1.7123 -0.7500z"/>
 </g>
@@ -1156,9 +948,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(72.5703, 42.9984)">
-<rect x="-0.0650" y="-1.2410" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(78.4032, 56.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -1180,15 +970,11 @@ c-6 51 -22 159 -48 283c-59 -7 -93 -48 -93 -92c0 -34 21 -70 64 -95c5 -5 6 -10 6 -
 c6 5 14 4 20 -1c55 -66 107 -201 107 -295c0 -115 -63 -207 -135 -297c17 -59 33 -119 47 -179h1c2 0 4 1 6 1c126 0 206 -105 206 -212c0 -92 -59 -170 -141 -197c2 -27 3 -54 3 -81c0 -16 0 -33 -1 -49c-6 -98 -75 -184 -169 -186l1 43c38 1 127 22 127 194
 c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191 367zM319 860c-76 -44 -123 -124 -123 -211c0 -36 10 -86 29 -151c59 79 107 162 107 261c0 25 1 50 -13 101z" fill="currentColor"/>
 </g>
-<g transform="translate(79.7156, 53.8274)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="5.5743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(81.1187, 41.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(81.1837, 42.9984)">
-<rect x="-0.0650" y="-0.8139" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(85.2436, 42.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M70 205c79 0 46 -98 91 -98c16 0 54 48 61 63c6 12 23 12 28 0l-123 -420c-8 -7 -17 -10 -27 -10s-20 3 -28 10l117 326c-34 -12 -69 -22 -105 -22c-47 0 -87 34 -87 79c0 40 33 72 73 72z" fill="currentColor"/>
 </g>
@@ -1201,15 +987,11 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(86.4828, 50.9274)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(86.4828, 53.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(87.6539, 43.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(88.8931, 42.9984)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(88.9581, 40.5384)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0v-250h-16v250h16zM0 0c0 -197 207 -336 207 -533c0 -71 -15 -141 -41 -207c-5 -8 -13 -12 -20 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 103 -94 208 -165 283v250z" fill="currentColor"/>
 </g>
@@ -1217,9 +999,7 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(5.6306, 48.4129)">
-<rect x="0.0000" y="-7.4645" width="0.1600" height="14.9290" ry="0.0500" fill="currentColor"/>
-</g>
+
 <g transform="translate(91.7015, 53.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -1228,9 +1008,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-84 -416c0 288 -144 412 -144 416c0 20 144 116 144 416c0 296 -120 556 -120 888c0 208 48 412 192 564c16 16 40 -8 24 -24c-108 -116 -140 -256 -140 -408c0 -292 112 -552 112 -876c0 -208 -44 -408 -184 -560c140 -152 184 -352 184 -560
 c0 -324 -112 -584 -112 -876c0 -152 32 -292 140 -408c16 -16 -8 -40 -24 -24c-144 152 -192 356 -192 564c0 332 120 592 120 888z" fill="currentColor"/>
 </g>
-<g transform="translate(91.7665, 42.9984)">
-<rect x="-0.0650" y="0.2590" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(97.6941, 52.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1244,9 +1022,7 @@ c0 -324 -112 -584 -112 -876c0 -152 32 -292 140 -408c16 -16 -8 -40 -24 -24c-144 1
 <path transform="scale(0.0040, -0.0040)" d="M446 -100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM446 100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM179 213c140 0 241 -69 241 -201c0 -211 -210 -333 -411 -421c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15 2c44 0 80 -36 80 -80c0 -46 -35 -85 -80 -85c-48 0 -90 38 -90 85c0 104 77 194 179 194z" fill="currentColor"/>
 </g>
-<g transform="translate(97.7591, 53.8274)">
-<rect x="-0.0650" y="-3.8139" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(101.8190, 42.9984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1262,25 +1038,17 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(102.4711, 49.8824)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(103.0582, 42.9984)">
-<rect x="-0.0650" y="-2.8127" width="0.1300" height="2.6266" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(101.8840, 42.9984)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="2.6472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(100.4213, 44.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M152 0c23 -23 56 -28 89 -28c6 0 10 -4 10 -10l9 -87c1 -6 -4 -11 -10 -10l-87 9c-5 1 -10 5 -10 10c0 33 -5 66 -28 89c-23 -23 -27 -56 -27 -89c0 -5 -5 -9 -10 -10l-88 -9c-6 -1 -11 4 -10 10l9 87c0 6 4 10 10 10c33 0 66 5 89 28c-23 23 -56 28 -89 28
 c-6 0 -10 4 -10 10l-9 87c-1 6 4 11 10 10l88 -9c5 -1 9 -5 9 -10c0 -33 5 -66 28 -89c23 23 28 56 28 89c0 5 5 9 10 10l87 9c6 1 11 -4 10 -10l-9 -87c0 -6 -4 -10 -10 -10c-33 0 -66 -5 -89 -28z" fill="currentColor"/>
 </g>
-<g transform="translate(101.8840, 53.8274)">
-<rect x="-0.0650" y="-2.8139" width="0.1300" height="6.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(105.3835, 43.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(106.6228, 42.9984)">
-<rect x="-0.0650" y="-2.9612" width="0.1300" height="3.2751" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(103.9335, 43.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -1292,22 +1060,16 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(109.3373, 42.9984)">
-<rect x="-0.0650" y="-3.0742" width="0.1300" height="2.8881" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(110.8126, 42.4984)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(112.0518, 42.9984)">
-<rect x="-0.0650" y="-3.1873" width="0.1300" height="2.5012" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(65.3782, 53.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(36.6194, 65.8274)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 67.8274)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
@@ -1323,9 +1085,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 63.8274)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 60.1303)">
-<rect x="0.0000" y="7.7472" width="0.1900" height="6.5762" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 73.4536)">
 <rect x="94.2051" y="-0.1000" width="1.8199" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -1365,36 +1125,16 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 74.4536)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 76.4536)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(113.6210, 65.8274)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(87.0265, 60.1303)">
-<rect x="0.0000" y="7.7472" width="0.1900" height="6.5762" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(87.0265, 76.4536)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(87.0265, 65.8274)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(62.2667, 60.1303)">
-<rect x="0.0000" y="7.7472" width="0.1900" height="6.5762" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(62.2667, 76.4536)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(62.2667, 65.8274)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(36.6194, 60.1303)">
-<rect x="0.0000" y="7.7472" width="0.1900" height="6.5762" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(36.6194, 76.4536)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
+
+
+
+
 <g transform="translate(6.4906, 75.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M557 -125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM557 125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM232 263c172 0 293 -88 293 -251c0 -263 -263 -414 -516 -521c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22 8 34 8c55 0 100 -45 100 -100c0 -58 -44 -106 -100 -106c-60 0 -112 47 -112 106c0 133 102 244 232 244z" fill="currentColor"/>
@@ -1415,11 +1155,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(3.9834, 62.7774)">
-<text font-family="serif" font-size="1.7459" text-anchor="start" fill="currentColor">
-<tspan>11</tspan>
-</text>
-</g>
+
 <g transform="translate(101.2596, 63.0174)">
 <polygon stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="10.6010 -0.5800 10.6010 -0.1800 0.0400 0.2000 0.0400 -0.2000"/>
 </g>
@@ -1431,9 +1167,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(16.9556, 65.8274)">
-<rect x="-0.0650" y="-1.2410" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(100.0853, 65.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.2237 -3.5523C3.0052 -5.1027 9.8471 -5.3471 11.7347 -3.9277L11.7347 -3.9277C9.8514 -5.2271 3.0095 -4.9828 1.2237 -3.5523z"/>
 </g>
@@ -1458,18 +1192,14 @@ c-6 51 -22 159 -48 283c-59 -7 -93 -48 -93 -92c0 -34 21 -70 64 -95c5 -5 6 -10 6 -
 c6 5 14 4 20 -1c55 -66 107 -201 107 -295c0 -115 -63 -207 -135 -297c17 -59 33 -119 47 -179h1c2 0 4 1 6 1c126 0 206 -105 206 -212c0 -92 -59 -170 -141 -197c2 -27 3 -54 3 -81c0 -16 0 -33 -1 -49c-6 -98 -75 -184 -169 -186l1 43c38 1 127 22 127 194
 c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191 367zM319 860c-76 -44 -123 -124 -123 -211c0 -36 10 -86 29 -151c59 79 107 162 107 261c0 25 1 50 -13 101z" fill="currentColor"/>
 </g>
-<g transform="translate(24.7137, 76.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="5.5743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(95.5279, 76.4536)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.7453 -5.5450C2.0287 -6.2916 4.4498 -5.7604 5.3027 -4.5450L5.3027 -4.5450C4.4240 -5.6432 2.0030 -6.1744 0.7453 -5.5450z"/>
 </g>
 <g transform="translate(26.4413, 64.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(26.5063, 65.8274)">
-<rect x="-0.0650" y="-0.8139" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(88.2765, 65.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.7123 -0.7500C2.9720 -1.6959 11.0013 -1.6959 12.2609 -0.7500L12.2609 -0.7500C11.0013 -1.5759 2.9720 -1.5759 1.7123 -0.7500z"/>
 </g>
@@ -1485,18 +1215,14 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(31.6508, 80.8986)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(32.2379, 76.4536)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(73.3742, 76.4536)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.6285 4.0450C1.9672 5.5440 6.5101 6.1446 8.1925 5.0450L8.1925 5.0450C6.5259 6.0256 1.9830 5.4250 0.6285 4.0450z"/>
 </g>
 <g transform="translate(33.6253, 66.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(34.8645, 65.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(34.9295, 63.3674)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0v-250h-16v250h16zM0 0c0 -197 207 -336 207 -533c0 -71 -15 -141 -41 -207c-5 -8 -13 -12 -20 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 103 -94 208 -165 283v250z" fill="currentColor"/>
 </g>
@@ -1536,9 +1262,7 @@ c1 0 47 0 82 6c-7 64 -29 203 -63 364c-79 -8 -124 -61 -124 -119c0 -44 25 -91 81 -
 c0 115 55 224 149 292c6 5 14 5 20 0c68 -80 133 -245 133 -358c0 -143 -86 -255 -180 -364c21 -68 39 -138 56 -207c2 0 7 1 13 1c155 0 256 -128 256 -261c0 -113 -74 -212 -180 -246c3 -35 5 -70 5 -105c0 -19 -1 -39 -2 -58c-7 -119 -88 -225 -202 -228l1 43
 c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 -333 180 -333 374c0 177 131 306 248 441zM428 916c0 34 1 66 -20 129c-99 -48 -162 -149 -162 -259c0 -52 12 -115 36 -194c80 97 146 198 146 324z" fill="currentColor"/>
 </g>
-<g transform="translate(38.0352, 65.8274)">
-<rect x="-0.0650" y="0.2590" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(63.2667, 65.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.3760 -1.1060C0.8219 -0.3407 1.8612 -0.0426 2.6450 -0.4550L2.6450 -0.4550C1.8943 -0.1579 0.8550 -0.4560 0.3760 -1.1060z"/>
 </g>
@@ -1555,9 +1279,7 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <path transform="scale(0.0040, -0.0040)" d="M446 -100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM446 100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM179 213c140 0 241 -69 241 -201c0 -211 -210 -333 -411 -421c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15 2c44 0 80 -36 80 -80c0 -46 -35 -85 -80 -85c-48 0 -90 38 -90 85c0 104 77 194 179 194z" fill="currentColor"/>
 </g>
-<g transform="translate(44.6407, 76.4536)">
-<rect x="-0.0650" y="-3.8139" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(49.1331, 65.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1573,28 +1295,20 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(49.7852, 72.5086)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(50.3723, 65.8274)">
-<rect x="-0.0650" y="-2.8141" width="0.1300" height="2.6280" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(49.1981, 65.8274)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="2.6472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(47.7354, 67.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M152 0c23 -23 56 -28 89 -28c6 0 10 -4 10 -10l9 -87c1 -6 -4 -11 -10 -10l-87 9c-5 1 -10 5 -10 10c0 33 -5 66 -28 89c-23 -23 -27 -56 -27 -89c0 -5 -5 -9 -10 -10l-88 -9c-6 -1 -11 4 -10 10l9 87c0 6 4 10 10 10c33 0 66 5 89 28c-23 23 -56 28 -89 28
 c-6 0 -10 4 -10 10l-9 87c-1 6 4 11 10 10l88 -9c5 -1 9 -5 9 -10c0 -33 5 -66 28 -89c23 23 28 56 28 89c0 5 5 9 10 10l87 9c6 1 11 -4 10 -10l-9 -87c0 -6 -4 -10 -10 -10c-33 0 -66 -5 -89 -28z" fill="currentColor"/>
 </g>
-<g transform="translate(49.1981, 76.4536)">
-<rect x="-0.0650" y="-2.8139" width="0.1300" height="6.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(49.1331, 65.8274)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.2117 -3.5541C2.9641 -5.2890 9.9965 -5.7353 11.9541 -4.2359L11.9541 -4.2359C10.0035 -5.6255 2.9710 -5.1792 1.2117 -3.5541z"/>
 </g>
 <g transform="translate(52.9139, 66.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(54.1531, 65.8274)">
-<rect x="-0.0650" y="-3.0541" width="0.1300" height="3.3680" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(51.4639, 66.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -1609,18 +1323,14 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(57.3339, 65.8274)">
-<rect x="-0.0650" y="-3.2559" width="0.1300" height="2.5698" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(37.9702, 65.8274)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.8887 -0.7500C2.1561 -1.6977 10.3475 -1.6977 11.6149 -0.7500L11.6149 -0.7500C10.3475 -1.5777 2.1561 -1.5777 0.8887 -0.7500z"/>
 </g>
 <g transform="translate(59.8756, 64.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(61.1148, 65.8274)">
-<rect x="-0.0650" y="-3.4959" width="0.1300" height="2.3098" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(58.4256, 64.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -1637,9 +1347,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(88.2765, 65.8274)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -1.1950C3.8591 -5.2348 22.2995 -7.3639 25.3445 -3.9277L25.3445 -3.9277C22.3121 -7.2547 3.8718 -5.1255 1.6773 -1.1950z"/>
 </g>
-<g transform="translate(64.1196, 65.8274)">
-<rect x="-0.0650" y="-4.4000" width="0.1300" height="2.2856" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(64.1846, 61.4674)">
 <path transform="scale(0.0028, -0.0028)" d="M115 -723c0 12 43 85 43 193c0 101 -90 205 -158 280h-21v250h21c0 -196 207 -334 207 -530c0 -71 -15 -140 -41 -206c-5 -10 -14 -13 -23 -13c-14 0 -28 10 -28 26z" fill="currentColor"/>
 </g>
@@ -1651,9 +1359,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(65.4125, 65.8274)">
-<rect x="-0.0650" y="-1.2410" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(73.3742, 78.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -1675,9 +1381,7 @@ c-6 51 -22 159 -48 283c-59 -7 -93 -48 -93 -92c0 -34 21 -70 64 -95c5 -5 6 -10 6 -
 c6 5 14 4 20 -1c55 -66 107 -201 107 -295c0 -115 -63 -207 -135 -297c17 -59 33 -119 47 -179h1c2 0 4 1 6 1c126 0 206 -105 206 -212c0 -92 -59 -170 -141 -197c2 -27 3 -54 3 -81c0 -16 0 -33 -1 -49c-6 -98 -75 -184 -169 -186l1 43c38 1 127 22 127 194
 c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191 367zM319 860c-76 -44 -123 -124 -123 -211c0 -36 10 -86 29 -151c59 79 107 162 107 261c0 25 1 50 -13 101z" fill="currentColor"/>
 </g>
-<g transform="translate(74.6866, 76.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="5.5743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(71.4583, 78.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -1687,9 +1391,7 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(76.4142, 64.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(76.4792, 65.8274)">
-<rect x="-0.0650" y="-0.8139" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(75.3682, 64.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -1705,15 +1407,11 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(81.6237, 80.8986)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(82.2108, 76.4536)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(84.0325, 66.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(85.2717, 65.8274)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(85.3367, 63.3674)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0v-250h-16v250h16zM0 0c0 -197 207 -336 207 -533c0 -71 -15 -141 -41 -207c-5 -8 -13 -12 -20 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 103 -94 208 -165 283v250z" fill="currentColor"/>
 </g>
@@ -1724,9 +1422,7 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(5.6306, 71.1405)">
-<rect x="0.0000" y="-7.3631" width="0.1600" height="14.7262" ry="0.0500" fill="currentColor"/>
-</g>
+
 <g transform="translate(88.2765, 76.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -1735,9 +1431,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-84 -408c0 284 -144 404 -144 408c0 20 144 108 144 408c0 292 -120 552 -120 880c0 208 52 404 192 556c16 16 40 -4 24 -20c-108 -112 -140 -256 -140 -408c0 -288 112 -540 112 -860c0 -204 -48 -404 -184 -556c136 -152 184 -352 184 -556
 c0 -320 -112 -572 -112 -860c0 -152 32 -296 140 -408c16 -16 -8 -36 -24 -20c-140 152 -192 348 -192 556c0 328 120 588 120 880z" fill="currentColor"/>
 </g>
-<g transform="translate(89.5888, 65.8274)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(95.5279, 74.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1751,9 +1445,7 @@ c0 -320 -112 -572 -112 -860c0 -152 32 -296 140 -408c16 -16 -8 -36 -24 -20c-140 1
 <path transform="scale(0.0040, -0.0040)" d="M446 -100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM446 100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM179 213c140 0 241 -69 241 -201c0 -211 -210 -333 -411 -421c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15 2c44 0 80 -36 80 -80c0 -46 -35 -85 -80 -85c-48 0 -90 38 -90 85c0 104 77 194 179 194z" fill="currentColor"/>
 </g>
-<g transform="translate(95.5929, 76.4536)">
-<rect x="-0.0650" y="-3.8139" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(94.4819, 74.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -1772,15 +1464,9 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(100.7374, 72.5086)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(101.3246, 65.8274)">
-<rect x="-0.0650" y="-2.8123" width="0.1300" height="2.6262" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(100.1503, 65.8274)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="2.6472" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(100.1503, 76.4536)">
-<rect x="-0.0650" y="-2.8139" width="0.1300" height="6.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(99.0393, 76.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -1790,9 +1476,7 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(103.8662, 66.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(105.1054, 65.8274)">
-<rect x="-0.0650" y="-2.9473" width="0.1300" height="3.7612" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(102.4162, 66.8274)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -1804,24 +1488,18 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(108.4705, 65.8274)">
-<rect x="-0.0650" y="-3.0675" width="0.1300" height="3.3814" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(106.1970, 66.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
 <g transform="translate(110.5964, 65.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(111.8356, 65.8274)">
-<rect x="-0.0650" y="-3.1877" width="0.1300" height="2.5016" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(109.5621, 65.3274)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
-<g transform="translate(37.0262, 88.4536)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 90.4536)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
@@ -1837,9 +1515,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 86.4536)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 81.9325)">
-<rect x="0.0000" y="8.5711" width="0.1900" height="10.2677" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 105.7713)">
 <rect x="103.1674" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -1870,30 +1546,14 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 100.7713)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
-<g transform="translate(113.6210, 102.7713)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(113.6210, 88.4536)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(95.7966, 81.9325)">
-<rect x="0.0000" y="8.5711" width="0.1900" height="10.2677" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(95.7966, 102.7713)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(95.7966, 88.4536)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(78.6900, 81.9325)">
-<rect x="0.0000" y="8.5711" width="0.1900" height="10.2677" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(78.6900, 102.7713)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(78.6900, 88.4536)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
+
+
 <g transform="translate(5.6906, 91.4536)">
 <rect x="103.1674" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -1915,21 +1575,11 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(5.6906, 91.4536)">
 <rect x="60.5491" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
-<g transform="translate(61.5524, 81.9325)">
-<rect x="0.0000" y="8.5711" width="0.1900" height="10.2677" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(61.5524, 102.7713)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(61.5524, 88.4536)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(37.0262, 81.9325)">
-<rect x="0.0000" y="8.5711" width="0.1900" height="10.2677" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(37.0262, 102.7713)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
 <g transform="translate(66.5657, 90.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -1941,9 +1591,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(16.9556, 88.4536)">
-<rect x="-0.0650" y="-1.2410" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(100.8100, 102.7713)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.5755 2.5450C1.9101 4.3254 7.0799 5.2515 8.9495 4.0450L8.9495 4.0450C7.0993 5.1432 1.9295 4.2171 0.5755 2.5450z"/>
 </g>
@@ -1974,9 +1622,7 @@ c-6 51 -22 159 -48 283c-59 -7 -93 -48 -93 -92c0 -34 21 -70 64 -95c5 -5 6 -10 6 -
 c6 5 14 4 20 -1c55 -66 107 -201 107 -295c0 -115 -63 -207 -135 -297c17 -59 33 -119 47 -179h1c2 0 4 1 6 1c126 0 206 -105 206 -212c0 -92 -59 -170 -141 -197c2 -27 3 -54 3 -81c0 -16 0 -33 -1 -49c-6 -98 -75 -184 -169 -186l1 43c38 1 127 22 127 194
 c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191 367zM319 860c-76 -44 -123 -124 -123 -211c0 -36 10 -86 29 -151c59 79 107 162 107 261c0 25 1 50 -13 101z" fill="currentColor"/>
 </g>
-<g transform="translate(25.7049, 102.7713)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="5.5743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(22.4766, 105.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -1989,9 +1635,7 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(27.1547, 87.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(27.2197, 88.4536)">
-<rect x="-0.0650" y="-0.8139" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(26.1087, 87.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -2010,18 +1654,14 @@ c0 23 -1 46 -3 69c-4 -1 -34 -6 -67 -6c-155 0 -266 144 -266 302c0 144 101 254 191
 <g transform="translate(31.9938, 107.2163)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(32.5809, 102.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(66.5657, 88.4536)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.0650 7.0450C2.7444 8.9080 22.5430 8.9080 25.2224 7.0450L25.2224 7.0450C22.5430 8.7980 2.7444 8.7980 0.0650 7.0450z"/>
 </g>
 <g transform="translate(34.2174, 89.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(35.4566, 88.4536)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(35.5216, 85.9936)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0v-250h-16v250h16zM0 0c0 -197 207 -336 207 -533c0 -71 -15 -141 -41 -207c-5 -8 -13 -12 -20 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 103 -94 208 -165 283v250z" fill="currentColor"/>
 </g>
@@ -2059,9 +1699,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M557 -125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM557 125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM232 263c172 0 293 -88 293 -251c0 -263 -263 -414 -516 -521c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22 8 34 8c55 0 100 -45 100 -100c0 -58 -44 -106 -100 -106c-60 0 -112 47 -112 106c0 133 102 244 232 244z" fill="currentColor"/>
 </g>
-<g transform="translate(39.5191, 88.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(49.1204, 88.4536)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.2478 -3.7387C3.0158 -5.2731 9.0626 -5.1540 10.7689 -3.5513L10.7689 -3.5513C9.0604 -5.0441 3.0137 -5.1631 1.2478 -3.7387z"/>
 </g>
@@ -2081,9 +1719,7 @@ c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22
 <path transform="scale(0.0040, -0.0040)" d="M446 -100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM446 100c0 23 18 41 41 41s41 -18 41 -41s-18 -41 -41 -41s-41 18 -41 41zM179 213c140 0 241 -69 241 -201c0 -211 -210 -333 -411 -421c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15 2c44 0 80 -36 80 -80c0 -46 -35 -85 -80 -85c-48 0 -90 38 -90 85c0 104 77 194 179 194z" fill="currentColor"/>
 </g>
-<g transform="translate(44.9984, 102.7713)">
-<rect x="-0.0650" y="-3.8139" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(43.8874, 101.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -2093,11 +1729,7 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(49.1204, 88.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(49.1204, 94.6838)">
-<text font-family="serif" font-style="italic" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>poco rit.</tspan>
-</text>
-</g>
+
 <g transform="translate(49.1204, 102.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2107,12 +1739,8 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(49.7725, 98.8263)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(50.3596, 88.4536)">
-<rect x="-0.0650" y="-2.9987" width="0.1300" height="2.8126" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(49.1854, 102.7713)">
-<rect x="-0.0650" y="-2.8139" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(48.0744, 99.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -2122,9 +1750,7 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(52.3003, 89.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(53.5395, 88.4536)">
-<rect x="-0.0650" y="-2.9361" width="0.1300" height="3.7500" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(51.2660, 89.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -2146,24 +1772,16 @@ c150 98 307 217 307 393c0 92 -38 185 -119 185c-52 0 -87 -38 -104 -90c5 1 10 2 15
 <g transform="translate(55.6980, 100.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(56.2851, 88.4536)">
-<rect x="-0.0650" y="-2.8821" width="0.1300" height="3.1960" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(55.1109, 88.4536)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="2.4806" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(55.1109, 102.7713)">
-<rect x="-0.0650" y="-1.3139" width="0.1300" height="4.9806" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(53.9999, 103.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
 <g transform="translate(58.6415, 88.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(59.8807, 88.4536)">
-<rect x="-0.0650" y="-2.8113" width="0.1300" height="3.1252" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(57.1915, 88.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -2179,11 +1797,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(62.7329, 83.3043)">
-<text font-family="serif" font-weight="bold" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>a tempo.</tspan>
-</text>
-</g>
+
 <g transform="translate(9.9906, 86.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -2210,9 +1824,7 @@ c1 0 47 0 82 6c-7 64 -29 203 -63 364c-79 -8 -124 -61 -124 -119c0 -44 25 -91 81 -
 c0 115 55 224 149 292c6 5 14 5 20 0c68 -80 133 -245 133 -358c0 -143 -86 -255 -180 -364c21 -68 39 -138 56 -207c2 0 7 1 13 1c155 0 256 -128 256 -261c0 -113 -74 -212 -180 -246c3 -35 5 -70 5 -105c0 -19 -1 -39 -2 -58c-7 -119 -88 -225 -202 -228l1 43
 c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 -333 180 -333 374c0 177 131 306 248 441zM428 916c0 34 1 66 -20 129c-99 -48 -162 -149 -162 -259c0 -52 12 -115 36 -194c80 97 146 198 146 324z" fill="currentColor"/>
 </g>
-<g transform="translate(64.0453, 88.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(66.5657, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2231,17 +1843,9 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <g transform="translate(67.2179, 100.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(66.6307, 88.4536)">
-<rect x="-0.0650" y="1.1861" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(3.9151, 85.3832)">
-<text font-family="serif" font-size="1.7459" text-anchor="start" fill="currentColor">
-<tspan>15</tspan>
-</text>
-</g>
-<g transform="translate(66.6307, 102.7713)">
-<rect x="-0.0650" y="-1.3139" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(65.1157, 101.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -2261,9 +1865,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(72.0651, 88.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(74.5856, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2282,12 +1884,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(75.2377, 101.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(74.6506, 88.4536)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(74.6506, 102.7713)">
-<rect x="-0.0650" y="-0.3139" width="0.1300" height="4.9806" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(79.8705, 88.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -2306,9 +1904,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(81.1828, 88.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(83.7033, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2330,12 +1926,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(84.3554, 99.8263)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(83.7683, 88.4536)">
-<rect x="-0.0650" y="0.6861" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(83.7683, 102.7713)">
-<rect x="-0.0650" y="-1.8139" width="0.1300" height="6.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(87.8903, 88.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -2351,9 +1943,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(89.2026, 88.4536)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(90.4839, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2375,19 +1965,13 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(92.3752, 100.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(91.7881, 88.4536)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(91.7881, 102.7713)">
-<rect x="-0.0650" y="-0.8139" width="0.1300" height="5.1472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(96.9772, 88.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(5.6306, 95.6125)">
-<rect x="0.0000" y="-9.2088" width="0.1600" height="18.4177" ry="0.0500" fill="currentColor"/>
-</g>
+
 <g transform="translate(96.9772, 102.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -2408,12 +1992,8 @@ c0 -188 44 -360 168 -508c16 -20 -16 -44 -32 -24c-164 192 -220 436 -220 688c0 412
 <g transform="translate(102.0492, 103.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(102.0492, 88.4536)">
-<rect x="-0.0650" y="-0.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(102.0492, 102.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(104.9970, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2426,12 +2006,8 @@ c0 -188 44 -360 168 -508c16 -20 -16 -44 -32 -24c-164 192 -220 436 -220 688c0 412
 <g transform="translate(104.9970, 103.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(106.2362, 88.4536)">
-<rect x="-0.0650" y="-1.5000" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(106.2362, 102.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(109.1840, 91.9536)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -2444,19 +2020,13 @@ c0 -188 44 -360 168 -508c16 -20 -16 -44 -32 -24c-164 192 -220 436 -220 688c0 412
 <g transform="translate(109.1840, 103.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(110.4232, 88.4536)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(110.4232, 102.7713)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(65.1157, 89.4536)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(35.6906, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 116.7713)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="0" x2="108.0705" y2="0"/>
 </g>
@@ -2475,9 +2045,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(113.2110, 110.0960)">
 <rect x="0.0000" y="6.7253" width="0.6000" height="8.2440" ry="0.0000" fill="currentColor"/>
 </g>
-<g transform="translate(112.7210, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(5.6906, 130.0653)">
 <rect x="98.9576" y="-0.1000" width="2.0660" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -2538,42 +2106,20 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(113.2110, 127.0653)">
 <rect x="0.0000" y="-2.0500" width="0.6000" height="4.0500" ry="0.0000" fill="currentColor"/>
 </g>
-<g transform="translate(112.7210, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
 <g transform="translate(113.2110, 114.7713)">
 <rect x="0.0000" y="-2.0000" width="0.6000" height="4.0500" ry="0.0000" fill="currentColor"/>
 </g>
-<g transform="translate(112.7210, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(102.9974, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(102.9974, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(102.9974, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(85.0141, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(85.0141, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(85.0141, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(66.5537, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(66.5537, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(66.5537, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
+
+
+
+
+
 <g transform="translate(5.6906, 117.7713)">
 <rect x="98.9576" y="-0.1000" width="2.0660" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
@@ -2634,21 +2180,11 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(5.6906, 117.7713)">
 <rect x="10.8740" y="-0.1000" width="1.9563" height="0.2000" ry="0.1000" fill="currentColor"/>
 </g>
-<g transform="translate(51.1287, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(51.1287, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(51.1287, 114.7713)">
-<rect x="0.0000" y="-2.0000" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(35.6906, 110.0960)">
-<rect x="0.0000" y="6.7253" width="0.1900" height="8.2440" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(35.6906, 127.0653)">
-<rect x="0.0000" y="-2.0500" width="0.1900" height="4.0500" ry="0.0000" fill="currentColor"/>
-</g>
+
+
+
+
+
 <g transform="translate(67.6489, 114.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -2678,24 +2214,16 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(18.2029, 114.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(16.9556, 114.7713)">
-<rect x="-0.0650" y="3.6861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(18.2029, 127.0653)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="5.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(86.1093, 127.0653)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -2.5450C4.0882 -4.2896 17.4888 -4.0312 19.8306 -2.1950L19.8306 -2.1950C17.4867 -3.9212 4.0861 -4.1796 1.6773 -2.5450z"/>
 </g>
 <g transform="translate(20.6222, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(20.6872, 114.7713)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(19.1722, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -2715,27 +2243,17 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <g transform="translate(24.3538, 128.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(25.5930, 114.7713)">
-<rect x="-0.0650" y="-1.8128" width="0.1300" height="2.6267" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(24.4188, 114.7713)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(26.2451, 114.7713)">
-<rect x="-0.0650" y="-1.0000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(23.3078, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
-<g transform="translate(25.5930, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(26.8717, 116.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(28.1109, 114.7713)">
-<rect x="-0.0650" y="-1.9217" width="0.1300" height="3.2356" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(72.3304, 127.0653)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M-0.0264 5.0450C1.4195 6.9990 8.0180 8.4181 10.1394 7.2313L10.1394 7.2313C8.0412 8.3106 1.4426 6.8915 -0.0264 5.0450z"/>
 </g>
@@ -2746,18 +2264,14 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(30.8788, 114.7713)">
-<rect x="-0.0650" y="-2.0415" width="0.1300" height="2.3554" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(71.0262, 127.0653)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6042 -2.1950C3.1346 -3.7627 8.1682 -3.9770 9.8263 -2.5450L9.8263 -2.5450C8.1729 -3.8671 3.1393 -3.6528 1.6042 -2.1950z"/>
 </g>
 <g transform="translate(33.0075, 115.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(34.2467, 114.7713)">
-<rect x="-0.0650" y="-2.1872" width="0.1300" height="2.5011" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(31.5575, 115.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -2786,9 +2300,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(38.0981, 114.7713)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(40.1631, 127.0653)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.6137 4.5450C3.0251 6.6081 20.4238 8.1514 23.1607 6.5450L23.1607 6.5450C20.4335 8.0418 3.0349 6.4985 0.6137 4.5450z"/>
 </g>
@@ -2813,12 +2325,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(40.8152, 131.0103)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(40.2281, 114.7713)">
-<rect x="-0.0650" y="1.1861" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(41.4023, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(40.1631, 114.7713)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.0650 7.0450C2.6457 8.8861 20.0313 8.8861 22.6120 7.0450L22.6120 7.0450C20.0313 8.7761 2.6457 8.7761 0.0650 7.0450z"/>
 </g>
@@ -2837,9 +2345,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(45.2071, 114.7713)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(25.5280, 112.9613)">
 <polygon stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="8.7437 -0.5800 8.7437 -0.1800 0.0400 0.2000 0.0400 -0.2000"/>
 </g>
@@ -2861,12 +2367,8 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(47.9242, 131.5103)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(47.3371, 114.7713)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(48.5113, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(46.2378, 130.5653)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
@@ -2881,11 +2383,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(3.9151, 111.7008)">
-<text font-family="serif" font-size="1.7459" text-anchor="start" fill="currentColor">
-<tspan>20</tspan>
-</text>
-</g>
+
 <g transform="translate(52.2238, 127.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
@@ -2906,9 +2404,7 @@ v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-1
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
 </g>
-<g transform="translate(53.5362, 114.7713)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(6.4906, 126.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M557 -125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM557 125c0 28 23 51 51 51s51 -23 51 -51s-23 -51 -51 -51s-51 23 -51 51zM232 263c172 0 293 -88 293 -251c0 -263 -263 -414 -516 -521c-3 -3 -6 -4 -9 -4c-7 0 -13 6 -13 13c0 3 1 6 4 9
 c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22 8 34 8c55 0 100 -45 100 -100c0 -58 -44 -106 -100 -106c-60 0 -112 47 -112 106c0 133 102 244 232 244z" fill="currentColor"/>
@@ -2937,12 +2433,8 @@ c202 118 412 265 412 493c0 120 -63 235 -171 235c-74 0 -129 -54 -154 -126c11 5 22
 <g transform="translate(56.2533, 132.0103)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(55.6662, 114.7713)">
-<rect x="-0.0650" y="0.6861" width="0.1300" height="5.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(56.8404, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="6.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(16.8906, 127.0653)">
 <path stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -0.5674C3.1389 -1.8081 7.0049 -1.6049 8.3374 -0.2174L8.3374 -0.2174C6.9986 -1.4851 3.1326 -1.6882 1.6773 -0.5674z"/>
 </g>
@@ -2961,9 +2453,7 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <path transform="scale(0.0040, -0.0040)" d="M-6 78c0 59 124 83 124 182c0 24 -8 49 -25 69l-35 42c-3 3 -4 7 -4 10c0 9 9 15 17 15c4 0 8 -1 11 -5l151 -180c7 -9 10 -17 10 -25c0 -59 -124 -83 -124 -182c0 -24 7 -49 24 -69l84 -99c3 -3 4 -7 4 -10c0 -9 -8 -16 -16 -16s-45 44 -109 44c-16 0 -53 0 -53 -67
 c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42c33 0 78 -13 119 -31l-132 158c-7 9 -10 17 -10 25z" fill="currentColor"/>
 </g>
-<g transform="translate(60.6451, 114.7713)">
-<rect x="-0.0650" y="-3.3333" width="0.1300" height="3.0743" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(16.8906, 122.4098)">
 <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0000" y1="0.6666" x2="14.0532" y2="0.0000"/>
 </g>
@@ -2991,23 +2481,15 @@ c0 -35 11 -74 28 -94c7 -8 -5 -19 -12 -11c-45 54 -92 148 -92 202c0 41 27 42 40 42
 <g transform="translate(63.3622, 133.0103)">
 <path transform="scale(0.0040, -0.0040)" d="M-50 0c0 28 22 50 50 50s50 -22 50 -50s-22 -50 -50 -50s-50 22 -50 50z" fill="currentColor"/>
 </g>
-<g transform="translate(62.7751, 114.7713)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(63.9493, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="7.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(16.8906, 114.7713)">
 <path stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M1.6773 -1.6950C3.7674 -3.6158 14.9570 -4.4971 17.3220 -2.9272L17.3220 -2.9272C14.9656 -4.3874 3.7761 -3.5061 1.6773 -1.6950z"/>
 </g>
 <g transform="translate(75.1925, 132.5653)">
 <polygon stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="7.3937 0.8000 7.3937 1.2000 0.0400 0.2000 0.0400 -0.2000"/>
 </g>
-<g transform="translate(67.6489, 121.8979)">
-<text font-family="serif" font-style="italic" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>poco rit.</tspan>
-</text>
-</g>
+
 <g transform="translate(9.9906, 112.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -3046,15 +2528,9 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <g transform="translate(72.3304, 128.5653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(72.2654, 114.7713)">
-<rect x="-0.0650" y="-0.5000" width="0.1300" height="3.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(72.2654, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(72.3954, 127.0653)">
-<rect x="-0.0650" y="1.6861" width="0.1300" height="2.6472" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(75.1925, 118.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -3067,21 +2543,13 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <g transform="translate(75.1925, 129.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(76.4318, 114.7713)">
-<rect x="-0.0650" y="-1.5000" width="0.1300" height="4.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(76.4318, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(75.2575, 127.0653)">
-<rect x="-0.0650" y="2.1861" width="0.1300" height="3.3226" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(77.4604, 130.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(77.5254, 127.0653)">
-<rect x="-0.0650" y="3.1861" width="0.1300" height="2.6277" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(79.9783, 118.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -3094,21 +2562,13 @@ c93 2 153 92 159 191c1 18 2 37 2 55c0 31 -1 61 -4 92c-5 -1 -44 -8 -89 -8c-193 0 
 <g transform="translate(79.9783, 130.5653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(81.2176, 114.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="5.8139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(81.2176, 127.0653)">
-<rect x="-0.0650" y="-3.6667" width="0.1300" height="2.9806" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(80.0433, 127.0653)">
-<rect x="-0.0650" y="3.6861" width="0.1300" height="2.4664" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(82.4962, 131.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(82.5612, 127.0653)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3052" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(86.1093, 116.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -3128,24 +2588,14 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(87.4216, 114.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="4.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(86.1743, 114.7713)">
-<rect x="-0.0650" y="3.6861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(87.4216, 127.0653)">
-<rect x="-0.0650" y="-3.0000" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(86.1743, 127.0653)">
-<rect x="-0.0650" y="2.7590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
+
 <g transform="translate(89.8409, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(89.9059, 114.7713)">
-<rect x="-0.0650" y="4.1861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(88.3909, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 119c0 8 5 15 13 18l46 17v158c0 10 8 19 18 19s19 -9 19 -19v-145l83 31v158c0 10 9 19 19 19s18 -9 18 -19v-145l32 12c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -16 -13 -19l-46 -16v-160l32 11c2 1 5 1 7 1c11 0 20 -9 20 -20v-60c0 -8 -5 -15 -13 -18l-46 -17
 v-158c0 -10 -8 -19 -18 -19s-19 9 -19 19v145l-83 -31v-158c0 -10 -9 -19 -19 -19s-18 9 -18 19v145l-32 -12c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60c0 8 5 16 13 19l46 16v160l-32 -11c-2 -1 -5 -1 -7 -1c-11 0 -20 9 -20 20v60zM179 95l-83 -30v-160l83 30v160z" fill="currentColor"/>
@@ -3171,24 +2621,14 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(94.8117, 114.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.3139" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(93.6374, 114.7713)">
-<rect x="-0.0650" y="4.2590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(95.5003, 114.7713)">
-<rect x="-0.0650" y="-1.5000" width="0.1300" height="4.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
+
 <g transform="translate(92.5264, 118.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M-7 375c8 4 17 7 25 7s16 -3 24 -7l-2 -183l106 20h3c10 0 18 -7 18 -17l7 -570c-8 -4 -17 -7 -25 -7s-16 3 -24 7l2 183l-106 -20h-3c-10 0 -18 7 -18 17zM131 112l-92 -17l-3 -207l92 17z" fill="currentColor"/>
 </g>
-<g transform="translate(94.8848, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(93.6374, 127.0653)">
-<rect x="-0.0650" y="4.7590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(97.6575, 116.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
@@ -3198,18 +2638,12 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <g transform="translate(99.4117, 116.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
-<g transform="translate(98.8967, 114.7713)">
-<rect x="-0.0650" y="-1.8137" width="0.1300" height="3.1276" ry="0.0400" fill="currentColor"/>
-</g>
-<g transform="translate(97.7225, 114.7713)">
-<rect x="-0.0650" y="2.6861" width="0.1300" height="2.3139" ry="0.0400" fill="currentColor"/>
-</g>
+
+
 <g transform="translate(100.8853, 115.7713)">
 <path transform="scale(0.0040, -0.0040)" d="M218 136c66 0 108 -36 108 -89c0 -89 -113 -183 -218 -183c-66 0 -108 36 -108 89c0 89 113 183 218 183z" fill="currentColor"/>
 </g>
-<g transform="translate(102.1246, 114.7713)">
-<rect x="-0.0650" y="-1.9963" width="0.1300" height="2.8102" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(104.9925, 119.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -3226,9 +2660,7 @@ c25 17 88 50 188 50z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
 </g>
-<g transform="translate(5.6306, 120.9183)">
-<rect x="0.0000" y="-8.1970" width="0.1600" height="16.3940" ry="0.0500" fill="currentColor"/>
-</g>
+
 <g transform="translate(104.9925, 128.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M314 65c0 23 -19 41 -42 41c-39 0 -204 -110 -231 -143c-7 -8 -10 -18 -10 -28c0 -23 19 -41 42 -41c39 0 203 110 230 143c7 8 11 18 11 28zM262 136c41 0 82 -14 82 -71c0 -26 -16 -112 -74 -151c-25 -17 -87 -50 -187 -50c-41 0 -83 14 -83 71c0 26 16 112 74 151
 c25 17 88 50 188 50z" fill="currentColor"/>
@@ -3244,9 +2676,7 @@ c0 -168 36 -324 152 -452c16 -16 -8 -40 -24 -24c-152 172 -204 388 -204 616c0 364 
 <g transform="translate(106.8199, 119.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
-<g transform="translate(106.3049, 114.7713)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="6.7410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(106.8199, 118.2713)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
@@ -3259,15 +2689,11 @@ c0 -168 36 -324 152 -452c16 -16 -8 -40 -24 -24c-152 172 -204 388 -204 616c0 364 
 <g transform="translate(106.8199, 127.5653)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
-<g transform="translate(106.3049, 127.0653)">
-<rect x="-0.0650" y="-2.5000" width="0.1300" height="3.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(106.8199, 130.5653)">
 <path transform="scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
 </g>
-<g transform="translate(105.0575, 127.0653)">
-<rect x="-0.0650" y="3.2590" width="0.1300" height="2.2410" ry="0.0400" fill="currentColor"/>
-</g>
+
 <g transform="translate(103.6925, 116.0653)">
 <path transform="scale(0.0040, -0.0040)" d="M-1 75c0 42 91 65 91 131c0 17 -5 33 -17 47l-31 25c-4 3 -6 8 -6 12c0 8 7 16 16 16c3 0 7 -1 10 -4l128 -107c8 -6 11 -13 11 -20c0 -42 -91 -65 -91 -131c0 -17 5 -33 17 -47l31 -25c4 -3 6 -8 6 -12c0 -8 -7 -16 -16 -16c-3 0 -7 1 -10 4l-128 107
 c-8 6 -11 13 -11 20z" fill="currentColor"/>
@@ -3328,244 +2754,56 @@ c-8 6 -11 13 -11 20z" fill="currentColor"/>
 <path transform="scale(0.0040, -0.0040)" d="M-1 75c0 42 91 65 91 131c0 17 -5 33 -17 47l-31 25c-4 3 -6 8 -6 12c0 8 7 16 16 16c3 0 7 -1 10 -4l128 -107c8 -6 11 -13 11 -20c0 -42 -91 -65 -91 -131c0 -17 5 -33 17 -47l31 -25c4 -3 6 -8 6 -12c0 -8 -7 -16 -16 -16c-3 0 -7 1 -10 4l-128 107
 c-8 6 -11 13 -11 20z" fill="currentColor"/>
 </g>
-<g transform="translate(44.5058, 155.7593)">
-<text font-family="serif" font-size="2.2000" text-anchor="start" fill="currentColor">
-<tspan>Creative Commons Attribution 3.0</tspan>
-</text>
-</g>
-<g transform="translate(14.1105, 165.5950)">
-<rect x="-1.1000" y="-0.1000" width="93.4805" height="0.1000" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(14.1105, 156.3975)">
-<rect x="-1.1000" y="-0.1000" width="93.4805" height="0.1000" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(13.0105, 158.7593)">
-<rect x="0" y="-2.3619" width="0.1000" height="9.0976" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(106.3910, 158.7593)">
-<rect x="0" y="-2.3619" width="0.1000" height="9.0976" ry="0.0000" fill="currentColor"/>
-</g>
-<g transform="translate(14.1105, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Sheet</tspan>
-</text>
-</g>
-<g transform="translate(19.0467, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>music</tspan>
-</text>
-</g>
-<g transform="translate(24.3244, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>from</tspan>
-</text>
-</g>
-<g transform="translate(28.7484, 158.7593)">
-<a xlink:href="http://www.MutopiaProject.org">
-<rect x="0.0000" y="-0.4230" width="17.9667" height="1.7849" fill="none" stroke="none" stroke-width="0.0"/>
-</a>
-</g>
-<g transform="translate(28.7484, 158.7593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>www.</tspan>
-</text>
-</g>
 
-<g transform="translate(43.7909, 158.7593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>.org</tspan>
-</text>
-</g>
-<g transform="translate(47.3151, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>•</tspan>
-</text>
-</g>
-<g transform="translate(49.0980, 158.7593)">
-<text font-family="serif" font-style="italic" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Free</tspan>
-</text>
-</g>
-<g transform="translate(53.2830, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>to</tspan>
-</text>
-</g>
-<g transform="translate(55.4194, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>download,</tspan>
-</text>
-</g>
-<g transform="translate(64.2480, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>with</tspan>
-</text>
-</g>
-<g transform="translate(68.3306, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>the</tspan>
-</text>
-</g>
-<g transform="translate(71.3206, 158.7593)">
-<text font-family="serif" font-style="italic" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>freedom</tspan>
-</text>
-</g>
-<g transform="translate(78.2371, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>to</tspan>
-</text>
-</g>
-<g transform="translate(80.3736, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>distribute,</tspan>
-</text>
-</g>
-<g transform="translate(88.8607, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>modify</tspan>
-</text>
-</g>
-<g transform="translate(95.1626, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>and</tspan>
-</text>
-</g>
-<g transform="translate(98.5965, 158.7593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>perform.</tspan>
-</text>
-</g>
-<g transform="translate(17.6641, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Typeset</tspan>
-</text>
-</g>
-<g transform="translate(24.3074, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>using</tspan>
-</text>
-</g>
-<g transform="translate(29.1753, 161.4593)">
-<a xlink:href="http://www.LilyPond.org">
-<rect x="0.0000" y="-0.4230" width="12.6183" height="1.7839" fill="none" stroke="none" stroke-width="0.0"/>
-</a>
-</g>
-<g transform="translate(29.1753, 161.4593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>www.</tspan>
-</text>
-</g>
 
-<g transform="translate(39.3695, 161.4593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>.org</tspan>
-</text>
-</g>
-<g transform="translate(42.3937, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>by</tspan>
-</text>
-</g>
-<g transform="translate(44.9740, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Ryan Prince</tspan>
-</text>
-</g>
-<g transform="translate(54.0999, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>.</tspan>
-</text>
-</g>
-<g transform="translate(55.6780, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Copyright</tspan>
-</text>
-</g>
-<g transform="translate(64.2675, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>©</tspan>
-</text>
-</g>
-<g transform="translate(66.3698, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>2009.</tspan>
-</text>
-</g>
-<g transform="translate(71.9084, 161.4593)">
-<text font-family="serif" font-size="1.9598" text-anchor="start" fill="currentColor">
-<tspan>Reference:</tspan>
-</text>
-</g>
 
-<g transform="translate(16.8287, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>Licensed</tspan>
-</text>
-</g>
-<g transform="translate(23.0623, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>under</tspan>
-</text>
-</g>
-<g transform="translate(27.2132, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>the</tspan>
-</text>
-</g>
-<g transform="translate(29.7253, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>Creative</tspan>
-</text>
-</g>
-<g transform="translate(35.5833, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>Commons</tspan>
-</text>
-</g>
-<g transform="translate(42.5681, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>Attribution</tspan>
-</text>
-</g>
-<g transform="translate(50.1675, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>3.0</tspan>
-</text>
-</g>
-<g transform="translate(52.7137, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>(Unported)</tspan>
-</text>
-</g>
-<g transform="translate(60.2448, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>License,</tspan>
-</text>
-</g>
-<g transform="translate(66.0687, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>for</tspan>
-</text>
-</g>
-<g transform="translate(68.4783, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>details</tspan>
-</text>
-</g>
-<g transform="translate(73.1755, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>see:</tspan>
-</text>
-</g>
-<g transform="translate(75.6997, 164.1593)">
-<a xlink:href="http://creativecommons.org/licenses/by/3.0">
-<rect x="0.0000" y="-0.3357" width="26.9732" height="1.4157" fill="none" stroke="none" stroke-width="0.0"/>
-</a>
-</g>
-<g transform="translate(75.6997, 164.1593)">
-<text font-family="serif" font-size="1.5552" text-anchor="start" fill="currentColor">
-<tspan>http://creativecommons.org/licenses/by/3.0</tspan>
-</text>
-</g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </svg>
