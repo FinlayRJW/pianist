@@ -323,6 +323,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
           </select>
 
           {/* View mode toggle */}
+          <span title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}>
           <button
             onClick={() => {
               if (!sheetAvailable) return;
@@ -334,7 +335,6 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                 ? 'bg-accent/20 text-accent-light'
                 : 't-bg-overlay t-text-secondary hover:t-bg-overlay-hover'
             } ${!sheetAvailable ? 'opacity-40 cursor-not-allowed' : ''}`}
-            title={sheetAvailable ? `View: ${viewMode} (V)` : 'No sheet music available'}
             disabled={!sheetAvailable}
           >
             {viewMode === 'sheet' && sheetAvailable ? (
@@ -357,6 +357,7 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
               </svg>
             )}
           </button>
+          </span>
 
           <button
             onClick={doRestart}
