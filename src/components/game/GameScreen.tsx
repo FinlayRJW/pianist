@@ -459,7 +459,9 @@ export function GameScreen({ song, onBack, journeyMode }: Props) {
                       style={effectiveMode === 'combined' ? {
                         bottom: KEYBOARD_HEIGHT,
                         height: Math.round(canvasHeight * 0.4),
-                        opacity: 0.5,
+                        opacity: 0.6,
+                        maskImage: 'linear-gradient(to bottom, transparent, black 40%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%)',
                         pointerEvents: 'none' as const,
                         zIndex: 1,
                       } : {
