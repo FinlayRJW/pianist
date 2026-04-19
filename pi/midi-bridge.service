@@ -7,6 +7,7 @@ Wants=network-online.target
 Type=simple
 User=finlay
 ExecStartPre=/home/finlay/midi-bridge/deploy.sh
+WorkingDirectory=/home/finlay/midi-bridge
 ExecStart=/home/finlay/midi-bridge/venv/bin/python3 /home/finlay/midi-bridge/midi-bridge.py --www /home/finlay/midi-bridge/www --data /home/finlay/midi-bridge/data
 Restart=always
 RestartSec=10
