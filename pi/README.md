@@ -2,7 +2,7 @@
 
 Turns a Raspberry Pi into a wireless MIDI bridge: reads USB MIDI from your piano and streams it over WiFi to the Pianist web app on your iPad.
 
-The Pi also serves the web app over HTTP, which is required because iPad Safari blocks WebSocket connections from HTTPS pages (like GitHub Pages).
+The Pi serves the web app over HTTP and handles MIDI bridging on the same port. This is required because iPad Safari blocks WebSocket connections from HTTPS pages (like GitHub Pages). On boot, the Pi auto-pulls the latest code from GitHub and rebuilds.
 
 ## What you need
 
@@ -24,38 +24,53 @@ In the imager settings, configure:
 ### 2. SSH into the Pi
 
 ```bash
-ssh pi@pianobridge.local
+ssh finlay@pianobridge.local
 ```
 
 If `.local` doesn't resolve, find the Pi's IP from your router admin page and use that instead.
 
-### 3. Install dependencies
+### 3. Install system dependencies
 
 ```bash
 sudo apt update
-sudo apt install -y python3-pip python3-venv librtmidi-dev
+sudo apt install -y python3-pip python3-venv librtmidi-dev git
 
+# Install Node.js (needed to build the web app)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+### 4. Set up the bridge
+
+```bash
 mkdir -p ~/midi-bridge
 cd ~/midi-bridge
+
+# Python venv for the bridge
 python3 -m venv venv
 source venv/bin/activate
 pip install mido python-rtmidi websockets zeroconf
 ```
 
-### 4. Copy files to the Pi
-
-From your computer, copy the bridge script and built web app:
+### 5. Copy scripts from your computer
 
 ```bash
-# Copy the bridge script
-scp pi/midi-bridge.py pi@pianobridge.local:~/midi-bridge/
-
-# Build the web app and copy it to the Pi
-npm run build
-scp -r dist pi@pianobridge.local:~/midi-bridge/www
+scp pi/midi-bridge.py pi/deploy.sh finlay@pianobridge.local:~/midi-bridge/
 ```
 
-### 5. Test it
+### 6. Run the deploy script
+
+On the Pi:
+
+```bash
+cd ~/midi-bridge
+chmod +x deploy.sh
+./deploy.sh
+```
+
+This clones the repo, installs npm deps, builds the web app, and copies everything into place. It takes a few minutes on first run.
+
+### 7. Test it
 
 Plug the USB MIDI adapter into the Pi, then:
 
@@ -69,12 +84,12 @@ You should see:
 ```
 12:00:00 [INFO] Local IP: 192.168.1.xx
 12:00:00 [INFO] mDNS registered: _midi-bridge._tcp on port 8080
-12:00:00 [INFO] Serving web app from /home/pi/midi-bridge/www on port 8080
+12:00:00 [INFO] Serving web app from /home/finlay/midi-bridge/www on port 8080
 12:00:00 [INFO] WebSocket + HTTP server listening on port 8080
 12:00:00 [INFO] Opened MIDI device: USB MIDI Interface
 ```
 
-### 6. Open on iPad
+### 8. Open on iPad
 
 On your iPad, open Safari and go to:
 
@@ -82,41 +97,14 @@ On your iPad, open Safari and go to:
 http://pianobridge.local:8080
 ```
 
-The Pi serves both the web app and MIDI WebSocket on the same port. iPad Safari requires this — it blocks WebSocket connections to different ports and blocks `ws://` from HTTPS pages (like GitHub Pages). During onboarding, choose **Connect via MIDI Bridge** — it auto-detects the Pi since the app is served from the same host.
+During onboarding, choose **Connect via MIDI Bridge** — it auto-detects the Pi since the app is served from the same host.
 
-## Deploying updates
+## Auto-start on boot
 
-When you update the web app, rebuild and copy to the Pi:
-
-```bash
-npm run build
-scp -r dist/* pi@pianobridge.local:~/midi-bridge/www/
-```
-
-No need to restart the bridge — the HTTP server picks up the new files immediately.
-
-## Run on boot (optional)
-
-To start the bridge automatically when the Pi powers on:
+Install the systemd service so the Pi auto-pulls, builds, and starts on boot:
 
 ```bash
 sudo cp ~/midi-bridge/midi-bridge.service /etc/systemd/system/
-```
-
-Edit the service to use the venv Python and enable the web server:
-
-```bash
-sudo nano /etc/systemd/system/midi-bridge.service
-```
-
-Change the `ExecStart` line to:
-```
-ExecStart=/home/pi/midi-bridge/venv/bin/python3 /home/pi/midi-bridge/midi-bridge.py --www /home/pi/midi-bridge/www
-```
-
-Then enable and start:
-
-```bash
 sudo systemctl daemon-reload
 sudo systemctl enable midi-bridge
 sudo systemctl start midi-bridge
@@ -128,7 +116,29 @@ Check it's running:
 sudo systemctl status midi-bridge
 ```
 
-Now just plug in the Pi and your piano — open `http://pianobridge.local:8080` on your iPad and play.
+Now just power on the Pi — it pulls the latest code from GitHub, builds, and starts serving. Open `http://pianobridge.local:8080` on your iPad and play.
+
+To view logs:
+
+```bash
+journalctl -u midi-bridge -f
+```
+
+## How updates work
+
+When the Pi boots (or the service restarts), the deploy script automatically:
+1. Pulls the latest code from GitHub
+2. Runs `npm ci` and `npx vite build`
+3. Copies the build output to `~/midi-bridge/www`
+4. Starts the bridge server
+
+You don't need to SSH into the Pi to deploy — just push to GitHub and restart the service (or reboot the Pi).
+
+To manually trigger a redeploy without rebooting:
+
+```bash
+sudo systemctl restart midi-bridge
+```
 
 ## Troubleshooting
 
@@ -145,6 +155,11 @@ Now just plug in the Pi and your piano — open `http://pianobridge.local:8080` 
 **MIDI Bridge test fails in the app**
 - On iPad, you must use the Pi-hosted version (`http://pianobridge.local:8080`) — Safari blocks `ws://` from HTTPS pages like GitHub Pages
 - Try entering the Pi's IP address manually instead of `.local`
+
+**Deploy script fails**
+- Make sure Node.js is installed: `node --version` (should be 22.x)
+- Make sure git is installed: `git --version`
+- Check disk space: `df -h` (the build needs ~500MB free)
 
 **High latency**
 - WiFi latency on a local network is typically 1-5ms, which is imperceptible

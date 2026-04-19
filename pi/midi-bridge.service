@@ -5,11 +5,14 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=pi
-ExecStart=/home/pi/midi-bridge/venv/bin/python3 /home/pi/midi-bridge/midi-bridge.py --www /home/pi/midi-bridge/www
+User=finlay
+ExecStartPre=/home/finlay/midi-bridge/deploy.sh
+ExecStart=/home/finlay/midi-bridge/venv/bin/python3 /home/finlay/midi-bridge/midi-bridge.py --www /home/finlay/midi-bridge/www
 Restart=always
-RestartSec=5
+RestartSec=10
 Environment=PYTHONUNBUFFERED=1
+Environment=HOME=/home/finlay
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 [Install]
 WantedBy=multi-user.target
